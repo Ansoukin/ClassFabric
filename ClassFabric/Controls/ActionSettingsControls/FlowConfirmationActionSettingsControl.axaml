@@ -1,0 +1,20 @@
+<ci:ActionSettingsControlBase x:Class="ClassFabric.Controls.ActionSettingsControls.FlowConfirmationActionSettingsControl"
+                              x:TypeArguments="actionSettings:FlowConfirmationActionSettings"
+                              d:DataContext="{d:DesignInstance Type=local:FlowConfirmationActionSettingsControl}"
+                              xmlns="https://github.com/avaloniaui"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                              xmlns:local="clr-namespace:ClassFabric.Controls.ActionSettingsControls"
+                              xmlns:actionSettings="clr-namespace:ClassFabric.Models.Actions"
+                              mc:Ignorable="d">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:FlowConfirmationActionSettingsControl}}">
+        <StackPanel Orientation="Vertical" Spacing="12">
+            <TextBox Watermark="对话框提示内容（留空显示默认提示）"
+                     Text="{Binding Settings.Message}" />
+            <CheckBox Content="允许延迟继续"
+                      IsChecked="{Binding Settings.AllowDelay}" />
+        </StackPanel>
+    </Grid>
+</ci:ActionSettingsControlBase>

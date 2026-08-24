@@ -41,15 +41,15 @@ partial class Build : NukeBuild
     
     string PublishArtifactName;
 
-    readonly AbsolutePath DesktopAppEntryProject = RootDirectory / "ClassIsland.Desktop" / "ClassIsland.Desktop.csproj";
-    readonly AbsolutePath LauncherEntryProject = RootDirectory / "ClassIsland.Launcher" / "ClassIsland.Launcher.csproj";
-    readonly AbsolutePath PluginDevAppPath = RootDirectory / "out" / "ClassIsland_Dev";
-    readonly AbsolutePath PluginDevAppPublishPath = RootDirectory / "out" / "ClassIsland_Dev" / "bin";
-    readonly AbsolutePath NupkgEntryProject = RootDirectory / "ClassIsland.Filter.Linux.slnf";
+    readonly AbsolutePath DesktopAppEntryProject = RootDirectory / "ClassFabric.Desktop" / "ClassFabric.Desktop.csproj";
+    readonly AbsolutePath LauncherEntryProject = RootDirectory / "ClassFabric.Launcher" / "ClassFabric.Launcher.csproj";
+    readonly AbsolutePath PluginDevAppPath = RootDirectory / "out" / "ClassFabric_Dev";
+    readonly AbsolutePath PluginDevAppPublishPath = RootDirectory / "out" / "ClassFabric_Dev" / "bin";
+    readonly AbsolutePath NupkgEntryProject = RootDirectory / "ClassFabric.Filter.Linux.slnf";
     readonly AbsolutePath AppOutputPath = RootDirectory / "out";
-    readonly AbsolutePath AppPublishPath = RootDirectory / "out" / "ClassIsland";
+    readonly AbsolutePath AppPublishPath = RootDirectory / "out" / "ClassFabric";
     readonly AbsolutePath LauncherPublishPath = RootDirectory / "out" / "Launcher";
-    readonly AbsolutePath AppSecretsPath = RootDirectory / "ClassIsland" / "secrets.g.cs";
+    readonly AbsolutePath AppSecretsPath = RootDirectory / "ClassFabric" / "secrets.g.cs";
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = Configuration.Release ;
@@ -68,9 +68,7 @@ partial class Build : NukeBuild
             var osRid = OsName switch
             {
                 "windows" => "win",
-                "linux" => "linux", 
-                "macos" => "osx",
-                _ => throw new InvalidOperationException($"不支持的平台：{OsName}")
+                _ => throw new InvalidOperationException($"暂不支持的平台：{OsName}（当前仅支持 windows）")
             };
             RuntimeIdentifier = $"{osRid}-{Arch}";
             PublishArtifactName = $"out_{BuildName}_{OsName}_{Arch}_{BuildType}_{Package}";

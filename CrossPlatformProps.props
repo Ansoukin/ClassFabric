@@ -3,33 +3,13 @@
     <PropertyGroup>
         <PlatformNames_Windows>windows</PlatformNames_Windows>
         <Os_IsWindows>$([System.OperatingSystem]::IsWindows())</Os_IsWindows>
-        <Os_IsLinux>$([System.OperatingSystem]::IsLinux())</Os_IsLinux>
-        <Os_IsMacOs>$([System.OperatingSystem]::IsMacOs())</Os_IsMacOs>
     </PropertyGroup>
-    
-    <!-- 发布时使用的平台设置，根据 CI 传入的参数自动设定相关设置 -->
+
+    <!-- 当前仅支持 Windows；Platforms_* 常量保留命名，便于日后恢复多平台 -->
     <PropertyGroup>
-        <!-- fallback -->
+        <Platforms_Windows>true</Platforms_Windows>
+        <!-- 发布时使用的平台设置，根据 CI 传入的参数自动设定相关设置 -->
         <TargetFramework>$(BaseFramework)</TargetFramework>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(PublishBuilding)' == 'true' And '$(PublishPlatform)'=='linux'">
-        <Platforms_Linux>true</Platforms_Linux>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(PublishBuilding)' == 'true' And '$(PublishPlatform)'=='windows'">
-        <Platforms_Windows>true</Platforms_Windows>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(PublishBuilding)' == 'true' And '$(PublishPlatform)'=='macos'">
-        <Platforms_MacOs>true</Platforms_MacOs>
-    </PropertyGroup>
-    <!-- 开发时使用的平台设置，根据当前系统信息自动使用相关设置 -->
-    <PropertyGroup Condition="'$(PublishBuilding)' != 'true' And '$(Os_IsLinux)'=='true'">
-        <Platforms_Linux>true</Platforms_Linux>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(PublishBuilding)' != 'true' And '$(Os_IsWindows)'=='true'">
-        <Platforms_Windows>true</Platforms_Windows>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(PublishBuilding)' != 'true' And '$(Os_IsMacOs)'=='true'">
-        <Platforms_MacOs>true</Platforms_MacOs>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Platforms_Windows)'=='true'">
@@ -38,16 +18,8 @@
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <ApplicationIcon>Assets\AppLogo.ico</ApplicationIcon>
     </PropertyGroup>
-    <PropertyGroup Condition="'$(Platforms_MacOs)'=='true'">
-        <TargetFramework>$(BaseFramework)-macos15.0</TargetFramework>
-        <DefineConstants>$(DefineConstants);Platforms_MacOs</DefineConstants>
-        <SupportedOSPlatformVersion>10.15</SupportedOSPlatformVersion>
-    </PropertyGroup>
     <PropertyGroup Condition="'$(Platforms_Windows)'=='true' And ('$(Configuration)'=='Release' Or '$(Configuration)'=='Release_MSIX')">
         <OutputType>WinExe</OutputType>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Platforms_Linux)'=='true'">
-        <DefineConstants>$(DefineConstants);Platforms_Linux</DefineConstants>
     </PropertyGroup>
     
     <Target Name="PrintPlatformInfo" BeforeTargets="Build;ProcessFrameworkReferences">

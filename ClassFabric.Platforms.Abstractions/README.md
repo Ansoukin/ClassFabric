@@ -1,0 +1,2 @@
+# ClassFabric.Platforms.Abstraction
+

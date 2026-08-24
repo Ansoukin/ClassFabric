@@ -1,0 +1,20 @@
+<ci:ActionSettingsControlBase x:Class="ClassFabric.Controls.ActionSettingsControls.TypeContentActionSettingsControl"
+                             x:TypeArguments="actionSettings:TypeContentActionSettings"
+                             d:DataContext="{d:DesignInstance Type=local:TypeContentActionSettingsControl}"
+                             xmlns="https://github.com/avaloniaui"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                             xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                             xmlns:local="clr-namespace:ClassFabric.Controls.ActionSettingsControls"
+                             xmlns:actionSettings="clr-namespace:ClassFabric.Models.Actions">
+    <StackPanel Orientation="Vertical" Spacing="8">
+        <TextBox MinHeight="80"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 Watermark="要键入的内容"
+                 Text="{Binding Settings.Content, Mode=TwoWay}" />
+        <!-- 勾选后行动触发时会改用系统剪贴板当前文本，读取失败时仍回退到上方内容。 -->
+        <CheckBox Content="键入剪贴板内容"
+                  IsChecked="{Binding Settings.IsFromClipboard}" />
+    </StackPanel>
+</ci:ActionSettingsControlBase>

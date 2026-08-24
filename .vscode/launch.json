@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // 如果已更改目标框架，请确保更新程序路径。
-            "program": "${workspaceFolder}/ClassIsland/bin/Debug/net8.0-windows/ClassIsland.dll",
+            "program": "${workspaceFolder}/ClassFabric/bin/Debug/net8.0-windows/ClassFabric.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/ClassIsland",
+            "cwd": "${workspaceFolder}/ClassFabric",
             // 有关“控制台”字段的详细信息，请参阅 https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
@@ -23,15 +23,15 @@
             "request": "attach"
         },
         {
-            "name": "Run ClassIsland.Desktop (Debug)",
+            "name": "Run ClassFabric.Desktop (Debug)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build ClassIsland.Desktop (Debug)",
+            "preLaunchTask": "build ClassFabric.Desktop (Debug)",
             "program": "dotnet",
             "args": [
                 "run",
                 "--project",
-                "${workspaceFolder}/ClassIsland.Desktop/ClassIsland.Desktop.csproj",
+                "${workspaceFolder}/ClassFabric.Desktop/ClassFabric.Desktop.csproj",
                 "-c",
                 "Debug"
             ],

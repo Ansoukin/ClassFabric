@@ -35,7 +35,7 @@
 
 - 【组件/天气】移除天气预警未显示时的空白区域
 - 【行动】修复 ActionService 获取的懒加载方式
-- 【启动器】修复在启动启动器时存在 ClassIsland_PackageRoot 导致重复设置 ClassIsland_PackageRoot 导致启动器崩溃的问题
+- 【启动器】修复在启动启动器时存在 ClassFabric_PackageRoot 导致重复设置 ClassFabric_PackageRoot 导致启动器崩溃的问题
 - 【启动器】优化启动器部署获取逻辑，修复启动器会选取空文件夹并忽略其它部署文件夹的问题
 - 【启动器】修复启动器部署选择排序方向问题
 - 【提醒】修复使用默认提醒音时不播放提醒音效的问题 ([#1462](https://github.com/ClassIsland/ClassIsland/issues/1462))

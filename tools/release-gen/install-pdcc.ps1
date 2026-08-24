@@ -1,6 +1,6 @@
 param($platform)
 
-$downloadUrl = "https://github.com/ClassIsland/PhainonDistributionCenter/releases/download/${env:PDC_CLIENT_VERSION}/out_app_${platform}_x64.zip"
+$downloadUrl = "https://github.com/ClassFabric/PhainonDistributionCenter/releases/download/${env:PDC_CLIENT_VERSION}/out_app_${platform}_x64.zip"
 $zipPath = "./out_app_${platform}_x64.zip"
 $extractPath = "./pdcc"
 

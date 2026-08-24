@@ -1,0 +1,26 @@
+using System.Runtime.CompilerServices;
+using Avalonia.Metadata;
+
+[assembly: InternalsVisibleTo("ClassFabric")]
+[assembly: InternalsVisibleTo("ClassFabric.Desktop")]
+[assembly: InternalsVisibleTo("ClassFabric.Platforms.Windows")]
+
+[assembly: XmlnsPrefix("http://classisland.tech/schemas/xaml/core", "ci")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Converters")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Controls")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Controls.CommonDialog")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Controls.LessonsControls")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Controls.IconControl")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Controls.NavHyperlink")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Controls.Ruleset")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Controls.Tutorial")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Commands")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Abstractions.Controls")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Abstractions.Behaviors")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Controls.StickerControl")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Abstractions.Views")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Behaviors")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.Assists")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.IconSources")]
+[assembly: XmlnsDefinition("http://classisland.tech/schemas/xaml/core", "ClassFabric.Core.MarkupExtensions")]

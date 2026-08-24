@@ -1,0 +1,125 @@
+using System.Diagnostics;
+using System.Reflection;
+using ClassFabric.Launcher.Helpers;
+
+#if Platforms_Windows
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.UI.WindowsAndMessaging;
+#endif
+
+#if Platforms_Linux
+using Mono.Unix;
+#endif
+
+// 获取对应平台的可执行文件路径
+string executableName;
+if (OperatingSystem.IsWindows())
+{
+    executableName = "ClassFabric.Desktop.exe";
+} else if (OperatingSystem.IsLinux())
+{
+    executableName = "ClassFabric.Desktop";
+}
+else
+{
+    ShowError("ClassFabric 正在不支持的平台上运行，无法继续。");
+    return 1;
+}
+
+var root = Path.GetFullPath(Path.GetDirectoryName(Environment.ProcessPath) ?? "");
+var installations = Directory.GetDirectories(root)
+    .Where(x => Path.GetFileName(x).StartsWith("app") &&
+                !(File.Exists(Path.Combine(x, ".destroy")) || File.Exists(Path.Combine(x, ".partial"))) &&
+                File.Exists(Path.Combine(x, executableName)))
+    .OrderBy(x => File.Exists(Path.Combine(x, ".current")) ? 1 : 0)
+    .ThenByDescending(x =>
+    {
+        var filename = Path.GetFileName(x);
+        var split = filename.Split('-');
+        if (split.Length <= 1)
+        {
+            return new Version();
+        }
+
+        return Version.TryParse(split[1], out var version) ? version : new Version();
+    })
+    .ThenByDescending(x =>
+    {
+        var filename = Path.GetFileName(x);
+        var split = filename.Split('-');
+        if (split.Length <= 2)
+        {
+            return 0;
+        }
+
+        return int.TryParse(split[2], out var n) ? n : 0;
+    })
+    .ToList();
+var installation = installations.FirstOrDefault();
+
+if (installation == null)
+{
+    ShowError("找不到有效的 ClassFabric 版本，可能是安装已损坏。请在 https://classisland.tech/download 重新下载并安装 ClassFabric。");
+    return 1;
+}
+
+#if Platforms_Windows
+// 开发调试用：根目录存在此标记文件时，弹窗选择要启动的实例而不是按版本号取最新。
+if (File.Exists(Path.Combine(root, "Debug_MultiInstancesMode")))
+{
+    var result = TaskDialogHelper.ShowCommands(
+        installations.Select(Path.GetFileName).ToList()!,
+        title: "ClassFabric",
+        mainInstruction: "选择要启动的实例",
+        content: "检测到 Debug_MultiInstancesMode 标记，请选择本次启动的 ClassFabric 实例"
+    );
+
+    if (result == null)
+    {
+        return 1;
+    }
+    installation = installations[result.Value.Index];
+}
+#endif
+
+var exePath = Path.Combine(Path.Combine(installation, executableName));
+
+// 自动添加可执行权限，防止出现无法运行的问题 https://github.com/ClassIsland/ClassIsland/issues/1212
+#if Platforms_Linux
+try
+{
+    var unixFileInfo = new UnixFileInfo(exePath);
+    unixFileInfo.FileAccessPermissions |= FileAccessPermissions.UserExecute | FileAccessPermissions.GroupExecute |
+                                      FileAccessPermissions.OtherExecute;
+}
+catch (Exception e)
+{
+    Console.Error.WriteLine($"无法设置可执行文件 {exePath} 的执行权限，可能导致应用无法启动：{e}");
+}
+
+#endif
+
+var startInfo = new ProcessStartInfo()
+{
+    FileName = exePath,
+    WorkingDirectory = root
+};
+foreach (var i in args)
+{
+    startInfo.ArgumentList.Add(i);
+}
+startInfo.EnvironmentVariables["ClassFabric_PackageRoot"] = root;  // 防止因环境变量已设置导致启动器崩溃
+Process.Start(startInfo);
+
+return 0;
+
+void ShowError(string message)
+{
+#if Platforms_Windows
+    PInvoke.MessageBox(HWND.Null, message,
+        "ClassFabric", MESSAGEBOX_STYLE.MB_APPLMODAL | MESSAGEBOX_STYLE.MB_ICONSTOP);
+#else
+    Console.Error.WriteLine(message);
+#endif
+}

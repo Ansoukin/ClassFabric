@@ -8,7 +8,7 @@ function EnvironmentCheckFailed {
 $ErrorActionPreference = "Stop"
 
 
-Write-Host "欢迎开发 ClassIsland 插件" -ForegroundColor Blue
+Write-Host "欢迎开发 ClassFabric 插件" -ForegroundColor Blue
 
 
 $scriptPath =  $MyInvocation.MyCommand.Definition
@@ -21,9 +21,9 @@ Write-Host "🔧 正在检查环境…" -ForegroundColor Cyan
 # TODO: Check env
 
 
-Write-Host "您的开发环境可以开发 ClassIsland 插件。" -ForegroundColor Green
+Write-Host "您的开发环境可以开发 ClassFabric 插件。" -ForegroundColor Green
 
 
-# Build ClassIsland
+# Build ClassFabric
 
 pwsh -ep Bypass -File ./tools/plugin/build.ps1

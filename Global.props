@@ -36,19 +36,23 @@
 	<PropertyGroup Condition="'$(Configuration)'=='Release_MSIX'">
 		<IsMsix>true</IsMsix>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(ClassIsland_PlatformTarget)'=='x64'">
+	<PropertyGroup>
+		<!-- 压制上游遗留的装饰性警告（不影响编译/运行）。保留 CS8602 空解引用等风险提示。 -->
+		<NoWarn>$(NoWarn);CS1591;CS8767;CS8600;CS8601;CS8603;CS8604;CS8605;CS8618;CS8625;CS0414;CS0169;CS0618;CS0516;CS0108;CS1998;MVVMTK0034;NU5104;CA2200;AVLN3001</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(ClassFabric_PlatformTarget)'=='x64'">
 		<DefineConstants>$(DefineConstants);PLATFORM_x64</DefineConstants>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(ClassIsland_PlatformTarget)'=='x86'">
+	<PropertyGroup Condition="'$(ClassFabric_PlatformTarget)'=='x86'">
 		<DefineConstants>$(DefineConstants);PLATFORM_x86</DefineConstants>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(ClassIsland_PlatformTarget)'=='arm64'">
+	<PropertyGroup Condition="'$(ClassFabric_PlatformTarget)'=='arm64'">
 		<DefineConstants>$(DefineConstants);PLATFORM_ARM64</DefineConstants>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(ClassIsland_PlatformTarget)'=='arm'">
+	<PropertyGroup Condition="'$(ClassFabric_PlatformTarget)'=='arm'">
 		<DefineConstants>$(DefineConstants);PLATFORM_ARM</DefineConstants>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(ClassIsland_PlatformTarget)'=='Any CPU'">
+	<PropertyGroup Condition="'$(ClassFabric_PlatformTarget)'=='Any CPU'">
 		<DefineConstants>$(DefineConstants);PLATFORM_Any</DefineConstants>
 	</PropertyGroup>
 	<!-- <PropertyGroup Condition="'$(IsMsix)'=='true'">

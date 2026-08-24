@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ClassFabric 插件": {
+      "commandName": "Executable",
+      "executablePath": "$(ClassFabric_DebugBinaryFile)",
+      "commandLineArgs": "-epp $(TargetDir)",
+      "workingDirectory": "$(ClassFabric_DebugBinaryDirectory)"
+    }
+  }
+}

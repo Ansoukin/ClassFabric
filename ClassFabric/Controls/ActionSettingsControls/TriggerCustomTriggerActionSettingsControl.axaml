@@ -1,0 +1,16 @@
+<ci:ActionSettingsControlBase x:Class="ClassFabric.Controls.ActionSettingsControls.TriggerCustomTriggerActionSettingsControl"
+                              x:TypeArguments="actionSettings:TriggerCustomTriggerActionSettings"
+                              d:DataContext="{d:DesignInstance Type=local:TriggerCustomTriggerActionSettingsControl}"
+                              xmlns="https://github.com/avaloniaui"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                              xmlns:local="clr-namespace:ClassFabric.Controls.ActionSettingsControls"
+                              xmlns:actionSettings="clr-namespace:ClassFabric.Models.Actions"
+                              mc:Ignorable="d">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:TriggerCustomTriggerActionSettingsControl}}">
+        <TextBox Watermark="目标触发器 Guid"
+                 Text="{Binding TargetTriggerIdText}" />
+    </Grid>
+</ci:ActionSettingsControlBase>

@@ -6,7 +6,7 @@
 > [!caution]
 > **请勿使用 Windows 32 位（x86）版本**
 >
-> 已知问题：在 32 位版本上播放音频会导致应用崩溃（[#1485](https://github.com/ClassIsland/ClassIsland/issues/1485)）。如果您使用的是 64 位设备，请优先考虑使用 64 位版本。如果您的设备不支持运行 64 位的程序，请考虑使用 ClassIsland 1.7，或暂时关闭提醒音效和语音功能。
+> 已知问题：在 32 位版本上播放音频会导致应用崩溃（[#1485](https://github.com/ClassIsland/ClassIsland/issues/1485)）。如果您使用的是 64 位设备，请优先考虑使用 64 位版本。如果您的设备不支持运行 64 位的程序，请考虑使用 ClassFabric 1.7，或暂时关闭提醒音效和语音功能。
 
 2.1 - LiliyaOlenyeva（莉莉娅·阿琳）
 
@@ -28,7 +28,7 @@
 - 【天气】允许使用不加密的 HTTP 协议获取天气信息 ([#1569](https://github.com/ClassIsland/ClassIsland/issues/1569)) (([#1570](https://github.com/ClassIsland/ClassIsland/issues/1570)))
 - 【开发】增强调试体验 (([#1621](https://github.com/ClassIsland/ClassIsland/issues/1621)))
 - 【平台/X11】重新移植兼容缩放模式
-- 【示例】移植 ExamplePlugin 到 ClassIsland 2.0
+- 【示例】移植 ExamplePlugin 到 ClassFabric 2.0
 - 【API/附加设置】附加设置附加的节点信息 API
 
 ## 🐛 Bug 修复

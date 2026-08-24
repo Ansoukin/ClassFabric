@@ -1,0 +1,7 @@
+syntax = "proto3";
+package ClassFabric.Shared.Protobuf.AuditEvent;
+option csharp_namespace = "ClassFabric.Shared.Protobuf.AuditEvent";
+
+message AppCrashed {
+  string Stacktrace = 1;
+}

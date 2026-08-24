@@ -1,0 +1,101 @@
+<UserControl x:Class="ClassFabric.Controls.VerticalSchedule.VerticalReminderOverlay"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:ci="http://classisland.tech/schemas/xaml/core"
+              mc:Ignorable="d" d:DesignWidth="160" d:DesignHeight="400">
+    <UserControl.Styles>
+        <!-- 页面显隐由类驱动：缺省规则先写，激活规则后写；淡出经 fading 类保持可见让过渡完整播放 -->
+        <Style Selector="Border.PageRoot">
+            <Setter Property="IsVisible" Value="False"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2">
+                        <DoubleTransition.Easing>
+                            <CubicEaseInOut/>
+                        </DoubleTransition.Easing>
+                    </DoubleTransition>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Border.PageRoot.active">
+            <Setter Property="IsVisible" Value="True"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+        <Style Selector="Border.PageRoot.fading">
+            <Setter Property="IsVisible" Value="True"/>
+        </Style>
+        <!-- 覆盖层内全部文字固定为强调色上的白色，不跟随自定义前景色 -->
+        <Style Selector="Border.PageRoot TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}"/>
+        </Style>
+        <Style Selector="Border.PageRoot ci|FluentIcon">
+            <Setter Property="Foreground" Value="{DynamicResource TextOnAccentFillColorPrimaryBrush}"/>
+        </Style>
+    </UserControl.Styles>
+    <!-- 提醒底板：实心强调色，圆角用缩放系资源与外层胶囊裁剪形状贴合；显隐透明度由代码动画驱动（进出各 0.25 秒） -->
+    <Border x:Name="PlateRoot"
+            Background="{DynamicResource AccentFillColorDefaultBrush}"
+            CornerRadius="{DynamicResource VerticalScheduleCornerRadiusScaled}"
+            ClipToBounds="True">
+        <Grid>
+            <!-- 下课提示·页面一：钟＋「现在是下课时间」 -->
+            <Border x:Name="PageA1" Classes="PageRoot">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <ci:FluentIcon Glyph="&#xE4C4;"
+                                   FontSize="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   Width="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   Height="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   HorizontalAlignment="Center"/>
+                    <StackPanel x:Name="A1Text" Orientation="Vertical" HorizontalAlignment="Center" MinWidth="{DynamicResource VerticalSchedulePlaceholderIconSize}"/>
+                </StackPanel>
+            </Border>
+            <!-- 下课提示·页面二之一：钟＋「下一节课是」，停留后淡出接全名页 -->
+            <Border x:Name="PageA2Label" Classes="PageRoot">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <ci:FluentIcon Glyph="&#xE4C4;"
+                                   FontSize="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   Width="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   Height="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   HorizontalAlignment="Center"/>
+                    <StackPanel x:Name="A2LabelText" Orientation="Vertical" HorizontalAlignment="Center" MinWidth="{DynamicResource VerticalSchedulePlaceholderIconSize}"/>
+                </StackPanel>
+            </Border>
+            <!-- 下课提示·页面二之二：课程表图标＋下节课程全名竖排，样式与上课全名页一致 -->
+            <Border x:Name="PageA2Name" Classes="PageRoot">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <ci:FluentIcon Glyph="&#xE751;"
+                                   FontSize="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   Width="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   Height="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   HorizontalAlignment="Center"/>
+                    <StackPanel x:Name="A2NameText" Orientation="Vertical" HorizontalAlignment="Center" MinWidth="{DynamicResource VerticalSchedulePlaceholderIconSize}"/>
+                </StackPanel>
+            </Border>
+            <!-- 临上课预告·画面一：钟＋「即将上课」 -->
+            <Border x:Name="PageB1" Classes="PageRoot">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <ci:FluentIcon Glyph="&#xE4C4;"
+                                   FontSize="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   Width="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   Height="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   HorizontalAlignment="Center"/>
+                    <StackPanel x:Name="B1Text" Orientation="Vertical" HorizontalAlignment="Center" MinWidth="{DynamicResource VerticalSchedulePlaceholderIconSize}"/>
+                </StackPanel>
+            </Border>
+            <!-- 临上课预告·画面二：课程表图标＋课程全名竖排（自上而下逐字） -->
+            <Border x:Name="PageB2" Classes="PageRoot">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+                    <ci:FluentIcon Glyph="&#xE751;"
+                                   FontSize="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   Width="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   Height="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                   HorizontalAlignment="Center"/>
+                    <StackPanel x:Name="B2Chars" Orientation="Vertical" HorizontalAlignment="Center" MinWidth="{DynamicResource VerticalSchedulePlaceholderIconSize}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

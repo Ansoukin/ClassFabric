@@ -1,0 +1,27 @@
+<Window x:Class="ClassFabric.Views.Automation.AdvancedShutdownWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="即将关机"
+        Width="340"
+        SizeToContent="Height"
+        CanResize="False"
+        Topmost="True"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="20" Spacing="16">
+        <TextBlock Text="系统将在以下时间后关机"
+                   FontSize="15"
+                   HorizontalAlignment="Center"/>
+        <TextBlock x:Name="CountdownText"
+                   FontSize="42"
+                   FontWeight="Medium"
+                   HorizontalAlignment="Center"/>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Spacing="10">
+            <Button Content="延长 5 分钟" MinWidth="96" Click="ExtendButton_Click"/>
+            <Button Content="取消关机" MinWidth="88" Click="CancelShutdownButton_Click"/>
+            <Button Content="知道了" MinWidth="76" Click="AcknowledgeButton_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -6,7 +6,7 @@
 > [!caution]
 > **请勿使用 Windows 32 位（x86）版本**
 >
-> 已知问题：在 32 位版本上播放音频会导致应用崩溃（[#1485](https://github.com/ClassIsland/ClassIsland/issues/1485)）。如果您使用的是 64 位设备，请优先考虑使用 64 位版本。如果您的设备不支持运行 64 位的程序，请考虑使用 ClassIsland 1.7，或暂时关闭提醒音效和语音功能。
+> 已知问题：在 32 位版本上播放音频会导致应用崩溃（[#1485](https://github.com/ClassIsland/ClassIsland/issues/1485)）。如果您使用的是 64 位设备，请优先考虑使用 64 位版本。如果您的设备不支持运行 64 位的程序，请考虑使用 ClassFabric 1.7，或暂时关闭提醒音效和语音功能。
 
 2.1 - LiliyaOlenyeva（莉莉娅·阿琳）
 

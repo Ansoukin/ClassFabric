@@ -1,0 +1,239 @@
+<UserControl x:Class="ClassFabric.Controls.VerticalSchedule.VerticalLessonsListBox"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vs="clr-namespace:ClassFabric.Controls.VerticalSchedule"
+             xmlns:profile="clr-namespace:ClassFabric.Shared.Models.Profile;assembly=ClassFabric.Shared"
+             xmlns:coreControls="clr-namespace:ClassFabric.Core.Controls;assembly=ClassFabric.Core"
+             mc:Ignorable="d" d:DesignWidth="160" d:DesignHeight="400">
+    <UserControl.Resources>
+        <vs:VerticalLessonInitialMultiConverter x:Key="LessonInitialMultiConverter"/>
+        <vs:VerticalLessonFadingMultiConverter x:Key="LessonFadingMultiConverter"/>
+        <vs:VerticalLessonItemMatchMultiConverter x:Key="LessonItemMatchMultiConverter"/>
+        <vs:VerticalLessonChangedMultiConverter x:Key="LessonChangedMultiConverter"/>
+
+        <!-- 盲字单元格：格高由本地注入的 VerticalScheduleCellHeight 资源决定，文字水平垂直绝对居中。
+             当前格底为系统选中态原刷、进度细轨与文字层叠其上；
+             首末可渲染格的端部留白使盲字避开胶囊圆角裁剪区 -->
+        <DataTemplate DataType="profile:TimeLayoutItem" x:Key="LessonCellTemplate">
+            <Grid x:Name="CellRoot" Height="{DynamicResource VerticalScheduleCellHeight}">
+                <Grid.Styles>
+                    <Style Selector="Grid#CellRoot.faded">
+                        <Setter Property="Opacity" Value="0.6"/>
+                    </Style>
+                    <!-- 首末可渲染格的端部留白作用于内容容器，使盲字与药丸避开胶囊圆角裁剪区 -->
+                    <Style Selector="Grid#CellRoot.first Grid#CellContent">
+                        <Setter Property="Margin" Value="{DynamicResource VerticalScheduleEdgePaddingTop}"/>
+                    </Style>
+                    <Style Selector="Grid#CellRoot.last Grid#CellContent">
+                        <Setter Property="Margin" Value="{DynamicResource VerticalScheduleEdgePaddingBottom}"/>
+                    </Style>
+                    <Style Selector="Border#CellPlate">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </Style>
+                    <Style Selector="Grid#CellRoot.current Border#CellPlate">
+                        <Setter Property="IsVisible" Value="True"/>
+                    </Style>
+                    <Style Selector="Grid#CellRoot.current TextBlock">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                    <Style Selector="coreControls|HighlightBox#TextHighlightBox">
+                        <Setter Property="IsHighlight" Value="False"/>
+                    </Style>
+                    <Style Selector="Grid#CellRoot.ChangedClass.HighlightChangedClass coreControls|HighlightBox#TextHighlightBox">
+                        <Setter Property="IsHighlight" Value="True"/>
+                    </Style>
+                </Grid.Styles>
+                <Classes.faded>
+                    <MultiBinding Converter="{StaticResource LessonFadingMultiConverter}" Mode="OneWay">
+                        <Binding Mode="OneWay"/>
+                        <Binding Path="$parent[vs:VerticalLessonsListBox].CurrentTimeLayoutItem" Mode="OneWay"/>
+                    </MultiBinding>
+                </Classes.faded>
+                <Classes.current>
+                    <MultiBinding Converter="{StaticResource LessonItemMatchMultiConverter}" Mode="OneWay">
+                        <Binding Mode="OneWay"/>
+                        <Binding Path="$parent[vs:VerticalLessonsListBox].CurrentTimeLayoutItem" Mode="OneWay"/>
+                    </MultiBinding>
+                </Classes.current>
+                <Classes.first>
+                    <MultiBinding Converter="{StaticResource LessonItemMatchMultiConverter}" Mode="OneWay">
+                        <Binding Mode="OneWay"/>
+                        <Binding Path="$parent[vs:VerticalLessonsListBox].FirstRenderableItem" Mode="OneWay"/>
+                    </MultiBinding>
+                </Classes.first>
+                <Classes.last>
+                    <MultiBinding Converter="{StaticResource LessonItemMatchMultiConverter}" Mode="OneWay">
+                        <Binding Mode="OneWay"/>
+                        <Binding Path="$parent[vs:VerticalLessonsListBox].LastRenderableItem" Mode="OneWay"/>
+                    </MultiBinding>
+                </Classes.last>
+                <Classes.ChangedClass>
+                    <MultiBinding Converter="{StaticResource LessonChangedMultiConverter}" Mode="OneWay">
+                        <Binding Path="$parent[vs:VerticalLessonsListBox].ClassPlan" Mode="OneWay"/>
+                        <Binding Mode="OneWay"/>
+                        <Binding Path="$parent[vs:VerticalLessonsListBox].RefreshToken" Mode="OneWay"/>
+                    </MultiBinding>
+                </Classes.ChangedClass>
+                <Classes.HighlightChangedClass>
+                    <Binding Path="$parent[vs:VerticalLessonsListBox].HighlightChangedClass" Mode="OneWay"/>
+                </Classes.HighlightChangedClass>
+                <Grid.Transitions>
+                    <Transitions>
+                        <DoubleTransition Property="Opacity" Duration="0:0:0.15">
+                            <DoubleTransition.Easing>
+                                <CubicEaseInOut/>
+                            </DoubleTransition.Easing>
+                        </DoubleTransition>
+                    </Transitions>
+                </Grid.Transitions>
+                <Grid x:Name="CellContent">
+                    <!-- 当前节格底：系统选中态原刷，经类样式瞬时显隐（禁止过渡动画） -->
+                    <Border x:Name="CellPlate"
+                            Background="{DynamicResource ListViewItemBackgroundSelected}"
+                            CornerRadius="{DynamicResource ControlCornerRadius}"/>
+                    <Border>
+                        <coreControls:HighlightBox x:Name="TextHighlightBox"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="{DynamicResource MainWindowEmphasizedFontSize}"
+                                       TextTrimming="CharacterEllipsis">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource LessonInitialMultiConverter}" Mode="OneWay">
+                                        <Binding Path="$parent[vs:VerticalLessonsListBox].Subjects" Mode="OneWay"/>
+                                        <Binding Path="$parent[vs:VerticalLessonsListBox].ClassPlan" Mode="OneWay"/>
+                                        <Binding Mode="OneWay"/>
+                                        <Binding Path="$parent[vs:VerticalLessonsListBox].RefreshToken" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </coreControls:HighlightBox>
+                    </Border>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+        <!-- 分隔项：整格槽内居中一条刻度；过期刻度随淡出规则变暗
+             （faded 规则独立于课程格样式作用域，两处透明度叠乘为预期合成） -->
+        <DataTemplate DataType="profile:TimeLayoutItem" x:Key="SeparatorTemplate">
+            <Grid x:Name="SeparatorSlot"
+                  Height="{DynamicResource VerticalScheduleCellHeight}">
+                <Grid.Styles>
+                    <Style Selector="Grid#SeparatorSlot.faded">
+                        <Setter Property="Opacity" Value="0.6"/>
+                    </Style>
+                </Grid.Styles>
+                <Classes.faded>
+                    <MultiBinding Converter="{StaticResource LessonFadingMultiConverter}" Mode="OneWay">
+                        <Binding Mode="OneWay"/>
+                        <Binding Path="$parent[vs:VerticalLessonsListBox].CurrentTimeLayoutItem" Mode="OneWay"/>
+                    </MultiBinding>
+                </Classes.faded>
+                <Rectangle x:Name="SeparatorTick"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Height="2"
+                           Width="{DynamicResource VerticalScheduleSeparatorTickLength}"
+                           Fill="{DynamicResource TextFillColorSecondaryBrush}"
+                           Opacity="0.8"/>
+            </Grid>
+        </DataTemplate>
+
+        <vs:VerticalLessonsListBoxItemTemplateMultiConverter x:Key="ItemTemplateMultiConverter"
+                                                             CellDataTemplate="{StaticResource LessonCellTemplate}"
+                                                             SeparatorDataTemplate="{StaticResource SeparatorTemplate}"/>
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="ListBox#InnerListBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ItemsSource" Value="{Binding ClassPlan.TimeLayout.Layouts, RelativeSource={RelativeSource AncestorType=vs:VerticalLessonsListBox}, Mode=OneWay}"/>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <ItemsPresenter ItemsPanel="{TemplateBinding ItemsPanel}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemContainerTheme">
+                <Setter.Value>
+                    <!-- 容器模板复制自横条 LessonsListBox 的 ListBoxItem 主题并做纵向适配：
+                         去除选择/hover 背景（点击穿透下无交互），MaxWidth 钳制宽度方向（对应横条的 MaxHeight 行高钳制） -->
+                    <ControlTheme TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="MinWidth" Value="0"/>
+                        <Setter Property="MinHeight" Value="0"/>
+                        <Setter Property="MaxWidth" Value="400"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="Template">
+                            <ControlTemplate>
+                                <Panel>
+                                    <Panel.Styles>
+                                        <Style Selector="TextBlock">
+                                            <Setter Property="Margin" Value="0"/>
+                                        </Style>
+                                        <Style Selector="AccessText">
+                                            <Setter Property="Margin" Value="0"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <ContentPresenter Name="PART_ContentPresenter"
+                                                      Background="{TemplateBinding Background}"
+                                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      Content="{TemplateBinding Content}"
+                                                      Padding="0"
+                                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      CornerRadius="{TemplateBinding CornerRadius}"
+                                                      Margin="0"/>
+                                </Panel>
+                            </ControlTemplate>
+                        </Setter>
+                    </ControlTheme>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate DataType="profile:TimeLayoutItem">
+                        <ContentPresenter>
+                            <ContentPresenter.Content>
+                                <Binding/>
+                            </ContentPresenter.Content>
+                            <ContentPresenter.ContentTemplate>
+                                <MultiBinding Converter="{StaticResource ItemTemplateMultiConverter}"
+                                              Mode="OneWay">
+                                    <Binding Path="TimeType" Mode="OneWay"/>
+                                    <Binding Path="IsHideDefault" Mode="OneWay"/>
+                                    <Binding Path="$parent[vs:VerticalLessonsListBox].CurrentTimeLayoutItem" Mode="OneWay"/>
+                                    <Binding/>
+                                    <Binding Path="$parent[vs:VerticalLessonsListBox].ClassPlan.ValidTimeLayoutItems" Mode="OneWay"/>
+                                </MultiBinding>
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+    <ScrollViewer x:Name="PART_ScrollViewer"
+                  VerticalScrollBarVisibility="Hidden"
+                  HorizontalScrollBarVisibility="Disabled">
+        <ListBox x:Name="InnerListBox"/>
+    </ScrollViewer>
+</UserControl>

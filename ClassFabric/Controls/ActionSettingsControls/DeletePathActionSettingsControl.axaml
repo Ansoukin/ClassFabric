@@ -1,0 +1,16 @@
+<ci:ActionSettingsControlBase x:Class="ClassFabric.Controls.ActionSettingsControls.DeletePathActionSettingsControl"
+                              x:TypeArguments="actionSettings:DeletePathActionSettings"
+                              d:DataContext="{d:DesignInstance Type=local:DeletePathActionSettingsControl}"
+                              xmlns="https://github.com/avaloniaui"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                              xmlns:local="clr-namespace:ClassFabric.Controls.ActionSettingsControls"
+                              xmlns:actionSettings="clr-namespace:ClassFabric.Models.Actions">
+    <StackPanel Orientation="Vertical" Spacing="8">
+        <TextBox Watermark="路径"
+                 Text="{Binding Settings.Path, Mode=TwoWay}" />
+        <CheckBox Content="包含子项"
+                  IsChecked="{Binding Settings.Recursive}" />
+    </StackPanel>
+</ci:ActionSettingsControlBase>

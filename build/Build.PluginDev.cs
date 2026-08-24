@@ -57,8 +57,8 @@ partial class Build
         .After(CompilePluginDevDesktopApp)
         .Executes(() =>
         {
-            Environment.SetEnvironmentVariable("ClassIsland_DebugBinaryFile", PluginDevAppPublishPath / "ClassIsland.Desktop" + PlatformExecutableExtension, EnvironmentVariableTarget.User);
-            Environment.SetEnvironmentVariable("ClassIsland_DebugBinaryDirectory", PluginDevAppPublishPath, EnvironmentVariableTarget.User);
+            Environment.SetEnvironmentVariable("ClassFabric_DebugBinaryFile", PluginDevAppPublishPath / "ClassFabric.Desktop" + PlatformExecutableExtension, EnvironmentVariableTarget.User);
+            Environment.SetEnvironmentVariable("ClassFabric_DebugBinaryDirectory", PluginDevAppPublishPath, EnvironmentVariableTarget.User);
 
             if (OperatingSystem.IsLinux())
             {
@@ -88,11 +88,11 @@ partial class Build
             : string.Empty;
         var profileBlock = 
             $"""
-            #BEGIN_ClassIsland_Dev_EnvVars
-            # 此部分内容由 ClassIsland 插件开发环境初始化脚本自动添加
-            export ClassIsland_DebugBinaryFile="{PluginDevAppPublishPath / "ClassIsland.Desktop" + PlatformExecutableExtension}"
-            export ClassIsland_DebugBinaryDirectory="{PluginDevAppPublishPath}"
-            #END_ClassIsland_Dev_EnvVars
+            #BEGIN_ClassFabric_Dev_EnvVars
+            # 此部分内容由 ClassFabric 插件开发环境初始化脚本自动添加
+            export ClassFabric_DebugBinaryFile="{PluginDevAppPublishPath / "ClassFabric.Desktop" + PlatformExecutableExtension}"
+            export ClassFabric_DebugBinaryDirectory="{PluginDevAppPublishPath}"
+            #END_ClassFabric_Dev_EnvVars
             """;
         var blockRegex = BlockRegex();
         
@@ -121,6 +121,6 @@ partial class Build
         if (profilePath != null) File.WriteAllText(profilePath, newText);
     }
 
-    [GeneratedRegex(@"#BEGIN_ClassIsland_Dev_EnvVars[\s\S]*?#END_ClassIsland_Dev_EnvVars", RegexOptions.Multiline)]
+    [GeneratedRegex(@"#BEGIN_ClassFabric_Dev_EnvVars[\s\S]*?#END_ClassFabric_Dev_EnvVars", RegexOptions.Multiline)]
     private static partial Regex BlockRegex();
 }

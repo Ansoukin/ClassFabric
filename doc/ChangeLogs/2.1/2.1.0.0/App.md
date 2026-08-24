@@ -7,7 +7,7 @@
 
 2.1 - LiliyaOlenyeva（莉莉娅·阿琳）
 
-在 2.1 - LiliyaOlenyeva，我们提升了 ClassIsland 的易用性，使其更好用，更易于上手。
+在 2.1 - LiliyaOlenyeva，我们提升了 ClassFabric 的易用性，使其更好用，更易于上手。
 
 ## 🚀 新增功能与优化
 
@@ -25,10 +25,10 @@
 - 【规则集/天气】固定天气规则集设置下拉框宽度 ([#1849](https://github.com/ClassIsland/ClassIsland/issues/1849)) by @HelloWRC
 - 【恢复】修改了回滚按钮在恢复模式中的启用状态，使其由是否有多个有效的安装决定，同时为回滚按钮添加了OnClick事件 ([#1598](https://github.com/ClassIsland/ClassIsland/issues/1598))
 - 【开发】增强调试体验 (([#1621](https://github.com/ClassIsland/ClassIsland/issues/1621)))
-- 【平台/Windows】在当前前台窗口不是 ClassIsland 时，不移走窗口焦点 by @HelloWRC
+- 【平台/Windows】在当前前台窗口不是 ClassFabric 时，不移走窗口焦点 by @HelloWRC
 - 【平台/X11】重新移植兼容缩放模式
 - 【启动屏幕】移植启动加载界面
-- 【示例】移植 ExamplePlugin 到 ClassIsland 2.0
+- 【示例】移植 ExamplePlugin 到 ClassFabric 2.0
 - 【数据迁移】打包导入与导出应用数据 ([#1080](https://github.com/ClassIsland/ClassIsland/issues/1080)) by @HelloWRC
 - 【提醒】新版提醒后台工作服务
 - 【天气】允许使用不加密的 HTTP 协议获取天气信息 ([#1569](https://github.com/ClassIsland/ClassIsland/issues/1569)) (([#1570](https://github.com/ClassIsland/ClassIsland/issues/1570)))

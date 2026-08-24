@@ -1,0 +1,25 @@
+<ci:ActionSettingsControlBase x:Class="ClassFabric.Controls.ActionSettingsControls.SimulateKeyboardActionSettingsControl"
+                             x:TypeArguments="actionSettings:SimulateKeyboardActionSettings"
+                             d:DataContext="{d:DesignInstance Type=local:SimulateKeyboardActionSettingsControl}"
+                             xmlns="https://github.com/avaloniaui"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                             xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                             xmlns:local="clr-namespace:ClassFabric.Controls.ActionSettingsControls"
+                             xmlns:actionSettings="clr-namespace:ClassFabric.Models.Actions">
+    <!-- 首版只展示与就地编辑已有步骤，新增或删除步骤需在配置文件中手工维护。 -->
+    <ItemsControl ItemsSource="{Binding Settings.Steps}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal" Spacing="8" Margin="0 2">
+                    <TextBox MinWidth="120"
+                             Watermark="键名，如 Ctrl+S"
+                             Text="{Binding Key, Mode=TwoWay}" />
+                    <NumericUpDown Minimum="0"
+                                   Watermark="间隔（毫秒）"
+                                   Value="{Binding IntervalMs, Converter={x:Static ci:NotNaNConverter.Instance}}" />
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</ci:ActionSettingsControlBase>

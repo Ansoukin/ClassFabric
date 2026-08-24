@@ -1,0 +1,10 @@
+syntax = "proto3";
+package ClassFabric.Shared.Protobuf.Command;
+option csharp_namespace = "ClassFabric.Shared.Protobuf.Command";
+
+import "Protobuf/Enum/ConfigTypes.proto";
+
+message GetClientConfig {
+  string RequestGuid = 1;
+  Enum.ConfigTypes ConfigType = 2;
+}

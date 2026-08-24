@@ -1,0 +1,11 @@
+syntax = "proto3";
+package ClassFabric.Shared.Protobuf.Client;
+option csharp_namespace = "ClassFabric.Shared.Protobuf.Client";
+
+import "Protobuf/Enum/AuditEvents.proto";
+
+message AuditScReq {
+  Enum.AuditEvents Event = 1;
+  bytes Payload = 2;
+  int64 TimestampUtc = 3;
+}

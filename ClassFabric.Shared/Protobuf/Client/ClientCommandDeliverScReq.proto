@@ -1,0 +1,10 @@
+syntax = "proto3";
+package ClassFabric.Shared.Protobuf.Client;
+option csharp_namespace = "ClassFabric.Shared.Protobuf.Client";
+
+import "Protobuf/Enum/CommandTypes.proto";
+
+message ClientCommandDeliverScReq {
+  Enum.CommandTypes Type = 2;
+  bytes Payload = 3;
+}

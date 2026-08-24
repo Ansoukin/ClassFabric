@@ -1,0 +1,25 @@
+<ci:ActionSettingsControlBase x:Class="ClassFabric.Controls.ActionSettingsControls.ToggleWorkflowActionSettingsControl"
+                              x:TypeArguments="actionSettings:ToggleWorkflowActionSettings"
+                              d:DataContext="{d:DesignInstance Type=local:ToggleWorkflowActionSettingsControl}"
+                              xmlns="https://github.com/avaloniaui"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                              xmlns:local="clr-namespace:ClassFabric.Controls.ActionSettingsControls"
+                              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+                              xmlns:actionSettings="clr-namespace:ClassFabric.Models.Actions"
+                              mc:Ignorable="d">
+    <Grid ColumnDefinitions="*,Auto" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:ToggleWorkflowActionSettingsControl}}">
+        <TextBox Watermark="目标自动化方案 Guid"
+                 Text="{Binding TargetProfileIdText}" />
+        <ComboBox Grid.Column="1"
+                  MinWidth="110"
+                  Margin="12,0,0,0"
+                  SelectedItem="{Binding Settings.Mode}">
+            <sys:String>Toggle</sys:String>
+            <sys:String>Enable</sys:String>
+            <sys:String>Disable</sys:String>
+        </ComboBox>
+    </Grid>
+</ci:ActionSettingsControlBase>

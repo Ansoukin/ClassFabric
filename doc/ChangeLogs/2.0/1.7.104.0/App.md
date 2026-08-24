@@ -9,7 +9,7 @@
 - 【应用设置】添加应用设置错误页面
 - 【应用设置/组件】移植容器组件编辑功能
 - 【主界面/组件】移植分组组件、滚动组件和轮播组件
-- 【数据迁移】从 ClassIsland 1.7 导入数据 ([#1080](https://github.com/ClassIsland/ClassIsland/issues/1080))
+- 【数据迁移】从 ClassFabric 1.7 导入数据 ([#1080](https://github.com/ClassIsland/ClassIsland/issues/1080))
 - 【数据迁移】从 Class Widgets 1.x 导入数据
 - 【换课】移植换课功能 
 - 【档案编辑器】移植调课页面
@@ -52,7 +52,7 @@
 - 【OOBE】修复 oobe 进场动画延迟播放时，首页内容提前出现的问题
 - 【组件/天气组件】天气简报风向偏转180°
 - 【Avalonia】修复在部分平台上缺失默认字体导致启动失败的问题
-- 【应用】修复 ClassIsland 有时无法正常退出的问题
+- 【应用】修复 ClassFabric 有时无法正常退出的问题
 - 【应用】修复全局错误记录器路径写反的问题
 - 【导航】修复 Uri 导航命令无法触发的问题
 

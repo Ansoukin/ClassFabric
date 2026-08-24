@@ -2,7 +2,7 @@
 
 ![Banner_昔涟](https://res.classisland.tech/banners/cyrene_msp/banner.webp)
 
-Cyrene_MSP（Cyrene Management Server Protocol） 是 ClassIsland 集控服务器与客户端用 GRPC 交流的协议规范。
+Cyrene_MSP（Cyrene Management Server Protocol） 是 ClassFabric 集控服务器与客户端用 GRPC 交流的协议规范。
 
 协议名：`Cyrene_MSP`
 
@@ -14,8 +14,8 @@ Cyrene_MSP（Cyrene Management Server Protocol） 是 ClassIsland 集控服务�
 
 | 概念 | 定义 |
 | --- | --- |
-| 客户端 | 指与集控服务器连接的 ClassIsland 应用本体，从集控服务器接收对应的资料和命令 |
-| 服务端 | 指[集控服务器](https://github.com/ClassIsland/ManagementServer)的服务端软件，用于发放集控信息。 |
+| 客户端 | 指与集控服务器连接的 ClassFabric 应用本体，从集控服务器接收对应的资料和命令 |
+| 服务端 | 指[集控服务器](https://github.com/ClassFabric/ManagementServer)的服务端软件，用于发放集控信息。 |
 
 ## 目录
 

@@ -16,5 +16,5 @@ foreach ($artifact in $artifacts) {
 }
 
 foreach ($artifact in $(Get-ChildItem ./out)) {
-    Move-Item $artifact.FullName -Destination $artifact.FullName.Replace("out_app_", "ClassIsland_app_") -Force
+    Move-Item $artifact.FullName -Destination $artifact.FullName.Replace("out_app_", "ClassFabric_app_") -Force
 }

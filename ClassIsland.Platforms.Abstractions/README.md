@@ -1,2 +1,0 @@
-# ClassIsland.Platforms.Abstraction
-

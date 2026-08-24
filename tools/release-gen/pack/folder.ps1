@@ -9,14 +9,6 @@ if ($(Test-Path ./out_pack/) -eq $false) {
 
 Get-ChildItem -Path ./out
 
-# Install PDCC
-
-$pdcOs = 'linux'
-if ($env:osName -eq 'windows') {
-    $pdcOs = 'win'
-}
-./tools/release-gen/install-pdcc.ps1 $pdcOs
-
 $appBaseName = "out_appBase_${env:osName}_${env:arch}_${env:buildType}_folder"
 $launcherName = "out_launcher_${env:osName}_${env:arch}_aot_singleFile"
 
@@ -24,7 +16,4 @@ Expand-Archive "./out/${appBaseName}.zip" -DestinationPath $appPath -Force
 Expand-Archive "./out/${launcherName}.zip" -DestinationPath $rootPath -Force
 
 Remove-Item $rootPath/*.pdb -Force
-
-$env:PDCC_version = ${env:version}
-./pdcc/PhainonDistributionCenter.Client ./phainon.yml GenerateFileMap $rootPath
-Copy-Item $rootPath/files.json -Destination $appPath -Force
+# 包内不写入任何外部分发体系的更新元数据，产物面向 GitHub Release 直接下载

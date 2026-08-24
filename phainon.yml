@@ -1,6 +1,6 @@
 # Phainon Distribution Center Client Configuration
 # 刻法勒永志不忘。
-name: "ClassIsland"
+name: "ClassFabric"
 components:
   app:
     allowDiffUpdate: true
@@ -16,10 +16,10 @@ components:
       - "files.json"
 variables:
   number: 0
-fileRepoRoot: "https://get.classisland.tech/d/ClassIsland-Ningbo-S3/classisland/distribution-v2/repo/"
-archiveRoot: "https://get.classisland.tech/d/ClassIsland-Ningbo-S3/classisland/distribution-v2/$(primaryVersion)/$(version)/"
-bucketKeyRoot: "classisland/distribution-v2/repo/"
-archiveBucketKeyRoot: "classisland/distribution-v2/$(primaryVersion)/$(version)/"
+fileRepoRoot: "https://get.classisland.tech/d/ClassIsland-Ningbo-S3/classfabric/distribution-v2/repo/"
+archiveRoot: "https://get.classisland.tech/d/ClassIsland-Ningbo-S3/classfabric/distribution-v2/$(primaryVersion)/$(version)/"
+bucketKeyRoot: "classfabric/distribution-v2/repo/"
+archiveBucketKeyRoot: "classfabric/distribution-v2/$(primaryVersion)/$(version)/"
 appChangeLogPath: "$(thisFileDir)/doc/ChangeLogs/$(primaryVersion)/$(version)/App.md"
 appChangeLogTemplate: |
   $(changeLog)
@@ -29,7 +29,7 @@ appChangeLogTemplate: |
   ## 校验和与下载链接
 
   > [!tip]
-  > 内地用户建议前往[ClassIsland 官网](https://www.classisland.tech/download)，或通过下方表格中的高速下载链接下载 ClassIsland，以获得更好的下载体验。
+  > 内地用户建议前往[ClassFabric 官网](https://www.classisland.tech/download)，或通过下方表格中的高速下载链接下载 ClassFabric，以获得更好的下载体验。
 
   > [!important]
   > 下载时请注意核对文件 SHA512 是否正确。

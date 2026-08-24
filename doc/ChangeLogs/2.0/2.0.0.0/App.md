@@ -10,7 +10,7 @@
 
 ## 🚀 新增功能与优化
 
-- **【应用】跨平台支持**：ClassIsland 已由 WPF 迁移到 Avalonia，现在支持在 Windows、Linux 和 MacOS 上运行。
+- **【应用】跨平台支持**：ClassFabric 已由 WPF 迁移到 Avalonia，现在支持在 Windows、Linux 和 MacOS 上运行。
 - **【组件】更丰富的组件设置**：支持以主界面行、组件为单位为组件设置样式。
 - **【UI】FluentUI**：应用主要 UI 设计语言更变为 Fluent 2 设计，提供更加现代化的界面。
 - **【UI】动画**：为主界面和部分 UI 界面添加了更灵动的动画，部分动画需要将【应用设置】->【基本】中将动画级别调整到【华丽】才能生效
@@ -19,7 +19,7 @@
 - 【组件】将内置的容器组件名称由 XX 组件修改为 XX 容器
 - 【组件】添加堆叠容器
 - 【课程组件】淡化上过的课程
-- 【数据迁移】支持从 ClassIsland 1.7 和 Class Widgets 1.x 导入数据 ([#1080](https://github.com/ClassIsland/ClassIsland/issues/1080))
+- 【数据迁移】支持从 ClassFabric 1.7 和 Class Widgets 1.x 导入数据 ([#1080](https://github.com/ClassIsland/ClassIsland/issues/1080))
 - 【课表启用】课表多周轮换支持，最高支持 9 周轮换
 - 【UI/天气】添加 SF 符号天气图标包
 - 【插件市场】插件自动更新 ([#591](https://github.com/ClassIsland/ClassIsland/issues/591))

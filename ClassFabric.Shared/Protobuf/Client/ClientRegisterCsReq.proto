@@ -1,0 +1,9 @@
+syntax = "proto3";
+package ClassFabric.Shared.Protobuf.Client;
+option csharp_namespace = "ClassFabric.Shared.Protobuf.Client";
+
+message ClientRegisterCsReq {
+    string ClientUid = 1;
+    string ClientId = 2;
+    string ClientMac = 3;
+}

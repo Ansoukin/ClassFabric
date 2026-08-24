@@ -1,0 +1,18 @@
+<ci:ActionSettingsControlBase x:Class="ClassFabric.Controls.ActionSettingsControls.MovePathActionSettingsControl"
+                              x:TypeArguments="actionSettings:MovePathActionSettings"
+                              d:DataContext="{d:DesignInstance Type=local:MovePathActionSettingsControl}"
+                              xmlns="https://github.com/avaloniaui"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                              xmlns:local="clr-namespace:ClassFabric.Controls.ActionSettingsControls"
+                              xmlns:actionSettings="clr-namespace:ClassFabric.Models.Actions">
+    <StackPanel Orientation="Vertical" Spacing="8">
+        <TextBox Watermark="源路径"
+                 Text="{Binding Settings.Source, Mode=TwoWay}" />
+        <TextBox Watermark="目标路径"
+                 Text="{Binding Settings.Target, Mode=TwoWay}" />
+        <CheckBox Content="覆盖已存在的文件"
+                  IsChecked="{Binding Settings.Overwrite}" />
+    </StackPanel>
+</ci:ActionSettingsControlBase>

@@ -16,7 +16,7 @@
 - 【提醒】新提醒遮罩动画
 - 【应用】优化应用生命周期初始化步骤
 - 【天气】引入 lucide 天气图标包，提升天气提醒可读性
-- 【档案迁移】CSES 导出/导入功能，以及 ClassIsland1 和 Class Widgets 1 档案导入功能
+- 【档案迁移】CSES 导出/导入功能，以及 ClassFabric1 和 Class Widgets 1 档案导入功能
 - 【主界面】优化置顶置底实现方式
 - 【主界面】修复主界面提醒图标可读性低的问题
 - 【应用设置】为 macOS 上的应用设置窗口添加红绿灯空位
@@ -34,7 +34,7 @@
 
 ## 🐛 Bug 修复
 
-- 【应用】ClassIsland 多开 ([#1199](https://github.com/ClassIsland/ClassIsland/issues/1199))
+- 【应用】ClassFabric 多开 ([#1199](https://github.com/ClassIsland/ClassIsland/issues/1199))
 - 【应用】修复 GetRootWindow 会返回没有显示的窗口的问题
 - 【应用】将默认颜色来源修改为【系统】 ([#1328](https://github.com/ClassIsland/ClassIsland/issues/1328))
 - 【主界面】修复主界面置顶锁重复添加导致提醒结束后置顶锁未释放干净，主界面无法恢复默认状态的问题 ([#1326](https://github.com/ClassIsland/ClassIsland/issues/1326))
@@ -75,7 +75,7 @@
 - 【档案迁移】修复Cses时间表不被导入的问题
 - 【档案迁移】修复无法导入课表的问题
 - 【档案编辑器】修复档案编辑器的帮助按钮无法点击的问题
-- 【Dev】修复 DevPortalWindow 的超链接无法导航到 classisland: 协议的问题
+- 【Dev】修复 DevPortalWindow 的超链接无法导航到 classfabric: 协议的问题
 - 【Markdown】修复代码块导致 Markdown 文档无法渲染的问题
 
 ## ◀️ 回滚的功能

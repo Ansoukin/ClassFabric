@@ -3,7 +3,7 @@
 1.6 - Himeko
 
 > [!important]
-> 从此版本起，ClassIsland 的开源协议更换为 GPLv3.关于此更变的详细信息，请见讨论[#697](https://github.com/ClassIsland/ClassIsland/discussions/697)。继续使用即代表您同意更换后的开源协议。
+> 从此版本起，ClassFabric 的开源协议更换为 GPLv3.关于此更变的详细信息，请见讨论[#697](https://github.com/ClassIsland/ClassIsland/discussions/697)。继续使用即代表您同意更换后的开源协议。
 
 ## 🚀 新增功能与优化
 
@@ -97,7 +97,7 @@
 - 【应用设置/调试】修复特定情况下特性调试窗口打开报错的问题 ([#455](https://github.com/ClassIsland/ClassIsland/issues/455))
 - 【构建】修复 Edge_tts_sharp 项目还原问题
 - 【主菜单】缓解托盘菜单弹出偏移的问题
-- 【IPC】修复同时打开多个 ClassIsland 导致 IPC 广播消息时崩溃的问题 ([#475](https://github.com/ClassIsland/ClassIsland/issues/475))
+- 【IPC】修复同时打开多个 ClassFabric 导致 IPC 广播消息时崩溃的问题 ([#475](https://github.com/ClassIsland/ClassIsland/issues/475))
 - 【UI】修复托盘菜单弹出位置可能偏移的问题
 - 【UI】修复天气图标可能与主题色相近的问题
 - 【提醒】[#667](https://github.com/ClassIsland/ClassIsland/issues/667) 修复提醒的正文显示时间为 0 时无法执行的问题

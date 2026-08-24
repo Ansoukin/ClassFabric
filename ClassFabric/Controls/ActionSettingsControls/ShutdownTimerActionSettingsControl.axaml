@@ -1,0 +1,19 @@
+<ci:ActionSettingsControlBase x:Class="ClassFabric.Controls.ActionSettingsControls.ShutdownTimerActionSettingsControl"
+                              x:TypeArguments="actionSettings:ShutdownTimerActionSettings"
+                              d:DataContext="{d:DesignInstance Type=local:ShutdownTimerActionSettingsControl}"
+                              xmlns="https://github.com/avaloniaui"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                              xmlns:local="clr-namespace:ClassFabric.Controls.ActionSettingsControls"
+                              xmlns:actionSettings="clr-namespace:ClassFabric.Models.Actions">
+    <StackPanel Orientation="Horizontal" Spacing="12">
+        <ci:Field Suffix="秒" HorizontalAlignment="Left">
+            <NumericUpDown MinWidth="147"
+                           Minimum="0"
+                           Value="{Binding Settings.Seconds, Converter={x:Static ci:NotNaNConverter.Instance}}" />
+        </ci:Field>
+        <CheckBox Content="发出提醒通知"
+                  IsChecked="{Binding Settings.ShowNotification}" />
+    </StackPanel>
+</ci:ActionSettingsControlBase>

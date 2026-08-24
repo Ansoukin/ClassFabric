@@ -1,0 +1,19 @@
+<ci:ActionSettingsControlBase x:Class="ClassFabric.Controls.ActionSettingsControls.WindowOperationActionSettingsControl"
+                             x:TypeArguments="actionSettings:WindowOperationActionSettings"
+                             d:DataContext="{d:DesignInstance Type=local:WindowOperationActionSettingsControl}"
+                             xmlns="https://github.com/avaloniaui"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                             xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                             xmlns:local="clr-namespace:ClassFabric.Controls.ActionSettingsControls"
+                             xmlns:actionSettings="clr-namespace:ClassFabric.Models.Actions">
+    <!-- 固定项须与 InputSimulationService.OperateForegroundWindow 支持的操作名保持一致。 -->
+    <ComboBox MinWidth="147" HorizontalAlignment="Left"
+              SelectedValue="{Binding Settings.Operation, Mode=TwoWay}"
+              SelectedValueBinding="{Binding Tag}">
+        <ComboBoxItem Content="最大化" Tag="Maximize" />
+        <ComboBoxItem Content="最小化" Tag="Minimize" />
+        <ComboBoxItem Content="还原" Tag="Restore" />
+        <ComboBoxItem Content="关闭" Tag="Close" />
+    </ComboBox>
+</ci:ActionSettingsControlBase>

@@ -1,0 +1,127 @@
+<Window x:Class="ClassFabric.Views.VerticalScheduleWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ci="http://classisland.tech/schemas/xaml/core"
+        xmlns:views="clr-namespace:ClassFabric.Views"
+        xmlns:vs="clr-namespace:ClassFabric.Controls.VerticalSchedule"
+        xmlns:appConverters="clr-namespace:ClassFabric.Converters"
+        xmlns:converters="clr-namespace:ClassFabric.Core.Converters;assembly=ClassFabric.Core"
+        mc:Ignorable="d" d:DesignWidth="160" d:DesignHeight="400"
+         Title="ClassFabric 竖版课表"
+         SizeToContent="WidthAndHeight"
+         SystemDecorations="None"
+         Background="Transparent"
+         TransparencyLevelHint="Transparent"
+         TransparencyBackgroundFallback="Transparent"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        CanResize="False"
+        CanMaximize="False"
+        CanMinimize="False"
+        X11Properties.WmClass="classfabric_vertical"
+        Activated="VerticalScheduleWindow_OnActivated"
+        Closing="VerticalScheduleWindow_OnClosing">
+    <Window.Resources>
+        <converters:SizeDoubleToCornerRadiusConverter x:Key="SizeDoubleToCornerRadiusConverter"/>
+        <converters:ColorToColorPickerBrushConverter x:Key="ColorToColorPickerBrushConverter"/>
+        <converters:IntToFontWeightConverter x:Key="IntToFontWeightConverter"/>
+        <appConverters:StringToFontFamilyConverter x:Key="StringToFontFamilyConverter"/>
+    </Window.Resources>
+    <Window.Styles>
+        <!-- 着色层画刷：默认走 App 级 FluentAvalonia 资源，自定义背景色时覆盖为全局 BackgroundColor -->
+        <Style Selector="Border#BackgroundBorder">
+            <Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"/>
+        </Style>
+        <Style Selector="Border#BackgroundBorder.custom-background">
+            <Setter Property="Background" Value="{Binding BackgroundColor, Mode=OneWay, Converter={StaticResource ColorToColorPickerBrushConverter}}"/>
+        </Style><!-- 提醒编舞：课表整体淡出淡入各 0.2 秒（透明度过渡由 Transitions 承担，折叠时机由状态机计时） -->
+        <Style Selector="vs|VerticalLessonsListBox#ScheduleList">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2">
+                        <DoubleTransition.Easing>
+                            <CubicEaseInOut/>
+                        </DoubleTransition.Easing>
+                    </DoubleTransition>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="vs|VerticalLessonsListBox#ScheduleList.reminder-hidden">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+        <!-- 提醒期间空课表占位协同隐藏（类驱动，不压制其数据绑定可见性） -->
+        <Style Selector="StackPanel#EmptyPlaceholder.reminder-suppressed">
+            <Setter Property="IsVisible" Value="False"/>
+        </Style>
+    </Window.Styles>
+    <Grid x:Name="WindowRoot" Background="Transparent"
+          MinHeight="{DynamicResource VerticalScheduleWindowMinHeight}"
+          MaxHeight="{DynamicResource VerticalScheduleWindowMaxHeight}"
+          RenderOptions.TextRenderingMode="Antialias">
+        <!-- 着色层：与内容层兄弟并列，Opacity 只落在着色层，文字不随其透明 -->
+        <Border x:Name="BackgroundBorder"
+                Classes.custom-background="{Binding IsCustomBackgroundColorEnabled, Mode=OneWay}"
+                Opacity="{Binding VerticalScheduleSettings.Opacity, Mode=OneWay}"
+                BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="{DynamicResource VerticalScheduleCornerRadius}"
+                BoxShadow="0 4 8 2 #48000000"
+                ClipToBounds="True"/>
+        <!-- 内容层：盲字课程列表，直连 LessonsService 管线；空课表时列表为空，呈空胶囊。
+             外层 Border 按生效圆角裁剪，装饰不可能画出胶囊圆角外。
+             缩放采用横条同款单一布局变换：一个 ScaleTransform 带动课表内容树，
+             资源注入保持原始值，避免逐项重注入引发的整列重排闪烁；
+             进度轨是窗口级装饰，留在变换树外按窗口坐标直控，不参与内容缩放 -->
+        <Border x:Name="ContentRoot"
+                CornerRadius="{DynamicResource VerticalScheduleCornerRadius}"
+                ClipToBounds="True">
+            <Grid>
+                <LayoutTransformControl x:Name="ContentScaleHost">
+                    <LayoutTransformControl.LayoutTransform>
+                        <ScaleTransform/>
+                    </LayoutTransformControl.LayoutTransform>
+                    <!-- 宽度钉住截面宽原始值：SizeToContent 依自然尺寸定窗，经变换后即生效宽 -->
+                    <Grid Width="{DynamicResource VerticalScheduleBaseWidth}">
+                        <vs:VerticalLessonsListBox x:Name="ScheduleList"
+                                                   TextElement.FontFamily="{Binding MainWindowFont, Mode=OneWay, Converter={StaticResource StringToFontFamilyConverter}}"
+                                                   TextElement.FontWeight="{Binding MainWindowFontWeight2, Mode=OneWay, Converter={StaticResource IntToFontWeightConverter}}"
+                                                   ClassPlan="{Binding LessonsService.CurrentClassPlan, RelativeSource={RelativeSource AncestorType=views:VerticalScheduleWindow}, Mode=OneWay}"
+                                                   Subjects="{Binding ProfileService.Profile.Subjects, RelativeSource={RelativeSource AncestorType=views:VerticalScheduleWindow}, Mode=OneWay}"
+                                                   CurrentTimeLayoutItem="{Binding LessonsService.CurrentTimeLayoutItem, RelativeSource={RelativeSource AncestorType=views:VerticalScheduleWindow}, Mode=OneWay}"
+                                                   HighlightChangedClass="{Binding VerticalScheduleSettings.HighlightChangedClass, RelativeSource={RelativeSource AncestorType=views:VerticalScheduleWindow}, Mode=OneWay}"/>
+                        <!-- 空课表占位：无可渲染格时居中提示 -->
+                        <StackPanel x:Name="EmptyPlaceholder"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Spacing="4"
+                                    Opacity="0.5"
+                                    IsVisible="{Binding !#ScheduleList.HasRenderableItems}">
+                            <ci:FluentIcon Glyph="&#xE787;"
+                                           FontSize="{DynamicResource VerticalSchedulePlaceholderIconSize}"
+                                           HorizontalAlignment="Center"/>
+                            <TextBlock Text="今日无课"
+                                       HorizontalAlignment="Center"
+                                       FontSize="{DynamicResource MainWindowBodyFontSize}"/>
+                        </StackPanel>
+                    </Grid>
+                </LayoutTransformControl>
+                <!-- 全天进度细轨：贴停靠缘的整高轨道（窗口坐标直控），填充比例由服务节拍计算 -->
+                <Grid x:Name="DayRail"
+                      Width="{DynamicResource VerticalScheduleDayRailWidthScaled}"
+                      VerticalAlignment="Stretch">
+                    <Border CornerRadius="2"
+                            Background="{DynamicResource AccentFillColorDefaultBrush}"
+                            Opacity="0.25"/>
+                    <Border x:Name="DayRailFill"
+                            VerticalAlignment="Top"
+                            CornerRadius="2"
+                            Background="{DynamicResource AccentFillColorDefaultBrush}"/>
+                </Grid>
+                <!-- 上下课提醒覆盖层：最上层叠放，显隐与画面切换由状态机驱动 -->
+                <vs:VerticalReminderOverlay x:Name="ReminderOverlay"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

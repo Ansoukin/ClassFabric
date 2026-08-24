@@ -52,6 +52,7 @@
 | plugin-marketplace    | 插件市场服务        |
 | theme                 | 界面主题服务        |
 | xaml-theme            | 主界面 XAML 主题服务 |
+| vertical-schedule     | 竖版课表（竖条）服务    |
 | window-rule           | 窗口规则服务        |
 | metadata/announcement | 公告服务          |
 

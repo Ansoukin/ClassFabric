@@ -1,0 +1,20 @@
+<ci:RuleSettingsControlBase
+    x:TypeArguments="rules:InTimePeriodRuleSettings"
+    x:Class="ClassFabric.Controls.RuleSettingsControls.InTimePeriodRuleSettingsControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ClassFabric.Controls.RuleSettingsControls"
+    xmlns:ci="http://classisland.tech/schemas/xaml/core"
+    xmlns:rules="clr-namespace:ClassFabric.Models.Rules"
+    mc:Ignorable="d"
+    d:DesignHeight="450" d:DesignWidth="800">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:InTimePeriodRuleSettingsControl}}">
+        <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+            <TextBox Text="{Binding Settings.Start}" MinWidth="80" Watermark="08:00"/>
+            <TextBlock Text="—" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Settings.End}" MinWidth="80" Watermark="17:00"/>
+        </StackPanel>
+    </Grid>
+</ci:RuleSettingsControlBase>

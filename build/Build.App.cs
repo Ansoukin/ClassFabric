@@ -26,7 +26,7 @@ partial class Build
                 .SetProperty("PublishBuilding", true)
                 .SetProperty("PublishPlatform", OsName)
                 .SetProperty("RuntimeIdentifier", RuntimeIdentifier)
-                .SetProperty("ClassIsland_PlatformTarget", Arch));
+                .SetProperty("ClassFabric_PlatformTarget", Arch));
         });
     
     Target CleanDesktopApp => _ => _
@@ -41,7 +41,7 @@ partial class Build
                 .SetProperty("PublishBuilding", true)
                 .SetProperty("PublishPlatform", OsName)
                 .SetProperty("RuntimeIdentifier", RuntimeIdentifier)
-                .SetProperty("ClassIsland_PlatformTarget", Arch));
+                .SetProperty("ClassFabric_PlatformTarget", Arch));
         });
 
 
@@ -50,7 +50,7 @@ partial class Build
         {
             var content = 
                $$""""
-                 namespace ClassIsland.Services.SpeechService{
+                 namespace ClassFabric.Services.SpeechService{
                      public static partial class GptSovitsSecrets
                      {
                          public const string PrivateKey = 
@@ -84,9 +84,9 @@ partial class Build
                 .SetProperty("PublishBuilding", true)
                 .SetProperty("PublishPlatform", OsName)
                 .SetProperty("RuntimeIdentifier", RuntimeIdentifier)
-                .SetProperty("ClassIsland_PlatformTarget", Arch)
+                .SetProperty("ClassFabric_PlatformTarget", Arch)
                 .SetProperty("SelfContained", isSelfContained)
-                .SetProperty("ClassIsland_SelfContained", isSelfContained)
+                .SetProperty("ClassFabric_SelfContained", isSelfContained)
                 .SetProperty("PublishDir", Package == "pkg" ? AppOutputPath : AppPublishPath)
                 .SetProperty("DebUOSOutputFilePath", AppOutputPath / PublishArtifactName + ".deb")
                 .SetProperty("UOSDebVersion", AppVersion)

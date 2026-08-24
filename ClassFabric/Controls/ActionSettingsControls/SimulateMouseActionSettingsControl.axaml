@@ -1,0 +1,31 @@
+<ci:ActionSettingsControlBase x:Class="ClassFabric.Controls.ActionSettingsControls.SimulateMouseActionSettingsControl"
+                             x:TypeArguments="actionSettings:SimulateMouseActionSettings"
+                             d:DataContext="{d:DesignInstance Type=local:SimulateMouseActionSettingsControl}"
+                             xmlns="https://github.com/avaloniaui"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                             xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                             xmlns:local="clr-namespace:ClassFabric.Controls.ActionSettingsControls"
+                             xmlns:actionSettings="clr-namespace:ClassFabric.Models.Actions">
+    <!-- 首版只展示与就地编辑已有步骤，新增或删除步骤需在配置文件中手工维护。 -->
+    <ItemsControl ItemsSource="{Binding Settings.Steps}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal" Spacing="8" Margin="0 2">
+                    <NumericUpDown Minimum="0" Maximum="3" MinWidth="110"
+                                   ToolTip.Tip="操作类型：0 左击、1 右击、2 移动、3 滚轮"
+                                   Value="{Binding Type, Converter={x:Static ci:NotNaNConverter.Instance}}" />
+                    <NumericUpDown Minimum="0" MinWidth="90"
+                                   Watermark="X"
+                                   Value="{Binding X, Converter={x:Static ci:NotNaNConverter.Instance}}" />
+                    <NumericUpDown Minimum="0" MinWidth="90"
+                                   Watermark="Y"
+                                   Value="{Binding Y, Converter={x:Static ci:NotNaNConverter.Instance}}" />
+                    <NumericUpDown MinWidth="100"
+                                   Watermark="滚轮增量"
+                                   Value="{Binding Delta, Converter={x:Static ci:NotNaNConverter.Instance}}" />
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</ci:ActionSettingsControlBase>
