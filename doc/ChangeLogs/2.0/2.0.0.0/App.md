@@ -10,7 +10,7 @@
 
 ## 🚀 新增功能与优化
 
-- **【应用】跨平台支持**：ClassIsland 已由 WPF 迁移到 Avalonia，现在支持在 Windows、Linux 和 MacOS 上运行。
+- **【应用】跨平台支持**：ClassFabric 已由 WPF 迁移到 Avalonia，现在支持在 Windows、Linux 和 MacOS 上运行。
 - **【组件】更丰富的组件设置**：支持以主界面行、组件为单位为组件设置样式。
 - **【UI】FluentUI**：应用主要 UI 设计语言更变为 Fluent 2 设计，提供更加现代化的界面。
 - **【UI】动画**：为主界面和部分 UI 界面添加了更灵动的动画，部分动画需要将【应用设置】->【基本】中将动画级别调整到【华丽】才能生效

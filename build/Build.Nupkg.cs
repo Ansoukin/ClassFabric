@@ -30,7 +30,7 @@ partial class Build
             var version = GitVersion.ToString();
             if (!IsRelease)
             {
-                version += $"-misha-dev{GitCommitCount}";
+                version += $"-mikhail-dev{GitCommitCount}";
             }
 
             NupkgVersion = version;

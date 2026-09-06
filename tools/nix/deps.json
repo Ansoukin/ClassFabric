@@ -165,12 +165,12 @@
     "hash": "sha256-DoDZNWtYM+0OLIclOEZ+tjcGXymGlXvdvq2ZMPmiAJA="
   },
   {
-    "pname": "ClassIsland.ColorDocument.Avalonia",
+    "pname": "ClassFabric.ColorDocument.Avalonia",
     "version": "11.0.3.4",
     "hash": "sha256-uYojWucgeOn6+WYLSHxPEwOSaIEcBfjUrcohgPHLarU="
   },
   {
-    "pname": "ClassIsland.ColorTextBlock.Avalonia",
+    "pname": "ClassFabric.ColorTextBlock.Avalonia",
     "version": "11.0.3.4",
     "hash": "sha256-wxyWEVQDAN71LwYgjxZExyksTgzQJEHWblU7Sa3hDQM="
   },

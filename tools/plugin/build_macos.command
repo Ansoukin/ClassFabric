@@ -32,7 +32,7 @@ function echo_debug() {
 # 初始化路径
 PROJECT_DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 PROJECT_ROOT=$(cd "$PROJECT_DIR/../.." && pwd)
-RESTORE_TARGET="ClassIsland.Filter.MacOs.slnf"
+RESTORE_TARGET="ClassFabric.Filter.MacOs.slnf"
 DOTNET_INSTALL_URL="https://dot.net/v1/dotnet-install.sh"
 DOTNET_INSTALL_DIR="${DOTNET_INSTALL_DIR:-$HOME/.dotnet}"
 DOTNET_INSTALL_FILE="${TMPDIR:-/tmp}/dotnet-install.sh"

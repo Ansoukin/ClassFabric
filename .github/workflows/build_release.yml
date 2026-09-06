@@ -80,7 +80,7 @@ jobs:
           test "$(dotnet workload --version)" = "$MACOS_DOTNET_SDK_VERSION"
         
       - name: Add GitHub Package Registry
-        run: dotnet nuget add source --username ClassIsland --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ClassIsland/index.json"
+        run: dotnet nuget add source --username ClassFabric --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ClassIsland/index.json"
         
       - uses: little-core-labs/get-git-tag@v3.0.1
         id: tagName
@@ -142,7 +142,7 @@ jobs:
         run: dotnet workload install android
 
       - name: Add GitHub Package Registry
-        run: dotnet nuget add source --username ClassIsland --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ClassIsland/index.json"
+        run: dotnet nuget add source --username ClassFabric --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ClassIsland/index.json"
 
       - uses: little-core-labs/get-git-tag@v3.0.1
         id: tagName
@@ -153,13 +153,13 @@ jobs:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
           set -euo pipefail
-          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/classisland.keystore"
-          test -s "$RUNNER_TEMP/classisland.keystore"
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/classfabric.keystore"
+          test -s "$RUNNER_TEMP/classfabric.keystore"
 
       - name: Build and sign Android APK
         env:
           AndroidKeyStore: true
-          AndroidSigningKeyStore: ${{ runner.temp }}/classisland.keystore
+          AndroidSigningKeyStore: ${{ runner.temp }}/classfabric.keystore
           AndroidSigningStorePass: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           AndroidSigningKeyPass: ${{ secrets.ANDROID_KEY_PASSWORD }}
           AndroidSigningKeyAlias: ${{ vars.ANDROID_KEY_ALIAS }}
@@ -175,7 +175,7 @@ jobs:
       - name: Verify Android APK signature
         shell: bash
         env:
-          EXPECTED_APPLICATION_ID: ${{ github.event.inputs.release_tag && github.event_name != 'pull_request' && github.event.inputs.is_test_mode != 'true' && 'cn.classisland.android' || 'cn.classisland.android.beta' }}
+          EXPECTED_APPLICATION_ID: ${{ github.event.inputs.release_tag && github.event_name != 'pull_request' && github.event.inputs.is_test_mode != 'true' && 'cn.classfabric.android' || 'cn.classfabric.android.beta' }}
         run: |
           set -euo pipefail
           APK_PATH="$(find ./out -maxdepth 1 -type f -name '*.apk' -print -quit)"
@@ -190,7 +190,7 @@ jobs:
       - name: Remove Android keystore
         if: ${{ always() }}
         shell: bash
-        run: rm -f "$RUNNER_TEMP/classisland.keystore"
+        run: rm -f "$RUNNER_TEMP/classfabric.keystore"
 
       - name: Upload Android APK to artifacts
         uses: actions/upload-artifact@v4
@@ -216,7 +216,7 @@ jobs:
           - os: linux
             arch: x86
     name: Build_Launcher_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
-    container: ${{ matrix.os == 'linux' && 'ghcr.io/classisland/philia-build-image:main' || '' }}
+    container: ${{ matrix.os == 'linux' && 'ghcr.io/classfabric/philia-build-image:main' || '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -298,7 +298,7 @@ jobs:
         with:
           api-token: '${{ secrets.SIGNPATH_TOKEN }}'
           organization-id: '74962648-db7a-4a10-bfdd-0637542e39df'
-          project-slug: 'ClassIsland'
+          project-slug: 'ClassFabric'
           artifact-configuration-slug: 'sign_bundle_v2'
           signing-policy-slug: release-signing
           github-artifact-id: '${{ steps.upload-sign-bundle.outputs.artifact-id }}'
@@ -370,7 +370,7 @@ jobs:
           path: ./installer/setup.iss
           options: |
             /DAppVersion=${{ github.event.inputs.release_tag || '2.0.0.0' }}
-            /FClassIsland_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_installer.exe
+            /FClassFabric_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_installer.exe
             /O${{ github.workspace }}\out_pack
             /DSourceDir=${{ github.workspace }}\out_pack\pack
             /DArch=${{ matrix.arch }}
@@ -387,9 +387,9 @@ jobs:
   build_nupkg:
     runs-on: windows-2022
     env:
-      Solution_Name: ClassIsland.sln
-      Wap_Project_Directory: ClassIsland/ClassIsland
-      Wap_Project_Path: ClassIsland/ClassIsland/ClassIsland.csproj
+      Solution_Name: ClassFabric.sln
+      Wap_Project_Directory: ClassFabric/ClassFabric
+      Wap_Project_Path: ClassFabric/ClassFabric/ClassFabric.csproj
     name: Build Nuget Packages
     steps:
       - name: Checkout

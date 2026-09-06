@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>ClassIsland.Platforms.Abstractions</AssemblyName>
+    <RootNamespace>ClassIsland.Platforms.Abstractions</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ClassFabric.Platforms.Abstractions\ClassFabric.Platforms.Abstractions.csproj" />
+  </ItemGroup>
+</Project>

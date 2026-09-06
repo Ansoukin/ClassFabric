@@ -54,7 +54,7 @@
 - 【主界面】修复主界面在 Linux 下爆闪的问题 ([#1219](https://github.com/ClassIsland/ClassIsland/issues/1219))
 - 【档案编辑器】修复使用触屏编辑科目时，设置的课程条目与预期不符的问题 ([#1220](https://github.com/ClassIsland/ClassIsland/issues/1220))
 - 【应用设置/插件】修复插件页面的点击项目主页按钮无法导航的问题 ([#1203](https://github.com/ClassIsland/ClassIsland/issues/1203))
-- 【启动器】修复应用启动时 ClassIsland.Desktop 不具有可执行权限的问题 ([#1212](https://github.com/ClassIsland/ClassIsland/issues/1212))
+- 【启动器】修复应用启动时 ClassFabric.Desktop 不具有可执行权限的问题 ([#1212](https://github.com/ClassIsland/ClassIsland/issues/1212))
 - 【日志】日志记录器改用不可变栈修复偶发报错
 - 【提醒】修复上课提醒字体大小不跟随主界面设置的问题
 - 【提醒】修复天气预警和滚动提醒在主界面长度更改后滚动被打断的问题

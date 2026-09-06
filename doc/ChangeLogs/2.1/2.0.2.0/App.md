@@ -28,7 +28,7 @@
 - 【天气】允许使用不加密的 HTTP 协议获取天气信息 ([#1569](https://github.com/ClassIsland/ClassIsland/issues/1569)) (([#1570](https://github.com/ClassIsland/ClassIsland/issues/1570)))
 - 【开发】增强调试体验 (([#1621](https://github.com/ClassIsland/ClassIsland/issues/1621)))
 - 【平台/X11】重新移植兼容缩放模式
-- 【示例】移植 ExamplePlugin 到 ClassIsland 2.0
+- 【示例】移植 ExamplePlugin 到 ClassFabric 2.0
 - 【API/附加设置】附加设置附加的节点信息 API
 
 ## 🐛 Bug 修复

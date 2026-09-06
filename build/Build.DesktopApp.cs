@@ -22,7 +22,7 @@ public partial class Build
                 .SetProperty("PublishBuilding", true)
                 .SetProperty("PublishPlatform", OsName)
                 .SetProperty("RuntimeIdentifier", RuntimeIdentifier)
-                .SetProperty("ClassIsland_PlatformTarget", Arch));
+                .SetProperty("ClassFabric_PlatformTarget", Arch));
         });
     
     Target CleanDesktopApp => _ => _
@@ -37,7 +37,7 @@ public partial class Build
                 .SetProperty("PublishBuilding", true)
                 .SetProperty("PublishPlatform", OsName)
                 .SetProperty("RuntimeIdentifier", RuntimeIdentifier)
-                .SetProperty("ClassIsland_PlatformTarget", Arch));
+                .SetProperty("ClassFabric_PlatformTarget", Arch));
         });
 
     Target CompileApp => t => t
@@ -54,9 +54,9 @@ public partial class Build
                 .SetProperty("PublishBuilding", true)
                 .SetProperty("PublishPlatform", OsName)
                 .SetProperty("RuntimeIdentifier", RuntimeIdentifier)
-                .SetProperty("ClassIsland_PlatformTarget", Arch)
+                .SetProperty("ClassFabric_PlatformTarget", Arch)
                 .SetProperty("SelfContained", isSelfContained)
-                .SetProperty("ClassIsland_SelfContained", isSelfContained)
+                .SetProperty("ClassFabric_SelfContained", isSelfContained)
                 .SetProperty("PublishDir", Package == "pkg" ? AppOutputPath : AppPublishPath)
                 .SetProperty("DebUOSOutputFilePath", AppOutputPath / PublishArtifactName + ".deb")
                 .SetProperty("UOSDebVersion", AppVersion)

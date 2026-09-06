@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <Configurations>Debug;Release;Debug_MSIX;Release_MSIX</Configurations>
+    <CreateCipx>true</CreateCipx>
+  </PropertyGroup>
+
+    <PropertyGroup>
+        <ClassFabricPluginSdkVersion>2.0.0.*</ClassFabricPluginSdkVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="ClassFabric.PluginSdk" Version="$(ClassFabricPluginSdkVersion)">
+            <ExcludeAssets>runtime; native</ExcludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+	<ItemGroup>
+	  <None Update="manifest.yml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+
+		<None Update="README.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="icon.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+    
+</Project>

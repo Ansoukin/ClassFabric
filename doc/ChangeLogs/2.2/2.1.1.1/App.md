@@ -11,15 +11,15 @@
 > [!important]
 > 在升级到 2.0 前，建议先阅读[2.0 相关问答（Ⅱ）](https://github.com/ClassIsland/ClassIsland/discussions/1486)和[2.0 相关问答（Ⅰ）](https://github.com/ClassIsland/ClassIsland/discussions/1145)。
 
-2.2 - Misha（米沙） Developer Preview 2
+2.2 - Mikhail（米哈伊尔） Developer Preview 2
 
-由于个人状态不佳，我在近期休息了一段时间。在休息一段时间后，我终于再次捡起了 ClassIsland 的开发工作。在这个版本中，ClassIsland Misha 平台的基础建设工作已基本完成，将在下个版本开始扩大测试范围。
+由于个人状态不佳，我在近期休息了一段时间。在休息一段时间后，我终于再次捡起了 ClassFabric 的开发工作。在这个版本中，ClassFabric Mikhail 平台的基础建设工作已基本完成，将在下个版本开始扩大测试范围。
 
 ## 🚀 新增功能与优化
 
 - 【应用设置/组件】组件库按来源分组展示，区分内置与插件提供 (([#1916](https://github.com/ClassIsland/ClassIsland/issues/1916))) by @WindDrift
 - 【启动器】为启动器添加调试用的实例选择功能
-- 【插件】扩展SupportedOSPlatforms支持平台Android和iOS (Misha) (([#1921](https://github.com/ClassIsland/ClassIsland/issues/1921)))
+- 【插件】扩展SupportedOSPlatforms支持平台Android和iOS (Mikhail) (([#1921](https://github.com/ClassIsland/ClassIsland/issues/1921)))
 - 【插件】插件源添加OSPlatform转换器 (([#1926](https://github.com/ClassIsland/ClassIsland/issues/1926))) by @diann34
 - 【档案】课表支持在特定日期启用或循环启用
 - 【档案】为课程添加启用日期限制

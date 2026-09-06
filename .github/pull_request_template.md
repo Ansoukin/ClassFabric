@@ -1,5 +1,5 @@
 <!--
-感谢您参与 ClassIsland 的贡献！
+感谢您参与 ClassFabric 的贡献！
 
 提交 PR 前请确认:
 1. 已阅读贡献指南:

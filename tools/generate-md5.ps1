@@ -25,7 +25,7 @@ echo $hashes
 
 $json = ConvertTo-Json $hashes -Compress
 
-$summary +=  "`n<!-- CLASSISLAND_PKG_MD5 ${json} -->" 
+$summary +=  "`n<!-- CLASSFABRIC_PKG_MD5 ${json} -->"
 echo $summary > "$path/checksums.md"
 Write-Host "MD5 Summary:" -ForegroundColor Gray
 Write-Host $summary -ForegroundColor Gray

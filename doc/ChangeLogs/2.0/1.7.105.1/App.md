@@ -73,7 +73,7 @@
 - 【行动/提醒】修复自动化中的提醒因从 UI 线程外的线程调用导致提醒无法显示的问题
 - 【自动化】修复自动化在应用安全模式下不能切换配置方案的问题
 - 【自动化】自动化触发器补充安全模式截断
-- 【系统】ClassIsland.Services.MemoryWatchDogService 在非 Windows 环境下返回的数据为0
+- 【系统】ClassFabric.Services.MemoryWatchDogService 在非 Windows 环境下返回的数据为0
 - 【系统】修复顶层效果窗口在显示时没有应用窗口属性的问题 ([#1248](https://github.com/ClassIsland/ClassIsland/issues/1248))
 - 【平台/Windows】修复在显示崩溃通知时发生异常导致无限循环的问题
 - 【平台/Windows】修复在 Windows 下打开文件选择框后，显示 Popup 导致应用冻结的问题 ([#1244](https://github.com/ClassIsland/ClassIsland/issues/1244))

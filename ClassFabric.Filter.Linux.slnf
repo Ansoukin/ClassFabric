@@ -1,0 +1,21 @@
+﻿{
+  "solution": {
+    "path": "ClassFabric.sln",
+    "projects": [
+      "build\\_build.csproj",
+      "ClassFabric.Core\\ClassFabric.Core.csproj",
+      "ClassFabric.Desktop\\ClassFabric.Desktop.csproj",
+      "ClassFabric.DocsGenerator\\ClassFabric.DocsGenerator.csproj",
+      "ClassFabric.ExamplePlugin\\ClassFabric.ExamplePlugin.csproj",
+      "ClassFabric.Launcher\\ClassFabric.Launcher.csproj",
+      "ClassFabric.Platforms.Abstractions\\ClassFabric.Platforms.Abstractions.csproj",
+      "ClassFabric.PluginSdk\\ClassFabric.PluginSdk.csproj",
+      "ClassFabric.Shared.IPC\\ClassFabric.Shared.IPC.csproj",
+      "ClassFabric.Shared\\ClassFabric.Shared.csproj",
+      "ClassFabric\\ClassFabric.csproj",
+      "platforms\\ClassFabric.Platforms.Linux\\ClassFabric.Platforms.Linux.csproj",
+      "vendors\\EdgeTtsSharp\\Edge_tts_sharp\\Edge_tts_sharp.csproj",
+      "vendors\\PhainonDistributionCenter.Shared\\PhainonDistributionCenter.Shared.csproj"
+    ]
+  }
+}

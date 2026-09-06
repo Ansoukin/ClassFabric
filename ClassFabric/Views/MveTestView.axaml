@@ -1,0 +1,148 @@
+<ci:ViewBase xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ci="http://classfabric.tech/schemas/xaml/core"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ClassIsland.Views.MveTestView"
+             Header="Mve Hello!"
+             HostStartupLocation="CenterScreen">
+    <NavigationPage.TopCommandBar>
+        <TextBlock Text="123"/>
+    </NavigationPage.TopCommandBar>
+    <ci:ViewBase.HeaderTemplate>
+        <DataTemplate>
+            <TextBlock>123</TextBlock>
+        </DataTemplate>
+    </ci:ViewBase.HeaderTemplate>
+    <ScrollViewer>
+        <StackPanel Classes="settings-container animated-intro">
+            <StackPanel Spacing="6"
+                        Classes="items-halign-center"
+                        Margin="0 0 0 4">
+                <asyncImageLoader:AdvancedImage Source="https://res.classisland.tech/stickers/3.png"
+                                                Width="72" Height="72" />
+                <TextBlock Text="Welcome to Mikhail View Engine!"
+                           Theme="{StaticResource SubtitleTextBlockStyle}" />
+            </StackPanel>
+
+            <controls:FASettingsExpander Header="带模态显示"
+                                         Description="打开新视图时使用模态显示。">
+                <controls:FASettingsExpander.IconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI PanelSeparateWindowRegular}" />
+                </controls:FASettingsExpander.IconSource>
+                <controls:FASettingsExpander.Footer>
+                    <ToggleSwitch x:Name="ShowModal" />
+                </controls:FASettingsExpander.Footer>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander Header="不允许关闭"
+                                         Description="拦截可取消的关闭请求，并显示关闭事件已拦截提示。">
+                <controls:FASettingsExpander.IconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI LockClosedRegular}" />
+                </controls:FASettingsExpander.IconSource>
+                <controls:FASettingsExpander.Footer>
+                    <ToggleSwitch x:Name="Confirm" />
+                </controls:FASettingsExpander.Footer>
+            </controls:FASettingsExpander>
+
+            <Separator />
+
+            <TextBlock Text="打开视图"
+                       Margin="0 4 0 0"
+                       Theme="{StaticResource SubtitleTextBlockStyle}" />
+
+            <controls:FASettingsExpander Header="在默认视图宿主打开新视图"
+                                         Description="创建 MVE 测试视图，并交由默认视图宿主显示。"
+                                         IsClickEnabled="True"
+                                         Click="ButtonOpenViewDefault_OnClick">
+                <controls:FASettingsExpander.IconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI WindowRegular}" />
+                </controls:FASettingsExpander.IconSource>
+                <controls:FASettingsExpander.ActionIconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI ArrowRightRegular}" />
+                </controls:FASettingsExpander.ActionIconSource>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander Header="在当前视图宿主打开新视图"
+                                         Description="复用当前视图宿主创建并显示 MVE 测试视图。"
+                                         IsClickEnabled="True"
+                                         Click="ButtonOpenViewExistedViewHost_OnClick">
+                <controls:FASettingsExpander.IconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI WindowMultipleRegular}" />
+                </controls:FASettingsExpander.IconSource>
+                <controls:FASettingsExpander.ActionIconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI ArrowRightRegular}" />
+                </controls:FASettingsExpander.ActionIconSource>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander Header="在新视图宿主打开新视图"
+                                         Description="创建新的视图宿主，并在其中显示 MVE 测试视图。"
+                                         IsClickEnabled="True"
+                                         Click="ButtonOpenViewNewViewHost_OnClick">
+                <controls:FASettingsExpander.IconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI WindowNewRegular}" />
+                </controls:FASettingsExpander.IconSource>
+                <controls:FASettingsExpander.ActionIconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI ArrowRightRegular}" />
+                </controls:FASettingsExpander.ActionIconSource>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander Header="测试大图像"
+                                         Description="打开大图像测试视图。"
+                                         IsClickEnabled="True"
+                                         Click="ButtonTestBigImage_OnClick">
+                <controls:FASettingsExpander.IconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI ImageRegular}" />
+                </controls:FASettingsExpander.IconSource>
+                <controls:FASettingsExpander.ActionIconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI ArrowRightRegular}" />
+                </controls:FASettingsExpander.ActionIconSource>
+            </controls:FASettingsExpander>
+
+            <Separator />
+
+            <TextBlock Text="操作上一个视图"
+                       Margin="0 4 0 0"
+                       Theme="{StaticResource SubtitleTextBlockStyle}" />
+
+            <controls:FASettingsExpander Header="复用上个视图(Show)"
+                                         Description="对上一次创建的视图再次调用 Show。"
+                                         IsClickEnabled="True"
+                                         Click="ButtonReuseLastView_OnClick">
+                <controls:FASettingsExpander.IconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI ArrowRepeatAllRegular}" />
+                </controls:FASettingsExpander.IconSource>
+                <controls:FASettingsExpander.ActionIconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI ArrowRightRegular}" />
+                </controls:FASettingsExpander.ActionIconSource>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander Header="复用上个视图(Open)"
+                                         Description="对上一次创建的视图调用 Open。"
+                                         IsClickEnabled="True"
+                                         Click="ButtonOpenLastView_OnClick">
+                <controls:FASettingsExpander.IconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI OpenRegular}" />
+                </controls:FASettingsExpander.IconSource>
+                <controls:FASettingsExpander.ActionIconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI ArrowRightRegular}" />
+                </controls:FASettingsExpander.ActionIconSource>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander Header="关闭上个视图"
+                                         Description="隐藏上一次创建的视图。"
+                                         IsClickEnabled="True"
+                                         Click="ButtonHideLastView_OnClick">
+                <controls:FASettingsExpander.IconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI EyeOffRegular}" />
+                </controls:FASettingsExpander.IconSource>
+                <controls:FASettingsExpander.ActionIconSource>
+                    <ci:FluentIconSource Glyph="{ci:FI ArrowRightRegular}" />
+                </controls:FASettingsExpander.ActionIconSource>
+            </controls:FASettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
+</ci:ViewBase>

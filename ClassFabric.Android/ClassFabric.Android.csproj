@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>24</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BrandType>Production</BrandType>
+    <BrandType Condition="'$(Configuration)' == 'Debug'">Dev</BrandType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BrandType)' == 'Production'">
+    <ApplicationId>cn.classfabric.android</ApplicationId>
+    <ApplicationTitle>ClassFabric</ApplicationTitle>
+    <DefineConstants>$(DefineConstants);Brand_Production</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BrandType)' == 'Beta'">
+    <ApplicationId>cn.classfabric.android.beta</ApplicationId>
+    <ApplicationTitle>ClassFabric (Beta)</ApplicationTitle>
+    <DefineConstants>$(DefineConstants);Brand_Beta</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BrandType)' == 'Dev'">
+    <ApplicationId>cn.classfabric.android.dev</ApplicationId>
+    <ApplicationTitle>ClassFabric (Dev)</ApplicationTitle>
+    <DefineConstants>$(DefineConstants);Brand_Dev</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AndroidManifestPlaceholders>applicationLabel=$(ApplicationTitle);documentsAuthority=$(ApplicationId).documents</AndroidManifestPlaceholders>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassFabric.Platforms.Abstractions\ClassFabric.Platforms.Abstractions.csproj" />
+    <ProjectReference Include="..\ClassFabric\ClassFabric.csproj">
+      <AdditionalProperties>ClassFabricReferencedByAndroid=true</AdditionalProperties>
+    </ProjectReference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Android" Version="$(AvaloniaVersion)"/>
+    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.17.0.2" />
+    <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AndroidResource Remove="Resources\mipmap-*\appicon*.png" />
+    <AndroidResource Include="..\ClassFabric\Assets\Logos\Main.png"
+                     Link="Resources\drawable\appicon_foreground.png"
+                     Condition="'$(BrandType)' == 'Production'" />
+    <AndroidResource Include="..\ClassFabric\Assets\Logos\Beta.png"
+                     Link="Resources\drawable\appicon_foreground.png"
+                     Condition="'$(BrandType)' == 'Beta'" />
+    <AndroidResource Include="..\ClassFabric\Assets\Logos\Dev.png"
+                     Link="Resources\drawable\appicon_foreground.png"
+                     Condition="'$(BrandType)' == 'Dev'" />
+  </ItemGroup>
+
+  <Import Project="../Global.props"/>
+  <Import Project="../AvaloniaShared.props"/>
+</Project>
