@@ -1496,23 +1496,11 @@
                                                                            IconSource="{ci:FluentIconSource &#xE9E4;}"
                                                                            ToolTip.Tip="查看并编辑时间表的基本信息。"
                                                                            Label="时间表信息"/>
-                                                <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xE61D;}"
+                                                <controls:FACommandBarButton Click="ButtonDeleteTimeLayout_OnClick"
+                                                                           IconSource="{ci:FluentIconSource &#xE61D;}"
                                                                            ToolTip.Tip="删除该时间表。"
-                                                                           Label="删除时间表">
-                                                    <controls:FACommandBarButton.Flyout>
-                                                        <Flyout>
-                                                            <StackPanel Spacing="8">
-                                                                <TextBlock FontWeight="Bold">
-                                                                    <Run Text="要删除时间表" />
-                                                                    <Run Text="{Binding $parent[views:ProfileSettingsWindow].ViewModel.SelectedTimeLayout.Name}" />
-                                                                    <Run Text="吗？" />
-                                                                </TextBlock>
-                                                                <TextBlock Text="此操作无法撤销。" />
-                                                                <Button Content="删除" Classes="accent" Click="ButtonDeleteTimeLayout_OnClick"/>
-                                                            </StackPanel>   
-                                                        </Flyout>
-                                                    </controls:FACommandBarButton.Flyout>
-                                                </controls:FACommandBarButton>
+                                                                           IsEnabled="{Binding $parent[views:ProfileSettingsWindow].ViewModel.SelectedTimeLayout, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                                                           Label="删除时间表"/>
                                             </controls:FACommandBar.PrimaryCommands>
                                         </controls:FACommandBar>
                                     </ci:TutorialBarrier>

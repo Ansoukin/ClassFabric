@@ -967,6 +967,11 @@ public partial class ProfileSettingsWindow : ViewBase
     
     private async void ButtonDeleteTimeLayout_OnClick(object sender, RoutedEventArgs e)
     {
+        if (ViewModel.SelectedTimeLayout is null)
+        {
+            return;
+        }
+
         var key = ViewModel.ProfileService.Profile.TimeLayouts
             .FirstOrDefault(x => x.Value == ViewModel.SelectedTimeLayout).Key;
         var c = ViewModel.ProfileService.Profile.ClassPlans.Any(x => x.Value.TimeLayoutId == key);
@@ -986,10 +991,23 @@ public partial class ProfileSettingsWindow : ViewBase
         SentrySdk.Metrics.EmitCounter(eventName, 1,
         [
             new KeyValuePair<string, object>("IsSuccess", "true")
-        ]
-        );
+            ]
+            );
+        var result = await new FAContentDialog()
+        {
+            Title = "删除时间表",
+            Content = $"要删除时间表“{ViewModel.SelectedTimeLayout.Name}”吗？此操作无法撤销。",
+            DefaultButton = FAContentDialogButton.Primary,
+            PrimaryButtonText = "删除",
+            CloseButtonText = "取消"
+        }.ShowAsyncAuto();
+
+        if (result != FAContentDialogResult.Primary)
+        {
+            return;
+        }
+
         ViewModel.ProfileService.Profile.TimeLayouts.Remove(key);
-        FlyoutHelper.CloseAncestorFlyout(sender);
     }
     
     private void PushAddUndo(TimeLayoutItem item, TimeLayout layout)
