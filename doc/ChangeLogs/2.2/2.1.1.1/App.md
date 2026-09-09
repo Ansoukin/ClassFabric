@@ -1,43 +1,14 @@
-# 2.1.1.1
+# ClassFabric 2.2 - MikHail（米哈伊尔） Developer Preview 1
 
-![banner](https://res.classisland.tech/banners/2.2-Misha-DP1.webp)
+这是 ClassFabric 2.2 “MikHail（米哈伊尔）”的首个开发者预览版本。
 
-> [!caution]
-> # 警告！请不要使用此版本
->
-> 当前版本为 2.2 的早期技术预览版本，仅适用于开发者进行插件移植和技术性预览，不要在生产环境使用此版本。请使用[稳定版 2.0.1.1](https://github.com/ClassIsland/ClassIsland/releases/tag/2.0.1.1)。本版本的 Android 版本仍有大量功能未适配，仅作跨平台可行性验证，欢迎在 Issue 中汇报您使用时遇到的问题。
-
-
-> [!important]
-> 在升级到 2.0 前，建议先阅读[2.0 相关问答（Ⅱ）](https://github.com/ClassIsland/ClassIsland/discussions/1486)和[2.0 相关问答（Ⅰ）](https://github.com/ClassIsland/ClassIsland/discussions/1145)。
-
-2.2 - Mikhail（米哈伊尔） Developer Preview 2
-
-由于个人状态不佳，我在近期休息了一段时间。在休息一段时间后，我终于再次捡起了 ClassFabric 的开发工作。在这个版本中，ClassFabric Mikhail 平台的基础建设工作已基本完成，将在下个版本开始扩大测试范围。
+在此版本中，我们正式将项目重命名为 ClassFabric，新增了 ClassIsland 插件兼容层，并修复了档案编辑器中的一个问题。开发者预览版本可能仍存在不稳定或功能不完整的情况，建议在测试环境中使用。
 
 ## 🚀 新增功能与优化
 
-- 【应用设置/组件】组件库按来源分组展示，区分内置与插件提供 (([#1916](https://github.com/ClassIsland/ClassIsland/issues/1916))) by @WindDrift
-- 【启动器】为启动器添加调试用的实例选择功能
-- 【插件】扩展SupportedOSPlatforms支持平台Android和iOS (Mikhail) (([#1921](https://github.com/ClassIsland/ClassIsland/issues/1921)))
-- 【插件】插件源添加OSPlatform转换器 (([#1926](https://github.com/ClassIsland/ClassIsland/issues/1926))) by @diann34
-- 【档案】课表支持在特定日期启用或循环启用
-- 【档案】为课程添加启用日期限制
-- 【顶层效果窗口】移植提醒特效精度功能
-- 【UI】改进 DrawerHost 渲染流畅度及动画
-- 【UI】缓解 WindowViewHost 的内存泄露问题
-- 【UI】优化部分窗口关闭后的内存占用
-- 【UI】为窗口开启前添加加载动画
-- 【UI/换课】在换课界面添加指向调课界面的链接 (([#1823](https://github.com/ClassIsland/ClassIsland/issues/1823))) by @diann34
-- 【UI/档案编辑器】为档案编辑器元素添加拖拽功能 ([#655](https://github.com/ClassIsland/ClassIsland/issues/655))
-- 【API/UI】添加 EnumToIntConverter
+- 【插件】新增 ClassIsland 插件兼容层，并将应用重命名为 ClassFabric（[9786a68](https://github.com/Ansoukin/ClassFabric/commit/9786a685d1c2aa71c43d54f55ab01add9ae5abda）) by [**@Ansoukin**](https://github.com/Ansoukin)
+- 【应用】将控制台 ASCII 艺术字更新为 ClassFabric（[5387f5f](https://github.com/Ansoukin/ClassFabric/commit/5387f5f3)）by [**@Ansoukin**](https://github.com/Ansoukin)
 
 ## 🐛 Bug 修复
 
-- 【插件】修复更新已禁用的插件后被启用的问题 (([#1900](https://github.com/ClassIsland/ClassIsland/issues/1900))) ([#1886](https://github.com/ClassIsland/ClassIsland/issues/1886)) by @diann34
-- 【UI】修复部分 UI 控件的属性类型错误，导致无法显示课程的问题
-- 【UI】修复亮色模式下窗口标题栏无法拖动的问题 ([#1934](https://github.com/ClassIsland/ClassIsland/issues/1934))
-- 【UI】修复使用系统标题栏选项无效的问题
-- 【UI/档案编辑器】修复档案编辑器中的启用规则编辑意外选择空项的问题
-- 【UI/档案编辑器】修复课表群组合框选项在切换抽屉后丢失的问题
-- 【天气】坐标获取城市失败时降低精度 (([#1913](https://github.com/ClassIsland/ClassIsland/issues/1913)))  ([#1912](https://github.com/ClassIsland/ClassIsland/issues/1912)) by @baiyao105
+- 【档案编辑器】修复删除时间表按钮无响应的问题（[5afd475](https://github.com/Ansoukin/ClassFabric/commit/5afd475fcdb122c9823d43ec2b5c458c144e6df5）) by [**@Ansoukin**](https://github.com/Ansoukin)
