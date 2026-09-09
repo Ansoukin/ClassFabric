@@ -44,6 +44,8 @@
                 <!-- <ResourceInclude Source="/Themes/Generic.axaml"/> -->
                 <ResourceInclude Source="/Controls/TimeLine/TimeLineListControl.axaml"/>
                 <ResourceInclude Source="avares://ClassFabric.Core/ThemeBase.axaml"/>
+                <ResourceInclude Source="/Controls/ScheduleWeekEdit/ScheduleWeekEditControl.axaml"/>
+                <ResourceInclude Source="/Controls/ScheduleWeekEdit/ScheduleWeekEditControl.axaml"/>
                 <ResourceInclude Source="/Controls/WeatherIcons/Index.axaml"/>
                 <ResourceInclude Source="/Controls/ScheduleCalendarControl.axaml"/>
             </ResourceDictionary.MergedDictionaries>

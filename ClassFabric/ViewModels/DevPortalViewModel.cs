@@ -48,4 +48,5 @@ public partial class DevPortalViewModel(
     public bool IsTargetDateTimeLoaded => IsTargetDateLoaded && IsTargetTimeLoaded;
 
     [ObservableProperty] private string _styleSelector = "Control";
+    [ObservableProperty] private string? _iconExpression = "";
 }
