@@ -415,12 +415,14 @@ jobs:
 
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
+        if: ${{ github.event.inputs.is_test_mode != 'true' }}
         with:
           key: ${{ secrets.METADATA_DEPLOY_KEY }}
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
 
       - name: Publish App
         shell: pwsh
+        if: ${{ github.event.inputs.is_test_mode != 'true' }}
         env:
           S3_Bucket: ${{ vars.S3_BUCKET }}
           S3_Endpoint: ${{ vars.S3_ENDPOINT }}
