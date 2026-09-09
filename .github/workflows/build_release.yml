@@ -19,12 +19,10 @@ on:
 
 env:
   PDC_CLIENT_VERSION: 1.0.1.0
-  MACOS_DOTNET_SDK_VERSION: 10.0.302
-  MACOS_XCODE_PATH: /Applications/Xcode_26.6.app/Contents/Developer
 
 jobs:
   build_app:
-    runs-on: ${{ matrix.os == 'linux' &&  'ubuntu-24.04' || ( matrix.os == 'macos' && 'macos-26' || 'windows-2022' ) }}
+    runs-on: windows-2022
     env:
       build_id: appBase_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
       artifact_name: out_${{ matrix.package == 'folder' &&  'appBase' || 'app' }}_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
@@ -33,25 +31,9 @@ jobs:
     strategy:
       matrix:
         build_type: ['full', 'selfContained']
-        package: ['folder', 'deb']
+        package: ['folder']
         arch: ['x64', 'x86', 'arm64']
-        os: ['windows', 'linux']
-        exclude: 
-          - os: linux
-            arch: x86
-          - os: windows
-            package: deb
-          - os: linux
-            build_type: full  # Linux 上安装 .NET 运行时很不方便，故使用自包含打包。
-        include:
-          - os: macos
-            package: pkg
-            build_type: selfContained
-            arch: arm64
-          - os: macos
-            package: pkg
-            build_type: selfContained
-            arch: x64
+        os: ['windows']
     name: Build_AppBase_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
     steps:
       - name: Checkout
@@ -67,18 +49,8 @@ jobs:
       - name: Install .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ matrix.os == 'macos' && env.MACOS_DOTNET_SDK_VERSION || '10.0.x' }}
-      
-      - name: Install Macos workload
-        if: ${{ matrix.os == 'macos' }}
-        run: |
-          test "$(dotnet --version)" = "$MACOS_DOTNET_SDK_VERSION"
-          sudo xcode-select -s "$MACOS_XCODE_PATH"
-          xcodebuild -version
-          xcodebuild -showsdks
-          dotnet workload install macos --version "$MACOS_DOTNET_SDK_VERSION"
-          test "$(dotnet workload --version)" = "$MACOS_DOTNET_SDK_VERSION"
-        
+          dotnet-version: 10.0.x
+
       - name: Add GitHub Package Registry
         run: dotnet nuget add source --username ClassFabric --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/ClassIsland/index.json"
         
@@ -97,7 +69,7 @@ jobs:
           osName: ${{ matrix.os }}
           appVersion: ${{ steps.tagName.outputs.tag }} 
           buildName: ${{ matrix.package == 'folder' &&  'appBase' || 'app' }}  # 打包版本的构建将在这一步直接产生完整的包体，无需经过分装
-        run: ${{ matrix.os == 'windows' && 'pwsh -ep bypass ./build.ps1 PublishApp' || './build.sh PublishApp' }}
+        run: pwsh -ep bypass ./build.ps1 PublishApp
       
       - name: Upload Unsigned APP to artifacts
         id: upload-unsigned-artifact
@@ -107,11 +79,9 @@ jobs:
           path: |
             ./out/*.zip
             ./out/*.appx
-            ./out/*.deb
-            ./out/*.pkg
 
   build_android:
-    runs-on: ubuntu-24.04
+    if: ${{ false }}
     env:
       artifact_name: out_app_android_${{ matrix.arch }}_monoaot_apk
       arch: ${{ matrix.arch }}
@@ -200,7 +170,7 @@ jobs:
           if-no-files-found: error
             
   build_launcher:
-    runs-on: ${{ matrix.os == 'windows' && 'windows-2022' || 'ubuntu-24.04' }}
+    runs-on: windows-2022
     env:
       build_id: launcher_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
       artifact_name: out_launcher_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
@@ -211,12 +181,8 @@ jobs:
         build_type: ['aot']
         package: ['singleFile']
         arch: ['x64', 'x86', 'arm64']
-        os: ['windows', 'linux']
-        exclude:
-          - os: linux
-            arch: x86
+        os: ['windows']
     name: Build_Launcher_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
-    container: ${{ matrix.os == 'linux' && 'ghcr.io/classfabric/philia-build-image:main' || '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -234,12 +200,6 @@ jobs:
           dotnet-version: |
             10.0.x
 
-      - name: Setup philia Environment
-        if: ${{ matrix.os == 'linux' }}
-        run: |
-          select-objcopy ${{ matrix.arch }}
-          git config --global --add safe.directory '*'
-
       - name: ☢️ Nuke
         env:
           buildType: ${{ matrix.build_type }}
@@ -248,7 +208,7 @@ jobs:
           arch: ${{ matrix.arch }}
           osName: ${{ matrix.os }}
           buildName: launcher
-        run: ${{ matrix.os == 'windows' && 'pwsh -ep bypass ./build.ps1 PublishLauncher' || './build.sh PublishLauncher' }} 
+        run: pwsh -ep bypass ./build.ps1 PublishLauncher
           
       - name: Upload Unsigned APP to artifacts
         id: upload-unsigned-artifact
@@ -314,7 +274,7 @@ jobs:
           path: ./out_signed/*
             
   pack_app:
-    runs-on: ${{ matrix.os == 'windows' && 'windows-2022' || 'ubuntu-latest' }}
+    runs-on: windows-2022
     needs: [ sign_1 ]
     if: ${{ always() && success('build_app') && success('build_launcher') }}
     env:
@@ -327,16 +287,10 @@ jobs:
         build_type: ['full', 'selfContained']
         package: ['folder', 'installer']
         arch: ['x64', 'x86', 'arm64']
-        os: ['windows', 'linux']
+        os: ['windows']
         exclude:
-          - os: linux
-            arch: x86
-          - os: linux
-            package: installer
           - build_type: full
             package: installer
-          - os: linux
-            build_type: full  # Linux 上安装 .NET 运行时很不方便，故使用自包含打包。
     name: Pack_App_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
     steps:
       - name: Checkout
@@ -386,6 +340,7 @@ jobs:
           
   build_nupkg:
     runs-on: windows-2022
+    if: ${{ false }}
     env:
       Solution_Name: ClassFabric.sln
       Wap_Project_Directory: ClassFabric/ClassFabric
@@ -438,8 +393,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       isTestMode: ${{ github.event.inputs.is_test_mode == 'true' }}
-    if: ${{ always() && success('pack_app') && success('build_nupkg') && success('build_android') && github.event.inputs.release_tag && github.event_name != 'pull_request' }}
-    needs: [ pack_app, build_nupkg, build_android ]
+    if: ${{ always() && success('pack_app') && github.event.inputs.release_tag && github.event_name != 'pull_request' }}
+    needs: [ pack_app ]
     concurrency:
       group: "publish-public"
     environment:
@@ -485,7 +440,7 @@ jobs:
       - name: Upload APP to release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "./out/*.zip,./out/*.appx,./out/*.deb,./out/*.pkg,./out/*.apk"
+          artifacts: "./out/*.zip,./out/*.appx,./out/*.exe,./out/*.deb,./out/*.pkg,./out/*.apk"
           draft: true
           bodyFile: ./out/ChangeLogs.md
           token: ${{ secrets.GITHUB_TOKEN }}
