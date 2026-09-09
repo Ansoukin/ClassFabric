@@ -81,6 +81,7 @@ jobs:
             ./out/*.appx
 
   build_android:
+    runs-on: ubuntu-24.04
     if: ${{ false }}
     env:
       artifact_name: out_app_android_${{ matrix.arch }}_monoaot_apk
