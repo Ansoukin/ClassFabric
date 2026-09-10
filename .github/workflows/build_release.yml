@@ -16,6 +16,24 @@ on:
         description: '是否处于测试发布模式'
         required: false
         type: boolean
+      publish_only:
+        description: '仅发布现有构建产物（跳过所有构建作业）'
+        required: false
+        default: false
+        type: boolean
+      source_run_id:
+        description: '仅发布模式下复用的源运行 ID'
+        required: false
+        type: string
+      release_name:
+        description: '仅发布模式下的发布标题'
+        required: false
+        type: string
+      is_prerelease:
+        description: '仅发布模式下是否标记为预发布版本'
+        required: false
+        default: true
+        type: boolean
 
 env:
   PDC_CLIENT_VERSION: 1.0.1.0
@@ -23,6 +41,7 @@ env:
 jobs:
   build_app:
     runs-on: windows-2022
+    if: ${{ github.event.inputs.publish_only != 'true' }}
     env:
       build_id: appBase_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
       artifact_name: out_${{ matrix.package == 'folder' &&  'appBase' || 'app' }}_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
@@ -172,6 +191,7 @@ jobs:
             
   build_launcher:
     runs-on: windows-2022
+    if: ${{ github.event.inputs.publish_only != 'true' }}
     env:
       build_id: launcher_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
       artifact_name: out_launcher_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
@@ -222,7 +242,7 @@ jobs:
   sign_1:
     name: Sign_1
     runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.release_tag && github.event_name != 'pull_request' && github.event.inputs.is_test_mode != 'true' }}
+    if: ${{ github.event.inputs.release_tag && github.event_name != 'pull_request' && github.event.inputs.is_test_mode != 'true' && github.event.inputs.publish_only != 'true' }}
     needs: [ build_app, build_launcher ]
     steps:
       - name: Checkout
@@ -277,7 +297,7 @@ jobs:
   pack_app:
     runs-on: windows-2022
     needs: [ sign_1 ]
-    if: ${{ always() && success('build_app') && success('build_launcher') }}
+    if: ${{ always() && success('build_app') && success('build_launcher') && github.event.inputs.publish_only != 'true' }}
     env:
       build_id: app_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
       artifact_name: out_app_${{ matrix.os }}_${{ matrix.arch }}_${{ matrix.build_type }}_${{ matrix.package }}
@@ -394,7 +414,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       isTestMode: ${{ github.event.inputs.is_test_mode == 'true' }}
-    if: ${{ always() && success('pack_app') && github.event.inputs.release_tag && github.event_name != 'pull_request' }}
+    if: ${{ always() && success('pack_app') && github.event.inputs.release_tag && github.event_name != 'pull_request' && github.event.inputs.publish_only != 'true' }}
     needs: [ pack_app ]
     concurrency:
       group: "publish-public"
@@ -412,6 +432,19 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: ./out_artifacts
+
+      - name: Prepare Artifacts for Test Mode
+        if: ${{ github.event.inputs.is_test_mode == 'true' }}
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          ./tools/release-gen/init-artifacts.ps1
+
+          $changelogPath = "doc/ChangeLogs/${{ github.event.inputs.primary_version }}/${{ github.event.inputs.release_tag }}/App.md"
+          if (-not (Test-Path $changelogPath)) {
+              throw "找不到发布变更日志：$changelogPath"
+          }
+          Copy-Item -Path $changelogPath -Destination ./out/ChangeLogs.md -Force
 
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
@@ -458,3 +491,62 @@ jobs:
           ls
           cd out_artifacts/out_nupkgs
           dotnet nuget push *.nupkg -k $env:NUGET_KEY -s https://api.nuget.org/v3/index.json --skip-duplicate
+
+  publish_existing:
+    name: Publish_Existing_Artifacts
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.publish_only == 'true' && github.event.inputs.release_tag != '' && github.event.inputs.source_run_id != '' }}
+    concurrency:
+      group: "publish-public"
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.inputs.release_tag }}
+
+      - name: Download Packaged Windows Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.inputs.source_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: "out_app_windows_*"
+          path: ./out_artifacts
+          merge-multiple: true
+
+      - name: Prepare Release Assets
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          New-Item -Path ./out -ItemType Directory -Force | Out-Null
+
+          $changelogPath = "doc/ChangeLogs/${{ github.event.inputs.primary_version }}/${{ github.event.inputs.release_tag }}/App.md"
+          if (-not (Test-Path $changelogPath)) {
+              throw "找不到发布变更日志：$changelogPath"
+          }
+          Copy-Item -Path $changelogPath -Destination ./out/ChangeLogs.md -Force
+
+          $assets = @(Get-ChildItem -Path ./out_artifacts -File)
+          if ($assets.Count -eq 0) {
+              throw "源运行未返回可发布的 Windows 产物。"
+          }
+
+          $assets | ForEach-Object {
+              Copy-Item -Path $_.FullName -Destination ./out/$($_.Name) -Force
+              Write-Host "已准备发布资产：$($_.Name)"
+          }
+
+      - name: Upload Assets to Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "./out/*.zip,./out/*.exe"
+          bodyFile: "./out/ChangeLogs.md"
+          allowUpdates: true
+          draft: true
+          prerelease: ${{ github.event.inputs.is_prerelease != 'false' }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.event.inputs.release_tag }}
+          name: ${{ github.event.inputs.release_name || github.event.inputs.release_tag }}
