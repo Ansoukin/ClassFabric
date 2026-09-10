@@ -301,7 +301,7 @@ public partial class App
             Id = "classfabric.classic",
             Name = "经典",
             Description = "ClassFabric 的经典外观。",
-            Banner = "avares://ClassFabric/Assets/XamlThemePreviews/classfabric.classic.png",
+            Banner = "avares://ClassFabric/Assets/XamlThemePreviews/ClassFabric.classic.png",
             Author = "ClassFabric",
             Url = "https://github.com/ClassIsland/ClassIsland"
         });
@@ -310,7 +310,7 @@ public partial class App
             Id = "classfabric.fluent",
             Name = "Fluent",
             Description = "焕然一新的 ClassFabric 外观。",
-            Banner = "avares://ClassFabric/Assets/XamlThemePreviews/classfabric.fluent.png",
+            Banner = "avares://ClassFabric/Assets/XamlThemePreviews/ClassFabric.fluent.png",
             Author = "ClassFabric",
             Url = "https://github.com/ClassIsland/ClassIsland",
             VerticalSafeAreaPx = 20
@@ -318,9 +318,9 @@ public partial class App
         // 教程
         if (System.OperatingSystem.IsWindows() || System.OperatingSystem.IsMacOS() || System.OperatingSystem.IsLinux())
         {
-            // services.AddTutorialGroupByUri(new Uri("avares://ClassFabric/Assets/Tutorials/classfabric.test.json"));
-            // services.AddTutorialGroupByUri(new Uri("avares://ClassFabric/Assets/Tutorials/classfabric.sp.json"));
-            services.AddTutorialGroupByUri(new Uri("avares://ClassFabric/Assets/Tutorials/classfabric.getStarted.json"));
+            // services.AddTutorialGroupByUri(new Uri("avares://ClassFabric/Assets/Tutorials/ClassFabric.test.json"));
+            // services.AddTutorialGroupByUri(new Uri("avares://ClassFabric/Assets/Tutorials/ClassFabric.sp.json"));
+            services.AddTutorialGroupByUri(new Uri("avares://ClassFabric/Assets/Tutorials/ClassFabric.getStarted.json"));
         }
         // Plugins
         if (!ApplicationCommand.Safe && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV1) && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV2))

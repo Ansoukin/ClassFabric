@@ -80,7 +80,7 @@ public static class ShortcutHelpers
                 ".local/share/applications/cn.classfabric.app.desktop") : path;
 
         var raw = await new StreamReader(
-                AssetLoader.Open(new Uri("avares://ClassFabric/Assets/ShortcutTemplates/cn.classfabric.app.desktop")))
+                AssetLoader.Open(new Uri("avares://ClassFabric/Assets/ShortcutTemplates/cn.ClassFabric.app.desktop")))
             .ReadToEndAsync();
         var args = isAutostart ? "--autostartup" : "--uri %u";
         var final = string.Format(raw, AppBase.AppVersion, AppBase.ExecutingEntrance, args);
