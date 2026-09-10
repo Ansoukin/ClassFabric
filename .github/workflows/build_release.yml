@@ -30,7 +30,16 @@ on:
         required: false
         type: string
       is_prerelease:
-        description: '仅发布模式下是否标记为预发布版本'
+        description: '是否将发布标记为预发布版本'
+        required: false
+        default: true
+        type: boolean
+      source_ref:
+        description: '手动发布时的源码引用（分支或提交），留空则使用发布标签'
+        required: false
+        type: string
+      is_draft:
+        description: '是否创建或保留草稿发布'
         required: false
         default: true
         type: boolean
@@ -60,7 +69,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.release_tag }}
+          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.source_ref || github.event.inputs.release_tag }}
       
       - name: List files
         run: ls
@@ -86,7 +95,7 @@ jobs:
           ApiSigningKeyPs: ${{ secrets.API_SIGNING_KEY_PS }}
           arch: ${{ matrix.arch }}
           osName: ${{ matrix.os }}
-          appVersion: ${{ steps.tagName.outputs.tag }} 
+          appVersion: ${{ github.event.inputs.release_tag || steps.tagName.outputs.tag }} 
           buildName: ${{ matrix.package == 'folder' &&  'appBase' || 'app' }}  # 打包版本的构建将在这一步直接产生完整的包体，无需经过分装
         run: pwsh -ep bypass ./build.ps1 PublishApp
       
@@ -115,7 +124,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.release_tag }}
+          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.source_ref || github.event.inputs.release_tag }}
 
       - name: Install .NET Core
         uses: actions/setup-dotnet@v3
@@ -153,7 +162,7 @@ jobs:
           AndroidSigningStorePass: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           AndroidSigningKeyPass: ${{ secrets.ANDROID_KEY_PASSWORD }}
           AndroidSigningKeyAlias: ${{ vars.ANDROID_KEY_ALIAS }}
-          appVersion: ${{ steps.tagName.outputs.tag }}
+          appVersion: ${{ github.event.inputs.release_tag || steps.tagName.outputs.tag }}
           arch: ${{ matrix.arch }}
           osName: android
           package: apk
@@ -210,7 +219,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.release_tag }}
+          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.source_ref || github.event.inputs.release_tag }}
 
       - name: List files
         run: ls
@@ -250,7 +259,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.release_tag }}
+          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.source_ref || github.event.inputs.release_tag }}
           
       - name: Get commit hash
         uses: prompt/actions-commit-hash@v3
@@ -319,7 +328,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.release_tag }}
+          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.source_ref || github.event.inputs.release_tag }}
           
       - name: Download Artifacts
         uses: actions/download-artifact@v4
@@ -373,7 +382,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.release_tag }} 
+          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.source_ref || github.event.inputs.release_tag }} 
 
       - name: List files
         run: ls
@@ -426,7 +435,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.release_tag }} 
+          ref: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.source_ref || github.event.inputs.release_tag }} 
           
       - name: Download Artifacts
         uses: actions/download-artifact@v4
@@ -477,10 +486,14 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "./out/*.zip,./out/*.appx,./out/*.exe,./out/*.deb,./out/*.pkg,./out/*.apk"
-          draft: true
+          allowUpdates: true
+          removeArtifacts: true
+          draft: ${{ github.event.inputs.is_draft != 'false' }}
+          prerelease: ${{ github.event.inputs.is_prerelease != 'false' }}
           bodyFile: ./out/ChangeLogs.md
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.event_name != 'workflow_dispatch' && github.ref || github.event.inputs.release_tag }} 
+          tag: ${{ github.event.inputs.release_tag || github.ref }}
+          name: ${{ github.event.inputs.release_name || github.event.inputs.release_tag }}
           
       - name: Upload Nuget packages to NuGet Gallery
         if: ${{ github.event_name != 'pull_request' && github.event.inputs.is_test_mode != 'true' }}
