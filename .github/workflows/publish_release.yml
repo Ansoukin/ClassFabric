@@ -1,0 +1,93 @@
+name: Publish Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: '包含已完成发布产物的源运行 ID'
+        required: true
+        type: string
+      release_tag:
+        description: '发布标签'
+        required: true
+        type: string
+      primary_version:
+        description: '主发布版本'
+        required: true
+        type: string
+      release_name:
+        description: '发布标题'
+        required: false
+        type: string
+      is_draft:
+        description: '是否创建草稿发布'
+        required: false
+        default: true
+        type: boolean
+      is_prerelease:
+        description: '是否标记为预发布版本'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  publish:
+    name: Publish_Existing_Artifacts
+    runs-on: ubuntu-latest
+    concurrency:
+      group: "publish-public"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          ref: ${{ inputs.release_tag }}
+
+      - name: Download Packaged Windows Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: "out_app_windows_*"
+          path: ./out_artifacts
+          merge-multiple: true
+
+      - name: Prepare Release Assets
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          New-Item -Path ./out -ItemType Directory -Force | Out-Null
+
+          $changelogPath = Join-Path -Path . -ChildPath "doc/ChangeLogs/${{ inputs.primary_version }}/${{ inputs.release_tag }}/App.md"
+          if (-not (Test-Path $changelogPath)) {
+              throw "找不到发布变更日志：$changelogPath"
+          }
+
+          Copy-Item -Path $changelogPath -Destination ./out/ChangeLogs.md -Force
+
+          $assets = @(Get-ChildItem -Path ./out_artifacts -File)
+          if ($assets.Count -eq 0) {
+              throw "源运行未返回可发布的 Windows 产物。"
+          }
+
+          $assets | ForEach-Object {
+              Copy-Item -Path $_.FullName -Destination ./out/$($_.Name) -Force
+              Write-Host "已准备发布资产：$($_.Name)"
+          }
+
+      - name: Upload Assets to Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "./out/*.zip,./out/*.exe"
+          bodyFile: "./out/ChangeLogs.md"
+          allowUpdates: true
+          draft: ${{ inputs.is_draft }}
+          prerelease: ${{ inputs.is_prerelease }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ inputs.release_tag }}
+          name: ${{ inputs.release_name || inputs.release_tag }}
