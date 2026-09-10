@@ -546,7 +546,7 @@ jobs:
           artifacts: "./out/*.zip,./out/*.exe"
           bodyFile: "./out/ChangeLogs.md"
           allowUpdates: true
-          replacesPreviousArtifacts: true
+          removeArtifacts: true
           draft: true
           prerelease: ${{ github.event.inputs.is_prerelease != 'false' }}
           token: ${{ secrets.GITHUB_TOKEN }}
