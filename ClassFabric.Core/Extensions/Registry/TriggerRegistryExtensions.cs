@@ -2,6 +2,7 @@
 using ClassIsland.Core.Abstractions.Controls;
 using ClassIsland.Core.Abstractions.Services;
 using ClassIsland.Core.Attributes;
+using ClassIsland.Core.Helpers.Automation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ClassIsland.Core.Extensions.Registry;
@@ -53,6 +54,7 @@ public static class TriggerRegistryExtensions
 
         info.TriggerType = triggerType;
         info.SettingsControlType = settingsType;
+        info.Category = AutomationCategoryHelper.Resolve(triggerType, info.Id);
         IAutomationService.RegisteredTriggers.Add(info);
         return info;
     }

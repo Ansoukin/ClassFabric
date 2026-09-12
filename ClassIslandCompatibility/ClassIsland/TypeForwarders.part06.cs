@@ -17,6 +17,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.Rules.TimeStateRuleSettings))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.Rules.WindowStatusRuleSettings))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.ScheduleClassPosition))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Models.ScheduleWeekOccurrence))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.Selectable<>))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.Settings))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.Tutorial.TutorialSettings))]

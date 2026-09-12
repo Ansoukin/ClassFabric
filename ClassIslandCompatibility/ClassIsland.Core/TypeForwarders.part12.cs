@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.IconControl.IconControlIconKind))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.IconExpressionEditor))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.VerticalDrawerOpenState))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Enums.ApplicationLifetime))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Enums.AttachedSettingsControlState))]

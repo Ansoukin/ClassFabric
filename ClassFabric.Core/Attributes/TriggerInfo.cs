@@ -36,4 +36,9 @@ public class TriggerInfo(string id, string name, string iconExpression = "\uED55
     /// 设置界面类型
     /// </summary>
     public Type? SettingsControlType { get; internal set; }
+
+    /// <summary>
+    /// 触发器分类。
+    /// </summary>
+    public string Category { get; internal set; } = "";
 }

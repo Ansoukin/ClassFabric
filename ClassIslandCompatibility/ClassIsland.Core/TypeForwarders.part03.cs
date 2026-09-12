@@ -16,6 +16,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Attributes.AttachedSettingsControlInfo))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Attributes.AttachedSettingsUsage))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Attributes.AuthorizeProviderInfo))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Attributes.AutomationCategoryAttribute))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Attributes.ComponentInfo))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Attributes.ContainerComponent))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Attributes.FullWidthPageAttribute))]

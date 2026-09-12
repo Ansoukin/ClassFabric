@@ -20,6 +20,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Extensions.UI.FAContentDialogExtensions))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Extensions.UI.VisualsExtensions))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Extensions.UI.WindowExtensions))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.Automation.AutomationCategoryHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.ChecksumHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.LogMaskingHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.MarkdownConvertHelper))]

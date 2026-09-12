@@ -47,4 +47,9 @@ public class ActionInfo(string id, string name, string? iconExpression = null, b
     /// 在「添加行动」菜单添加默认项的根菜单组。
     /// </summary>
     public string DefaultGroupToMenu { get; } = defaultGroupToMenu;
+
+    /// <summary>
+    /// 行动提供方分类。
+    /// </summary>
+    public string Category { get; internal set; } = "";
 }

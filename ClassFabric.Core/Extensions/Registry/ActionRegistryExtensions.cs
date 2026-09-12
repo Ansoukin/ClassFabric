@@ -4,6 +4,7 @@ using ClassIsland.Core.Abstractions.Automation;
 using ClassIsland.Core.Abstractions.Controls;
 using ClassIsland.Core.Abstractions.Services;
 using ClassIsland.Core.Attributes;
+using ClassIsland.Core.Helpers.Automation;
 using ClassIsland.Core.Models.Automation;
 using Microsoft.Extensions.DependencyInjection;
 namespace ClassIsland.Core.Extensions.Registry;
@@ -46,6 +47,7 @@ public static class ActionRegistryExtensions
             throw new InvalidOperationException($"无法注册行动提供方 {actionType.FullName}: 未标注 ActionInfo 特性。");
 
         info.IsRevertable = HasOverriddenOnRevert(actionType);
+        info.Category = AutomationCategoryHelper.Resolve(actionType, info.Id, info.DefaultGroupToMenu);
 
         if (!IActionService.ActionInfos.TryAdd(info.Id, info))
             throw new InvalidOperationException($"无法注册行动提供方 {actionType.FullName}: ID {info.Id} 已被占用。");
