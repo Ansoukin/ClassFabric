@@ -80,6 +80,10 @@ Never run a blanket rename of `ClassIsland` to `ClassFabric`. The old name is in
 - Any push triggers a full build through that workflow. Unless a full build is actually wanted, cancel the push-triggered run after pushing.
 - The workflow accepts `workflow_dispatch` inputs including `release_tag`, `primary_version`, `is_test_mode`, `publish_only`, `source_run_id`, `release_name`, `is_prerelease`, `source_ref` and `is_draft`.
 
+## Remotes
+- `origin` is `Ansoukin/ClassFabric`: this fork, and the only remote anything is ever pushed to. `upstream` is `ClassIsland/ClassIsland`, the parent project, kept read-only for tracking it. Never push to `upstream`.
+- `gh` resolves this checkout to `upstream`, so pass `-R Ansoukin/ClassFabric` to every `gh` command. Without it you read the parent project's runs, releases and issues and silently miss this fork's own; a push-triggered Release run has already been missed that way once.
+
 ## Tests And Verification
 - No test projects in the solution; do not add one unless explicitly asked. Verify with `dotnet build <project>` instead.
 - After code changes, run at least one compile check; for app changes, use `dotnet build ClassFabric.Desktop/ClassFabric.Desktop.csproj -c Debug` rather than NUKE.
