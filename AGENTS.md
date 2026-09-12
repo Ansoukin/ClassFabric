@@ -5,6 +5,7 @@
 - Runtime app entrypoint: `ClassFabric.Desktop/Program.cs`; Avalonia app/library: `ClassFabric/`; shared UI/services: `ClassFabric.Core/`.
 - Android entry project: `ClassFabric.Android/`; it targets `net10.0-android` and shares the Avalonia application code from `ClassFabric/`.
 - Platform services: `platforms/ClassFabric.Platforms.{Windows,Linux,MacOs}`, wired by `CrossPlatformProps.props`.
+- Plugin compatibility shims: `ClassIslandCompatibility/` holds six forwarder-only projects that emit the legacy assembly names (`ClassIsland`, `ClassIsland.Core`, `ClassIsland.Shared`, `ClassIsland.Shared.IPC`, `ClassIsland.Platforms.Abstractions`, `ClassIsland.PluginSdk`). They contain only `TypeForwardedTo` declarations pointing at the renamed `ClassFabric.*` implementations, so plugins compiled against the old assembly names keep loading. `ClassFabric.Desktop` references them. Do not delete them, and do not put implementations in them.
 - `ClassFabric.Shared` and `ClassFabric.Shared.IPC` target `net10.0;net472` on Windows and `net10.0` elsewhere; avoid APIs unavailable on `net472` in shared code.
 - Most app projects target `net10.0`; `ClassFabric.Launcher` intentionally remains on `net9.0`.
 
@@ -54,6 +55,14 @@ When instructions conflict, follow this order:
   - Inform the user before making the change.
   - Consider backward-compatible alternatives or migration paths.
 
+### Naming Is Load-Bearing
+Never run a blanket rename of `ClassIsland` to `ClassFabric`. The old name is intentionally kept in several places, and replacing it breaks the plugin ecosystem.
+
+- `ClassFabric.Core`, `ClassFabric.Shared`, `ClassFabric.Shared.IPC` and `ClassFabric.Platforms.Abstractions` deliberately keep their `ClassIsland.*` namespaces so the compatibility shims can forward them. Renaming these types breaks every plugin.
+- Do not rename or remove: upstream repository and documentation links, upstream dependency package IDs (`ClassIsland.SimpleGitInfoGenerator`, `ClassIsland.Markdown.Avalonia`, …), the GitHub Package Registry source `https://nuget.pkg.github.com/ClassIsland/index.json`, the `vendors/EdgeTtsSharp` branch name, licence and copyright headers, or the ClassIsland v1 data-import symbols (`ClassIsland1ImportProvider`, `ClassIslandV1ProfileTransferHelper`).
+- Types under `ClassIsland.Core.*` are plugin-visible API. Never add an optional parameter to an existing constructor: that creates a new signature, and already-compiled plugins throw `MissingMethodException` while their attributes are parsed. Add an overload or a separate attribute instead.
+- After any rename work, review `git grep -I -i "ClassIsland"` and confirm every remaining hit is intentional.
+
 ## Platform Targeting
 - `CrossPlatformProps.props` auto-selects platform constants from host OS for normal builds; release builds override this with `PublishBuilding=true` and `PublishPlatform=<os>`.
 - `ClassFabric.Desktop` conditionally references one platform based on `Platforms_Windows`, `Platforms_Linux`, `Platforms_MacOs`.
@@ -65,8 +74,14 @@ When instructions conflict, follow this order:
 - Ignore `*_wpftmp.csproj` files.
 - CsWin32 inputs: `NativeMethods.txt`/`NativeMethods.json`.
 
+## Changelog And Release CI
+- Release notes live at `doc/ChangeLogs/<primary_version>/<release_tag>/App.md` (for example `doc/ChangeLogs/2.2/2.1.1.1/App.md`). The release workflow copies that file into the GitHub Release body, so a release fails if it is missing.
+- Releases are produced by `.github/workflows/build_release.yml`, never created by hand.
+- Any push triggers a full build through that workflow. Unless a full build is actually wanted, cancel the push-triggered run after pushing.
+- The workflow accepts `workflow_dispatch` inputs including `release_tag`, `primary_version`, `is_test_mode`, `publish_only`, `source_run_id`, `release_name`, `is_prerelease`, `source_ref` and `is_draft`.
+
 ## Tests And Verification
-- No test projects in solution; prefer `dotnet build <project>`.
+- No test projects in the solution; do not add one unless explicitly asked. Verify with `dotnet build <project>` instead.
 - After code changes, run at least one compile check; for app changes, use `dotnet build ClassFabric.Desktop/ClassFabric.Desktop.csproj -c Debug` rather than NUKE.
 - If automated tests become available, run the relevant automated tests too.
 - If automated testing is not available, tell the user what related behavior still needs manual verification.
@@ -102,6 +117,7 @@ Red flags — STOP and follow process:
 2. Follow MVVM and the existing CommunityToolkit.Mvvm (`ObservableObject`/`ObservableRecipient`) and DynamicData patterns.
 3. Composition over inheritance.
 4. Keep ViewModels platform-independent.
+5. Avalonia `avares://` asset paths are case-sensitive: a path that differs from the file on disk only by letter case fails at runtime, not at compile time. This has already caused a startup crash once, so check the exact case of every asset path you add or change.
 
 ## User-Facing Diagnostic UI
 - Write troubleshooting, recovery, configuration-error, and diagnostic UI that is accessible to ordinary users from the user's perspective, with clear outcomes and actionable next steps.
@@ -126,10 +142,14 @@ Comments should explain intent, constraints, workarounds, or non-obvious decisio
 When unsure: ask the user.
 
 ## Contribution Conventions
+- **Ask before committing or pushing.** Before running `git commit` or `git push`, use the Ask user input tool (`request_user_input`) to obtain the user's approval. The question must state the proposed Conventional Commit type (such as `feat` or `fix`) and a one-line summary of the change, so the user can confirm or revise them before anything is committed or pushed. If that tool is unavailable in the current session, ask in plain text and wait for the reply. Never commit or push unilaterally — not even for small, already-verified changes, or for changes the user explicitly asked for.
+- **Describe the change, not the project plan.** A commit message must state what actually changed in the code or assets, in one line. Never write milestone, phase or progress language such as `完成W1阶段开发`, `M2 收尾`, `阶段性提交` or `按计划推进`: it tells a future reader nothing about the change, and it leaks an internal roadmap into permanent history. Prefer `feat(api): 新增 AutomationCategoryAttribute 与分类回退链` over `feat: 完成W0元数据基建`.
 - Use Conventional Commits with scopes from `doc/Contributing/Scopes.md`.
 - Feature work → `master`; fixes → maintenance branch.
 - Before writing commit messages, read `doc/Contributing/Scopes.md` to get valid scope names.
 - Before contributing code, read `CONTRIBUTING.md` to understand contribution guidelines.
+- Commit as `Ansoukin <caisenfull@outlook.com>`, as both author and committer.
+- Never rewrite history, force-push, or delete branches.
 
 ## Release Packaging
 Only when explicitly requested:
