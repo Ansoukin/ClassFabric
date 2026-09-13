@@ -16,13 +16,6 @@
                    Header="ClassFabric 崩溃报告" HostHeight="450" HostWidth="800">
     <Grid Margin="12" RowDefinitions="Auto,Auto,*,Auto,Auto,Auto" ColumnDefinitions="Auto,*">
         <!-- Header -->
-        <controls1:StickerControl Grid.Row="0" Grid.Column="0"
-                                  Width="48" Height="48"
-                                  Margin="0 -8 0 0" 
-                                  VerticalAlignment="Top"
-                                  StickerSource="/Assets/HoYoStickers/光辉矢愿_不可以看.png"
-                                  StickerToolTip="光辉矢愿_不可以看"
-                                  FallbackIcon="{controls1:FluentIconSource &#xE809;, FontSize=48}"/>
         <TextBlock Grid.Row="0" Grid.Column="1"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"

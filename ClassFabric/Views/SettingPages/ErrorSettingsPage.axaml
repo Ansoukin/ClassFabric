@@ -12,10 +12,6 @@
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Spacing="8">
-            <ci:StickerControl Width="80" Height="80"
-                               StickerSource="/Assets/HoYoStickers/帕姆_哭哭.png"
-                               StickerToolTip="帕姆_哭哭"
-                               FallbackIcon="{ci:FluentIconSource &#xE6BF;, FontSize=80}"/>
             <TextBlock Text="欧呦，出错啦！" HorizontalAlignment="Center"
                        IsVisible="{Binding ViewModel.IsError}"
                        Theme="{StaticResource SubtitleTextBlockStyle}"/>

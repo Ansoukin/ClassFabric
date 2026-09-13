@@ -359,12 +359,6 @@
                     <materialDesign:TransitionerSlide ForwardWipe="{x:Null}" BackwardWipe="{x:Null}">
                         <StackPanel VerticalAlignment="Center"
                                     HorizontalAlignment="Center">
-                            <stickerControl:StickerControl ImageSource="/Assets/HoYoStickers/帕姆_点赞.png" 
-                                   Width="81" Height="81"
-                                   StickerToolTip.Tip="帕姆_点赞"
-                                   PackIconKind="FileExcelOutline"
-                                   Margin="0 0 0 24"/>
-
                             <TextBlock Text="正在加载你的表格……" HorizontalAlignment="Center"
                                        FontSize="20"
                                        FontWeight="Bold"/>
@@ -935,12 +929,6 @@
                         <StackPanel>
                             <TextBlock Text="完成" Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                                        Margin="0 0 0 12"/>
-                            <stickerControl:StickerControl ImageSource="/Assets/HoYoStickers/光辉矢愿_回眸.png"
-                                   StickerToolTip.Tip="光辉矢愿_回眸"
-                                   Focusable="True"
-                                   Width="63"
-                                   PackIconKind="CheckCircleOutline"
-                                   HorizontalAlignment="Left"/>
                             <TextBlock>
                                 <Run Text="恭喜！您已经完成了课表导入！现在您可以关闭本页面了。"/>
                             </TextBlock>

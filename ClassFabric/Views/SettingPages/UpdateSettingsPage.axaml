@@ -319,10 +319,6 @@
                                     </Binding.ConverterParameter>
                                 </Binding>
                             </StackPanel.IsVisible>
-                            <ci:StickerControl Height="81" Width="81"
-                                               StickerSource="avares://ClassFabric/Assets/HoYoStickers/光辉矢愿_遨游.png"
-                                               StickerToolTip="光辉矢愿_遨游"
-                                               FallbackIcon="{ci:FluentIconSource &#xE262;, FontSize=81}"/>
 
                             <TextBlock TextWrapping="Wrap"
                                        HorizontalAlignment="Center">

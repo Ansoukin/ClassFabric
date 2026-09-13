@@ -462,11 +462,6 @@
         <ControlTemplate x:Key="BlankListBoxTemplate">
             <Grid>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ci:StickerControl Height="72" Width="72"
-                                       Margin="0 0 0 8" 
-                                       StickerSource="/Assets/HoYoStickers/光辉矢愿_不可以看.png"
-                                       StickerToolTip="光辉矢愿_不可以看"
-                                       FallbackIcon="{ci:FluentIconSource &#xE262;, FontSize=72}"/>
                     <TextBlock Margin="0 0 0 6">
                         <Classes.LocalPlugins>
                             <Binding Path="ViewModel.PluginCategoryIndex" Converter="{x:Static ObjectConverters.Equal}">

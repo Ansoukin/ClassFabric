@@ -207,7 +207,7 @@ public partial class DebugPage : SettingsPageBase
             Title = "测试通知",
             Body = "Hello world!",
             HeroImageUri = new Uri("https://res.classisland.tech/banners/banner-v2.webp"),
-            LogoImageUri = new Uri("avares://ClassFabric/Assets/HoYoStickers/白厄_没事.png"),
+            LogoImageUri = new Uri("avares://ClassFabric/Assets/AppLogo.png"),
             Buttons =
             {
                 { "Hello!", () => { _ = CommonTaskDialogs.ShowDialog("Clicked!", "点击了按钮"); } }

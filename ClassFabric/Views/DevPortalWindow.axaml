@@ -118,15 +118,6 @@
                         <Button Click="ButtonSlantedMaskControlPlay_OnClick">Play</Button>
                         <CheckBox IsChecked="{Binding #SlantedMaskControl.IsOpened}">IsOpened</CheckBox>
                         <Separator/>
-                        <ci:StickerControl Height="81" Width="81"
-                                           StickerSource="/Assets/HoYoStickers/昔涟_收到.png"
-                                           StickerToolTip="昔涟_收到"
-                                           FallbackIcon="{ci:LucideIconSource &#xE1E7;, FontSize=81}"/>
-                        <iconSources:AdvancedImageIcon>
-                            <iconSources:AdvancedImageIcon.IconSource>
-                                <iconSources:AdvancedImageIconSource Uri="avares://ClassFabric/Assets/HoYoStickers/昔涟_收到.png"/>
-                            </iconSources:AdvancedImageIcon.IconSource>
-                        </iconSources:AdvancedImageIcon>
                         <Separator/>
                         <ci:TutorialBarrier ExcludedTags="aaa,bbb,ccc">
                             <WrapPanel Orientation="Horizontal"
@@ -174,7 +165,6 @@
                     <controls:ListDetailView.RightContent>
                         <StackPanel>
                             <TextBlock Text="Right!"/>
-                            <Image Source="/Assets/HoYoStickers/光辉矢愿_遨游.png" Width="72" Height="72"/>
                         </StackPanel>
                     </controls:ListDetailView.RightContent>
                 </controls:ListDetailView>

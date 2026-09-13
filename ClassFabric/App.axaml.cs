@@ -29,6 +29,7 @@ using UpdateStatus = ClassIsland.Shared.Enums.UpdateStatus;
 using JetBrains.Profiler.Api;
 #endif
 using ClassIsland.Core;
+using ClassIsland.Core.Icons;
 using Sentry;
 using ClassIsland.Shared.IPC.Abstractions.Services;
 using dotnetCampus.Ipc.CompilerServices.GeneratedProxies;
@@ -271,13 +272,12 @@ public partial class App : AppBase, IAppHost
             UriSource = new Uri(args[0]),
             ShowAsMonochrome = args.Length >= 2  && bool.TryParse(args[2], out var r1) && r1
         });
-        IconExpressionHelper.RegisterHandler("sticker", args => 
+        IconExpressionHelper.RegisterHandler("sticker", args =>
             IAppHost.TryGetService<IManagementService>()?.Policy.DisableEasterEggs == true
             ? args.Length >= 2 ? IconExpressionHelper.TryParseOrNull(args[1]) : new FAFontIconSource()
-            : new AdvancedImageIconSource()
-            {
-                Uri = Uri.TryCreate(args[0], UriKind.Absolute, out var uri) ? uri.ToString() : $"avares://ClassFabric/Assets/HoYoStickers/{args[0]}.png"
-            });
+            : Uri.TryCreate(args[0], UriKind.Absolute, out var uri)
+                ? new AdvancedImageIconSource { Uri = uri.ToString() }
+                : new FluentIconSource(FluentIcons.ImageRegular));
         IconExpressionHelper.RegisterHandler("img", args => new AdvancedImageIconSource()
         {
             Uri = args[0]
@@ -590,7 +590,7 @@ public partial class App : AppBase, IAppHost
             Content = "此版本仅供开发人员进行早期预览，稳定性欠佳，不适用于生产环境或日常使用。如果您在使用的过程中遇到问题，欢迎前往 GitHub issues 上提交 issue！",
             IconSource = new AdvancedImageIconSource()
             {
-                Uri = "avares://ClassFabric/Assets/HoYoStickers/米沙_欢迎光临.png"
+                Uri = "avares://ClassFabric/Assets/AppLogo.png"
             },
             XamlRoot = GetRootWindow(),
             Buttons = [
