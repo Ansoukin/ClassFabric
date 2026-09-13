@@ -39,12 +39,14 @@ using System.Text;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Documents;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
+using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using ClassIsland.Core.Abstractions.Controls;
@@ -65,6 +67,7 @@ using ClassIsland.Services.UI;
 using ClassIsland.Shared.Protobuf.AuditEvent;
 using ClassIsland.Shared.Protobuf.Enum;
 using FluentAvalonia.UI.Controls;
+using FluentAvalonia.UI.Controls.Primitives;
 using FluentAvalonia.UI.Windowing;
 using HotAvalonia;
 using Empty = Google.Protobuf.WellKnownTypes.Empty;
@@ -605,9 +608,30 @@ public partial class App : AppBase, IAppHost
         // 检测临时目录
         if (Environment.CurrentDirectory.Contains(Path.GetTempPath()))
         {
-            await CommonTaskDialogs.ShowDialog("检测到应用正在临时目录下运行", "ClassFabric 正在临时目录下运行，应用设置、课表等数据很可能无法保存，或在应用退出后被自动删除。在使用本应用前，请务必将本应用解压到一个适合的位置。");
-            Environment.Exit(0);
-            return;
+            var forceRunButton = new FATaskDialogButton("我就要运行", false);
+            var tempDirDialog = new FATaskDialog()
+            {
+                Title = "ClassFabric",
+                Header = "检测到应用正在临时目录下运行",
+                Content = "ClassFabric 正在临时目录下运行，应用设置、课表等数据很可能无法保存，或在应用退出后被自动删除。在使用本应用前，请务必将本应用解压到一个适合的位置。",
+                XamlRoot = GetRootWindow(),
+                Buttons =
+                [
+                    new FATaskDialogButton("确定", true)
+                    {
+                        IsDefault = true
+                    },
+                    forceRunButton
+                ]
+            };
+            ApplyDangerButtonStyle(tempDirDialog, forceRunButton);
+            if (!Equals(await tempDirDialog.ShowAsync(), false))
+            {
+                Environment.Exit(0);
+                return;
+            }
+
+            Logger?.LogWarning("检测到应用正在临时目录 {CurrentDirectory} 下运行，用户选择继续启动。", Environment.CurrentDirectory);
         }
 
         // 检测桌面文件夹
@@ -977,6 +1001,43 @@ public partial class App : AppBase, IAppHost
             var mv = GetService<MainView>();
             mv.Show();
         }
+    }
+
+    /// <summary>
+    /// 将对话框中的指定按钮渲染为危险色，用于"我就要运行"这类需要用户明确承担风险的按钮。
+    /// FATaskDialog 不提供按钮外观属性，按钮宿主由 FluentAvalonia 在模板中生成，
+    /// 因此这里通过对话框局部样式改写按钮模板根元素的背景与前景，并在悬停、按下时保持红色。
+    /// </summary>
+    /// <param name="dialog">要应用样式的对话框。</param>
+    /// <param name="button">要渲染为危险色的按钮。</param>
+    private void ApplyDangerButtonStyle(FATaskDialog dialog, FATaskDialogButton button)
+    {
+        var background = this.TryGetResource("SystemFillColorCriticalBrush", null, out var brush) && brush is IBrush critical
+            ? critical
+            : new SolidColorBrush(Color.FromRgb(0xC4, 0x2B, 0x1C));
+        var foreground = Brushes.White;
+
+        // 生成的按钮宿主会把对应的 FATaskDialogButton 作为 DataContext，据此定位目标宿主
+        var buttonHost = Selectors.Is(null, typeof(FATaskDialogButtonHost))
+            .PropertyEquals(StyledElement.DataContextProperty, button);
+
+        void AddDangerStyle(Selector host)
+        {
+            dialog.Styles.Add(new Style()
+            {
+                Selector = host.Template().OfType<Border>().Name("Root"),
+                Setters =
+                {
+                    new Setter(Border.BackgroundProperty, background),
+                    new Setter(Border.BorderBrushProperty, background),
+                    new Setter(TextElement.ForegroundProperty, foreground)
+                }
+            });
+        }
+
+        AddDangerStyle(buttonHost);
+        AddDangerStyle(buttonHost.Class(":pointerover"));
+        AddDangerStyle(buttonHost.Class(":pressed"));
     }
 
     private void PostStartup(ISpan spanLoadMainWindow, ITransactionTracer transaction, string startupCountFilePath)
