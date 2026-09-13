@@ -77,7 +77,15 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     
     public static readonly string[] AllowedPackageTypes = ["folder", "folderClassic", "installer"];
 
+    // 等待在途下载任务收敛的超时上限。下载器的 BlockTimeout 长达 60s，不设上限会让「停止下载」按钮长时间挂起。
+    private static readonly TimeSpan StopDownloadingWaitTimeout = TimeSpan.FromSeconds(5);
+
+    // 删除下载临时目录的重试参数。Windows 上文件句柄的释放不是瞬时的。
+    private const int RemoveTempDirectoryRetryCount = 3;
+    private static readonly TimeSpan RemoveTempDirectoryRetryDelay = TimeSpan.FromMilliseconds(200);
+
     private CancellationTokenSource? _downloadCancellationTokenSource;
+    private Task? _downloadTask;
     private int _downloadedCount = 0;
     private int _downloadingCountTotal = 0;
     private bool _isDownloadingProgressIndeterminate = false;
@@ -582,6 +590,23 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
 
     public async Task DownloadUpdateAsync()
     {
+        var downloadTask = DownloadUpdateAsyncCore();
+        _downloadTask = downloadTask;
+        try
+        {
+            await downloadTask;
+        }
+        finally
+        {
+            if (ReferenceEquals(_downloadTask, downloadTask))
+            {
+                _downloadTask = null;
+            }
+        }
+    }
+
+    private async Task DownloadUpdateAsyncCore()
+    {
         IsDownloadingProgressIndeterminate = true;
         if (!AllowedPackageTypes.Contains(AppBase.Current.PackagingType))
         {
@@ -613,12 +638,14 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             await _downloadCancellationTokenSource.CancelAsync();
         }
 
+        CancellationTokenSource? cts = null;
         try
         {
             var pendingUpdate = LoadPendingUpdate();
             if (pendingUpdate?.SourceId == UpdateSourceIds.GitHub)
             {
-                await DownloadGitHubUpdateAsync(pendingUpdate);
+                cts = _downloadCancellationTokenSource = new CancellationTokenSource();
+                await DownloadGitHubUpdateAsync(pendingUpdate, cts);
                 return;
             }
 
@@ -640,7 +667,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             }
 
             CurrentWorkingStatus = UpdateWorkingStatus.DownloadingUpdates;
-            var cts = _downloadCancellationTokenSource = new CancellationTokenSource();
+            cts = _downloadCancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cts.Token;
 
             var options = new DownloadConfiguration()
@@ -844,7 +871,10 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             {
                 CurrentWorkingStatus = UpdateWorkingStatus.Idle;
             }
-            _downloadCancellationTokenSource = null;
+            if (cts != null && ReferenceEquals(_downloadCancellationTokenSource, cts))
+            {
+                _downloadCancellationTokenSource = null;
+            }
         }
     }
 
@@ -852,11 +882,12 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     {
         Logger.LogInformation("应用更新下载停止。");
         IsCanceled = true;
-        if (_downloadCancellationTokenSource != null)
+        var cts = _downloadCancellationTokenSource;
+        if (cts != null)
         {
             try
             {
-                await _downloadCancellationTokenSource.CancelAsync();
+                await cts.CancelAsync();
             }
             catch (Exception e)
             {
@@ -864,7 +895,34 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             }
         }
 
-        _downloadCancellationTokenSource = null;
+        // 先等在途下载任务收敛（释放文件句柄）再删目录；超时即放弃等待，避免按钮长时间挂起。
+        var downloadTask = _downloadTask;
+        if (downloadTask != null)
+        {
+            try
+            {
+                await downloadTask.WaitAsync(StopDownloadingWaitTimeout);
+            }
+            catch (TimeoutException)
+            {
+                Logger.LogWarning("等待下载任务结束超时（{Timeout}），继续清理临时文件。", StopDownloadingWaitTimeout);
+            }
+            catch (OperationCanceledException)
+            {
+                // 下载任务已因本次取消而结束，属正常收敛路径。
+            }
+            catch (Exception e)
+            {
+                Logger.LogWarning(e, "等待下载任务结束时出错，继续清理临时文件。");
+            }
+        }
+
+        // 只在自己仍是当前 CTS 时才置空：避免旧任务的收尾把新一次下载的 CTS 清掉。
+        if (cts != null && ReferenceEquals(_downloadCancellationTokenSource, cts))
+        {
+            _downloadCancellationTokenSource = null;
+        }
+
         Settings.LastUpdateStatus = UpdateStatus.UpToDate;
         CurrentWorkingStatus = UpdateWorkingStatus.Idle;
         await RemoveDownloadedFiles(true);
@@ -872,13 +930,31 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
 
     public async Task RemoveDownloadedFiles(bool isCancel)
     {
-        try
+        for (var attempt = 0; attempt <= RemoveTempDirectoryRetryCount; attempt++)
         {
-            Directory.Delete(UpdateTempPath, true);
-        }
-        catch (Exception ex)
-        {
-            Logger.LogError(ex, "移除下载临时文件失败。");
+            try
+            {
+                Directory.Delete(UpdateTempPath, true);
+                break;
+            }
+            catch (DirectoryNotFoundException)
+            {
+                // 目录本就不存在（首次运行或上一轮已删干净），属正常状态：只记 Debug，不重试、不阻塞、不记 Error。
+                Logger.LogDebug("下载临时目录本就不存在，无需清理。");
+                break;
+            }
+            catch (Exception ex)
+            {
+                if (attempt == RemoveTempDirectoryRetryCount)
+                {
+                    Logger.LogError(ex, "移除下载临时文件失败。");
+                    break;
+                }
+
+                Logger.LogWarning(ex, "移除下载临时文件失败，{Delay}ms 后重试（第 {Attempt} 次）。",
+                    RemoveTempDirectoryRetryDelay.TotalMilliseconds, attempt + 1);
+                await Task.Delay(RemoveTempDirectoryRetryDelay);
+            }
         }
 
         if (!isCancel)
@@ -1170,7 +1246,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     }
 
 
-    private async Task DownloadGitHubUpdateAsync(PendingUpdateDescriptor descriptor)
+    private async Task DownloadGitHubUpdateAsync(PendingUpdateDescriptor descriptor, CancellationTokenSource cts)
     {
         if (string.IsNullOrWhiteSpace(descriptor.AssetName) ||
             !Uri.TryCreate(descriptor.AssetDownloadUrl, UriKind.Absolute, out var downloadUri))
@@ -1181,7 +1257,6 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         var dlRoot = Path.Combine(UpdateTempPath, GitHubPackageDirectoryName);
         Directory.CreateDirectory(dlRoot);
         CurrentWorkingStatus = UpdateWorkingStatus.DownloadingUpdates;
-        var cts = _downloadCancellationTokenSource = new CancellationTokenSource();
         var cancellationToken = cts.Token;
         IsDownloadingProgressIndeterminate = false;
         DownloadedCount = 0;
