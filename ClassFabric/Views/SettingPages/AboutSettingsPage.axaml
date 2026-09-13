@@ -195,7 +195,7 @@
                 <controls3:FASettingsExpander.IconSource>
                     <controls3:FAImageIconSource Source="/Assets/AppLogo.png"/>
                 </controls3:FASettingsExpander.IconSource>
-                <controls3:FASettingsExpanderItem Description="本项目基于 GNU General Public License v3.0 获得许可。">
+                <controls3:FASettingsExpanderItem>
                     <controls3:FASettingsExpanderItem.Footer>
                         <WrapPanel Classes="animated-resize">
                             <WrapPanel.Styles>
@@ -214,8 +214,10 @@
                             </HyperlinkButton>
                         </WrapPanel>
                     </controls3:FASettingsExpanderItem.Footer>
-                    <TextBlock Background="Transparent" >
-                        <Run Text="Copyright (c) 2023-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /> HelloWRC
+                    <TextBlock Background="Transparent">
+                        <Run Text="本项目基于 GNU General Public License v3.0 获得许可。"/><LineBreak/>
+                        <Run Text="Copyright (c) 2023-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /> HelloWRC<LineBreak/>
+                        <Run Text="Copyright (c) 2026-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /> Ansoukin
                     </TextBlock>
                 </controls3:FASettingsExpanderItem>
                 <controls3:FASettingsExpanderItem Content="常用链接">
@@ -228,7 +230,8 @@
                                 </Style>
                             </WrapPanel.Styles>
                             <HyperlinkButton Click="UriNavigationCommands_OnClick"
-                                             CommandParameter="https://classisland.tech">
+                                             CommandParameter="https://classisland.tech"
+                                             IsVisible="False">
                                 <TextBlock Text="项目主页"/>
                             </HyperlinkButton>
                             <HyperlinkButton Click="UriNavigationCommands_OnClick"
@@ -236,11 +239,12 @@
                                 <TextBlock Text="帮助文档"/>
                             </HyperlinkButton>
                             <HyperlinkButton Click="UriNavigationCommands_OnClick"
-                                             CommandParameter="https://github.com/ClassIsland/ClassIsland">
+                                             CommandParameter="https://github.com/Ansoukin/ClassFabric">
                                 <TextBlock Text="GitHub"/>
                             </HyperlinkButton>
                             <HyperlinkButton Click="UriNavigationCommands_OnClick"
-                                             CommandParameter="https://docs.classisland.tech/community/">
+                                             CommandParameter="https://docs.classisland.tech/community/"
+                                             IsVisible="False">
                                 <TextBlock Text="加入社区"/>
                             </HyperlinkButton>
                         </WrapPanel>
@@ -253,7 +257,7 @@
                                         IsExpanded="True">
                 <controls3:FASettingsExpanderItem
                     Click="UriNavigationCommands_OnClick"
-                    CommandParameter="https://github.com/ClassIsland/ClassIsland/issues/"
+                    CommandParameter="https://github.com/Ansoukin/ClassFabric/issues"
                     Content="问题反馈/功能建议"
                     ActionIconSource="{controls1:FluentIconSource &#xEC2E;} "
                     IsClickEnabled="True"/>
@@ -262,7 +266,8 @@
                     CommandParameter="https://github.com/ClassIsland/voting/discussions/categories/classisland?discussions_q=is%3Aopen+category%3AClassIsland+sort%3Atop"
                     Content="功能投票"
                     ActionIconSource="{controls1:FluentIconSource &#xEC2E;} "
-                    IsClickEnabled="True"/>
+                    IsClickEnabled="True"
+                    IsVisible="False"/>
                 <controls3:FASettingsExpanderItem 
                     Click="ButtonDiagnosticInfo_OnClick"
                     Content="查看诊断信息"
@@ -289,7 +294,7 @@
                         感谢协助本应用测试的同学。<LineBreak/>
                         感谢<commands:NavHyperlink NavTarget="https://forum.smart-teach.cn/">智教联盟</commands:NavHyperlink>提供服务器资源，<commands:NavHyperlink NavTarget="https://xiaowuap.com/">吴恩泽</commands:NavHyperlink>提供 TTS、遥测等服务资源。<LineBreak/>
                         天气数据来源于小米天气。<LineBreak/>
-                        部分图像资源（/Assets/HoYoStickers/*）来自米游社和 Bilibili 装扮表情包，版权归 miHoYo 所有。<LineBreak/>
+                        特别感谢<commands:NavHyperlink NavTarget="https://github.com/Programmer-MrWang">MrWang</commands:NavHyperlink>（Programmer-MrWang）开发的<commands:NavHyperlink NavTarget="https://github.com/Programmer-MrWang/SystemTools">SystemTools</commands:NavHyperlink>插件，为 ClassFabric 内置能力的扩充提供了重要参考。<LineBreak/>
                         感谢其他使用的第三方库和贡献成员，详见贡献名单和第三方库。
                     </TextBlock>
                 </controls3:FASettingsExpanderItem>
