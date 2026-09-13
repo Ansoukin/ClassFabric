@@ -219,14 +219,14 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
 
         if (DateTimeOffset.UtcNow < _rateLimitedUntil)
         {
-            if (cachedJson != null)
+            if (!forceRefresh && cachedJson != null)
             {
                 Logger?.LogWarning("GitHub 接口处于限流退避期，改用本地缓存的发行信息。");
                 return DeserializeReleases(cachedJson);
             }
 
             throw new InvalidOperationException(
-                $"GitHub 接口仍在限流退避期，请在 {_rateLimitedUntil.ToLocalTime():HH:mm} 后重试。");
+                $"GitHub 接口仍在限流退避期（仓库：{Repository}），请在 {_rateLimitedUntil.ToLocalTime():HH:mm} 后重试。");
         }
 
         using var request = new HttpRequestMessage(HttpMethod.Get, $"repos/{Repository}/releases?per_page=20");
@@ -248,13 +248,8 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
         }
         catch (Exception ex)
         {
-            if (cachedJson != null)
-            {
-                Logger?.LogWarning(ex, "获取 GitHub 发行信息失败，改用本地缓存的发行信息。");
-                return DeserializeReleases(cachedJson);
-            }
-
-            throw new InvalidOperationException($"无法连接 GitHub 获取更新信息：{ex.Message}", ex);
+            Logger?.LogWarning(ex, "获取 GitHub 发行信息失败。");
+            throw new InvalidOperationException("无法连接 GitHub 获取更新信息，请检查网络连接后重试。", ex);
         }
 
         using (response)
@@ -283,12 +278,6 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
                 var message = response.StatusCode == HttpStatusCode.NotFound
                     ? $"GitHub 上不存在仓库 {Repository}（或该仓库未公开），请检查更新源设置。"
                     : $"GitHub 返回了意外的响应（HTTP {(int)response.StatusCode} {response.ReasonPhrase}）。";
-                if (cachedJson != null)
-                {
-                    Logger?.LogWarning("{Message} 已改用本地缓存的发行信息。", message);
-                    return DeserializeReleases(cachedJson);
-                }
-
                 throw new InvalidOperationException(message);
             }
 
