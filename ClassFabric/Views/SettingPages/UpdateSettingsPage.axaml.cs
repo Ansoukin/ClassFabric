@@ -10,6 +10,7 @@ using ClassIsland.Core.Attributes;
 using ClassIsland.Core.Enums.SettingsWindow;
 using ClassIsland.Enums.AppUpdating;
 using ClassIsland.Services.AppUpdating;
+using ClassIsland.Services.AppUpdating.Sources;
 using ClassIsland.Shared;
 using ClassIsland.Shared.Enums;
 using ClassIsland.ViewModels.SettingsPages;
@@ -89,11 +90,19 @@ public partial class UpdateSettingsPage : SettingsPageBase
 
     private void UpdateChannelInfo()
     {
+        var settings = ViewModel.SettingsService.Settings;
         ViewModel.SelectedChannel =
             ViewModel.UpdateService.DistributionMetadata.Channels.TryGetValue(
-                ViewModel.SettingsService.Settings.SelectedUpdateChannelV3, out var v1)
+                settings.SelectedUpdateChannelV3, out var v1)
                 ? v1
                 : ViewModel.SelectedChannel;
+        var sourceId = UpdateSourceIds.Normalize(settings.UpdateSourceId);
+        if ((sourceId == UpdateSourceIds.GitHub || sourceId == UpdateSourceIds.GitHubWithPhainonFallback) &&
+            GitHubUpdateSource.IsGitHubChannelGuid(settings.SelectedUpdateChannelV3))
+        {
+            settings.GitHubUpdateChannel =
+                GitHubUpdateSource.GetChannelIdFromGuid(settings.SelectedUpdateChannelV3);
+        }
     }
 
     private void UpdateNewVersionChangeLog()
@@ -106,6 +115,7 @@ public partial class UpdateSettingsPage : SettingsPageBase
 
     private void Control_OnLoaded(object? sender, RoutedEventArgs e)
     {
+        ViewModel.UpdateService.RefreshLocalChannelMetadata();
         UpdateChannelInfo();
         UpdateNewVersionChangeLog();
         _updateSettingsObserver ??= ViewModel.SettingsService.Settings

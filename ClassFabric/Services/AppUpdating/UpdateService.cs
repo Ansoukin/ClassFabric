@@ -7,7 +7,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -28,6 +27,7 @@ using ClassIsland.Helpers;
 using ClassIsland.Models;
 using ClassIsland.Models.AppUpdating;
 using ClassIsland.Platforms.Abstraction;
+using ClassIsland.Services.AppUpdating.Sources;
 using ClassIsland.Shared;
 using ClassIsland.Shared.Enums;
 using ClassIsland.Shared.Helpers;
@@ -38,7 +38,6 @@ using ICSharpCode.SharpZipLib.GZip;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PhainonDistributionCenter.Shared.Helpers;
-using PhainonDistributionCenter.Shared.Models.Api.Responses.Distribution;
 using PhainonDistributionCenter.Shared.Models.Client;
 using PhainonDistributionCenter.Shared.Models.FileMap;
 using Sentry;
@@ -60,12 +59,20 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
 
     private const string PhainonRootUrl = "https://distribution.classisland.tech";
 
+    private const string PendingUpdateFileName = "PendingUpdate.json";
+    private const string GitHubPackageDirectoryName = "Package";
+
+    private GitHubUpdateSource? _gitHubUpdateSource;
+    private string? _gitHubUpdateSourceRepository;
+
     internal static string UpdateCachePath { get; } = Path.Combine(CommonDirectories.AppCacheFolderPath, "Update");
 
     public static string UpdateTempPath => Path.Combine(CommonDirectories.AppTempFolderPath, "Updating");
 
     private static string UpdateDistributionInfoPath { get; } = Path.Combine(UpdateCachePath, "DistributionInfo.json");
     private static string UpdateDistributionMetadataPath { get; } = Path.Combine(UpdateCachePath, "DistributionMetadata.json");
+
+    private static string PendingUpdatePath => Path.Combine(UpdateCachePath, PendingUpdateFileName);
     
     public static readonly string[] AllowedPackageTypes = ["folder", "folderClassic", "installer"];
 
@@ -269,16 +276,11 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             var spanGetIndex = transaction.StartChild("getIndex");
             var subChannel = GetCurrentSubChannel();
             CurrentWorkingStatus = UpdateWorkingStatus.CheckingUpdates;
-            DistributionMetadata = await RequestHelper.SaveJson<DistributionMetadata>(
-                new Uri("api/v1/public/distributions/metadata", UriKind.Relative), UpdateDistributionMetadataPath);
-            if (!DistributionMetadata.Channels.ContainsKey(Settings.SelectedUpdateChannelV3))
-            {
-                Settings.SelectedUpdateChannelV3 = DistributionMetadata.DefaultChannelId;
-            }
-            var latest = await RequestHelper.GetJson<LatestDistributionInfoMinResponse>(
-                new Uri($"api/v1/public/distributions/latest/{Settings.SelectedUpdateChannelV3}?appVersion={AppBase.AppVersion}", UriKind.Relative));
+            var latest = await FindLatestReleaseAsync(subChannel, isForce);
+            PersistUpdateCache(UpdateDistributionMetadataPath, DistributionMetadata);
+            var release = latest.Release;
             spanGetIndex.Finish(SpanStatus.Ok);
-            if (!IsNewerVersion(isForce, isCancel, Version.Parse(latest.Version)))
+            if (release == null || !IsNewerVersion(isForce, isCancel, ParseVersionOrThrow(release.Version)))
             {
                 Settings.LastUpdateStatus = UpdateStatus.UpToDate;
                 transaction.Finish(SpanStatus.Ok);
@@ -286,15 +288,13 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             }
 
             var spanGetDetail = transaction.StartChild("getDetail");
-            DistributionInfo = await RequestHelper.SaveJson<DistributionInfoClient>(
-                new Uri($"api/v1/public/distributions/{latest.DistributionId}/{subChannel}", UriKind.Relative),
-                UpdateDistributionInfoPath);
+            DistributionInfo = BuildDistributionInfo(release, subChannel);
+            PersistUpdateCache(UpdateDistributionInfoPath, DistributionInfo);
+            await SavePendingUpdateAsync(latest.Source, release, subChannel);
             Settings.LastUpdateStatus = UpdateStatus.UpdateAvailable;
             await PlatformServices.DesktopToastService.ShowToastAsync("发现新版本",
-                $"{Assembly.GetExecutingAssembly().GetName().Version} -> {latest.Version}" +Environment.NewLine+
+                $"{AppBase.AppVersion} -> {release.FriendlyVersion}" + Environment.NewLine +
                 "点击以查看详细信息。", UpdateNotificationClickedCallback);
-
-            Settings.LastUpdateStatus = UpdateStatus.UpdateAvailable;
             spanGetDetail.Finish(SpanStatus.Ok);
             transaction.Finish(SpanStatus.Ok);
         }
@@ -321,14 +321,229 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             : AppBase.Current.AppSubChannel;
     }
 
+    private async Task<(IUpdateSource Source, UpdateRelease? Release)> FindLatestReleaseAsync(
+        string subChannel, bool isForce)
+    {
+        var sourceId = UpdateSourceIds.Normalize(Settings.UpdateSourceId);
+        if (Settings.UpdateSourceId != sourceId)
+        {
+            Settings.UpdateSourceId = sourceId;
+        }
+
+        var chain = new List<IUpdateSource>();
+        switch (sourceId)
+        {
+            case UpdateSourceIds.PhainonDistributionCenter:
+                chain.Add(CreatePhainonUpdateSource());
+                break;
+            case UpdateSourceIds.GitHubWithPhainonFallback:
+                chain.Add(GetGitHubUpdateSource());
+                chain.Add(CreatePhainonUpdateSource());
+                break;
+            default:
+                chain.Add(GetGitHubUpdateSource());
+                break;
+        }
+
+        Exception? primaryError = null;
+        foreach (var source in chain)
+        {
+            try
+            {
+                var channels = await source.GetChannelsAsync();
+                ApplyChannels(source, channels);
+                var request = new UpdateSourceRequest(
+                    ResolveChannelId(source),
+                    subChannel,
+                    AppBase.Current.PackagingType,
+                    AppBase.AppVersion,
+                    isForce);
+                var release = await source.GetLatestReleaseAsync(request);
+                Logger.LogInformation("已使用更新源 {Source} 完成更新检查。", source.DisplayName);
+                return (source, release);
+            }
+            catch (Exception ex)
+            {
+                primaryError ??= ex;
+                Logger.LogWarning(ex, "更新源 {Source} 检查更新失败。", source.DisplayName);
+            }
+        }
+
+        throw primaryError ?? new InvalidOperationException("没有可用的应用更新源，请检查更新源设置。");
+    }
+
+    private GitHubUpdateSource GetGitHubUpdateSource()
+    {
+        var repository = string.IsNullOrWhiteSpace(Settings.GitHubUpdateRepository)
+            ? UpdateSourceIds.DefaultGitHubRepository
+            : Settings.GitHubUpdateRepository.Trim();
+        if (_gitHubUpdateSource == null || _gitHubUpdateSourceRepository != repository)
+        {
+            _gitHubUpdateSource?.Dispose();
+            _gitHubUpdateSource = new GitHubUpdateSource(repository, UpdateCachePath, logger: Logger);
+            _gitHubUpdateSourceRepository = repository;
+        }
+
+        return _gitHubUpdateSource;
+    }
+
+    private PhainonUpdateSource CreatePhainonUpdateSource() => new(RequestHelper);
+
+    private void ApplyChannels(IUpdateSource source, UpdateSourceChannels channels)
+    {
+        var metadata = new DistributionMetadata();
+        foreach (var channel in channels.Channels)
+        {
+            if (Guid.TryParse(channel.Id, out var channelGuid))
+            {
+                metadata.Channels[channelGuid] = new DistributionMetadata.DistributionChannel
+                {
+                    Name = channel.Name,
+                    Description = channel.Description
+                };
+            }
+        }
+
+        metadata.DefaultChannelId = channels.DefaultChannelId != null &&
+                                    Guid.TryParse(channels.DefaultChannelId, out var defaultChannelId) &&
+                                    metadata.Channels.ContainsKey(defaultChannelId)
+            ? defaultChannelId
+            : metadata.Channels.Keys.FirstOrDefault();
+        DistributionMetadata = metadata;
+
+        var selected = source is GitHubUpdateSource
+            ? GitHubUpdateSource.GetChannelGuid(Settings.GitHubUpdateChannel)
+            : Settings.SelectedUpdateChannelV3;
+        if (!metadata.Channels.ContainsKey(selected) && metadata.Channels.Count > 0)
+        {
+            selected = metadata.DefaultChannelId;
+        }
+
+        if (Settings.SelectedUpdateChannelV3 != selected)
+        {
+            Settings.SelectedUpdateChannelV3 = selected;
+        }
+
+        if (source is GitHubUpdateSource)
+        {
+            var channelId = GitHubUpdateSource.GetChannelIdFromGuid(selected);
+            if (Settings.GitHubUpdateChannel != channelId)
+            {
+                Settings.GitHubUpdateChannel = channelId;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 仅根据本地信息刷新更新通道列表，不发起网络请求。供设置界面在切换更新源后立即刷新通道下拉框。
+    /// </summary>
+    internal void RefreshLocalChannelMetadata()
+    {
+        var sourceId = UpdateSourceIds.Normalize(Settings.UpdateSourceId);
+        if (sourceId == UpdateSourceIds.GitHub || sourceId == UpdateSourceIds.GitHubWithPhainonFallback)
+        {
+            ApplyChannels(GetGitHubUpdateSource(), GitHubUpdateSource.CreateChannels());
+        }
+    }
+
+    private string ResolveChannelId(IUpdateSource source) => source is GitHubUpdateSource
+        ? GitHubUpdateSource.GetChannelIdFromGuid(Settings.SelectedUpdateChannelV3)
+        : Settings.SelectedUpdateChannelV3.ToString();
+
+    private static DistributionInfoClient BuildDistributionInfo(UpdateRelease release, string subChannel) =>
+        new()
+        {
+            Version = release.Version,
+            FriendlyVersion = release.FriendlyVersion,
+            FriendlyVersionShort = release.FriendlyVersion,
+            ChangeLog = release.ChangeLog,
+            SubChannel = subChannel,
+            FileMapJson = release.FileMapJson ?? "",
+            FileMapSignature = release.FileMapSignature ?? ""
+        };
+
+    private void PersistUpdateCache<T>(string path, T value) where T : class
+    {
+        try
+        {
+            ConfigureFileHelper.SaveConfig(path, value);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogWarning(ex, "保存更新缓存 {} 失败。", path);
+        }
+    }
+
+    private async Task SavePendingUpdateAsync(IUpdateSource source, UpdateRelease release, string subChannel)
+    {
+        var asset = release.Assets.FirstOrDefault();
+        var descriptor = new PendingUpdateDescriptor(
+            source.Kind == UpdateSourceKind.GitHub
+                ? UpdateSourceIds.GitHub
+                : UpdateSourceIds.PhainonDistributionCenter,
+            release.Version,
+            subChannel,
+            AppBase.Current.PackagingType,
+            asset?.Name,
+            asset?.DownloadUri.ToString(),
+            asset?.Size ?? 0);
+        try
+        {
+            Directory.CreateDirectory(UpdateCachePath);
+            await File.WriteAllTextAsync(PendingUpdatePath, JsonSerializer.Serialize(descriptor));
+        }
+        catch (Exception ex)
+        {
+            Logger.LogWarning(ex, "保存待处理更新信息失败。");
+        }
+    }
+
+    private PendingUpdateDescriptor? LoadPendingUpdate()
+    {
+        try
+        {
+            return File.Exists(PendingUpdatePath)
+                ? JsonSerializer.Deserialize<PendingUpdateDescriptor>(File.ReadAllText(PendingUpdatePath))
+                : null;
+        }
+        catch (Exception ex)
+        {
+            Logger.LogWarning(ex, "读取待处理更新信息失败。");
+            return null;
+        }
+    }
+
+    private void ClearPendingUpdate()
+    {
+        try
+        {
+            if (File.Exists(PendingUpdatePath))
+            {
+                File.Delete(PendingUpdatePath);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogWarning(ex, "清理待处理更新信息失败。");
+        }
+    }
+
     private void UpdateNotificationClickedCallback()
     {
         IAppHost.GetService<IUriNavigationService>().NavigateWrapped(new Uri("classfabric://app/settings/update"));
     }
 
+    private static Version CurrentAppVersion =>
+        Version.TryParse(AppBase.AppVersion, out var version) ? version : new Version(0, 0, 0, 0);
+
+    private static Version ParseVersionOrThrow(string version) =>
+        Version.TryParse(version, out var parsed)
+            ? parsed
+            : throw new InvalidOperationException($"更新源返回了无法识别的版本号：{version}");
+
     private bool IsNewerVersion(bool isForce, bool isCancel, Version verCode)
     {
-        return (verCode > Assembly.GetExecutingAssembly().GetName().Version &&
+        return (verCode > CurrentAppVersion &&
                 (Settings.LastUpdateStatus != UpdateStatus.UpdateDownloaded || isCancel)) // 正常更新
                || isForce;
     }
@@ -368,6 +583,13 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
 
         try
         {
+            var pendingUpdate = LoadPendingUpdate();
+            if (pendingUpdate?.SourceId == UpdateSourceIds.GitHub)
+            {
+                await DownloadGitHubUpdateAsync(pendingUpdate);
+                return;
+            }
+
             var publicKey =
                 AppBase.Current.IsDevelopmentBuild && !string.IsNullOrWhiteSpace(Settings.DebugPublicKeyOverride)
                     ? Settings.DebugPublicKeyOverride
@@ -646,6 +868,13 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         try
         {
             Logger.LogInformation("正在部署应用更新");
+            var pendingUpdate = LoadPendingUpdate();
+            if (pendingUpdate?.SourceId == UpdateSourceIds.GitHub)
+            {
+                await DeployGitHubUpdateAsync(pendingUpdate);
+                return;
+            }
+
             var fileMapJson = await File.ReadAllTextAsync(Path.Combine(UpdateTempPath, "FileMap.json"));
             var fileMapSig = await File.ReadAllTextAsync(Path.Combine(UpdateTempPath, "FileMap.json.sig"));
             var deploymentLock = ConfigureFileHelper.LoadConfigUnWrapped<DeploymentLock>(Path.Combine(UpdateTempPath, "Deployment.lock"), false);
@@ -906,6 +1135,241 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     public async Task StopAsync(CancellationToken cancellationToken)
     {
         return;
+    }
+
+
+    private async Task DownloadGitHubUpdateAsync(PendingUpdateDescriptor descriptor)
+    {
+        if (string.IsNullOrWhiteSpace(descriptor.AssetName) ||
+            !Uri.TryCreate(descriptor.AssetDownloadUrl, UriKind.Absolute, out var downloadUri))
+        {
+            throw new InvalidOperationException("待处理更新缺少更新包下载信息，请重新检查更新。");
+        }
+
+        var dlRoot = Path.Combine(UpdateTempPath, GitHubPackageDirectoryName);
+        Directory.CreateDirectory(dlRoot);
+        CurrentWorkingStatus = UpdateWorkingStatus.DownloadingUpdates;
+        var cts = _downloadCancellationTokenSource = new CancellationTokenSource();
+        var cancellationToken = cts.Token;
+        IsDownloadingProgressIndeterminate = false;
+        DownloadedCount = 0;
+        DownloadingCountTotal = 1;
+        DownloadTasks.Clear();
+        var info = new DownloadTaskInfo
+        {
+            FileName = descriptor.AssetName,
+            Key = descriptor.AssetName
+        };
+        DownloadTasks.Add(info);
+
+        var options = new DownloadConfiguration()
+        {
+            ChunkCount = 4,
+            ParallelCount = 4,
+            ParallelDownload = true,
+            BlockTimeout = 60_000,
+            HttpClientTimeout = 60_000
+        };
+        var targetPath = Path.GetFullPath(Path.Combine(dlRoot, descriptor.AssetName));
+        var updateStopwatch = Stopwatch.StartNew();
+        await using var downloader = DownloadBuilder.New()
+            .WithConfiguration(options)
+            .WithUrl(downloadUri.ToString())
+            .WithFileLocation(targetPath)
+            .Build();
+        var taskCompletionSource = new TaskCompletionSource();
+        downloader.DownloadFileCompleted += (_, args) =>
+        {
+            if (args.Error != null)
+            {
+                taskCompletionSource.SetException(args.Error);
+                return;
+            }
+
+            Dispatcher.UIThread.InvokeAsync(() => { DownloadedCount++; });
+            taskCompletionSource.SetResult();
+        };
+        downloader.DownloadProgressChanged += (_, e) =>
+        {
+            if (updateStopwatch.ElapsedMilliseconds < 250)
+                return;
+            updateStopwatch.Restart();
+            var totalSize = e.TotalBytesToReceive;
+            var downloadedSize = e.ReceivedBytesSize;
+            var downloadSpeed = e.BytesPerSecondSpeed;
+            var eta = TimeSpanHelper.FromSecondsSafe(downloadSpeed == 0
+                ? 0
+                : (long)((totalSize - downloadedSize) / downloadSpeed));
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                info.FileSize = totalSize;
+                info.DownloadedSize = downloadedSize;
+                info.DownloadSpeed = downloadSpeed;
+                info.TimeToComplete = eta;
+            });
+        };
+        info.State = DownloadState.Downloading;
+        cancellationToken.Register(() => { taskCompletionSource.SetCanceled(cancellationToken); });
+        await downloader.StartAsync(cancellationToken);
+        await taskCompletionSource.Task;
+        info.State = DownloadState.Completed;
+        Logger.LogInformation("更新包下载完成：{}", targetPath);
+        Settings.LastUpdateStatus = UpdateStatus.UpdateDownloaded;
+    }
+
+    private async Task DeployGitHubUpdateAsync(PendingUpdateDescriptor descriptor)
+    {
+        var packagePath = Path.Combine(UpdateTempPath, GitHubPackageDirectoryName, descriptor.AssetName ?? "");
+        if (!File.Exists(packagePath))
+        {
+            throw new InvalidOperationException("未找到已下载的更新包，请重新下载更新。");
+        }
+
+        if (descriptor.PackagingType == "installer")
+        {
+            Logger.LogInformation("正在启动更新安装程序：{}", packagePath);
+            Process.Start(new ProcessStartInfo(packagePath) { UseShellExecute = true });
+            Settings.LastUpdateStatus = UpdateStatus.UpdateDeployed;
+            ClearPendingUpdate();
+            return;
+        }
+
+        var root = Path.GetFullPath(CommonDirectories.AppPackageRoot);
+        var currentDirectory = Path.GetFullPath(Environment.CurrentDirectory);
+        if (string.Equals(root.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
+                currentDirectory.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
+                StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(
+                "未检测到独立的程序包目录，当前安装形态无法就地部署更新，请手动下载安装包进行更新。");
+        }
+
+        var stagingPath = Path.Combine(UpdateTempPath, "extracted");
+        if (Directory.Exists(stagingPath))
+        {
+            Directory.Delete(stagingPath, true);
+        }
+
+        Directory.CreateDirectory(stagingPath);
+        Logger.LogInformation("正在解压更新包");
+        ZipFile.ExtractToDirectory(packagePath, stagingPath, true);
+
+        var deploymentDirectory = Directory.GetDirectories(stagingPath)
+            .FirstOrDefault(x => Path.GetFileName(x).StartsWith("app", StringComparison.Ordinal));
+        if (deploymentDirectory == null)
+        {
+            throw new InvalidOperationException("更新包结构无效：未找到应用部署目录。");
+        }
+
+        var deploymentName = Path.GetFileName(deploymentDirectory);
+        var uniqueName = MakeUniqueDeploymentName(root, deploymentName);
+        if (uniqueName != deploymentName)
+        {
+            var renamedPath = Path.Combine(stagingPath, uniqueName);
+            Directory.Move(deploymentDirectory, renamedPath);
+            UpdateDeploymentNumber(stagingPath, deploymentName, uniqueName);
+        }
+
+        Logger.LogInformation("正在部署新的应用版本：{}", uniqueName);
+        foreach (var entry in Directory.GetFileSystemEntries(stagingPath))
+        {
+            var target = Path.Combine(root, Path.GetFileName(entry));
+            if (Directory.Exists(entry))
+            {
+                CopyDirectory(entry, target);
+            }
+            else
+            {
+                File.Copy(entry, target, true);
+            }
+        }
+
+        if (OperatingSystem.IsLinux() && AppBase.Current.PackagingType == "folder")
+        {
+            using var proc = Process.Start(new ProcessStartInfo("chmod",
+            [
+                "+x",
+                Path.GetFullPath(Path.Combine(root, "ClassFabric"))
+            ]));
+            var task = proc?.WaitForExitAsync();
+            if (task != null)
+            {
+                await task;
+            }
+        }
+
+        await File.WriteAllTextAsync(Path.Combine(root, uniqueName, ".current"), "");
+        await File.WriteAllTextAsync(Path.Combine(Environment.CurrentDirectory, ".destroy"), "");
+        Settings.LastUpdateStatus = UpdateStatus.UpdateDeployed;
+        ClearPendingUpdate();
+        Logger.LogInformation("部署成功");
+        await RemoveDownloadedFiles(false);
+    }
+
+    private static string MakeUniqueDeploymentName(string root, string deploymentName)
+    {
+        if (!Directory.Exists(Path.Combine(root, deploymentName)))
+        {
+            return deploymentName;
+        }
+
+        var separator = deploymentName.LastIndexOf('-');
+        var prefix = separator >= 0 ? deploymentName[..separator] : deploymentName;
+        var number = separator >= 0 && int.TryParse(deploymentName[(separator + 1)..], out var parsed)
+            ? parsed
+            : 0;
+        string candidate;
+        do
+        {
+            number++;
+            candidate = $"{prefix}-{number}";
+        } while (Directory.Exists(Path.Combine(root, candidate)));
+
+        return candidate;
+    }
+
+    private void UpdateDeploymentNumber(string stagingPath, string deploymentName, string uniqueName)
+    {
+        var filesJsonPath = Path.Combine(stagingPath, "files.json");
+        if (!File.Exists(filesJsonPath))
+        {
+            return;
+        }
+
+        try
+        {
+            var fileMap = ConfigureFileHelper.LoadConfigUnWrapped<FileMap>(filesJsonPath, false);
+            var separator = uniqueName.LastIndexOf('-');
+            if (separator >= 0)
+            {
+                fileMap.Variables["number"] = uniqueName[(separator + 1)..];
+            }
+
+            foreach (var (_, component) in fileMap.Components)
+            {
+                component.Root = component.Root.Replace(deploymentName, uniqueName, StringComparison.Ordinal);
+            }
+
+            ConfigureFileHelper.SaveConfig(filesJsonPath, fileMap);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogWarning(ex, "更新部署目录编号失败，后续差量更新可能回退为全量下载。");
+        }
+    }
+
+    private static void CopyDirectory(string source, string target)
+    {
+        Directory.CreateDirectory(target);
+        foreach (var directory in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
+        {
+            Directory.CreateDirectory(Path.Combine(target, Path.GetRelativePath(source, directory)));
+        }
+
+        foreach (var file in Directory.GetFiles(source, "*", SearchOption.AllDirectories))
+        {
+            File.Copy(file, Path.Combine(target, Path.GetRelativePath(source, file)), true);
+        }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

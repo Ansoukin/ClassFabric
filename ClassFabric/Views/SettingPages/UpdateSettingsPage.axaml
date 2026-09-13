@@ -10,6 +10,7 @@
              xmlns:appUpdating="clr-namespace:ClassIsland.Enums.AppUpdating"
              xmlns:mdxaml="https://github.com/whistyun/Markdown.Avalonia"
              xmlns:helpers="clr-namespace:ClassIsland.Core.Helpers;assembly=ClassFabric.Core"
+             xmlns:icons="clr-namespace:ClassIsland.Core.Icons;assembly=ClassFabric.Core"
              xmlns:classFabric="clr-namespace:ClassIsland"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ClassIsland.Views.SettingPages.UpdateSettingsPage"
@@ -353,6 +354,25 @@
                             </controls:FASettingsExpander.Footer>
                         </controls:FASettingsExpander>
                         
+                        <!-- 更新源 -->
+                        <controls:FASettingsExpander Header="更新源"
+                                                   Description="控制获取应用更新信息的来源。GitHub Releases 为默认更新源，匿名访问受 GitHub 接口速率限制。">
+                            <controls:FASettingsExpander.IconSource>
+                                <ci:FluentIconSource Glyph="{x:Static icons:FluentIcons.CloudArrowDownRegular}" />
+                            </controls:FASettingsExpander.IconSource>
+                            <controls:FASettingsExpander.Footer>
+                                <ComboBox SelectedIndex="{Binding ViewModel.SelectedUpdateSourceIndex, Mode=TwoWay}">
+                                    <ComboBoxItem>GitHub Releases</ComboBoxItem>
+                                    <ComboBoxItem>GitHub Releases（失败时回退到 ClassIsland 分发中心）</ComboBoxItem>
+                                    <ComboBoxItem>ClassIsland 分发中心（兼容，不推荐）</ComboBoxItem>
+                                </ComboBox>
+                            </controls:FASettingsExpander.Footer>
+                            <controls:FASettingsExpanderItem>
+                                <TextBlock Text="GitHub Releases 直接从 ClassFabric 的 GitHub 仓库读取发行版本，无需依赖 ClassIsland 分发中心。选择带有「回退」的选项时，若 GitHub 检查失败，会改用 ClassIsland 分发中心（兼容保留）。"
+                                           TextWrapping="Wrap"/>
+                            </controls:FASettingsExpanderItem>
+                        </controls:FASettingsExpander>
+
                         <!-- 更新通道 -->
                         <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xe3d2;}"
                                                    Header="更新通道" IsExpanded="True"
@@ -385,6 +405,9 @@
                     <StackPanel Margin="0" Classes="settings-container animated-intro">
                         <ci:Field Label="覆盖 PDC 根 Url">
                             <TextBox Watermark="留空禁用" Text="{Binding ViewModel.SettingsService.Settings.DebugPhainonRootUrlOverride}"/>
+                        </ci:Field>
+                        <ci:Field Label="覆盖 GitHub 更新仓库">
+                            <TextBox PlaceholderText="owner/repo" Text="{Binding ViewModel.SettingsService.Settings.GitHubUpdateRepository}"/>
                         </ci:Field>
                         <ci:Field Label="覆盖子频道">
                             <TextBox Watermark="留空禁用" Text="{Binding ViewModel.SettingsService.Settings.DebugSubChannelOverride}"/>

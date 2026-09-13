@@ -1784,6 +1784,39 @@ public class Settings : ObservableRecipient, ILessonControlSettings, INotificati
         }
     }
 
+    public string UpdateSourceId
+    {
+        get => _updateSourceId;
+        set
+        {
+            if (value == _updateSourceId) return;
+            _updateSourceId = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string GitHubUpdateRepository
+    {
+        get => _githubUpdateRepository;
+        set
+        {
+            if (value == _githubUpdateRepository) return;
+            _githubUpdateRepository = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string GitHubUpdateChannel
+    {
+        get => _githubUpdateChannel;
+        set
+        {
+            if (value == _githubUpdateChannel) return;
+            _githubUpdateChannel = value;
+            OnPropertyChanged();
+        }
+    }
+
     public Guid SelectedUpdateChannelV3
     {
         get => _selectedUpdateChannelV3;
@@ -1876,6 +1909,9 @@ public class Settings : ObservableRecipient, ILessonControlSettings, INotificati
     private int _animationLevel = 1;
     private bool _isIslandSeperated = false;
     private bool _reduceProgressAccuracy = true;
+    private string _updateSourceId = "github";
+    private string _githubUpdateRepository = "Ansoukin/ClassFabric";
+    private string _githubUpdateChannel = "stable";
     private Guid _selectedUpdateChannelV3 = Guid.Empty;
     private string _debugSubChannelOverride = "";
     private string _debugPublicKeyOverride = "";
