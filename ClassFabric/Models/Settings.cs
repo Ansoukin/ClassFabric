@@ -1911,7 +1911,9 @@ public class Settings : ObservableRecipient, ILessonControlSettings, INotificati
     private bool _reduceProgressAccuracy = true;
     private string _updateSourceId = "github";
     private string _githubUpdateRepository = "Ansoukin/ClassFabric";
-    private string _githubUpdateChannel = "stable";
+    // ClassFabric 现阶段的所有发行都标记为预发布，正式版通道长期没有可供更新的版本；
+    // 因此默认跟随预览版通道，待开始发布正式版后再评估调整。
+    private string _githubUpdateChannel = "preview";
     private Guid _selectedUpdateChannelV3 = Guid.Empty;
     private string _debugSubChannelOverride = "";
     private string _debugPublicKeyOverride = "";

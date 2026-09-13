@@ -24,7 +24,7 @@ internal enum UpdateSourceKind
 /// <summary>
 /// 更新源提供的一个更新通道。
 /// </summary>
-/// <param name="Id">通道 ID。PDCC 通道为服务端下发的 GUID，GitHub 通道为固定的字符串 ID。</param>
+/// <param name="Id">通道 ID，必须是 GUID 字符串。PDCC 通道为服务端下发的通道 GUID，GitHub 通道为内置的两个固定 GUID。</param>
 /// <param name="Name">通道名称。</param>
 /// <param name="Description">通道说明。</param>
 internal sealed record UpdateSourceChannel(string Id, string Name, string Description = "");
@@ -69,7 +69,7 @@ internal sealed record UpdateRelease(
 /// <summary>
 /// 一次更新查询的输入参数。
 /// </summary>
-/// <param name="ChannelId">要查询的通道 ID。</param>
+/// <param name="ChannelId">要查询的通道 ID。GitHub 源接受 <c>stable</c> / <c>preview</c> 字符串或对应通道 GUID，PDCC 源接受通道 GUID 字符串。</param>
 /// <param name="SubChannel">当前子频道，即 <c>AppBase.Current.AppSubChannel</c>。</param>
 /// <param name="PackagingType">当前安装形态。</param>
 /// <param name="CurrentVersion">当前应用版本。</param>
@@ -102,7 +102,7 @@ internal interface IUpdateSource
     Task<UpdateSourceChannels> GetChannelsAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// 获取符合请求条件的最新版本。若没有比当前更新的版本，返回 <c>null</c>。
+    /// 获取该更新通道上最新的版本；版本是否比当前更新由调用方判断。没有可用版本时返回 <c>null</c>。
     /// </summary>
     Task<UpdateRelease?> GetLatestReleaseAsync(
         UpdateSourceRequest request,

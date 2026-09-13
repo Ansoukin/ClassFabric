@@ -109,7 +109,29 @@
                     </Classes.Spinning>
                 </ci:FluentIcon>
                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ViewModel.SettingsService.Settings.LastUpdateStatus, Converter={x:Static settingPages:UpdateSettingsPage.UpdateStatusToMessageConverter}}" 
-                           FontSize="24" FontWeight="Medium"/>
+                           FontSize="24" FontWeight="Medium">
+                    <TextBlock.IsVisible>
+                        <MultiBinding Converter="{x:Static BoolConverters.Or}">
+                            <Binding Path="ViewModel.SettingsService.Settings.LastUpdateStatus"
+                                     Converter="{x:Static ObjectConverters.NotEqual}"
+                                     ConverterParameter="{x:Static enums:UpdateStatus.UpToDate}" />
+                            <Binding Path="ViewModel.UpdateService.NetworkErrorException"
+                                     Converter="{x:Static ObjectConverters.IsNull}" />
+                        </MultiBinding>
+                    </TextBlock.IsVisible>
+                </TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="检查更新失败"
+                           FontSize="24" FontWeight="Medium">
+                    <TextBlock.IsVisible>
+                        <MultiBinding Converter="{x:Static BoolConverters.And}">
+                            <Binding Path="ViewModel.SettingsService.Settings.LastUpdateStatus"
+                                     Converter="{x:Static ObjectConverters.Equal}"
+                                     ConverterParameter="{x:Static enums:UpdateStatus.UpToDate}" />
+                            <Binding Path="ViewModel.UpdateService.NetworkErrorException"
+                                     Converter="{x:Static ObjectConverters.IsNotNull}" />
+                        </MultiBinding>
+                    </TextBlock.IsVisible>
+                </TextBlock>
                 <TextBlock Grid.Row="1" Grid.Column="1" Margin="0 4 0 0">
                     <TextBlock.IsVisible>
                         <Binding Path="ViewModel.SettingsService.Settings.LastUpdateStatus" Converter="{x:Static ObjectConverters.Equal}">
@@ -133,7 +155,7 @@
                     <Run Text="{Binding ViewModel.UpdateService.DistributionInfo.Version, Mode=OneWay}" />
                 </TextBlock>
             </Grid>
-            <controls:FAInfoBar Severity="Error" Title="更新时发生错误，请检查您的网络连接并重试。"
+            <controls:FAInfoBar Severity="Error" Title="更新时发生错误。"
                               Message="{Binding ViewModel.UpdateService.NetworkErrorException.Message, FallbackValue=''}"
                               IsOpen="{Binding ViewModel.UpdateService.NetworkErrorException, Converter={x:Static ObjectConverters.IsNotNull}, Mode=OneWay}"
                               CloseButtonClick="InfoBarError_OnCloseButtonClick"/>
@@ -313,12 +335,13 @@
                                     Classes="items-halign-center"
                                     Margin="0 50">
                             <StackPanel.IsVisible>
-                                <Binding Path="ViewModel.SettingsService.Settings.LastUpdateStatus"
-                                         Converter="{x:Static ObjectConverters.Equal}">
-                                    <Binding.ConverterParameter>
-                                        <enums:UpdateStatus>UpToDate</enums:UpdateStatus>
-                                    </Binding.ConverterParameter>
-                                </Binding>
+                                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                    <Binding Path="ViewModel.SettingsService.Settings.LastUpdateStatus"
+                                             Converter="{x:Static ObjectConverters.Equal}"
+                                             ConverterParameter="{x:Static enums:UpdateStatus.UpToDate}" />
+                                    <Binding Path="ViewModel.UpdateService.NetworkErrorException"
+                                             Converter="{x:Static ObjectConverters.IsNull}" />
+                                </MultiBinding>
                             </StackPanel.IsVisible>
 
                             <TextBlock TextWrapping="Wrap"
@@ -376,9 +399,11 @@
                         <!-- 更新通道 -->
                         <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xe3d2;}"
                                                    Header="更新通道" IsExpanded="True"
-                                                   Description="控制应用的更新目标版本。版本的发行节奏和稳定程度因更新通道而异，部分通道可能包含不稳定的功能，请谨慎使用。">
+                                                   Description="控制应用的更新目标版本。ClassFabric 当前以预览版发行为主，因此默认使用预览版通道；版本的发行节奏和稳定程度因更新通道而异，部分通道可能包含不稳定的功能，请谨慎使用。">
                             <controls:FASettingsExpander.Footer>
-                                <ComboBox ItemsSource="{Binding ViewModel.UpdateService.DistributionMetadata.Channels}"
+                                <ComboBox x:Name="UpdateChannelComboBox"
+                                          Loaded="UpdateChannelComboBox_OnLoaded"
+                                          ItemsSource="{Binding ViewModel.UpdateService.DistributionMetadata.Channels}"
                                           SelectedValueBinding="{Binding Key}"
                                           SelectedValue="{Binding ViewModel.SettingsService.Settings.SelectedUpdateChannelV3}">
                                     <ComboBox.ItemTemplate>

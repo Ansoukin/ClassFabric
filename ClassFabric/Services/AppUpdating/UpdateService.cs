@@ -55,6 +55,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     private Exception? _networkErrorException;
     private TimeSpan _downloadEtcSeconds = TimeSpan.Zero;
     private DistributionInfoClient _distributionInfo;
+    private DistributionMetadata _distributionMetadata;
     private string _currentWorkingMessage = "";
 
     private const string PhainonRootUrl = "https://distribution.classisland.tech";
@@ -92,8 +93,8 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
 
     public DistributionMetadata DistributionMetadata
     {
-        get;
-        set;
+        get => _distributionMetadata;
+        set => SetField(ref _distributionMetadata, value);
     }
 
     public UpdateWorkingStatus CurrentWorkingStatus
@@ -175,7 +176,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             ? u1
             : new Uri(PhainonRootUrl), true);
         _distributionInfo = ConfigureFileHelper.LoadConfig<DistributionInfoClient>(UpdateDistributionInfoPath);
-        DistributionMetadata = ConfigureFileHelper.LoadConfig<DistributionMetadata>(UpdateDistributionMetadataPath);
+        _distributionMetadata = ConfigureFileHelper.LoadConfig<DistributionMetadata>(UpdateDistributionMetadataPath);
     }
 
     public bool IsCanceled
@@ -263,6 +264,13 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     {
         if (!AllowedPackageTypes.Contains(AppBase.Current.PackagingType))
         {
+            Logger.LogInformation("当前安装形态 {PackagingType} 不支持应用内自动更新，已跳过更新检查。",
+                AppBase.Current.PackagingType);
+            Settings.LastUpdateStatus = UpdateStatus.UpToDate;
+            NetworkErrorException = new InvalidOperationException(
+                "当前安装方式不支持应用内自动更新。请前往项目主页手动下载并安装最新版本。");
+            Settings.LastCheckUpdateTime = DateTime.Now;
+            UpdateInfoUpdated?.Invoke(this, EventArgs.Empty);
             return;
         }
         var transaction = SentrySdk.StartTransaction("Get Update Info", "appUpdating.getMetadata");
@@ -359,6 +367,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
                     AppBase.AppVersion,
                     isForce);
                 var release = await source.GetLatestReleaseAsync(request);
+                EnsureReleaseAssetAvailable(source, release, isForce);
                 Logger.LogInformation("已使用更新源 {Source} 完成更新检查。", source.DisplayName);
                 return (source, release);
             }
@@ -370,6 +379,24 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         }
 
         throw primaryError ?? new InvalidOperationException("没有可用的应用更新源，请检查更新源设置。");
+    }
+
+    /// <summary>
+    /// 仅当确实需要更新时才要求更新源提供可下载的更新包。若通道上最新版本并不比当前版本新，
+    /// 缺少与当前安装形态匹配的更新包不应视为错误，否则已经是最新的用户会看到无谓的报错。
+    /// </summary>
+    private void EnsureReleaseAssetAvailable(IUpdateSource source, UpdateRelease? release, bool isForce)
+    {
+        if (source.Kind != UpdateSourceKind.GitHub ||
+            release == null ||
+            release.Assets.Count > 0 ||
+            !IsNewerVersion(isForce, false, ParseVersionOrThrow(release.Version)))
+        {
+            return;
+        }
+
+        throw new InvalidOperationException(
+            $"更新源 {source.DisplayName} 上的最新版本 {release.FriendlyVersion} 没有提供与当前安装方式匹配的更新包，请稍后重试或前往项目主页手动下载。");
     }
 
     private GitHubUpdateSource GetGitHubUpdateSource()
@@ -401,6 +428,11 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
                     Name = channel.Name,
                     Description = channel.Description
                 };
+            }
+            else
+            {
+                Logger.LogWarning("更新源 {Source} 的通道 {ChannelId} 不是合法的 GUID，已跳过该通道。",
+                    source.DisplayName, channel.Id);
             }
         }
 
@@ -794,7 +826,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             Logger.LogInformation("全部下载完成！");
             Settings.LastUpdateStatus = UpdateStatus.UpdateDownloaded;
         }
-        catch (TaskCanceledException)
+        catch (OperationCanceledException)
         {
             transaction.Finish(SpanStatus.Cancelled);
             Logger.LogInformation("已取消下载更新");
@@ -1182,12 +1214,12 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         {
             if (args.Error != null)
             {
-                taskCompletionSource.SetException(args.Error);
+                taskCompletionSource.TrySetException(args.Error);
                 return;
             }
 
             Dispatcher.UIThread.InvokeAsync(() => { DownloadedCount++; });
-            taskCompletionSource.SetResult();
+            taskCompletionSource.TrySetResult();
         };
         downloader.DownloadProgressChanged += (_, e) =>
         {
@@ -1209,7 +1241,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             });
         };
         info.State = DownloadState.Downloading;
-        cancellationToken.Register(() => { taskCompletionSource.SetCanceled(cancellationToken); });
+        cancellationToken.Register(() => { taskCompletionSource.TrySetCanceled(cancellationToken); });
         await downloader.StartAsync(cancellationToken);
         await taskCompletionSource.Task;
         info.State = DownloadState.Completed;

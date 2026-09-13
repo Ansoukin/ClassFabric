@@ -25,6 +25,7 @@ public partial class UpdateSettingsPage : SettingsPageBase
 {
     private IDisposable? _updateSettingsObserver;
     private IDisposable? _newVersionChangeLogObserver;
+    private IDisposable? _distributionMetadataObserver;
     
     public UpdateSettingsPageViewModel ViewModel { get; } = IAppHost.GetService<UpdateSettingsPageViewModel>();
 
@@ -105,6 +106,26 @@ public partial class UpdateSettingsPage : SettingsPageBase
         }
     }
 
+    /// <summary>
+    /// 更新通道列表是整体替换的字典。实测（Avalonia 12.1.1）在替换 <c>ItemsSource</c> 后，
+    /// 下拉框会呈现新列表，但把选中项重置为空且不会按绑定源自动重新对齐，因此替换后必须显式对齐一次。
+    /// 触发点：页面 <c>Loaded</c>、下拉框自身 <c>Loaded</c>、以及 <c>DistributionMetadata</c> 被替换时。
+    /// </summary>
+    private void AlignSelectedUpdateChannel()
+    {
+        UpdateChannelComboBox.SelectedValue = ViewModel.SettingsService.Settings.SelectedUpdateChannelV3;
+    }
+
+    /// <summary>
+    /// 下拉框自身实例化完成后补一次对齐。新装（无缓存）时通道列表是「从空变满」的，页面 <c>Loaded</c> 里的对齐
+    /// 有可能发生在该控件拿到 <c>DataContext</c> 之前而落空（Avalonia 不会在 ItemsSource 变化后重新解析
+    /// <c>SelectedValue</c>），因此必须在控件自己的 <c>Loaded</c> 上再补一次。
+    /// </summary>
+    private void UpdateChannelComboBox_OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        AlignSelectedUpdateChannel();
+    }
+
     private void UpdateNewVersionChangeLog()
     {
         ViewModel.NewVersionChangeLogDocument =
@@ -117,10 +138,14 @@ public partial class UpdateSettingsPage : SettingsPageBase
     {
         ViewModel.UpdateService.RefreshLocalChannelMetadata();
         UpdateChannelInfo();
+        AlignSelectedUpdateChannel();
         UpdateNewVersionChangeLog();
         _updateSettingsObserver ??= ViewModel.SettingsService.Settings
             .ObservableForProperty(x => x.SelectedUpdateChannelV3)
             .Subscribe(_ => UpdateChannelInfo());
+        _distributionMetadataObserver ??= ViewModel.UpdateService
+            .ObservableForProperty(x => x.DistributionMetadata)
+            .Subscribe(_ => AlignSelectedUpdateChannel());
         _newVersionChangeLogObserver ??= ViewModel.UpdateService
             .WhenAnyPropertyChanged()
             .Subscribe(_ => UpdateNewVersionChangeLog());
@@ -134,6 +159,8 @@ public partial class UpdateSettingsPage : SettingsPageBase
         _updateSettingsObserver = null;
         _newVersionChangeLogObserver?.Dispose();
         _newVersionChangeLogObserver = null;
+        _distributionMetadataObserver?.Dispose();
+        _distributionMetadataObserver = null;
     }
 
     private void ButtonOpenDownloadTasks_OnClick(object? sender, RoutedEventArgs e)

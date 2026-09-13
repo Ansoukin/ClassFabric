@@ -124,13 +124,14 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
     };
 
     /// <summary>
-    /// 构造 GitHub 更新源的通道列表。该操作不需要网络请求。
+    /// 构造 GitHub 更新源的通道列表。通道 ID 使用固定的 GUID，与 <c>DistributionMetadata.Channels</c> 的键类型一致。
+    /// 该操作不需要网络请求。
     /// </summary>
     public static UpdateSourceChannels CreateChannels() => new(
     [
-        new(StableChannelId, "正式版", "仅获取 GitHub 上标记为正式发布的版本。"),
-        new(PreviewChannelId, "预览版", "包含 GitHub 上标记为预发布的版本，可能不稳定，请谨慎使用。")
-    ], StableChannelId);
+        new(StableChannelGuid.ToString(), "正式版", "仅获取 GitHub 上标记为正式发布的版本。"),
+        new(PreviewChannelGuid.ToString(), "预览版", "包含 GitHub 上标记为预发布的版本，可能不稳定，请谨慎使用。")
+    ], StableChannelGuid.ToString());
 
     /// <inheritdoc />
     public Task<UpdateSourceChannels> GetChannelsAsync(CancellationToken cancellationToken = default) =>
@@ -159,31 +160,34 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
         }
 
         var expectedAssetName = GetExpectedAssetName(request.PackagingType, request.SubChannel);
-        if (expectedAssetName == null)
-        {
-            throw new InvalidOperationException(
-                $"当前安装形态（{request.PackagingType}）不支持通过 GitHub Releases 更新。");
-        }
+        var asset = expectedAssetName == null
+            ? null
+            : candidate.Release.Assets.FirstOrDefault(x =>
+                string.Equals(x.Name, expectedAssetName, StringComparison.OrdinalIgnoreCase));
 
-        var asset = candidate.Release.Assets.FirstOrDefault(x =>
-            string.Equals(x.Name, expectedAssetName, StringComparison.OrdinalIgnoreCase));
         if (asset == null)
         {
-            var available = candidate.Release.Assets.Length == 0
-                ? "该版本未提供任何下载资产"
-                : $"该版本提供的资产：{string.Join("、", candidate.Release.Assets.Select(x => x.Name))}";
-            throw new InvalidOperationException(
-                $"GitHub Release {candidate.Release.TagName} 中没有与当前安装形态匹配的更新包" +
-                $"（期望 {expectedAssetName}）。{available}。");
+            Logger?.LogWarning(
+                "GitHub 更新源命中版本 {Tag}，但没有与当前安装形态匹配的更新包（期望 {Asset}）。",
+                candidate.Release.TagName, expectedAssetName ?? "当前安装形态无对应资产");
+        }
+        else
+        {
+            Logger?.LogInformation("GitHub 更新源命中版本 {Tag}，更新包 {Asset}", candidate.Release.TagName, asset.Name);
         }
 
-        Logger?.LogInformation("GitHub 更新源命中版本 {Tag}，更新包 {Asset}", candidate.Release.TagName, asset.Name);
+        IReadOnlyList<UpdatePackageAsset> assets = [];
+        if (asset != null)
+        {
+            assets = [new UpdatePackageAsset(asset.Name, asset.DownloadUri, asset.Size)];
+        }
+
         return new UpdateRelease(
             candidate.Version!.ToString(),
             NormalizeTag(candidate.Release.TagName),
             candidate.Release.Body ?? string.Empty,
             candidate.Release.PublishedAt,
-            [new UpdatePackageAsset(asset.Name, asset.DownloadUri, asset.Size)],
+            assets,
             NativeMetadata: candidate.Release);
     }
 
