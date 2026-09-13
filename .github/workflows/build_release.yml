@@ -421,8 +421,6 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
-    env:
-      isTestMode: ${{ github.event.inputs.is_test_mode == 'true' }}
     if: ${{ always() && success('pack_app') && github.event.inputs.release_tag && github.event_name != 'pull_request' && github.event.inputs.publish_only != 'true' }}
     needs: [ pack_app ]
     concurrency:
@@ -442,8 +440,7 @@ jobs:
         with:
           path: ./out_artifacts
 
-      - name: Prepare Artifacts for Test Mode
-        if: ${{ github.event.inputs.is_test_mode == 'true' }}
+      - name: Prepare Release Artifacts
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
@@ -455,33 +452,6 @@ jobs:
           }
           Copy-Item -Path $changelogPath -Destination ./out/ChangeLogs.md -Force
 
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        if: ${{ github.event.inputs.is_test_mode != 'true' }}
-        with:
-          key: ${{ secrets.METADATA_DEPLOY_KEY }}
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
-
-      - name: Publish App
-        shell: pwsh
-        if: ${{ github.event.inputs.is_test_mode != 'true' }}
-        env:
-          S3_Bucket: ${{ vars.S3_BUCKET }}
-          S3_Endpoint: ${{ vars.S3_ENDPOINT }}
-          S3_Region: ${{ vars.S3_REGION }}
-          PDC_Endpoint: ${{ vars.PDC_ENDPOINT }}
-          PDC_SigningKey: ${{ secrets.PDC_SigningKey }}
-          PDC_SigningKeyPs: ""
-          PDC_Token: ${{ secrets.PDC_TOKEN }}
-          S3_AccessKey: ${{ secrets.S3_ACCESSKEY }}
-          S3_SecretKey: ${{ secrets.S3_SECRETKEY }}
-          PDCC_version: ${{ github.event.inputs.release_tag }}
-          PDCC_primaryVersion: ${{ github.event.inputs.primary_version }}
-        run: |
-          ./tools/release-gen/init-artifacts.ps1
-          ./tools/release-gen/install-pdcc.ps1 linux
-          ./pdcc/PhainonDistributionCenter.Client ./phainon.yml Publish ${{ github.event.inputs.primary_version }} ${{ github.event.inputs.release_tag }} ./out
-          
       - name: Upload APP to release
         uses: ncipollo/release-action@v1
         with:
@@ -495,16 +465,6 @@ jobs:
           tag: ${{ github.event.inputs.release_tag || github.ref }}
           name: ${{ github.event.inputs.release_name || github.event.inputs.release_tag }}
           
-      - name: Upload Nuget packages to NuGet Gallery
-        if: ${{ github.event_name != 'pull_request' && github.event.inputs.is_test_mode != 'true' }}
-        shell: pwsh
-        env:
-          NUGET_KEY: ${{ secrets.NUGET_ORG_KEY }}
-        run: |
-          ls
-          cd out_artifacts/out_nupkgs
-          dotnet nuget push *.nupkg -k $env:NUGET_KEY -s https://api.nuget.org/v3/index.json --skip-duplicate
-
   publish_existing:
     name: Publish_Existing_Artifacts
     runs-on: ubuntu-latest
