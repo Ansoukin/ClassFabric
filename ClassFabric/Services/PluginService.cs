@@ -55,6 +55,10 @@ public class PluginService : IPluginService
     internal static List<PluginManifest> UninstalledPlugins { get; } = [];
 
     /// <summary>
+    /// 插件诊断信息字典：{插件ID -> (用户消息, 技术细节)}
+    /// </summary>
+    internal static readonly Dictionary<string, (string UserMessage, string TechnicalDetails)> PluginDiagnostics = new();
+    /// <summary>
     /// 处理插件安装
     /// </summary>
     public static void ProcessPluginsInstall()
@@ -193,6 +197,18 @@ public class PluginService : IPluginService
             try
             {
                 var fullPath = Path.GetFullPath(Path.Combine(pluginDir, manifest.EntranceAssembly));
+                // 检查插件兼容性
+                var compatCheck = PluginCompatibilityDiagnosticService.CheckPluginCompatibility(fullPath);
+                if (compatCheck.Status == PluginCompatibilityDiagnosticService.CompatibilityStatus.Incompatible)
+                {
+                    PluginDiagnostics[info.Manifest.Id] = (
+                        compatCheck.UserFacingMessage ?? "插件不兼容",
+                        GenerateTechnicalDiagnosticDetails(manifest, compatCheck.TechnicalDetails ?? ""));
+                    info.LoadStatus = PluginLoadStatus.Error;
+                    PluginLoadedStatus.Add(info);
+                    continue;
+                }
+
                 var loadContext = new PluginLoadContext(info, fullPath, forceMonoPluginLoadBehavior);
                 PluginLoadContexts[info.Manifest.Id] = loadContext;
                 var asm = loadContext.LoadFromAssemblyName(
@@ -236,6 +252,9 @@ public class PluginService : IPluginService
             {
                 info.Exception = ex;
                 info.LoadStatus = PluginLoadStatus.Error;
+                PluginDiagnostics[manifest.Id] = (
+                    GenerateUserDiagnosticMessage(ex),
+                    GenerateTechnicalDiagnosticDetails(ex, manifest));
                 PluginLoadedStatus.Add(info);
                 // Console.WriteLine($"Failed to initialize plugin {manifest.Name}:"+ex);
             }
@@ -363,5 +382,114 @@ public class PluginService : IPluginService
         }
         node.DependencyTreeDepth = depth + 1;
 
+    }
+
+    /// <summary>
+    /// 生成用户可读的诊断信息
+    /// </summary>
+    private static string GenerateUserDiagnosticMessage(Exception ex)
+    {
+        // Try to detect Avalonia version mismatch from exception
+        if (ex.Message.Contains("Avalonia") || ex.Message.Contains("FluentAvalonia"))
+        {
+            return "该插件可能基于不兼容的 UI 框架版本构建。请确认插件与当前 ClassFabric 版本兼容，或联系插件作者更新。";
+        }
+
+        if (ex is MissingMethodException)
+        {
+            return "该插件缺少必要的方法引用，可能是版本不兼容导致的。请联系插件作者进行更新。";
+        }
+
+        if (ex is FileNotFoundException && ex.Message.Contains("dll"))
+        {
+            return "该插件缺少依赖的程序集。请确认插件完整性，或联系插件作者。";
+        }
+
+        // Generic fallback message
+        return "该插件加载失败。请确认插件版本与当前 ClassFabric 版本兼容，或联系插件作者。";
+    }
+
+    /// <summary>
+    /// 生成技术诊断详情
+    /// </summary>
+    private static string GenerateTechnicalDiagnosticDetails(PluginManifest manifest, string compatibilityDetails)
+    {
+        return string.Join(Environment.NewLine,
+        [
+            "=== 插件清单 ===",
+            $"插件 ID: {manifest.Id}",
+            $"插件名称: {manifest.Name}",
+            $"插件版本: {manifest.Version}",
+            $"API 版本: {manifest.ApiVersion}",
+            $"入口程序集: {manifest.EntranceAssembly}",
+            "",
+            compatibilityDetails
+        ]);
+    }
+
+    /// <summary>
+    /// 生成技术诊断详情
+    /// </summary>
+    private static string GenerateTechnicalDiagnosticDetails(Exception ex, PluginManifest manifest)
+    {
+        var details = new System.Text.StringBuilder();
+
+        details.AppendLine("=== 插件加载失败诊断信息 ===");
+        details.AppendLine($"插件 ID: {manifest.Id}");
+        details.AppendLine($"插件名称: {manifest.Name}");
+        details.AppendLine($"插件版本: {manifest.Version}");
+        details.AppendLine($"API 版本: {manifest.ApiVersion}");
+        details.AppendLine($"入口程序集: {manifest.EntranceAssembly}");
+        details.AppendLine();
+        details.AppendLine("=== 运行时环境 ===");
+        details.AppendLine($"ClassFabric 版本: {typeof(PluginService).Assembly.GetName().Version}");
+        details.AppendLine($"Avalonia 版本: {GetAssemblyVersion("Avalonia.Base")}");
+        details.AppendLine($"FluentAvalonia 版本: {GetAssemblyVersion("FluentAvalonia")}");
+        details.AppendLine();
+        details.AppendLine("=== 异常信息 ===");
+        details.AppendLine($"异常类型: {ex.GetType().FullName}");
+        details.AppendLine($"异常消息: {ex.Message}");
+        if (!string.IsNullOrEmpty(ex.StackTrace))
+        {
+            details.AppendLine();
+            details.AppendLine("=== 堆栈跟踪 ===");
+            details.AppendLine(ex.StackTrace);
+        }
+
+        if (ex.InnerException != null)
+        {
+            details.AppendLine();
+            details.AppendLine("=== 内部异常 ===");
+            details.AppendLine($"类型: {ex.InnerException.GetType().FullName}");
+            details.AppendLine($"消息: {ex.InnerException.Message}");
+        }
+
+        return details.ToString();
+    }
+
+    /// <summary>
+    /// 获取程序集版本
+    /// </summary>
+    private static string GetAssemblyVersion(string assemblyName)
+    {
+        try
+        {
+            var asm = AppDomain.CurrentDomain.GetAssemblies()
+                .FirstOrDefault(a => a.GetName().Name == assemblyName);
+            return asm?.GetName().Version?.ToString() ?? "未加载";
+        }
+        catch
+        {
+            return "未知";
+        }
+    }
+
+    internal (string UserMessage, string TechnicalDetails)? GetPluginDiagnosticInfo(string pluginId)
+    {
+        if (PluginDiagnostics.TryGetValue(pluginId, out var diagnostic))
+        {
+            return diagnostic;
+        }
+        return null;
     }
 }

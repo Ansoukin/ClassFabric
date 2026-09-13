@@ -11,7 +11,9 @@ using ClassIsland.Core.Extensions.UI;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Input;
+using Avalonia.Input.Platform;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using ClassIsland.Core;
@@ -23,6 +25,7 @@ using ClassIsland.Core.Helpers.UI;
 using ClassIsland.Core.Models.Plugin;
 using ClassIsland.Platforms.Abstraction;
 using ClassIsland.Shared;
+using ClassIsland.Services;
 using ClassIsland.ViewModels.SettingsPages;
 using CommunityToolkit.Mvvm.Input;
 using FluentAvalonia.UI.Controls;
@@ -513,6 +516,56 @@ public partial class PluginsSettingsPage : SettingsPageBase
         OpenDrawer("PluginSourceManageDrawer");
     }
 
+    [RelayCommand]
+    private async Task ShowDiagnostic(string pluginId)
+    {
+        var pluginInfo = ViewModel.MergedPluginsFiltered
+            .FirstOrDefault(x => x.Value.Manifest.Id == pluginId).Value;
+        var diagnostic = (ViewModel.PluginService as PluginService)?.GetPluginDiagnosticInfo(pluginId);
+        if (pluginInfo?.Exception == null && diagnostic == null)
+        {
+            return;
+        }
+
+        var userMessage = diagnostic?.UserMessage ?? "该插件加载失败。请确认插件与当前 ClassFabric 版本兼容，或联系插件作者。";
+        var technicalDetails = diagnostic?.TechnicalDetails ?? pluginInfo?.Exception?.ToString() ?? "未记录技术详情。";
+        var dialog = new FAContentDialog
+        {
+            Title = "插件加载诊断",
+            Content = new TextBlock { Text = userMessage, TextWrapping = TextWrapping.Wrap },
+            IsSecondaryButtonEnabled = true,
+            PrimaryButtonText = "确定",
+            SecondaryButtonText = "复制诊断信息",
+            DefaultButton = FAContentDialogButton.Primary
+        };
+
+        dialog.SecondaryButtonClick += async (_, _) =>
+        {
+            var success = false;
+            try
+            {
+                var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
+                if (clipboard != null)
+                {
+                    await clipboard.SetTextAsync(technicalDetails);
+                    success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger?.LogError(ex, "复制插件诊断信息失败。");
+                ToastsHelper.ShowErrorToast(this, "复制失败，请全选诊断信息文本后手动复制。");
+            }
+
+            if (success)
+            {
+                ToastsHelper.ShowSuccessToast(this, "诊断信息已复制到剪贴板");
+            }
+        };
+
+        await dialog.ShowAsyncAuto();
+    }
+
     private void MenuItemOpenPluginsFolder_OnClick(object sender, RoutedEventArgs e)
     {
         ViewModel.IsPluginMarketOperationsPopupOpened = false;
@@ -688,4 +741,3 @@ public partial class PluginsSettingsPage : SettingsPageBase
         Dispatcher.UIThread.InvokeAsync(() => OpenDrawer("PluginUpdateSettingsDrawer"));
     }
 }
-
