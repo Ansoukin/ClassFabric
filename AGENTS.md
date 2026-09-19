@@ -38,6 +38,14 @@ When requirements are unclear:
 - Ask the user when changes affect architecture, behavior, compatibility, or public APIs.
 - For minor implementation details, follow existing project patterns.
 
+## File Operations
+Use the following order for every file operation:
+1. Browse and read with `read_file` / `list_files` first.
+2. Edit with `apply_patch`.
+3. Fall back to Node.js atomic file operations only when those tools are unavailable or fail: read with `fs.readFile`, and write by creating a temporary file and replacing the destination with `fs.rename`.
+Do not bypass this order with shell commands such as `cat`, `sed`, or `echo`.
+Follow this rule strictly.
+
 ## Priority Rules
 When instructions conflict, follow this order:
 1. Preserve existing architecture and behavior.
@@ -149,7 +157,7 @@ When unsure: ask the user.
 
 ## Contribution Conventions
 - **Ask before committing or pushing.** Before running `git commit` or `git push`, use the Ask user input tool (`request_user_input`) to obtain the user's approval. The question must state the proposed Conventional Commit type (such as `feat` or `fix`) and a one-line summary of the change, so the user can confirm or revise them before anything is committed or pushed. If that tool is unavailable in the current session, ask in plain text and wait for the reply. Never commit or push unilaterally — not even for small, already-verified changes, or for changes the user explicitly asked for.
-- **Describe the change, not the project plan.** A commit message must state what actually changed in the code or assets, in one line. Never write milestone, phase or progress language such as `完成W1阶段开发`, `M2 收尾`, `阶段性提交` or `按计划推进`: it tells a future reader nothing about the change, and it leaks an internal roadmap into permanent history. Prefer `feat(api): 新增 AutomationCategoryAttribute 与分类回退链` over `feat: 完成W0元数据基建`.
+- **Describe the change, not the project plan.** A commit message must state what actually changed in the code or assets, in one line. Never write milestone, phase or progress language such as `finish W1 phase`, `M2 wrap-up`, `stage commit`, or `proceeding as planned`: it tells a future reader nothing about the change, and it leaks an internal roadmap into permanent history. Prefer `feat(api): add AutomationCategoryAttribute and category fallback chain` over `feat: finish W0 metadata groundwork`.
 - Use Conventional Commits with scopes from `doc/Contributing/Scopes.md`.
 - Feature work → `master`; fixes → maintenance branch.
 - Before writing commit messages, read `doc/Contributing/Scopes.md` to get valid scope names.

@@ -34,6 +34,7 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
     [ObservableProperty] private bool _isRefreshingWeather;
     [ObservableProperty] private bool _isLocationUpdating;
     [ObservableProperty] private int _selectedLocationSource;
+    [ObservableProperty] private int _selectedWeatherProvider;
     [ObservableProperty] private bool _hideLocationPos = true;
     public bool IsLocationPosVisible => !_hideLocationPos;
         partial void OnHideLocationPosChanged(bool value)
@@ -57,6 +58,7 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
         _searchDebounceTimer.Tick += SearchDebounceTimer_Tick;
 
         SelectedLocationSource = settingsService.Settings.WeatherLocationSource;
+        SelectedWeatherProvider = settingsService.Settings.WeatherProvider == "openweather" ? 1 : 0;
     }
 
     /// <summary>
@@ -93,6 +95,10 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
         if (e.PropertyName == nameof(SettingsService.Settings.WeatherLocationSource))
         {
             SelectedLocationSource = _settingsService.Settings.WeatherLocationSource;
+        }
+        else if (e.PropertyName == nameof(SettingsService.Settings.WeatherProvider))
+        {
+            SelectedWeatherProvider = _settingsService.Settings.WeatherProvider == "openweather" ? 1 : 0;
         }
     }
 
@@ -201,5 +207,22 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
         {
             _ = RefreshWeatherAsync();
         }
+    }
+
+    partial void OnSelectedWeatherProviderChanged(int value)
+    {
+        if (value is not (0 or 1))
+        {
+            return;
+        }
+
+        var provider = value == 1 ? "openweather" : "xiaomi";
+        if (_settingsService.Settings.WeatherProvider == provider)
+        {
+            return;
+        }
+
+        _settingsService.Settings.WeatherProvider = provider;
+        _ = RefreshWeatherAsync();
     }
 }

@@ -274,6 +274,34 @@
                 </controls3:FASettingsExpanderItem>
             </controls3:FASettingsExpander>
             <Separator Margin="0 16 0 8" />
+            <controls1:IconText Glyph="&#xE753;" Text="天气数据源" Margin="0 0 0 8" />
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xE753;}"
+                                         Header="天气数据源"
+                                         Description="选择天气数据提供方。默认使用小米天气；其他来源失败时可自动回退。">
+                <controls3:FASettingsExpander.Footer>
+                    <ComboBox SelectedIndex="{Binding ViewModel.SelectedWeatherProvider, Mode=TwoWay}"
+                              MinWidth="160">
+                        <ComboBoxItem Content="小米天气（默认）" />
+                        <ComboBoxItem Content="OpenWeather" />
+                    </ComboBox>
+                </controls3:FASettingsExpander.Footer>
+                <controls3:FASettingsExpanderItem Content="OpenWeather API Key"
+                                                  Description="使用 OpenWeather 时必填，由用户自行申请并保存在本机设置中。">
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <TextBox Text="{Binding ViewModel.SettingsService.Settings.OpenWeatherApiKey, Mode=TwoWay}"
+                                 PasswordChar="●"
+                                 MinWidth="240"
+                                 Watermark="请输入 API Key" />
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem Content="失败时回退到小米天气"
+                                                  Description="启用后，所选天气源不可用时继续使用默认源。">
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.WeatherProviderFallbackEnabled, Mode=TwoWay}" />
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+            </controls3:FASettingsExpander>
+            <Separator Margin="0 16 0 8" />
             <controls1:IconText Glyph="&#xE713;" Text="外观与高级设置" Margin="0 0 0 8" />
             <!-- 天气图标包 -->
             <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xE9B0;}"

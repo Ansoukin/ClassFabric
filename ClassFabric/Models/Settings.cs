@@ -308,6 +308,40 @@ public class Settings : ObservableRecipient, ILessonControlSettings, INotificati
         }
     }
 
+    public string WeatherProvider
+    {
+        get => _weatherProvider;
+        set
+        {
+            if (value == _weatherProvider) return;
+            _weatherProvider = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string OpenWeatherApiKey
+    {
+        get => _openWeatherApiKey;
+        set
+        {
+            var normalizedValue = value?.Trim() ?? string.Empty;
+            if (normalizedValue == _openWeatherApiKey) return;
+            _openWeatherApiKey = normalizedValue;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool WeatherProviderFallbackEnabled
+    {
+        get => _weatherProviderFallbackEnabled;
+        set
+        {
+            if (value == _weatherProviderFallbackEnabled) return;
+            _weatherProviderFallbackEnabled = value;
+            OnPropertyChanged();
+        }
+    }
+
     public bool AutoRefreshWeatherLocation
     {
         get => _autoRefreshWeatherLocation;
@@ -1896,6 +1930,9 @@ public class Settings : ObservableRecipient, ILessonControlSettings, INotificati
     private double _weatherLongitude = 0.0;
     private double _weatherLatitude = 0.0;
     private int _weatherLocationSource = 0;
+    private string _weatherProvider = "xiaomi";
+    private string _openWeatherApiKey = string.Empty;
+    private bool _weatherProviderFallbackEnabled = true;
     private bool _autoRefreshWeatherLocation = false;
     private bool _noTLSWeatherRequests = false;
     private bool _useExperimentColorPickingMethod = false;
@@ -2724,3 +2761,5 @@ public class Settings : ObservableRecipient, ILessonControlSettings, INotificati
         set => SetProperty(ref _scheduleEditModeIndex, value);
     }
 }
+
+

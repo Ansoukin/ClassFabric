@@ -30,6 +30,7 @@ using ClassIsland.Models.Rules;
 using ClassIsland.Platforms.Abstraction;
 using ClassIsland.Platforms.Abstraction.Services;
 using ClassIsland.Services;
+using ClassIsland.Services.WeatherProviders;
 using ClassIsland.Services.AppUpdating;
 using ClassIsland.Services.Automation.Actions;
 using ClassIsland.Services.Automation.Triggers;
@@ -64,6 +65,8 @@ public partial class App
         services.AddSingleton<INotificationWorkerService, NotificationWorkerService>();
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<MiniInfoProviderHostService>();
+        services.AddSingleton<IWeatherProvider, XiaomiWeatherProvider>();
+        services.AddSingleton<IWeatherProvider, OpenWeatherProvider>();
         services.AddSingleton<IWeatherService, WeatherService>();
         services.AddSingleton<FileFolderService>();
         services.AddSingleton<IAttachedSettingsHostService, AttachedSettingsHostService>();

@@ -19,6 +19,7 @@ using ClassIsland.Helpers;
 using ClassIsland.Models;
 using ClassIsland.Models.Rules;
 using ClassIsland.Platforms.Abstraction.Services;
+using ClassIsland.Services.WeatherProviders;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -37,6 +38,7 @@ public class WeatherService : ObservableRecipient, IHostedService, IWeatherServi
     private ILogger<WeatherService> Logger { get; }
     public IRulesetService RulesetService { get; }
     public ILocationService LocationService { get; }
+    private IReadOnlyDictionary<string, IWeatherProvider> WeatherProviders { get; }
 
     private DispatcherTimer UpdateTimer { get; } = new()
     {
@@ -47,11 +49,12 @@ public class WeatherService : ObservableRecipient, IHostedService, IWeatherServi
 
     public bool IsPosUpdated { get; set; } = false;
 
-    public WeatherService(SettingsService settingsService, ILogger<WeatherService> logger, IRulesetService rulesetService, ILocationService locationService)
+    public WeatherService(SettingsService settingsService, ILogger<WeatherService> logger, IRulesetService rulesetService, ILocationService locationService, IEnumerable<IWeatherProvider> weatherProviders)
     {
         Logger = logger;
         RulesetService = rulesetService;
         LocationService = locationService;
+        WeatherProviders = weatherProviders.ToDictionary(provider => provider.Id, StringComparer.OrdinalIgnoreCase);
         SettingsService = settingsService;
         SettingsService.Settings.PropertyChanged += SettingsOnPropertyChanged;
         LoadData();
@@ -350,10 +353,30 @@ public class WeatherService : ObservableRecipient, IHostedService, IWeatherServi
         {
             Logger.LogTrace("天气请求信息: CityId={CityId}, Longitude={Longitude}, Latitude={Latitude}, LocationSource={LocationSource}",
                 Settings.CityId, cityLongitude, cityLatitude, Settings.WeatherLocationSource);
-            var uri =
-                $"{Schema}://weatherapi.market.xiaomi.com/wtr-v3/weather/all?latitude={cityLatitude}&longitude={cityLongitude}&locationKey={Uri.EscapeDataString(Settings.CityId)}&days=15&appKey=weather20151024&sign=zUFJoAR2ZVrDy1vF3D07&isGlobal=false&locale=zh_cn";
-            Logger.LogInformation("获取天气信息： {}", uri);
-            var info = await WebRequestHelper.Default.GetJson<WeatherInfo>(new Uri(uri));
+            var latitude = double.Parse(cityLatitude, CultureInfo.InvariantCulture);
+            var longitude = double.Parse(cityLongitude, CultureInfo.InvariantCulture);
+            var context = new WeatherProviderContext(latitude, longitude, Settings.CityId,
+                Settings.OpenWeatherApiKey, Settings.NoTLSWeatherRequests);
+            var providerId = string.IsNullOrWhiteSpace(Settings.WeatherProvider)
+                ? "xiaomi"
+                : Settings.WeatherProvider;
+            if (!WeatherProviders.TryGetValue(providerId, out var provider))
+            {
+                Logger.LogWarning("未知天气源 {ProviderId}，已回退到小米天气。", providerId);
+                provider = WeatherProviders["xiaomi"];
+            }
+
+            WeatherInfo info;
+            try
+            {
+                info = await provider.GetWeatherAsync(context);
+            }
+            catch (Exception providerException) when (provider.Id != "xiaomi" && Settings.WeatherProviderFallbackEnabled)
+            {
+                Logger.LogWarning(providerException, "天气源 {ProviderId} 获取失败，回退到小米天气。", provider.Id);
+                info = await WeatherProviders["xiaomi"].GetWeatherAsync(context);
+                result.ErrorMessage = $"{provider.Id} 获��取失败，已回退到小米天气：{providerException.Message}";
+            }
 
             // 排除天气预警
             var validExclusions = Settings.ExcludedWeatherAlerts
