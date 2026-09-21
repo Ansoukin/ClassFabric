@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Avalonia.Platform;
+using ClassIsland.Core.Extensions;
 using ClassIsland.Models.External.ClassWidgets;
 using ClassIsland.Services;
 using ClassIsland.Shared.Helpers;
@@ -27,7 +28,7 @@ public static class ClassWidgetsProfileTransferHelper
 
     private static Profile ConvertClassWidgets1ProfileToClassFabricProfile(CwProfile profileCw, Profile? profile)
     {
-        var templateJson = new StreamReader(AssetLoader.Open(new Uri("avares://ClassFabric/Assets/default-subjects.json"))).ReadToEnd();
+        var templateJson = AssetLoader.ReadAllText(new Uri("avares://ClassFabric/Assets/default-subjects.json"));
         profile ??= JsonSerializer.Deserialize<Profile>(templateJson)!;
         
         // Subjects

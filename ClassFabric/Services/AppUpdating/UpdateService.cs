@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Platform;
+using ClassIsland.Core.Extensions;
 using Avalonia.Threading;
 using ClassIsland.Core;
 using ClassIsland.Core.Abstractions.Services;
@@ -175,8 +176,8 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         SplashService = splashService;
         Logger = logger;
 
-        var keyStream = AssetLoader.Open(new Uri("avares://ClassFabric/Assets/TrustedPublicKeys/ClassFabric.MetadataPublisher.asc", UriKind.RelativeOrAbsolute));
-        MetadataPublisherPublicKey = new StreamReader(keyStream).ReadToEnd();
+        MetadataPublisherPublicKey = AssetLoader.ReadAllText(new Uri(
+            "avares://ClassFabric/Assets/TrustedPublicKeys/ClassFabric.MetadataPublisher.asc", UriKind.RelativeOrAbsolute));
 
         RequestHelper = new WebRequestHelper(AppBase.Current.IsDevelopmentBuild 
                                              && !string.IsNullOrWhiteSpace(Settings.DebugPhainonRootUrlOverride) 
