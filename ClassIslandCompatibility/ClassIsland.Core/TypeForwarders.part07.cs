@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Extensions.AssetLoaderExtensions))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Extensions.IntToChineseExtensions))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Extensions.ListExtensions))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Extensions.NotificationProviderExtensions))]
@@ -20,6 +21,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Extensions.UI.FAContentDialogExtensions))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Extensions.UI.VisualsExtensions))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Extensions.UI.WindowExtensions))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.AssetsStreamHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.Automation.AutomationCategoryHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.ChecksumHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.LogMaskingHelper))]

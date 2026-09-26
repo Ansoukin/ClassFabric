@@ -13,6 +13,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Views.MainView))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Views.MveBigImageTestView))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Views.MveTestView))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Views.ProfileRecoveryWindow))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Views.ProfileSettingsWindow))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Views.RecoveryPages.HomePage))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Views.RecoveryPages.RecoverBackupPage))]

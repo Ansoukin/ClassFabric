@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.ViewModels.JoinManagementViewModel))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.ViewModels.MainViewModel))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.ViewModels.ProfileSettingsViewModel))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.ViewModels.ProfileRecoveryViewModel))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.ViewModels.RecoveryPages.RecoverBackupViewModel))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.ViewModels.RecoveryViewModel))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.ViewModels.ScreenshotHelperViewModel))]
