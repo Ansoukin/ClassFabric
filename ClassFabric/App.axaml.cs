@@ -563,7 +563,12 @@ public partial class App : AppBase, IAppHost
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         
         
-        Thread.CurrentThread.CurrentUICulture = new CultureInfo("zh-CN");
+        var uiCulture = LanguageService.ResolveCulture(LanguageService.ReadLanguageCodeFromSettingsFile());
+        Thread.CurrentThread.CurrentUICulture = uiCulture;
+        // CurrentUICulture 底层是 AsyncLocal，仅随 Init 的 ExecutionContext 流转；Dispatcher/输入
+        // 事件回调使用独立的 ExecutionContext，会回退系统语言。必须同时设置进程级默认，
+        // 用户交互路径（打开设置窗口、托盘菜单等）才能使用所选语言。
+        CultureInfo.DefaultThreadCurrentUICulture = uiCulture;
         Thread.CurrentThread.CurrentCulture = new CultureInfo("zh-CN");
 
         // 检测 Mutex

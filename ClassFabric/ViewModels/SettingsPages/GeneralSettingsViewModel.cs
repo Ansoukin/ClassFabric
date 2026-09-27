@@ -1,4 +1,4 @@
-﻿using ClassIsland.Core.Abstractions.Services;
+using ClassIsland.Core.Abstractions.Services;
 using ClassIsland.Core.Abstractions.Services.Management;
 using ClassIsland.Core.Abstractions.Services.Metadata;
 using ClassIsland.Core.Services;
@@ -53,6 +53,24 @@ public class GeneralSettingsViewModel(
                 SettingsService.Settings.CriticalSafeModeMethod = value - 1;
             }
         }
+    }
+
+    // 语言下拉用索引中转（同 CriticalSafeModeSelectedIndex 模式），写入仍落在 Settings.LanguageCode，
+    // 由其 PropertyChanged 触发自动保存与 RequestRestart。
+    public int LanguageSelectedIndex
+    {
+        get => SettingsService.Settings.LanguageCode switch
+        {
+            "en" => 1,
+            "zh-Hant" => 2,
+            _ => 0
+        };
+        set => SettingsService.Settings.LanguageCode = value switch
+        {
+            1 => "en",
+            2 => "zh-Hant",
+            _ => "zh-Hans"
+        };
     }
 
     public bool IsSplashPreviewing

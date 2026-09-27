@@ -118,6 +118,7 @@ public class Settings : ObservableRecipient, ILessonControlSettings, INotificati
     private bool _isSplashEnabled = false;
     private string _splashCustomText = "";
     private string _splashCustomLogoSource = "";
+    private string _languageCode = "zh-Hans";
     private bool _isDebugConsoleEnabled = false;
     private string _debugGitHubAuthKey = "";
     private Dictionary<string, SpeedTestResult> _speedTestResults = new();
@@ -736,6 +737,17 @@ public class Settings : ObservableRecipient, ILessonControlSettings, INotificati
         {
             if (value == _splashCustomLogoSource) return;
             _splashCustomLogoSource = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public string LanguageCode
+    {
+        get => _languageCode;
+        set
+        {
+            if (value == _languageCode) return;
+            _languageCode = value;
             OnPropertyChanged();
         }
     }

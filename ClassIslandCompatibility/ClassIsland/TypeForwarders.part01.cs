@@ -2,7 +2,6 @@ using System.Runtime.CompilerServices;
 
 [assembly: TypeForwardedTo(typeof(ClassIsland.AccentColorPicker))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.App))]
-[assembly: TypeForwardedTo(typeof(ClassIsland.Assets.Localization.Localization))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Behaviors.AdornerAttachingBehavior))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Behaviors.AllCollectionBehavior))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Behaviors.ComboBoxEmptyFixBehavior))]
