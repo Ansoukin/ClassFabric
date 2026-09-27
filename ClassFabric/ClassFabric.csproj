@@ -119,6 +119,7 @@
         <AvaloniaResource Remove="Assets\Localization\SettingsPage\General\Localization.SettingsPage.General.resx" />
         <AvaloniaResource Remove="Assets\Localization\SettingsPage\Localization.SettingsPage.resx" />
         <AvaloniaResource Remove="Assets\Localization\TrayMenu\Localization.TrayMenu.resx" />
+        <AvaloniaResource Remove="Assets\Localization\Main\Localization.Main.resx" />
         <None Include="Assets\AppLogo.png" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" PublishFolderType="Resource" />
     </ItemGroup>
     <ItemGroup Condition="'$(ClassFabricBundleAssetsInAssembly)' == 'true'">
@@ -142,6 +143,7 @@
         <None Include="Assets\Localization\SettingsPage\General\Localization.SettingsPage.General.resx" />
         <None Include="Assets\Localization\SettingsPage\Localization.SettingsPage.resx" />
         <None Include="Assets\Localization\TrayMenu\Localization.TrayMenu.resx" />
+        <None Include="Assets\Localization\Main\Localization.Main.resx" />
     </ItemGroup>
     <ItemGroup Condition="'$(TrimAssets)'=='true'">
         <Resource Remove="Assets\Fonts\*.ttf" />

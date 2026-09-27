@@ -239,7 +239,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
         LoadSettings();
         //ViewModel.CurrentProfilePath = ViewModel.Settings.SelectedProfile;
         LoadProfile();
-        IAppHost.GetService<ISplashService>().SetDetailedStatus("正在加载界面主题（1）");
+        IAppHost.GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.LoadingTheme1);
         // UpdateTheme();
         UserPrefrenceUpdateStopwatch.Start();
         AppBase.Current.PlatformSettings!.ColorValuesChanged += OnSystemEventsOnUserPreferenceChanged;
@@ -249,7 +249,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
         RenderOptions.SetTextRenderingMode(this, TextRenderingMode.Antialias);
         RenderOptions.SetBitmapInterpolationMode(this, BitmapInterpolationMode.HighQuality);
         
-        IAppHost.GetService<ISplashService>().SetDetailedStatus("正在初始化主界面（步骤 1/2）");
+        IAppHost.GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.InitializingMainWindowStep1);
         XamlThemeService.MainWindow = this;
         SettingsService.PropertyChanged += (sender, args) =>
         {
@@ -279,7 +279,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
 
     private void PostInit()
     {
-        IAppHost.GetService<ISplashService>().SetDetailedStatus("正在初始化托盘菜单");
+        IAppHost.GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.InitializingTrayMenu);
         var menu = this.FindResource("AppMenu") as NativeMenu;
         TaskBarIconService.MainTaskBarIcon.Menu = menu;
         TaskBarIconService.MainTaskBarIcon.IsVisible = true;
@@ -306,7 +306,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
         UriNavigationService.HandleAppNavigation("class-swap", args => OpenClassSwapWindow());
         UriNavigationService.HandleAppNavigation("edit", args => EnterEditMode());
 
-        IAppHost.GetService<ISplashService>().SetDetailedStatus("正在初始化输入");
+        IAppHost.GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.InitializingInput);
         if (SettingsService.Settings.UseRawInput)
         {
             try
@@ -350,7 +350,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
     public override void Show()
     {
         XamlThemeService.LoadAllThemes();
-        IAppHost.GetService<ISplashService>().SetDetailedStatus("正在加载界面主题（2）");
+        IAppHost.GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.LoadingTheme2);
         UpdateTheme();
         base.Show();
         UpdateWindowPos();
@@ -737,7 +737,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
         if (ViewModel.Settings.IsMouseClickingEnabled)
         {
             ViewModel.Settings.IsMouseClickingEnabled = false;
-            await PlatformServices.DesktopToastService.ShowToastAsync("已禁用不支持的设置", "【启用鼠标点击】设置项目不再受到支持并已自动禁用，感谢您的支持与理解。");
+            await PlatformServices.DesktopToastService.ShowToastAsync(ClassFabric.Assets.Localization.Main.Localization.UnsupportedSettingDisabledToastTitle, ClassFabric.Assets.Localization.Main.Localization.UnsupportedSettingDisabledToastBody);
         }
         
         UpdateWindowPos();
@@ -1209,7 +1209,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
         var input = new TextBox();
         var dialog = new FATaskDialog()
         {
-            Header = "启用临时课表",
+            Header = ClassFabric.Assets.Localization.Main.Localization.DebugEnableTempClassPlanHeader,
             Content = new StackPanel()
             {
                 Spacing = 4,
@@ -1217,7 +1217,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
                 {
                     new TextBlock()
                     {
-                        Text = $"输入课表 GUID，当前档案为 {ProfileService.CurrentProfilePath}"
+                        Text = string.Format(ClassFabric.Assets.Localization.Main.Localization.DebugEnableTempClassPlanPrompt, ProfileService.CurrentProfilePath)
                     },
                     input
                 }
@@ -1594,7 +1594,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
             var firstLine = ComponentsService.CurrentComponents.Lines.FirstOrDefault();
             if (firstLine != null) 
                 firstLine.IsMainLine = true;
-            this.ShowToast("已将第一行设置为主要行。");
+            this.ShowToast(ClassFabric.Assets.Localization.Main.Localization.FirstLineSetAsMainToast);
         }
     }
 
@@ -1602,7 +1602,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
     {
         if (!ComponentsService.CurrentComponents.Lines.Any(x => x.IsNotificationEnabled))
         {
-            this.ShowWarningToast("您已经禁用了所有主界面行的提醒显示功能。如果没有插件注册其它提醒消费者，提醒将不会显示，也不会播放提醒音效、特效和语音。");
+            this.ShowWarningToast(ClassFabric.Assets.Localization.Main.Localization.AllNotificationDisabledWarning);
         }
     }
 
@@ -1615,7 +1615,7 @@ public partial class MainWindow : Window, ITopmostEffectPlayer
         }
         if (ComponentsService.CurrentComponents.Lines.Count <= 1)
         {
-            this.ShowWarningToast("至少需要保留 1 个主界面行。");
+            this.ShowWarningToast(ClassFabric.Assets.Localization.Main.Localization.AtLeastOneLineWarning);
             return;
         }
 

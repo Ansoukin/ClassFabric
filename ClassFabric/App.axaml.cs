@@ -428,10 +428,10 @@ public partial class App : AppBase, IAppHost
             var crashInfo = e.ToString();
             if (plugins.Count > 0)
             {
-                var pluginsWarning = "此问题可能由以下插件引起，请在向 ClassFabric 开发者反馈问题前先向以下插件的开发者反馈此问题："+Environment.NewLine
+                var pluginsWarning = ClassFabric.Assets.Localization.Main.Localization.CrashPluginsWarning+Environment.NewLine
                                      + string.Join(Environment.NewLine, plugins.Select(x => $"- {x.Manifest.Name} [{x.Manifest.Id},{x.Manifest.Version}]"))
                                      + (disabled
-                                         ? Environment.NewLine+"以上异常插件已自动禁用，重启应用后生效。您可以在排除问题后前往【应用设置】->【插件】中重新启用这些插件，或在【应用设置】->【基本】中调整是否自动禁用异常插件。"
+                                         ? Environment.NewLine+ClassFabric.Assets.Localization.Main.Localization.CrashPluginsDisabled
                                          : "")
                     +Environment.NewLine+ "================================"+Environment.NewLine;
                 crashInfo = pluginsWarning + crashInfo;
@@ -439,7 +439,7 @@ public partial class App : AppBase, IAppHost
             if (traceId != null)
             {
                 var traceInfo = $"""
-                                 在向开发者提交问题时请保留以下信息：
+                                 {ClassFabric.Assets.Localization.Main.Localization.CrashTraceInfoHeader}
                                  TraceID: {traceId}
                                  ================================
 
@@ -472,7 +472,7 @@ public partial class App : AppBase, IAppHost
                 Logger?.LogInformation("因教学安全模式设定，应用将忽略异常并显示一条通知");
                 try
                 {
-                    await PlatformServices.DesktopToastService.ShowToastAsync("崩溃报告", $"ClassFabric 发生了一个无法处理的错误：{e.Message}");
+                    await PlatformServices.DesktopToastService.ShowToastAsync(ClassFabric.Assets.Localization.Main.Localization.CrashReportToastTitle, string.Format(ClassFabric.Assets.Localization.Main.Localization.CrashReportToastBody, e.Message));
                 }
                 catch (Exception exception)
                 {
@@ -597,15 +597,15 @@ public partial class App : AppBase, IAppHost
         await new FATaskDialog()
         {
             Title = "ClassFabric",
-            Header = "欢迎使用 2.2-Mikhail Developer Preview",
-            Content = "此版本仅供开发人员进行早期预览，稳定性欠佳，不适用于生产环境或日常使用。如果您在使用的过程中遇到问题，欢迎前往 GitHub issues 上提交 issue！",
+            Header = ClassFabric.Assets.Localization.Main.Localization.DevPreviewHeader,
+            Content = ClassFabric.Assets.Localization.Main.Localization.DevPreviewContent,
             IconSource = new AdvancedImageIconSource()
             {
                 Uri = "avares://ClassFabric/Assets/AppLogo.png"
             },
             XamlRoot = GetRootWindow(),
             Buttons = [
-                new FATaskDialogButton("确定", true)
+                new FATaskDialogButton(ClassFabric.Assets.Localization.Main.Localization.OkButton, true)
                 {
                     IsDefault = true
                 }
@@ -616,16 +616,16 @@ public partial class App : AppBase, IAppHost
         // 检测临时目录
         if (Environment.CurrentDirectory.Contains(Path.GetTempPath()))
         {
-            var forceRunButton = new FATaskDialogButton("我就要运行", false);
+            var forceRunButton = new FATaskDialogButton(ClassFabric.Assets.Localization.Main.Localization.ForceRunButton, false);
             var tempDirDialog = new FATaskDialog()
             {
                 Title = "ClassFabric",
-                Header = "检测到应用正在临时目录下运行",
-                Content = "ClassFabric 正在临时目录下运行，应用设置、课表等数据很可能无法保存，或在应用退出后被自动删除。在使用本应用前，请务必将本应用解压到一个适合的位置。",
+                Header = ClassFabric.Assets.Localization.Main.Localization.TempDirHeader,
+                Content = ClassFabric.Assets.Localization.Main.Localization.TempDirContent,
                 XamlRoot = GetRootWindow(),
                 Buttons =
                 [
-                    new FATaskDialogButton("确定", true)
+                    new FATaskDialogButton(ClassFabric.Assets.Localization.Main.Localization.OkButton, true)
                     {
                         IsDefault = true
                     },
@@ -645,7 +645,7 @@ public partial class App : AppBase, IAppHost
         // 检测桌面文件夹
         if (Environment.CurrentDirectory == Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) && !Settings.IsWelcomeWindowShowed)
         {
-            var r = await CommonTaskDialogs.ShowDialog("检测到正在桌面上运行", "ClassFabric 正在桌面上运行，应用设置、课表等数据将会直接存放到桌面上。在使用本应用前，请将本应用移动到一个单独的文件夹中。");
+            var r = await CommonTaskDialogs.ShowDialog(ClassFabric.Assets.Localization.Main.Localization.DesktopRunHeader, ClassFabric.Assets.Localization.Main.Localization.DesktopRunContent);
             if (r == (object)true)
             {
                 Environment.Exit(0);
@@ -662,7 +662,7 @@ public partial class App : AppBase, IAppHost
         }
         catch (Exception ex)
         {
-            await CommonTaskDialogs.ShowDialog("目录权限错误", $"ClassFabric 无法写入当前目录：{ex.Message}"+Environment.NewLine+Environment.NewLine+"请将本软件解压到一个合适的位置后再运行。");
+            await CommonTaskDialogs.ShowDialog(ClassFabric.Assets.Localization.Main.Localization.DirectoryPermissionErrorHeader, string.Format(ClassFabric.Assets.Localization.Main.Localization.DirectoryPermissionErrorBody, ex.Message)+Environment.NewLine+Environment.NewLine+ClassFabric.Assets.Localization.Main.Localization.DirectoryPermissionErrorFooter);
             Environment.Exit(0);
             return;
         }
@@ -676,13 +676,13 @@ public partial class App : AppBase, IAppHost
             Logger?.LogDebug("应用多次启动失败。startupCount={startupCount}",startupCount);
             var dialog = new FATaskDialog()
             {
-                Title = "进入恢复模式",
-                Content = "ClassFabric 多次启动失败，您需要进入恢复模式以尝试修复 ClassFabric 吗？",
+                Title = ClassFabric.Assets.Localization.Main.Localization.RecoveryModeTitle,
+                Content = ClassFabric.Assets.Localization.Main.Localization.RecoveryModeContent,
                 XamlRoot = GetRootWindow(),
                 Buttons =
                 [
-                    new FATaskDialogButton("取消", false),
-                    new FATaskDialogButton("进入恢复模式", true)
+                    new FATaskDialogButton(ClassFabric.Assets.Localization.Main.Localization.CancelButton, false),
+                    new FATaskDialogButton(ClassFabric.Assets.Localization.Main.Localization.EnterRecoveryModeButton, true)
                     {
                         IsDefault = true
                     }
@@ -833,18 +833,18 @@ public partial class App : AppBase, IAppHost
         IThemeService.IsWaitForTransientDisabled = Settings.IsWaitForTransientDisabled;
         IThemeService.AnimationLevel = Settings.AnimationLevel;
         GetService<ISplashService>().CurrentProgress = 30;
-        GetService<ISplashService>().SetDetailedStatus("正在启动挂起检查服务");
+        GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.StartingHangCheckService);
 
         var spanStartHangService = spanLaunching.StartChild("startup-start-hang-service");
         GetService<IHangService>();
         spanStartHangService.Finish();
 
-        GetService<ISplashService>().SetDetailedStatus("正在创建任务栏图标");
+        GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.CreatingTaskbarIcon);
         var spanCreateTaskbarIcon = spanLaunching.StartChild("startup-create-taskbar-icon");
 
         if (!ApplicationCommand.Quiet)  // 在静默启动时不进行更新相关操作
         {
-            GetService<ISplashService>().SetDetailedStatus("正在进行更新服务启动操作");
+            GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.StartingUpdateService);
             var spanCheckUpdate = spanLaunching.StartChild("startup-process-update");
             var r = await GetService<UpdateService>().AppStartup();
             spanCheckUpdate.Finish();
@@ -856,7 +856,7 @@ public partial class App : AppBase, IAppHost
         }
         GetService<ISplashService>().CurrentProgress = 45;
 
-        GetService<ISplashService>().SetDetailedStatus("正在加载档案");
+        GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.LoadingProfile);
         try
         {
             await GetService<IProfileService>().LoadProfileAsync();
@@ -904,13 +904,13 @@ public partial class App : AppBase, IAppHost
                 var dialog = new FATaskDialog()
                 {
                     Title = "ClassFabric",
-                    Header = "当前界面缩放是否正常？",
-                    Content = "如果您发现当前界面缩放相对系统缩放过小，可点击【不正常】按钮使应用启用兼容缩放模式，以缓解在部分平台上的缩放异常的问题。",
+                    Header = ClassFabric.Assets.Localization.Main.Localization.ScaleQuestionHeader,
+                    Content = ClassFabric.Assets.Localization.Main.Localization.ScaleQuestionContent,
                     XamlRoot = GetRootWindow(),
                     Buttons =
                     [
-                        new FATaskDialogButton("正常", false),
-                        new FATaskDialogButton("不正常", true)
+                        new FATaskDialogButton(ClassFabric.Assets.Localization.Main.Localization.ScaleNormalButton, false),
+                        new FATaskDialogButton(ClassFabric.Assets.Localization.Main.Localization.ScaleAbnormalButton, true)
                     ],
                 };
                 var r = await dialog.ShowAsync();
@@ -955,7 +955,7 @@ public partial class App : AppBase, IAppHost
         
         var spanLoadMainWindow = spanLaunching.StartChild("span-loading-mainWindow");
         Logger.LogInformation("正在初始化 MainWindow。");
-        GetService<ISplashService>().SetDetailedStatus("正在启动主界面所需的服务");
+        GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.StartingMainWindowServices);
         GetService<ISplashService>().CurrentProgress = 55;
 #if DEBUG
         if (!System.OperatingSystem.IsAndroid())
@@ -967,7 +967,7 @@ public partial class App : AppBase, IAppHost
             MainWindow = mw;
             mw.StartupCompleted += (o, args) => PostStartup(spanLoadMainWindow, transaction, startupCountFilePath);
             GetService<ISplashService>().CurrentProgress = 80;
-            GetService<ISplashService>().SetDetailedStatus("正在初始化主界面（步骤 2/2）");
+            GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.InitializingMainWindowStep2);
 #if DEBUG
         if (!System.OperatingSystem.IsAndroid())
             MemoryProfiler.GetSnapshot("Pre MainWindow show");
@@ -983,7 +983,7 @@ public partial class App : AppBase, IAppHost
 
         // 注册 uri 导航
         var uriNavigationService = GetService<IUriNavigationService>();
-        uriNavigationService.HandleAppNavigation("test", args => _ = CommonTaskDialogs.ShowDialog("测试导航", $"{args.Uri}"));
+        uriNavigationService.HandleAppNavigation("test", args => _ = CommonTaskDialogs.ShowDialog(ClassFabric.Assets.Localization.Main.Localization.DebugNavigationTitle, $"{args.Uri}"));
         uriNavigationService.HandleAppNavigation("settings", args => GetService<SettingsWindowNew>().OpenUri(args.Uri));
         uriNavigationService.HandleAppNavigation("profile", args => GetService<MainWindow>().OpenProfileSettingsWindow(args.Uri));
         uriNavigationService.HandleAppNavigation("helps", args => uriNavigationService.Navigate(new Uri("https://docs.classisland.tech/app/")));
@@ -1005,12 +1005,12 @@ public partial class App : AppBase, IAppHost
             GetService<SettingsService>().Settings.LastUpdateStatus = UpdateStatus.UpToDate;
             var content = new DesktopToastContent()
             {
-                Title = "更新完成。",
-                Body = $"应用已更新到版本{AppVersion}。",
+                Title = ClassFabric.Assets.Localization.Main.Localization.UpdateCompletedToastTitle,
+                Body = string.Format(ClassFabric.Assets.Localization.Main.Localization.UpdateCompletedToastBody, AppVersion),
                 Buttons =
                 {
                     {
-                        "查看更新日志",
+                        ClassFabric.Assets.Localization.Main.Localization.ViewChangelogButton,
                         () => uriNavigationService.NavigateWrapped(new Uri("classfabric://app/settings/update"))
                     }
                 }
@@ -1075,7 +1075,7 @@ public partial class App : AppBase, IAppHost
     private void PostStartup(ISpan spanLoadMainWindow, ITransactionTracer transaction, string startupCountFilePath)
     {
         GetService<ISplashService>().CurrentProgress = 98;
-        GetService<ISplashService>().SetDetailedStatus("正在进行启动后操作");
+        GetService<ISplashService>().SetDetailedStatus(ClassFabric.Assets.Localization.Main.Localization.PostStartupOperations);
         // 由于在应用启动时调用 WMI 会导致无法使用触摸，故在应用启动完成后再获取设备统计信息。
         // https://github.com/dotnet/wpf/issues/9752
         if (IsSentryEnabled)
@@ -1098,24 +1098,24 @@ public partial class App : AppBase, IAppHost
         File.Delete(startupCountFilePath);
         if (ConfigureFileHelper.Errors.FirstOrDefault(x => x.Critical) != null)
         {
-            PlatformServices.DesktopToastService.ShowToastAsync("配置文件损坏", "ClassFabric 部分配置文件已损坏且无法加载，这些配置文件已恢复至默认值。点击此消息以查看详细信息和从过往备份中恢复配置文件。", () => GetService<IUriNavigationService>().NavigateWrapped(new Uri("classfabric://app/config-errors")));
+            PlatformServices.DesktopToastService.ShowToastAsync(ClassFabric.Assets.Localization.Main.Localization.ConfigCorruptedToastTitle, ClassFabric.Assets.Localization.Main.Localization.ConfigCorruptedToastBody, () => GetService<IUriNavigationService>().NavigateWrapped(new Uri("classfabric://app/config-errors")));
         }
         if (Settings.CorruptPluginsDisabledLastSession)
         {
             Settings.CorruptPluginsDisabledLastSession = false;
             var content = new DesktopToastContent()
             {
-                Title = "已自动禁用异常插件",
-                Body = "ClassFabric 已自动禁用导致上次崩溃的插件。您可以在排除问题后前往【应用设置】->【插件】中重新启用这些插件，或在【应用设置】->【基本】中调整是否自动禁用异常插件。",
+                Title = ClassFabric.Assets.Localization.Main.Localization.CorruptPluginsDisabledToastTitle,
+                Body = ClassFabric.Assets.Localization.Main.Localization.CorruptPluginsDisabledToastBody,
                 Buttons =
                 {
                     {
-                        "打开插件设置",
+                        ClassFabric.Assets.Localization.Main.Localization.OpenPluginSettingsButton,
                         () => GetService<IUriNavigationService>()
                             .NavigateWrapped(new Uri("classfabric://app/settings/classfabric.plugins"))
                     },
                     {
-                        "管理异常插件行为",
+                        ClassFabric.Assets.Localization.Main.Localization.ManagePluginBehaviorButton,
                         () => GetService<IUriNavigationService>()
                             .NavigateWrapped(new Uri("classfabric://app/settings/general"))
                     }
@@ -1220,13 +1220,13 @@ public partial class App : AppBase, IAppHost
     {
         var dialog = new FATaskDialog()
         {
-            Title = "ClassFabric 已在运行",
-            Content = "ClassFabric 已经启动，请通过任务栏托盘图标进行设置等操作。" +Environment.NewLine+Environment.NewLine+
-                      "如果您无法看到主界面，可能是因为您在托盘图标菜单中选择了【隐藏主界面】，或者有隐藏主界面的规则或行动正在生效。",
+            Title = ClassFabric.Assets.Localization.Main.Localization.AppAlreadyRunningTitle,
+            Content = ClassFabric.Assets.Localization.Main.Localization.AppAlreadyRunningContent1 +Environment.NewLine+Environment.NewLine+
+                      ClassFabric.Assets.Localization.Main.Localization.AppAlreadyRunningContent2,
             XamlRoot = GetRootWindow(),
             Buttons =
             [
-                new FATaskDialogButton("取消", false)
+                new FATaskDialogButton(ClassFabric.Assets.Localization.Main.Localization.CancelButton, false)
             ],
             Commands =
             [
@@ -1234,8 +1234,8 @@ public partial class App : AppBase, IAppHost
                 {
                     DialogResult = true,
                     ClosesOnInvoked = true,
-                    Text = "重启当前实例",
-                    Description = "结束正在运行的 ClassFabric 实例，然后再次启动本实例。",
+                    Text = ClassFabric.Assets.Localization.Main.Localization.RestartCurrentInstanceCommand,
+                    Description = ClassFabric.Assets.Localization.Main.Localization.RestartCurrentInstanceDescription,
                     IconSource = new FluentIconSource("\ue0bd"),
                 }
             ]
@@ -1263,7 +1263,7 @@ public partial class App : AppBase, IAppHost
         }
         catch (Exception e)
         {
-            await CommonTaskDialogs.ShowDialog("重启失败", "无法重新启动应用，可能当前运行的实例正在以管理员身份运行。请使用任务管理器终止正在运行的实例，然后再试一次。"+Environment.NewLine+Environment.NewLine+$"{e.Message}");
+            await CommonTaskDialogs.ShowDialog(ClassFabric.Assets.Localization.Main.Localization.RestartFailedTitle, ClassFabric.Assets.Localization.Main.Localization.RestartFailedBody+Environment.NewLine+Environment.NewLine+$"{e.Message}");
         }
     }
 

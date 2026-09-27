@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TutorialsMenu" xml:space="preserve">
+    <value>教学…</value>
+  </data>
+  <data name="HelpDocumentsMenu" xml:space="preserve">
+    <value>帮助文档…</value>
+  </data>
+  <data name="ShowMainWindowMenu" xml:space="preserve">
+    <value>显示主界面</value>
+  </data>
+  <data name="ClearAllNotificationsMenu" xml:space="preserve">
+    <value>清除全部提醒</value>
+  </data>
+  <data name="MoreOptionsMenu" xml:space="preserve">
+    <value>更多选项…</value>
+  </data>
+  <data name="EditProfileMenu" xml:space="preserve">
+    <value>编辑档案…</value>
+  </data>
+  <data name="LoadTempScheduleMenu" xml:space="preserve">
+    <value>加载临时课表…</value>
+  </data>
+  <data name="ClassSwapMenu" xml:space="preserve">
+    <value>换课…</value>
+  </data>
+  <data name="EnterEditModeMenu" xml:space="preserve">
+    <value>编辑主界面…</value>
+  </data>
+  <data name="SettingsMenu" xml:space="preserve">
+    <value>应用设置…</value>
+  </data>
+  <data name="EditModeWindowTitle" xml:space="preserve">
+    <value>编辑主界面 | ClassFabric</value>
+  </data>
+  <data name="DebugOpenMainViewMenu" xml:space="preserve">
+    <value>打开 MainView</value>
+  </data>
+  <data name="DebugScreenshotToolMenu" xml:space="preserve">
+    <value>截图工具</value>
+  </data>
+  <data name="DebugTutorialEditorMenu" xml:space="preserve">
+    <value>教程编辑器</value>
+  </data>
+  <data name="DebugEnableClassPlanMenu" xml:space="preserve">
+    <value>启用课表</value>
+  </data>
+  <data name="DebugShowCrashWindowMenu" xml:space="preserve">
+    <value>显示崩溃窗口</value>
+  </data>
+  <data name="LineSettingsToolTip" xml:space="preserve">
+    <value>设置…</value>
+  </data>
+  <data name="IsMainLineToolTip" xml:space="preserve">
+    <value>此行是主要行</value>
+  </data>
+  <data name="LineNotificationToolTip" xml:space="preserve">
+    <value>此行可以显示提醒</value>
+  </data>
+  <data name="DeleteToolTip" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="NewMainWindowLine" xml:space="preserve">
+    <value>新主界面行</value>
+  </data>
+  <data name="CloseToolTip" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="ResetViewButton" xml:space="preserve">
+    <value>重置视图</value>
+  </data>
+  <data name="AppearanceButton" xml:space="preserve">
+    <value>外观</value>
+  </data>
+  <data name="AddComponentButton" xml:space="preserve">
+    <value>添加组件</value>
+  </data>
+  <data name="DoneButton" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="LoadingTheme1" xml:space="preserve">
+    <value>正在加载界面主题（1）</value>
+  </data>
+  <data name="LoadingTheme2" xml:space="preserve">
+    <value>正在加载界面主题（2）</value>
+  </data>
+  <data name="InitializingMainWindowStep1" xml:space="preserve">
+    <value>正在初始化主界面（步骤 1/2）</value>
+  </data>
+  <data name="InitializingTrayMenu" xml:space="preserve">
+    <value>正在初始化托盘菜单</value>
+  </data>
+  <data name="InitializingInput" xml:space="preserve">
+    <value>正在初始化输入</value>
+  </data>
+  <data name="InitializingMainWindowStep2" xml:space="preserve">
+    <value>正在初始化主界面（步骤 2/2）</value>
+  </data>
+  <data name="UnsupportedSettingDisabledToastTitle" xml:space="preserve">
+    <value>已禁用不支持的设置</value>
+  </data>
+  <data name="UnsupportedSettingDisabledToastBody" xml:space="preserve">
+    <value>【启用鼠标点击】设置项目不再受到支持并已自动禁用，感谢您的支持与理解。</value>
+  </data>
+  <data name="DebugEnableTempClassPlanHeader" xml:space="preserve">
+    <value>启用临时课表</value>
+  </data>
+  <data name="DebugEnableTempClassPlanPrompt" xml:space="preserve">
+    <value>输入课表 GUID，当前档案为 {0}</value>
+  </data>
+  <data name="FirstLineSetAsMainToast" xml:space="preserve">
+    <value>已将第一行设置为主要行。</value>
+  </data>
+  <data name="AllNotificationDisabledWarning" xml:space="preserve">
+    <value>您已经禁用了所有主界面行的提醒显示功能。如果没有插件注册其它提醒消费者，提醒将不会显示，也不会播放提醒音效、特效和语音。</value>
+  </data>
+  <data name="AtLeastOneLineWarning" xml:space="preserve">
+    <value>至少需要保留 1 个主界面行。</value>
+  </data>
+  <data name="CrashPluginsWarning" xml:space="preserve">
+    <value>此问题可能由以下插件引起，请在向 ClassFabric 开发者反馈问题前先向以下插件的开发者反馈此问题：</value>
+  </data>
+  <data name="CrashPluginsDisabled" xml:space="preserve">
+    <value>以上异常插件已自动禁用，重启应用后生效。您可以在排除问题后前往【应用设置】->【插件】中重新启用这些插件，或在【应用设置】->【基本】中调整是否自动禁用异常插件。</value>
+  </data>
+  <data name="CrashTraceInfoHeader" xml:space="preserve">
+    <value>在向开发者提交问题时请保留以下信息：</value>
+  </data>
+  <data name="CrashReportToastTitle" xml:space="preserve">
+    <value>崩溃报告</value>
+  </data>
+  <data name="CrashReportToastBody" xml:space="preserve">
+    <value>ClassFabric 发生了一个无法处理的错误：{0}</value>
+  </data>
+  <data name="DevPreviewHeader" xml:space="preserve">
+    <value>欢迎使用 2.2-Mikhail Developer Preview</value>
+  </data>
+  <data name="DevPreviewContent" xml:space="preserve">
+    <value>此版本仅供开发人员进行早期预览，稳定性欠佳，不适用于生产环境或日常使用。如果您在使用的过程中遇到问题，欢迎前往 GitHub issues 上提交 issue！</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ForceRunButton" xml:space="preserve">
+    <value>我就要运行</value>
+  </data>
+  <data name="TempDirHeader" xml:space="preserve">
+    <value>检测到应用正在临时目录下运行</value>
+  </data>
+  <data name="TempDirContent" xml:space="preserve">
+    <value>ClassFabric 正在临时目录下运行，应用设置、课表等数据很可能无法保存，或在应用退出后被自动删除。在使用本应用前，请务必将本应用解压到一个适合的位置。</value>
+  </data>
+  <data name="DesktopRunHeader" xml:space="preserve">
+    <value>检测到正在桌面上运行</value>
+  </data>
+  <data name="DesktopRunContent" xml:space="preserve">
+    <value>ClassFabric 正在桌面上运行，应用设置、课表等数据将会直接存放到桌面上。在使用本应用前，请将本应用移动到一个单独的文件夹中。</value>
+  </data>
+  <data name="DirectoryPermissionErrorHeader" xml:space="preserve">
+    <value>目录权限错误</value>
+  </data>
+  <data name="DirectoryPermissionErrorBody" xml:space="preserve">
+    <value>ClassFabric 无法写入当前目录：{0}</value>
+  </data>
+  <data name="DirectoryPermissionErrorFooter" xml:space="preserve">
+    <value>请将本软件解压到一个合适的位置后再运行。</value>
+  </data>
+  <data name="RecoveryModeTitle" xml:space="preserve">
+    <value>进入恢复模式</value>
+  </data>
+  <data name="RecoveryModeContent" xml:space="preserve">
+    <value>ClassFabric 多次启动失败，您需要进入恢复模式以尝试修复 ClassFabric 吗？</value>
+  </data>
+  <data name="EnterRecoveryModeButton" xml:space="preserve">
+    <value>进入恢复模式</value>
+  </data>
+  <data name="ScaleQuestionHeader" xml:space="preserve">
+    <value>当前界面缩放是否正常？</value>
+  </data>
+  <data name="ScaleQuestionContent" xml:space="preserve">
+    <value>如果您发现当前界面缩放相对系统缩放过小，可点击【不正常】按钮使应用启用兼容缩放模式，以缓解在部分平台上的缩放异常的问题。</value>
+  </data>
+  <data name="ScaleNormalButton" xml:space="preserve">
+    <value>正常</value>
+  </data>
+  <data name="ScaleAbnormalButton" xml:space="preserve">
+    <value>不正常</value>
+  </data>
+  <data name="StartingHangCheckService" xml:space="preserve">
+    <value>正在启动挂起检查服务</value>
+  </data>
+  <data name="CreatingTaskbarIcon" xml:space="preserve">
+    <value>正在创建任务栏图标</value>
+  </data>
+  <data name="StartingUpdateService" xml:space="preserve">
+    <value>正在进行更新服务启动操作</value>
+  </data>
+  <data name="LoadingProfile" xml:space="preserve">
+    <value>正在加载档案</value>
+  </data>
+  <data name="StartingMainWindowServices" xml:space="preserve">
+    <value>正在启动主界面所需的服务</value>
+  </data>
+  <data name="PostStartupOperations" xml:space="preserve">
+    <value>正在进行启动后操作</value>
+  </data>
+  <data name="DebugNavigationTitle" xml:space="preserve">
+    <value>测试导航</value>
+  </data>
+  <data name="UpdateCompletedToastTitle" xml:space="preserve">
+    <value>更新完成。</value>
+  </data>
+  <data name="UpdateCompletedToastBody" xml:space="preserve">
+    <value>应用已更新到版本{0}。</value>
+  </data>
+  <data name="ViewChangelogButton" xml:space="preserve">
+    <value>查看更新日志</value>
+  </data>
+  <data name="ConfigCorruptedToastTitle" xml:space="preserve">
+    <value>配置文件损坏</value>
+  </data>
+  <data name="ConfigCorruptedToastBody" xml:space="preserve">
+    <value>ClassFabric 部分配置文件已损坏且无法加载，这些配置文件已恢复至默认值。点击此消息以查看详细信息和从过往备份中恢复配置文件。</value>
+  </data>
+  <data name="CorruptPluginsDisabledToastTitle" xml:space="preserve">
+    <value>已自动禁用异常插件</value>
+  </data>
+  <data name="CorruptPluginsDisabledToastBody" xml:space="preserve">
+    <value>ClassFabric 已自动禁用导致上次崩溃的插件。您可以在排除问题后前往【应用设置】->【插件】中重新启用这些插件，或在【应用设置】->【基本】中调整是否自动禁用异常插件。</value>
+  </data>
+  <data name="OpenPluginSettingsButton" xml:space="preserve">
+    <value>打开插件设置</value>
+  </data>
+  <data name="ManagePluginBehaviorButton" xml:space="preserve">
+    <value>管理异常插件行为</value>
+  </data>
+  <data name="AppAlreadyRunningTitle" xml:space="preserve">
+    <value>ClassFabric 已在运行</value>
+  </data>
+  <data name="AppAlreadyRunningContent1" xml:space="preserve">
+    <value>ClassFabric 已经启动，请通过任务栏托盘图标进行设置等操作。</value>
+  </data>
+  <data name="AppAlreadyRunningContent2" xml:space="preserve">
+    <value>如果您无法看到主界面，可能是因为您在托盘图标菜单中选择了【隐藏主界面】，或者有隐藏主界面的规则或行动正在生效。</value>
+  </data>
+  <data name="RestartCurrentInstanceCommand" xml:space="preserve">
+    <value>重启当前实例</value>
+  </data>
+  <data name="RestartCurrentInstanceDescription" xml:space="preserve">
+    <value>结束正在运行的 ClassFabric 实例，然后再次启动本实例。</value>
+  </data>
+  <data name="RestartFailedTitle" xml:space="preserve">
+    <value>重启失败</value>
+  </data>
+  <data name="RestartFailedBody" xml:space="preserve">
+    <value>无法重新启动应用，可能当前运行的实例正在以管理员身份运行。请使用任务管理器终止正在运行的实例，然后再试一次。</value>
+  </data>
+</root>

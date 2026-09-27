@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClassIsland"
+        xmlns:locM="clr-namespace:ClassFabric.Assets.Localization.Main"
+        xmlns:locT="clr-namespace:ClassFabric.Assets.Localization.TrayMenu"
         mc:Ignorable="d"
         Height="1"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -56,16 +58,16 @@
                     </OnPlatform>
                 </NativeMenuItem.Icon>
             </NativeMenuItem>
-            <NativeMenuItem Header="教学…"
+            <NativeMenuItem Header="{x:Static locM:Localization.TutorialsMenu}"
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE959;}"
                             Click="NativeMenuItemTutorials_OnClick" 
                             IsVisible="{Binding ViewModel.Settings.IsWelcomeWindowShowed}"/>
-            <NativeMenuItem Header="帮助文档…"
+            <NativeMenuItem Header="{x:Static locM:Localization.HelpDocumentsMenu}"
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE23C;}"
                             Click="MenuItemHelps_OnClick" 
                             IsVisible="{Binding ViewModel.Settings.IsWelcomeWindowShowed}"/>
             <NativeMenuItemSeparator/>
-            <NativeMenuItem Header="显示主界面" Click="MenuItemSwitchMainWindowVisibility_OnClick"
+            <NativeMenuItem Header="{x:Static locM:Localization.ShowMainWindowMenu}" Click="MenuItemSwitchMainWindowVisibility_OnClick"
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE813;}">
                 <MenuItem.IsVisible>
                     <MultiBinding Converter="{StaticResource BooleanAndExpressionMultiConverter}" Mode="OneWay">
@@ -74,7 +76,7 @@
                     </MultiBinding>
                 </MenuItem.IsVisible>
             </NativeMenuItem>
-            <NativeMenuItem Header="隐藏主界面" Click="MenuItemSwitchMainWindowVisibility_OnClick"
+            <NativeMenuItem Header="{x:Static locT:Localization.HideInterface_string}" Click="MenuItemSwitchMainWindowVisibility_OnClick"
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE817;}">
                 <MenuItem.IsVisible>
                     <MultiBinding Converter="{StaticResource BooleanAndExpressionMultiConverter}" Mode="OneWay">
@@ -83,7 +85,7 @@
                     </MultiBinding>
                 </MenuItem.IsVisible>
             </NativeMenuItem>
-            <NativeMenuItem Header="清除全部提醒" Click="MenuItemClearAllNotifications_OnClick"
+            <NativeMenuItem Header="{x:Static locM:Localization.ClearAllNotificationsMenu}" Click="MenuItemClearAllNotifications_OnClick"
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE029;}">
                 <MenuItem.IsVisible>
                     <MultiBinding Converter="{StaticResource BooleanAndExpressionMultiConverter}" Mode="OneWay">
@@ -92,27 +94,27 @@
                     </MultiBinding>
                 </MenuItem.IsVisible>
             </NativeMenuItem>
-            <NativeMenuItem Header="更多选项…" Menu="{Binding MoreOptionsMenu}"
+            <NativeMenuItem Header="{x:Static locM:Localization.MoreOptionsMenu}" Menu="{Binding MoreOptionsMenu}"
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xEBAC;}"
                             IsVisible="{Binding !!$self.Menu.Items.Count}"/>
             <NativeMenuItemSeparator/>
-            <NativeMenuItem Header="编辑档案…" Click="ButtonSettings_OnClick" 
+            <NativeMenuItem Header="{x:Static locM:Localization.EditProfileMenu}" Click="ButtonSettings_OnClick" 
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE699;}"/>
-            <NativeMenuItem Header="加载临时课表…" Click="MenuItemTemporaryClassPlan_OnClick"
+            <NativeMenuItem Header="{x:Static locM:Localization.LoadTempScheduleMenu}" Click="MenuItemTemporaryClassPlan_OnClick"
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE6A1;}">
             </NativeMenuItem>
-            <NativeMenuItem Header="换课…" Click="MenuItemClassSwap_OnClick"
+            <NativeMenuItem Header="{x:Static locM:Localization.ClassSwapMenu}" Click="MenuItemClassSwap_OnClick"
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE15F;}">
             </NativeMenuItem>
             <NativeMenuItemSeparator/>
-            <NativeMenuItem Header="编辑主界面…" Click="NativeMenuItemEnterEditMode_OnClick" 
+            <NativeMenuItem Header="{x:Static locM:Localization.EnterEditModeMenu}" Click="NativeMenuItemEnterEditMode_OnClick" 
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE7C9;}"/>
-            <NativeMenuItem Header="应用设置…" Click="MenuItemSettings_OnClick" 
+            <NativeMenuItem Header="{x:Static locM:Localization.SettingsMenu}" Click="MenuItemSettings_OnClick" 
                             ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xEF27;}"/>
             <NativeMenuItemSeparator />
-            <NativeMenuItem  Header="重启" Click="MenuItemRestartApp_OnClick"
+            <NativeMenuItem  Header="{x:Static locT:Localization.Restart_string}" Click="MenuItemRestartApp_OnClick"
                              ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE0BD;}"/>
-            <NativeMenuItem  Header="退出" Click="MenuItemExitApp_OnClick"
+            <NativeMenuItem  Header="{x:Static locT:Localization.Quit_string}" Click="MenuItemExitApp_OnClick"
                              ci:NativeMenuItemAssist.IconSource="{ci:FluentIconSource &#xE0DF;}"/>
             <NativeMenuItemSeparator IsVisible="{Binding ViewModel.Settings.IsDebugEnabled}"/>
             <NativeMenuItem Header="dev__Debug" IsVisible="{Binding ViewModel.Settings.IsDebugEnabled}"
@@ -120,12 +122,12 @@
                 <NativeMenu>
                     <NativeMenuItem Header="DevTools" Click="NativeMenuItemDebugDevTools_OnClick"/>
                     <NativeMenuItem Header="DevPortal" Click="NativeMenuItemDebugDevPortal_OnClick"/>
-                    <NativeMenuItem Header="打开 MainView" Click="NativeMenuItemDebugOpenMainView_OnClick"/>
-                    <NativeMenuItem Header="截图工具" Click="NativeMenuItemDebugOpenScreenshotWindow_OnClick"/>
-                    <NativeMenuItem Header="教程编辑器" Click="NativeMenuItemOpenTutorialEditor_OnClick"/>
+                    <NativeMenuItem Header="{x:Static locM:Localization.DebugOpenMainViewMenu}" Click="NativeMenuItemDebugOpenMainView_OnClick"/>
+                    <NativeMenuItem Header="{x:Static locM:Localization.DebugScreenshotToolMenu}" Click="NativeMenuItemDebugOpenScreenshotWindow_OnClick"/>
+                    <NativeMenuItem Header="{x:Static locM:Localization.DebugTutorialEditorMenu}" Click="NativeMenuItemOpenTutorialEditor_OnClick"/>
                     <NativeMenuItemSeparator/>
-                    <NativeMenuItem  Header="启用课表" Click="NativeMenuItemDebugEnableTempClassPlan_OnClick"/>
-                    <NativeMenuItem  Header="显示崩溃窗口" Click="NativeMenuItemDebugCrashTest_OnClick"/>
+                    <NativeMenuItem  Header="{x:Static locM:Localization.DebugEnableClassPlanMenu}" Click="NativeMenuItemDebugEnableTempClassPlan_OnClick"/>
+                    <NativeMenuItem  Header="{x:Static locM:Localization.DebugShowCrashWindowMenu}" Click="NativeMenuItemDebugCrashTest_OnClick"/>
                     <NativeMenuItem  Header="WelcomeWindow" Click="NativeMenuItemDebugOpenWelcomeWindow_OnClick"/>
                     <NativeMenuItem  Header="WelcomeWindow (full)" Click="NativeMenuItemDebugOpenWelcomeWindowFull_OnClick"/>
                 </NativeMenu>
@@ -178,7 +180,7 @@
         <Style Selector=":is(Window):edit-mode">
             <Setter Property="Background" Value="{DynamicResource SmokeFillColorDefaultBrush}"/>
             <Setter Property="TransparencyLevelHint" Value="AcrylicBlur, Transparent"/>
-            <Setter Property="Title" Value="编辑主界面 | ClassFabric"/>
+            <Setter Property="Title" Value="{x:Static locM:Localization.EditModeWindowTitle}"/>
         </Style>
         <Style Selector=":is(Window):windowed">
             <Setter Property="WindowDecorations" Value="Full"/>
@@ -412,7 +414,7 @@
                                                                             CommandParameter="{Binding}"
                                                                             VerticalAlignment="Center"
                                                                             x:Name="ButtonMainWindowLineSettings"
-                                                                            ToolTip.Tip="设置…"
+                                                                            ToolTip.Tip="{x:Static locM:Localization.LineSettingsToolTip}"
                                                                             Background="Transparent"
                                                                             BorderThickness="0"
                                                                             Content="{ci:FluentIcon &#xEF27;}" />
@@ -421,7 +423,7 @@
                                                                             Click="ToggleButtonIsMainLine_OnIsCheckedChanged"
                                                                             VerticalAlignment="Center"
                                                                             x:Name="ButtonMainWindowLineIsMainLine"
-                                                                            ToolTip.Tip="此行是主要行"
+                                                                            ToolTip.Tip="{x:Static locM:Localization.IsMainLineToolTip}"
                                                                             Background="Transparent"
                                                                             BorderThickness="0"
                                                                             Content="{ci:FluentIcon &#xE994;}" />
@@ -429,7 +431,7 @@
                                                                             IsChecked="{Binding IsNotificationEnabled}"
                                                                             VerticalAlignment="Center"
                                                                             x:Name="ButtonMainWindowLineIsNotificationEnabled"
-                                                                            ToolTip.Tip="此行可以显示提醒"
+                                                                            ToolTip.Tip="{x:Static locM:Localization.LineNotificationToolTip}"
                                                                             Click="ToggleButtonIsNotificationEnabled_OnIsCheckedChanged"
                                                                             Background="Transparent"
                                                                             BorderThickness="0"
@@ -438,7 +440,7 @@
                                                                             Foreground="IndianRed"
                                                                             VerticalAlignment="Center"
                                                                             x:Name="ButtonMainWindowLineDelete"
-                                                                            ToolTip.Tip="删除"
+                                                                            ToolTip.Tip="{x:Static locM:Localization.DeleteToolTip}"
                                                                             Command="{Binding $parent[local:MainWindow].RemoveMainWindowLineCommand}"
                                                                             CommandParameter="{Binding}"
                                                                             Theme="{StaticResource TransparentButton}"
@@ -454,7 +456,7 @@
                                                         IsVisible="{Binding $self.(ci:MainWindowStylesAssist.MainWindowInEditMode)}"
                                                         TextElement.FontSize="14"
                                                         Click="ButtonNewMainWindowLine_OnClick">
-                                                    <ci:IconText Glyph="&#xE00D;" Text="新主界面行" />
+                                                    <ci:IconText Glyph="&#xE00D;" Text="{x:Static locM:Localization.NewMainWindowLine}" />
                                                 </Button>
                                             </StackPanel>
                                             <ItemsControl ItemsSource="{Binding ViewModel.ContainerComponents}"
@@ -503,7 +505,7 @@
                                                                             Margin="4 0 0 0">
                                                                     <ci:TutorialBarrier>
                                                                         <Button Content="{ci:FluentIcon &#xE671;}"
-                                                                                ToolTip.Tip="关闭"
+                                                                                ToolTip.Tip="{x:Static locM:Localization.CloseToolTip}"
                                                                                 Theme="{StaticResource TransparentButton}"
                                                                                 Command="{Binding $parent[local:MainWindow].CloseContainerComponentCommand}"
                                                                                 CommandParameter="{Binding}" />
@@ -608,7 +610,7 @@
                     <Button Theme="{StaticResource TransparentButton}"
                             x:Name="ButtonResetView"
                             Command="{Binding #ZoomBorder.ResetMatrix}">
-                        <ci:IconText Glyph="&#xE12F;" Text="重置视图" />
+                        <ci:IconText Glyph="&#xE12F;" Text="{x:Static locM:Localization.ResetViewButton}" />
                     </Button>
                     <Line VerticalAlignment="Center" Stroke="{DynamicResource DividerStrokeColorDefaultBrush}"
                           StrokeThickness="1"
@@ -616,12 +618,12 @@
                     </Line>
                     <Button Click="ButtonOpenAppearanceSettings_OnClick" Theme="{StaticResource TransparentButton}"
                             IsEnabled="{Binding !ManagementService.Policy.DisableSettingsEditing}">
-                        <ci:IconText Glyph="&#xE51E;" Text="外观" />
+                        <ci:IconText Glyph="&#xE51E;" Text="{x:Static locM:Localization.AppearanceButton}" />
                     </Button>
                     <Button Click="ButtonOpenComponentsLib_OnClick" Theme="{StaticResource TransparentButton}"
                             x:Name="ButtonOpenComponentsLib"
                             IsEnabled="{Binding !ManagementService.Policy.DisableSettingsEditing}">
-                        <ci:IconText Glyph="&#xE071;" Text="添加组件" />
+                        <ci:IconText Glyph="&#xE071;" Text="{x:Static locM:Localization.AddComponentButton}" />
                     </Button>
                     <Button Click="ButtonManageComponentLayouts_OnClick" Theme="{StaticResource TransparentButton}"
                             IsEnabled="{Binding !ManagementService.Policy.DisableSettingsEditing}">
@@ -630,7 +632,7 @@
                     </Button>
                     <Button Click="ButtonExitEditMode_OnClick" Classes="accent"
                             x:Name="ButtonExitEditMode">
-                        <ci:IconText Glyph="&#xE424;" Text="完成" />
+                        <ci:IconText Glyph="&#xE424;" Text="{x:Static locM:Localization.DoneButton}" />
                     </Button>
                 </StackPanel>
             </ci:TutorialBarrier>
