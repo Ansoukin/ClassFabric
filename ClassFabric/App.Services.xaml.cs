@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Avalonia.Platform;
 using ClassIsland.Controls.ActionSettingsControls;
 using ClassIsland.Controls.AttachedSettingsControls;
 using ClassIsland.Controls.AuthorizeProvider;
@@ -323,12 +324,37 @@ public partial class App
         {
             // services.AddTutorialGroupByUri(new Uri("avares://ClassFabric/Assets/Tutorials/ClassFabric.test.json"));
             // services.AddTutorialGroupByUri(new Uri("avares://ClassFabric/Assets/Tutorials/ClassFabric.sp.json"));
-            services.AddTutorialGroupByUri(new Uri("avares://ClassFabric/Assets/Tutorials/ClassFabric.getStarted.json"));
+            services.AddTutorialGroupByUri(ResolveLocalizedTutorialUri("ClassFabric.getStarted"));
         }
         // Plugins
         if (!ApplicationCommand.Safe && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV1) && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV2))
         {
             PluginService.InitializePlugins(context, services);
         }
+    }
+
+    /// <summary>
+    /// 按当前界面文化解析本地化教程资源 Uri；对应语言资源缺失时回退默认文件（简中兜底）。
+    /// </summary>
+    /// <param name="baseAssetName">教程资源基础名（不含扩展名，如 "ClassFabric.getStarted"）。</param>
+    private static Uri ResolveLocalizedTutorialUri(string baseAssetName)
+    {
+        // 注册发生在 Init 的文化设置之后，CurrentUICulture 即用户所选界面语言。
+        var culture = System.Threading.Thread.CurrentThread.CurrentUICulture;
+        var suffix = culture.Name switch
+        {
+            "zh-Hant" or "zh-TW" or "zh-HK" or "zh-MO" => "zh-Hant",
+            _ when culture.TwoLetterISOLanguageName.Equals("en", StringComparison.OrdinalIgnoreCase) => "en",
+            _ => null
+        };
+        if (suffix != null)
+        {
+            var localized = new Uri($"avares://ClassFabric/Assets/Tutorials/{baseAssetName}.{suffix}.json");
+            if (AssetLoader.Exists(localized))
+            {
+                return localized;
+            }
+        }
+        return new Uri($"avares://ClassFabric/Assets/Tutorials/{baseAssetName}.json");
     }
 }
