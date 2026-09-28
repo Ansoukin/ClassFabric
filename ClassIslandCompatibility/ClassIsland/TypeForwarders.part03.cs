@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 
+[assembly: TypeForwardedTo(typeof(ClassIsland.Controls.HomeDatePicker))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ScheduleCalendarControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ScheduleDataGrid.CreateClassPlanEventArgs))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ScheduleDataGrid.ScheduleDataGrid))]
@@ -43,3 +44,4 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Converters.AuthLevelToIntConverter))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Converters.ClassChangeIsSwapModeOnToSwapModeIndexConverter))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Converters.ClassPlanDictionaryValueAccessConverter))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Converters.HomeCalendarDayConverter))]

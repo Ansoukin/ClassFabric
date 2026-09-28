@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.CommonDirectories))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.ComponentModels.ObservableKeyValuePair<,>))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.ComponentModels.SyncDictionaryList<,>))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.AdaptiveNavigationView))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.AnimatedIconButton))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.AnnouncementControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.AppToastAdorner))]
@@ -39,3 +40,4 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.LessonsControls.LessonControlExpanded))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.LessonsControls.LessonControlMinimized))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.LessonsControls.LessonControlSeparator))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.LessonsControls.LessonControlVerticalMinimized))]
