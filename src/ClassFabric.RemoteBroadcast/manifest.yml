@@ -1,0 +1,13 @@
+# 插件清单：字段定义见 ClassFabric.Core/Models/Plugin/PluginManifest.cs
+id: ClassFabric.RemoteBroadcast
+name: Remote Broadcast 远程广播
+description: 教师通过手机网页向教室大屏发起 Quick Call 呼叫（学生 + 目的地 → EdgeTTS 语音广播），白板即服务端。
+entranceAssembly: "ClassFabric.RemoteBroadcast.dll"
+url: https://github.com/Ansoukin/ClassFabric/tree/plugin/Remote-Broadcast
+version: 0.1.0
+apiVersion: 2.2.0.0
+author: Ansoukin
+readme: README.md
+icon: icon.png
+supportedOSPlatforms:
+- Windows

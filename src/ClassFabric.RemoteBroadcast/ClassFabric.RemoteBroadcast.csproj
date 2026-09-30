@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Platforms>AnyCPU;x64</Platforms>
+        <!-- 宿主构建产物目录：默认指向本机 ClassFabric 2.2 Debug 输出，可用环境变量 ClassFabricDevOutput 覆盖 -->
+        <ClassFabricDevOutput Condition="'$(ClassFabricDevOutput)' == ''">E:\Project\ClassFabric 2.2\ClassFabric.Desktop\bin\Debug\net10.0-windows10.0.19041.0</ClassFabricDevOutput>
+    </PropertyGroup>
+
+    <!-- 与宿主保持同版本的 UI 依赖（宿主运行时自带这些程序集，Private=false 的宿主引用不落盘） -->
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="12.1.1" />
+        <PackageReference Include="FluentAvaloniaUI" Version="3.0.0" />
+        <PackageReference Include="Avalonia.Labs.CommandManager" Version="12.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.10" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.10" />
+    </ItemGroup>
+
+    <!-- 宿主兼容层：ClassIsland.* 为 TypeForwardedTo 转发程序集，必须同时引用 ClassFabric.* 真身程序集 -->
+    <ItemGroup>
+        <Reference Include="ClassIsland.PluginSdk">
+            <HintPath>$(ClassFabricDevOutput)\ClassIsland.PluginSdk.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="ClassIsland.Core">
+            <HintPath>$(ClassFabricDevOutput)\ClassIsland.Core.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="ClassIsland.Shared">
+            <HintPath>$(ClassFabricDevOutput)\ClassIsland.Shared.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="ClassFabric.Core">
+            <HintPath>$(ClassFabricDevOutput)\ClassFabric.Core.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="ClassFabric.Shared">
+            <HintPath>$(ClassFabricDevOutput)\ClassFabric.Shared.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="manifest.yml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="icon.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="Assets\wwwroot\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+</Project>

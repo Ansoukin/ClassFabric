@@ -1,0 +1,25 @@
+<cb:SettingsPageBase
+    x:Class="ClassFabric.RemoteBroadcast.UI.RemoteBroadcastSettingsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cb="using:ClassIsland.Core.Abstractions.Controls">
+
+    <ScrollViewer>
+        <StackPanel Margin="16,4,16,16" Spacing="12">
+
+            <TextBlock Text="远程广播（Remote Broadcast）" FontSize="24" FontWeight="SemiBold" />
+            <TextBlock TextWrapping="Wrap"
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                       Text="教师通过手机网页向教室大屏发起 Quick Call 呼叫：选择学生与目的地，白板通过 EdgeTTS 合成语音广播。白板即服务端，教室局域网直连，无需任何账号与服务器部署。" />
+
+            <Border Padding="16" CornerRadius="8" Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="工程状态：M0 骨架" FontWeight="SemiBold" />
+                    <TextBlock TextWrapping="Wrap"
+                               Text="插件已成功加载。名单管理、接入码二维码、Quick Call 服务端与播报 Overlay 将在后续里程碑（M1/M2）接入。" />
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</cb:SettingsPageBase>

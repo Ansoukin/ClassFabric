@@ -1,3 +1,0 @@
-MessageBox
-TaskDialog
-TaskDialogIndirect
