@@ -1,0 +1,26 @@
+<UserControl
+    x:Class="ClassFabric.RemoteBroadcast.UI.QuickCallMaskContent"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:fa="using:FluentAvalonia.UI.Controls">
+
+    <!-- 与宿主 TwoIconsMaskTemplate 同构：ⓘ + 文本 + 铃铛，白字、强调字号、加粗全部照抄。
+         自绘的唯一目的：给内容挂 MinWidth。通知药丸宽度 = max(正常组件宽, 通知内容宽)，
+         宿主模板不暴露宽度入口，Mask 阶段不参与加宽的话，前 3 秒窄、正文一上来就变宽，肉眼可见地跳变。 -->
+    <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Center" VerticalAlignment="Center">
+        <fa:FAIconSourceElement x:Name="LeftIcon"
+                                Classes="repair-fontsize"
+                                TextElement.FontSize="20" Height="20" Width="20"
+                                VerticalAlignment="Center" />
+        <TextBlock x:Name="MaskText"
+                   Margin="8 0"
+                   VerticalAlignment="Center"
+                   FontSize="{DynamicResource MainWindowEmphasizedFontSize}"
+                   FontWeight="Bold" />
+        <fa:FAIconSourceElement x:Name="RightIcon"
+                                Classes="repair-fontsize"
+                                TextElement.FontSize="20" Height="20" Width="20"
+                                VerticalAlignment="Center" />
+    </StackPanel>
+</UserControl>

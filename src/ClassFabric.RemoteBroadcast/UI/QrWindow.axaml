@@ -1,0 +1,19 @@
+<Window
+    x:Class="ClassFabric.RemoteBroadcast.UI.QrWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="接入码二维码"
+    Width="320" Height="400"
+    CanResize="False"
+    WindowStartupLocation="CenterOwner">
+
+    <StackPanel Margin="16" Spacing="12" HorizontalAlignment="Center">
+        <TextBlock x:Name="NoteText" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center" />
+        <Border CornerRadius="8" Padding="10" HorizontalAlignment="Center"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+            <Image x:Name="QrImage" Width="220" Height="220" />
+        </Border>
+        <TextBlock x:Name="UrlText" TextWrapping="Wrap" FontSize="12" Opacity="0.7" TextAlignment="Center" />
+        <TextBlock Text="用手机相机扫码即可打开远程广播页面" FontSize="12" Opacity="0.55" HorizontalAlignment="Center" />
+    </StackPanel>
+</Window>

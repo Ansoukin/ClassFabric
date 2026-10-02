@@ -18,7 +18,22 @@
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.10" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.10" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.10" />
+        <!-- NotificationRequest 继承自 ObservableRecipient，编译期需要该程序集；ExcludeAssets=runtime 避免把宿主已有的 DLL 复制进插件输出 -->
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" ExcludeAssets="runtime" />
+        <!-- 二维码生成（MIT）：设置页内嵌生成本机访问二维码 -->
+        <PackageReference Include="QRCoder" Version="1.6.0" />
     </ItemGroup>
+
+    <!-- 类库默认不把包依赖复制进 bin（宿主自带 Avalonia 等运行时，无需落盘）；
+         唯独 QRCoder 宿主没有，缺了它「二维码」按钮一按就 FileNotFoundException。
+         这里只把 QRCoder 补进输出，其余依赖维持不落盘——整包 CopyLocal 会把宿主程序集
+         在插件目录里再放一份，导致插件 ALC 与宿主类型身份分裂。 -->
+    <Target Name="CopyQRCoderToOutput" AfterTargets="Build">
+        <Copy SourceFiles="@(RuntimeCopyLocalItems)"
+              Condition="'%(RuntimeCopyLocalItems.Filename)' == 'QRCoder'"
+              DestinationFolder="$(OutDir)"
+              SkipUnchangedFiles="true" />
+    </Target>
 
     <!-- 宿主兼容层：ClassIsland.* 为 TypeForwardedTo 转发程序集，必须同时引用 ClassFabric.* 真身程序集 -->
     <ItemGroup>

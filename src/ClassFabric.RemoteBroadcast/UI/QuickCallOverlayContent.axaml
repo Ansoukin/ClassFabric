@@ -1,0 +1,20 @@
+<UserControl
+    x:Class="ClassFabric.RemoteBroadcast.UI.QuickCallOverlayContent"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Overlay 只渲染正文一行：「{Caller} 正在呼叫」由 Mask 阶段负责，这里不再叠一行头部——
+         岛容器（IslandContainerHeight）只有 40px 高，两行文字上下叠必然溢出，真机验收踩过。
+         单行 + 超长省略号是兜底：放得下就静态显示，放不下由代码换成滚动字幕（宿主自带 RollingTextTemplate）。 -->
+    <Panel x:Name="RootPanel">
+        <TextBlock
+            x:Name="BodyText"
+            Margin="24 0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="{DynamicResource MainWindowLargeFontSize}"
+            FontWeight="Bold"
+            TextAlignment="Center"
+            TextTrimming="CharacterEllipsis" />
+    </Panel>
+</UserControl>

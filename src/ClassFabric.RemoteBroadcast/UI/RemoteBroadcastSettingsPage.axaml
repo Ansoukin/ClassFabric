@@ -1,25 +1,170 @@
-<cb:SettingsPageBase
+<ci:SettingsPageBase
     x:Class="ClassFabric.RemoteBroadcast.UI.RemoteBroadcastSettingsPage"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:cb="using:ClassIsland.Core.Abstractions.Controls">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ci="http://classfabric.tech/schemas/xaml/core"
+    xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450">
 
     <ScrollViewer>
-        <StackPanel Margin="16,4,16,16" Spacing="12">
+        <StackPanel Classes="settings-container animated-intro">
+            <ci:IconText Glyph="{ci:FI ServerRegular}" Text="服务" Margin="0 0 0 4" />
 
-            <TextBlock Text="远程广播（Remote Broadcast）" FontSize="24" FontWeight="SemiBold" />
-            <TextBlock TextWrapping="Wrap"
-                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
-                       Text="教师通过手机网页向教室大屏发起 Quick Call 呼叫：选择学生与目的地，白板通过 EdgeTTS 合成语音广播。白板即服务端，教室局域网直连，无需任何账号与服务器部署。" />
+            <!-- 服务开关 -->
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI ServerRegular}}"
+                                         Header="启用 HTTP 服务"
+                                         Description="启用后本机在局域网监听端口，教师手机扫码即可打开呼叫页面；关闭后手机端一律无法访问。"
+                                         IsExpanded="True">
+                <controls:FASettingsExpander.Footer>
+                    <ToggleSwitch x:Name="ServiceToggle" OnContent="已启用" OffContent="已停用" />
+                </controls:FASettingsExpander.Footer>
 
-            <Border Padding="16" CornerRadius="8" Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
-                <StackPanel Spacing="8">
-                    <TextBlock Text="工程状态：M0 骨架" FontWeight="SemiBold" />
-                    <TextBlock TextWrapping="Wrap"
-                               Text="插件已成功加载。名单管理、接入码二维码、Quick Call 服务端与播报 Overlay 将在后续里程碑（M1/M2）接入。" />
-                </StackPanel>
-            </Border>
+                <controls:FASettingsExpanderItem Content="监听端口"
+                                                 Description="1024–65535。改完要点下面的「应用并重启服务」才会重新监听。">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <ci:Field Suffix="端口">
+                            <controls:FANumberBox x:Name="PortBox"
+                                                  Minimum="1024" Maximum="65535"
+                                                  SmallChange="1"
+                                                  MinWidth="147"
+                                                  SpinButtonPlacementMode="Inline" />
+                        </ci:Field>
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
 
+                <controls:FASettingsExpanderItem>
+                    <controls:FASettingsExpanderItem.Footer>
+                        <Button HorizontalAlignment="Left" Click="ApplyService_Click">
+                            <ci:IconText Glyph="{ci:FI ArrowSyncRegular}" Text="应用并重启服务" />
+                        </Button>
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+
+                <controls:FASettingsExpanderItem Content="二维码使用地址"
+                                                 Description="多网卡（有线、无线、虚拟网卡）时，请选教师手机实际能访问的那个地址。">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <ComboBox x:Name="AddressBox" MinWidth="260" />
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+
+                <controls:FASettingsExpanderItem>
+                    <StackPanel Spacing="4">
+                        <TextBlock x:Name="ServiceStatusText" TextWrapping="Wrap" Text="服务状态：未运行" />
+                        <TextBlock Classes="l-instructive" TextWrapping="Wrap"
+                                   Text="若状态提示需要 urlacl 授权，请以管理员执行一次（把端口换成上面的值）：netsh http add urlacl url=http://+:5212/ user=Everyone" />
+                    </StackPanel>
+                </controls:FASettingsExpanderItem>
+            </controls:FASettingsExpander>
+
+            <Separator Margin="0 12 0 4" />
+            <ci:IconText Glyph="{ci:FI MegaphoneRegular}" Text="播报" Margin="0 0 0 4" />
+
+            <!-- 播报参数 -->
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI MegaphoneRegular}}"
+                                         Header="播报参数"
+                                         Description="循环次数、语音提示、音量与音色。这几项和「模板」一起，由「保存播报设置」统一入库。"
+                                         IsExpanded="True">
+                <controls:FASettingsExpanderItem Content="循环次数"
+                                                 Description="整段播报重复朗读的次数。人多时调低一些，免得播报拖得太长。">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <ci:Field Suffix="次">
+                            <controls:FANumberBox x:Name="LoopBox"
+                                                  Minimum="1" Maximum="5"
+                                                  SmallChange="1"
+                                                  MinWidth="147"
+                                                  SpinButtonPlacementMode="Inline" />
+                        </ci:Field>
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+
+                <controls:FASettingsExpanderItem Content="播报前语音提示"
+                                                 Description="先念一句「{Caller}正在呼叫。」再念正文，提醒没盯着屏幕的老师。">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <ToggleSwitch x:Name="HintToggle" />
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+
+                <controls:FASettingsExpanderItem Content="音量"
+                                                 Description="0–100，按 5 步进。">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <ci:Field Suffix="%">
+                            <controls:FANumberBox x:Name="VolumeBox"
+                                                  Minimum="0" Maximum="100"
+                                                  SmallChange="5"
+                                                  MinWidth="147"
+                                                  SpinButtonPlacementMode="Inline" />
+                        </ci:Field>
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+
+                <controls:FASettingsExpanderItem Content="EdgeTTS 音色"
+                                                 Description="EdgeTTS 的语音名称，例如 zh-CN-XiaoxiaoNeural（晓晓）、zh-CN-YunxiNeural（云希）。">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <TextBox x:Name="VoiceBox" Width="280" PlaceholderText="zh-CN-XiaoxiaoNeural" />
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+
+                <controls:FASettingsExpanderItem Content="播报条宽度"
+                                                 Description="开启后按固定像素宽度显示播报条；关闭时跟随播报前岛条宽度（不低于屏幕宽度的 20%）。">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <DockPanel>
+                            <ToggleSwitch x:Name="CustomWidthToggle" DockPanel.Dock="Right"
+                                          Margin="8 -8 0 0" VerticalAlignment="Center" />
+                            <ci:Field Suffix="px" VerticalAlignment="Center">
+                                <controls:FANumberBox x:Name="CustomWidthBox"
+                                                      Minimum="200" Maximum="4000"
+                                                      SmallChange="10"
+                                                      MinWidth="147"
+                                                      SpinButtonPlacementMode="Inline"
+                                                      IsEnabled="False" />
+                            </ci:Field>
+                        </DockPanel>
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+            </controls:FASettingsExpander>
+
+            <Separator Margin="0 12 0 4" />
+            <ci:IconText Glyph="{ci:FI TextFontRegular}" Text="模板" Margin="0 0 0 4" />
+
+            <!-- 播报模板 -->
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI TextFontRegular}}"
+                                         Header="播报模板"
+                                         Description="占位符仅支持 {Students} / {Destination} / {Caller}，出现其它占位符将无法保存。"
+                                         IsExpanded="True">
+                <controls:FASettingsExpanderItem Content="单学生模板"
+                                                 Description="只有一名学生时用这个模板。">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <TextBox x:Name="TemplateSingleBox" Width="440" />
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+
+                <controls:FASettingsExpanderItem Content="多学生引导句"
+                                                 Description="多名学生时先念这句引导句，后面再接名单。">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <TextBox x:Name="TemplateGuideBox" Width="440" />
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+
+                <controls:FASettingsExpanderItem Content="语音提示模板"
+                                                 Description="只有开启「播报前语音提示」时才会用到。">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <TextBox x:Name="TemplateHintBox" Width="440" />
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+
+                <controls:FASettingsExpanderItem>
+                    <controls:FASettingsExpanderItem.Footer>
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Button Click="SaveAnnounceSettings_Click">
+                                <ci:IconText Glyph="{ci:FI SaveRegular}" Text="保存播报设置" />
+                            </Button>
+                            <TextBlock x:Name="AnnounceMsgText" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+            </controls:FASettingsExpander>
         </StackPanel>
     </ScrollViewer>
-</cb:SettingsPageBase>
+</ci:SettingsPageBase>

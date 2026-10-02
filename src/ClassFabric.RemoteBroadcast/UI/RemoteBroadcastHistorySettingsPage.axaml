@@ -1,0 +1,50 @@
+<ci:SettingsPageBase
+    x:Class="ClassFabric.RemoteBroadcast.UI.RemoteBroadcastHistorySettingsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ci="http://classfabric.tech/schemas/xaml/core"
+    xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+    xmlns:ui="using:ClassFabric.RemoteBroadcast.UI"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450">
+
+    <ScrollViewer>
+        <StackPanel Classes="settings-container animated-intro">
+            <ci:IconText Glyph="{ci:FI HistoryRegular}" Text="呼叫记录" Margin="0 0 0 4" />
+
+            <!-- 呼叫记录 -->
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI HistoryRegular}}"
+                                         Header="最近 20 条呼叫"
+                                         Description="仅存内存，重启即清。名单和呼叫人不会落盘，这是有意为之。"
+                                         IsExpanded="True">
+                <controls:FASettingsExpander.Footer>
+                    <Button Click="RefreshHistory_Click">
+                        <ci:IconText Glyph="{ci:FI ArrowSyncRegular}" Text="刷新" />
+                    </Button>
+                </controls:FASettingsExpander.Footer>
+
+                <controls:FASettingsExpanderItem>
+                    <ItemsControl x:Name="HistoryList" Margin="0 4 0 0">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="ui:HistoryRow">
+                                <Grid ColumnDefinitions="140,90,240,90,*" Margin="0 4">
+                                    <TextBlock Grid.Column="0" Text="{Binding TimeDisplay}" Classes="l-decoration"
+                                               FontSize="12" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Caller}" FontWeight="SemiBold"
+                                               VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="2" Text="{Binding StudentsDisplay}"
+                                               VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="3" Text="{Binding Destination}" Classes="l-instructive"
+                                               VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="4" Text="{Binding Result}" Classes="l-instructive"
+                                               VerticalAlignment="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </controls:FASettingsExpanderItem>
+            </controls:FASettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
+</ci:SettingsPageBase>

@@ -1,12 +1,238 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ClassFabric 远程广播</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>ClassFabric 远程广播</title>
+<style>
+  :root { --accent:#2563eb; --bg:#f4f5f7; --card:#ffffff; --text:#1f2329; --muted:#8a919f; --line:#e5e7eb; --danger:#dc2626; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { margin:0; font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); }
+  .page { display:none; max-width:520px; margin:0 auto; padding:20px 16px calc(24px + env(safe-area-inset-bottom)); }
+  .page.active { display:block; }
+  h1 { font-size:22px; margin:8px 0 4px; }
+  .sub { color:var(--muted); font-size:14px; margin-bottom:20px; }
+  .card { background:var(--card); border-radius:14px; padding:18px; margin-bottom:14px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+  .card.disabled { opacity:.55; }
+  .card-title { font-size:17px; font-weight:600; margin-bottom:4px; }
+  .card-desc { color:var(--muted); font-size:13px; line-height:1.5; }
+  input[type=text], textarea { width:100%; padding:12px 14px; font-size:16px; border:1px solid var(--line); border-radius:10px; background:#fff; }
+  input:focus { outline:2px solid var(--accent); border-color:transparent; }
+  label.check { display:flex; gap:8px; align-items:center; font-size:14px; color:var(--muted); margin:12px 0 16px; }
+  button.primary { width:100%; min-height:48px; border:0; border-radius:12px; background:var(--accent); color:#fff; font-size:17px; font-weight:600; }
+  button.primary:disabled { opacity:.5; }
+  button.ghost { min-height:44px; padding:0 14px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--text); font-size:14px; }
+  .chip { display:inline-flex; align-items:center; gap:6px; min-height:38px; padding:6px 14px; margin:4px 4px 0 0; border-radius:19px; background:#eef2ff; color:var(--accent); font-size:15px; border:1px solid transparent; }
+  .chip.off { background:#fff; color:var(--text); border-color:var(--line); }
+  .chip .x { color:inherit; opacity:.6; font-weight:700; }
+  .stu-list { max-height:46vh; overflow-y:auto; margin:8px 0; }
+  .stu-row { display:flex; justify-content:space-between; align-items:center; min-height:48px; padding:4px 2px; border-bottom:1px solid var(--line); }
+  .stu-name { font-size:16px; }
+  .stu-group { color:var(--muted); font-size:12px; margin-left:8px; }
+  .toast { position:fixed; left:50%; bottom:calc(28px + env(safe-area-inset-bottom)); transform:translateX(-50%);
+           background:#111827; color:#fff; padding:12px 18px; border-radius:10px; font-size:14px; display:none; max-width:86vw; z-index:9; }
+  .err { color:var(--danger); font-size:14px; min-height:20px; margin-top:10px; }
+  .muted { color:var(--muted); font-size:13px; }
+  .linkbtn { background:none; border:0; color:var(--accent); font-size:14px; padding:0; }
+</style>
 </head>
 <body>
-    <h1>ClassFabric Remote Broadcast</h1>
-    <p>Quick Call 手机端页面将在 M1 里程碑提供。</p>
+<!-- 手机端 SPA：登记 → 主页 → QuickCall。文案集中在 I18N 表里，为后续 i18n 留口（R11）。 -->
+<div id="page-register" class="page active">
+  <h1>远程广播</h1>
+  <p class="sub">登记后即可向本教室白板发起 Quick Call</p>
+  <div class="card">
+    <div class="card-title">教师登记</div>
+    <p class="card-desc">请填写姓名简称（2–20 字符），用于播报「找谁」与白板端展示。</p>
+    <input id="reg-name" type="text" maxlength="20" placeholder="如：刘老师" />
+    <label class="check"><input id="reg-remember" type="checkbox" /><span>记住我（本设备免登记）</span></label>
+    <button id="reg-submit" class="primary">进入</button>
+    <div id="reg-err" class="err"></div>
+  </div>
+</div>
+
+<div id="page-home" class="page">
+  <h1>你好，<span id="home-name"></span></h1>
+  <p class="sub">选择一项功能 <button id="home-rename" class="linkbtn">改名</button></p>
+  <div class="card" id="card-quickcall" style="cursor:pointer">
+    <div class="card-title">📢 Quick Call</div>
+    <p class="card-desc">选择学生与目的地，白板将立即语音呼叫。</p>
+  </div>
+  <div class="card disabled">
+    <div class="card-title">🎙 语音广播（对讲机）</div>
+    <p class="card-desc">该功能需要服务器与 HTTPS/WebRTC 基建，待公益服务器获批后评估。</p>
+  </div>
+</div>
+
+<div id="page-call" class="page">
+  <h1>Quick Call</h1>
+  <p class="sub">已选 <span id="sel-count">0</span> 名学生</p>
+  <div class="card">
+    <input id="stu-search" type="text" placeholder="搜索学生姓名…" />
+    <div id="sel-chips"></div>
+    <div id="stu-list" class="stu-list"></div>
+    <button id="stu-clear" class="ghost">清空已选</button>
+  </div>
+  <div class="card">
+    <div class="card-title">目的地</div>
+    <div id="dest-chips"></div>
+    <input id="dest-custom" type="text" maxlength="50" placeholder="自定义目的地…" style="margin-top:10px" />
+  </div>
+  <button id="call-btn" class="primary">📢 立即呼叫</button>
+  <div id="call-msg" class="err"></div>
+  <div class="card" style="margin-top:14px"><button id="call-back" class="ghost" style="width:100%">返回主页</button></div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const I18N = {
+  appTitle: "ClassFabric 远程广播",
+  broadcasting: "有播报正在进行，请稍候",
+  called: "已呼叫，请留意白板播报",
+  callDone: "本次播报已完成",
+  callFailed: "呼叫失败：",
+  netError: "网络异常，请检查连接后重试",
+  tooFast: "请求太频繁，请稍候再试",
+};
+
+// 接入码取自 URL 第一段——它既是路由前缀也是身份凭据，丢了这个页面就没有任何 API 可访问。
+const CODE = location.pathname.split("/").filter(Boolean)[0] || "";
+const API = `/${CODE}/api`;
+
+let roster = [], destinations = [], selected = new Set(), destChosen = "", pollTimer = null;
+
+const $ = (id) => document.getElementById(id);
+function show(page) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  $("page-" + page).classList.add("active");
+}
+function toast(text, ms = 2200) {
+  const t = $("toast"); t.textContent = text; t.style.display = "block";
+  clearTimeout(t._timer); t._timer = setTimeout(() => t.style.display = "none", ms);
+}
+async function api(path, opts) {
+  let res;
+  try { res = await fetch(API + path, opts); }
+  catch { throw new Error(I18N.netError); }
+  if (res.status === 404) throw new Error("接入码已失效，请重新扫码");
+  if (res.status === 429) throw new Error(I18N.tooFast);
+  return res;
+}
+
+// ---- 登记（R10）----
+async function tryResume() {
+  const name = localStorage.getItem("rb_name");
+  if (name && localStorage.getItem("rb_device")) { enterHome(name); return true; }
+  return false;
+}
+$("reg-submit").onclick = async () => {
+  const name = $("reg-name").value.trim();
+  if (name.length < 2 || name.length > 20) { $("reg-err").textContent = "姓名简称需为 2–20 个字符"; return; }
+  $("reg-err").textContent = "";
+  $("reg-submit").disabled = true;
+  try {
+    const res = await api("/register", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ teacherName: name }) });
+    if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.error || `错误 ${res.status}`); }
+    if ($("reg-remember").checked) {
+      // deviceToken 只存在本机（R10），服务端不收——它现在的用途只是「这台设备记住了我」的标志位。
+      if (!localStorage.getItem("rb_device")) localStorage.setItem("rb_device", crypto.randomUUID());
+      localStorage.setItem("rb_name", name);
+    }
+    enterHome(name);
+  } catch (e) { $("reg-err").textContent = e.message; }
+  $("reg-submit").disabled = false;
+};
+
+function enterHome(name) {
+  $("home-name").textContent = name;
+  show("home");
+  loadConfig();
+}
+$("home-rename").onclick = () => { $("reg-name").value = localStorage.getItem("rb_name") || ""; show("register"); };
+$("card-quickcall").onclick = () => { show("call"); renderStudents(); renderDestinations(); };
+
+// ---- 配置与名单（R4/R5）----
+async function loadConfig() {
+  try {
+    const res = await api("/config");
+    const data = await res.json();
+    roster = data.roster || []; destinations = data.destinations || [];
+  } catch (e) { toast(e.message); }
+}
+function renderStudents() {
+  const kw = $("stu-search").value.trim();
+  const list = $("stu-list"); list.innerHTML = "";
+  roster.filter(s => !kw || s.name.includes(kw)).forEach(s => {
+    const row = document.createElement("div"); row.className = "stu-row";
+    const left = document.createElement("div");
+    left.innerHTML = `<span class="stu-name"></span>`; left.querySelector(".stu-name").textContent = s.name;
+    if (s.group) { const g = document.createElement("span"); g.className = "stu-group"; g.textContent = s.group; left.appendChild(g); }
+    const btn = document.createElement("button"); btn.className = "chip " + (selected.has(s.id) ? "" : "off");
+    btn.textContent = selected.has(s.id) ? "已选" : "选择";
+    btn.onclick = () => { toggleStudent(s.id); };
+    row.appendChild(left); row.appendChild(btn); list.appendChild(row);
+  });
+  $("sel-count").textContent = selected.size;
+  const chips = $("sel-chips"); chips.innerHTML = "";
+  selected.forEach(id => {
+    const s = roster.find(x => x.id === id); if (!s) return;
+    const c = document.createElement("span"); c.className = "chip";
+    c.textContent = s.name + " ";
+    const x = document.createElement("span"); x.className = "x"; x.textContent = "✕";
+    x.onclick = () => toggleStudent(id);
+    c.appendChild(x); chips.appendChild(c);
+  });
+}
+function toggleStudent(id) { selected.has(id) ? selected.delete(id) : selected.add(id); renderStudents(); }
+$("stu-search").oninput = renderStudents;
+$("stu-clear").onclick = () => { selected.clear(); renderStudents(); };
+function renderDestinations() {
+  const box = $("dest-chips"); box.innerHTML = ""; destChosen = "";
+  destinations.forEach(d => {
+    const c = document.createElement("button"); c.className = "chip off"; c.textContent = d.name;
+    c.onclick = () => {
+      destChosen = d.name; $("dest-custom").value = "";
+      box.querySelectorAll(".chip").forEach(x => x.classList.add("off"));
+      c.classList.remove("off");
+    };
+    box.appendChild(c);
+  });
+}
+
+// ---- 呼叫（R11/R8）----
+$("call-btn").onclick = async () => {
+  const custom = $("dest-custom").value.trim();
+  const dest = custom || destChosen;
+  const msg = $("call-msg");
+  if (selected.size === 0) { msg.textContent = "请至少选择一名学生"; return; }
+  if (!dest) { msg.textContent = "请选择或输入目的地"; return; }
+  const btn = $("call-btn"); btn.disabled = true; msg.textContent = "";
+  try {
+    const res = await api("/quickcall", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ students: [...selected], destination: dest, caller: localStorage.getItem("rb_name") || $("home-name").textContent }) });
+    if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.error || `错误 ${res.status}`); }
+    toast(I18N.called, 3000);
+    pollStatus();
+  } catch (e) { msg.textContent = e.message; }
+  btn.disabled = false;
+};
+// 202 只代表受理，成败要看 /api/status——这里轮询到终态为止，断网合成失败的错误就是从这来的。
+function pollStatus() {
+  clearInterval(pollTimer);
+  pollTimer = setInterval(async () => {
+    try {
+      const res = await api("/status");
+      const s = await res.json();
+      if (s.state === "Error" && s.error) { clearInterval(pollTimer); toast(I18N.callFailed + s.error, 4000); return; }
+      if (s.state === "Idle") { clearInterval(pollTimer); toast(I18N.callDone); }
+    } catch { /* 轮询失败静默重试 */ }
+  }, 2000);
+}
+$("call-back").onclick = () => { clearInterval(pollTimer); show("home"); };
+
+tryResume();
+</script>
 </body>
 </html>

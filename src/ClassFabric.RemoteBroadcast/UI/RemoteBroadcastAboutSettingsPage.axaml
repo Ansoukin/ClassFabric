@@ -1,0 +1,48 @@
+<ci:SettingsPageBase
+    x:Class="ClassFabric.RemoteBroadcast.UI.RemoteBroadcastAboutSettingsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ci="http://classfabric.tech/schemas/xaml/core"
+    xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450">
+
+    <ScrollViewer>
+        <StackPanel Classes="settings-container animated-intro">
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI MegaphoneRegular}}"
+                                         Header="远程广播 Remote Broadcast"
+                                         IsExpanded="True">
+                <controls:FASettingsExpander.Footer>
+                    <TextBlock x:Name="VersionText" Classes="l-instructive" />
+                </controls:FASettingsExpander.Footer>
+
+                <controls:FASettingsExpanderItem>
+                    <TextBlock TextWrapping="Wrap"
+                               Text="教师通过手机网页向本教室白板发起 Quick Call 呼叫：选择学生与目的地，白板立即显示提醒并语音播报。白板即服务端，局域网直连，无需账号与服务器。" />
+                </controls:FASettingsExpanderItem>
+            </controls:FASettingsExpander>
+
+            <Separator Margin="0 12 0 4" />
+            <ci:IconText Glyph="{ci:FI QuestionCircleRegular}" Text="使用步骤" Margin="0 0 0 4" />
+
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource {ci:FI QuestionCircleRegular}}"
+                                         Header="使用步骤"
+                                         Description="四步走通一次呼叫，全部在教室局域网内完成。"
+                                         IsExpanded="True">
+                <controls:FASettingsExpanderItem Content="1. 创建接入码并出示二维码"
+                                                 Description="在白板的「人员与目的地」页创建接入码，点「二维码」把弹窗出示给老师。"
+                                                 IconSource="{ci:FluentIconSource {ci:FI QrCodeRegular}}" />
+                <controls:FASettingsExpanderItem Content="2. 教师手机扫码登记"
+                                                 Description="用手机相机扫码打开呼叫页面，首次进入填写姓名简称（2–20 字符）。"
+                                                 IconSource="{ci:FluentIconSource {ci:FI PhoneRegular}}" />
+                <controls:FASettingsExpanderItem Content="3. 选学生与目的地发起呼叫"
+                                                 Description="勾选学生、选择目的地（也可临时自定义），点呼叫。"
+                                                 IconSource="{ci:FluentIconSource {ci:FI PersonBoardRegular}}" />
+                <controls:FASettingsExpanderItem Content="4. 白板弹条并语音播报"
+                                                 Description="白板按「主设置」里的播报参数弹条并朗读；同一时刻只受理一个呼叫。"
+                                                 IconSource="{ci:FluentIconSource {ci:FI MegaphoneRegular}}" />
+            </controls:FASettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
+</ci:SettingsPageBase>
