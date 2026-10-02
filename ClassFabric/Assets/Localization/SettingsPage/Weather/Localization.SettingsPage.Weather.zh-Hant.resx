@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SearchCityTitle" xml:space="preserve">
+    <value>搜索城市</value>
+    <comment>城市搜索抽屉-标题</comment>
+  </data>
+  <data name="SearchCityWatermark" xml:space="preserve">
+    <value>搜索城市或省份…</value>
+    <comment>城市搜索抽屉-搜索框占位文本</comment>
+  </data>
+  <data name="CitySearchNoResults" xml:space="preserve">
+    <value>找不到符合條件的城市。請更換搜索關鍵字，然後再試一次。</value>
+    <comment>城市搜索抽屉-无结果提示</comment>
+  </data>
+  <data name="WeatherPreview" xml:space="preserve">
+    <value>天氣預覽</value>
+    <comment>天气设置-"天气预览"分区</comment>
+  </data>
+  <data name="Humidity" xml:space="preserve">
+    <value>濕度</value>
+    <comment>天气预览-湿度</comment>
+  </data>
+  <data name="AirQuality" xml:space="preserve">
+    <value>空氣質量</value>
+    <comment>天气预览-空气质量</comment>
+  </data>
+  <data name="Wind" xml:space="preserve">
+    <value>風力</value>
+    <comment>天气预览-风力</comment>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+    <comment>天气预览-刷新按钮提示</comment>
+  </data>
+  <data name="UpdatedAtPrefix" xml:space="preserve">
+    <value>更新於</value>
+    <comment>天气预览-更新时间前缀（后接时间值）</comment>
+  </data>
+  <data name="LocationSettings" xml:space="preserve">
+    <value>位置設置</value>
+    <comment>天气设置-"位置设置"分区</comment>
+  </data>
+  <data name="WeatherLocation" xml:space="preserve">
+    <value>天氣位置</value>
+    <comment>天气设置-"天气位置"</comment>
+  </data>
+  <data name="WeatherLocationDescription" xml:space="preserve">
+    <value>設置 ClassFabric 用於查詢天氣的位置信息及獲取方式。</value>
+    <comment>天气位置-描述</comment>
+  </data>
+  <data name="SelectCity" xml:space="preserve">
+    <value>選擇城市</value>
+    <comment>天气位置-"选择城市"选项</comment>
+  </data>
+  <data name="CoordinateLocating" xml:space="preserve">
+    <value>坐標定位</value>
+    <comment>天气位置-"坐标定位"选项</comment>
+  </data>
+  <data name="CitySelection" xml:space="preserve">
+    <value>城市選擇</value>
+    <comment>天气位置-"城市选择"</comment>
+  </data>
+  <data name="CitySelectionDescription" xml:space="preserve">
+    <value>選擇當前所在的城市，以用於天氣查詢。</value>
+    <comment>城市选择-描述</comment>
+  </data>
+  <data name="EditCity" xml:space="preserve">
+    <value>編輯城市</value>
+    <comment>城市选择-编辑按钮提示</comment>
+  </data>
+  <data name="LocationCoordinates" xml:space="preserve">
+    <value>位置坐標</value>
+    <comment>天气位置-"位置坐标"</comment>
+  </data>
+  <data name="LocationCoordinatesDescription" xml:space="preserve">
+    <value>輸入用於獲取天氣信息的經緯坐標。</value>
+    <comment>位置坐标-描述</comment>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>經度</value>
+    <comment>位置坐标-经度字段前缀</comment>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value>緯度</value>
+    <comment>位置坐标-纬度字段前缀</comment>
+  </data>
+  <data name="ShowCoordinates" xml:space="preserve">
+    <value>顯示坐標</value>
+    <comment>位置坐标-"显示坐标"按钮</comment>
+  </data>
+  <data name="AutoLocate" xml:space="preserve">
+    <value>自動定位</value>
+    <comment>位置坐标-自动定位按钮提示</comment>
+  </data>
+  <data name="AutoGetLocation" xml:space="preserve">
+    <value>自動獲取位置</value>
+    <comment>天气位置-"自动获取位置"开关</comment>
+  </data>
+  <data name="AutoGetLocationDescription" xml:space="preserve">
+    <value>啓用後，將在應用每次啓動時自動更新位置信息。</value>
+    <comment>自动获取位置-描述</comment>
+  </data>
+  <data name="WeatherDataSource" xml:space="preserve">
+    <value>天氣數據源</value>
+    <comment>天气设置-"天气数据源"分区及标题</comment>
+  </data>
+  <data name="WeatherDataSourceDescription" xml:space="preserve">
+    <value>選擇天氣數據提供方。默認使用小米天氣；其他來源失敗時可自動回退。</value>
+    <comment>天气数据源-描述</comment>
+  </data>
+  <data name="XiaomiWeatherDefault" xml:space="preserve">
+    <value>小米天氣（默認）</value>
+    <comment>天气数据源-"小米天气（默认）"选项</comment>
+  </data>
+  <data name="OpenWeatherApiKeyDescription" xml:space="preserve">
+    <value>使用 OpenWeather 時必填，由用戶自行申請並保存在本機設置中。</value>
+    <comment>OpenWeather API Key-描述</comment>
+  </data>
+  <data name="OpenWeatherApiKeyPlaceholder" xml:space="preserve">
+    <value>請輸入 API Key</value>
+    <comment>OpenWeather API Key-输入框占位文本</comment>
+  </data>
+  <data name="FallbackToXiaomiWeather" xml:space="preserve">
+    <value>失敗時回退到小米天氣</value>
+    <comment>天气数据源-"失败时回退到小米天气"开关</comment>
+  </data>
+  <data name="FallbackToXiaomiWeatherDescription" xml:space="preserve">
+    <value>啓用後，所選天氣源不可用時繼續使用默認源。</value>
+    <comment>失败时回退到小米天气-描述</comment>
+  </data>
+  <data name="AppearanceAndAdvancedSettings" xml:space="preserve">
+    <value>外觀與高級設置</value>
+    <comment>天气设置-"外观与高级设置"分区</comment>
+  </data>
+  <data name="WeatherIconPack" xml:space="preserve">
+    <value>天氣圖標包</value>
+    <comment>天气设置-"天气图标包"</comment>
+  </data>
+  <data name="WeatherIconPackDescription" xml:space="preserve">
+    <value>調整在顯示天氣類型時使用的圖標外觀。</value>
+    <comment>天气图标包-描述</comment>
+  </data>
+  <data name="ExcludedWeatherAlerts" xml:space="preserve">
+    <value>排除的氣象預警</value>
+    <comment>天气设置-"排除的气象预警"</comment>
+  </data>
+  <data name="ExcludedWeatherAlertsDescription" xml:space="preserve">
+    <value>包含以下字符串的預警將不會顯示，一行一條排除項。</value>
+    <comment>排除的气象预警-描述</comment>
+  </data>
+  <data name="ExclusionList" xml:space="preserve">
+    <value>排除列表</value>
+    <comment>排除的气象预警-"排除列表"</comment>
+  </data>
+  <data name="NoTLSWeather" xml:space="preserve">
+    <value>不使用 TLS 協議獲取天氣</value>
+    <comment>天气设置-"不使用 TLS 协议获取天气"开关</comment>
+  </data>
+  <data name="NoTLSWeatherDescription" xml:space="preserve">
+    <value>不建議啓用。啓用後，應用將通過不安全的 HTTP 協議獲取天氣信息。</value>
+    <comment>不使用 TLS 协议获取天气-描述</comment>
+  </data>
+  <data name="WeatherHintNotificationPrefix" xml:space="preserve">
+    <value>要調整天氣提醒設置，請轉到</value>
+    <comment>页尾提示前段（后接"【提醒】页面"链接）</comment>
+  </data>
+  <data name="WeatherHintNotificationLink" xml:space="preserve">
+    <value>【提醒】頁面</value>
+    <comment>页尾提示-提醒设置页链接文本</comment>
+  </data>
+  <data name="WeatherHintNotificationSuffix" xml:space="preserve">
+    <value>。</value>
+    <comment>页尾提示前句句尾</comment>
+  </data>
+  <data name="WeatherHintComponentsPrefix" xml:space="preserve">
+    <value>要調整主界面上的天氣快速信息，請在</value>
+    <comment>页尾提示中段（后接"【组件】页面"链接）</comment>
+  </data>
+  <data name="WeatherHintComponentsLink" xml:space="preserve">
+    <value>【組件】頁面</value>
+    <comment>页尾提示-组件设置页链接文本</comment>
+  </data>
+  <data name="WeatherHintComponentsSuffix" xml:space="preserve">
+    <value>中配置天氣簡報組件。</value>
+    <comment>页尾提示后段（组件页链接之后）</comment>
+  </data>
+  <data name="LocatingToast" xml:space="preserve">
+    <value>正在定位...</value>
+    <comment>吐司：正在定位</comment>
+  </data>
+  <data name="LocateSuccessToast" xml:space="preserve">
+    <value>定位成功</value>
+    <comment>吐司：定位成功</comment>
+  </data>
+  <data name="GetCurrentPositionFailedFormat" xml:space="preserve">
+    <value>無法獲取當前位置：{0}</value>
+    <comment>吐司：获取当前位置失败，{0}=原因</comment>
+  </data>
+  <data name="WeatherPrecisionDegradedFormat" xml:space="preserve">
+    <value>此天氣信息降級了坐標精度: {0}位小數</value>
+    <comment>吐司：天气坐标精度降级，{0}=保留小数位数</comment>
+  </data>
+  <data name="WeatherRefreshSuccessToast" xml:space="preserve">
+    <value>天氣刷新成功</value>
+    <comment>吐司：天气刷新成功</comment>
+  </data>
+  <data name="WeatherRefreshFailedFormat" xml:space="preserve">
+    <value>天氣刷新失敗: {0}</value>
+    <comment>吐司：天气刷新失败，{0}=原因</comment>
+  </data>
+</root>

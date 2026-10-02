@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ConfigureFileDamagedInfoBar" xml:space="preserve">
+    <value>Some of the ClassFabric configuration files were corrupted and could not be loaded. They have been restored to their default values.</value>
+    <comment>存储页-配置文件损坏 InfoBar</comment>
+  </data>
+  <data name="ConfigureFileDamagedInfoBarDetails" xml:space="preserve">
+    <value>Details…</value>
+    <comment>存储页-配置文件损坏 InfoBar-按钮</comment>
+  </data>
+  <data name="StorageSection" xml:space="preserve">
+    <value>Storage space</value>
+    <comment>存储页-分区标题（当前处于注释代码块中，预置以备恢复）</comment>
+  </data>
+  <data name="StorageSectionDescription" xml:space="preserve">
+    <value>Below is the storage usage of each file type produced by the app. You can clean up some temporary and cache files here.</value>
+    <comment>存储页-分区描述（当前处于注释代码块，预置以备恢复）</comment>
+  </data>
+  <data name="BackupSection" xml:space="preserve">
+    <value>Backup</value>
+    <comment>存储页-备份分区标题</comment>
+  </data>
+  <data name="AutoBackupHeader" xml:space="preserve">
+    <value>Enable automatic backup</value>
+    <comment>存储页-"启用自动备份"Expander</comment>
+  </data>
+  <data name="AutoBackupDescription" xml:space="preserve">
+    <value>When enabled, ClassFabric automatically backs up the current profile and configuration files at regular intervals.</value>
+    <comment>启用自动备份-描述</comment>
+  </data>
+  <data name="AutoBackupInterval" xml:space="preserve">
+    <value>Automatic backup interval</value>
+    <comment>启用自动备份-"自动备份间隔"</comment>
+  </data>
+  <data name="AutoBackupIntervalDescription" xml:space="preserve">
+    <value>The interval, in days, between automatic backups.</value>
+    <comment>自动备份间隔-描述</comment>
+  </data>
+  <data name="DayUnit" xml:space="preserve">
+    <value>days</value>
+    <comment>间隔天数单位后缀</comment>
+  </data>
+  <data name="AutoBackupLimit" xml:space="preserve">
+    <value>Automatic backup limit</value>
+    <comment>启用自动备份-"自动备份上限"</comment>
+  </data>
+  <data name="AutoBackupLimitDescription" xml:space="preserve">
+    <value>The maximum number of automatic backups to keep. When the limit is reached, the oldest backup is overwritten. Set to 0 for no limit.</value>
+    <comment>自动备份上限-描述</comment>
+  </data>
+  <data name="CountUnit" xml:space="preserve">
+    <value>backups</value>
+    <comment>备份数量单位后缀</comment>
+  </data>
+  <data name="LastAutoBackupTime" xml:space="preserve">
+    <value>Last successful automatic backup</value>
+    <comment>启用自动备份-"上次成功自动备份"</comment>
+  </data>
+  <data name="ManualBackupHeader" xml:space="preserve">
+    <value>Manual backup</value>
+    <comment>存储页-"手动备份"Expander</comment>
+  </data>
+  <data name="ManualBackupDescription" xml:space="preserve">
+    <value>Perform a manual backup. It includes configuration files in the Config/ folder, profile files in the Profiles/ folder, and the Settings.json settings file. Backup files created manually are not removed automatically.</value>
+    <comment>手动备份-描述</comment>
+  </data>
+  <data name="BackupSucceedToolTip" xml:space="preserve">
+    <value>Backup completed.</value>
+    <comment>手动备份图标提示 / 创建备份成功吐司（axaml 与 axaml.cs 共用同一键）</comment>
+  </data>
+  <data name="BackupNow" xml:space="preserve">
+    <value>Back up now</value>
+    <comment>手动备份-"立即备份"</comment>
+  </data>
+  <data name="ViewBackupFiles" xml:space="preserve">
+    <value>View backup files…</value>
+    <comment>手动备份-"查看备份文件…"</comment>
+  </data>
+  <data name="RecoverBackup" xml:space="preserve">
+    <value>Recover backup…</value>
+    <comment>手动备份-"恢复备份…"</comment>
+  </data>
+  <data name="RecoverBackupDescription" xml:space="preserve">
+    <value>Restart into recovery mode and recover to the specified backup.</value>
+    <comment>恢复备份-描述</comment>
+  </data>
+  <data name="BackupFilesSize" xml:space="preserve">
+    <value>Backup files size</value>
+    <comment>手动备份-"备份文件占用大小"</comment>
+  </data>
+  <data name="CreateBackupFailedTitle" xml:space="preserve">
+    <value>Unable to create backup</value>
+    <comment>创建备份失败吐司标题（axaml.cs）</comment>
+  </data>
+  <data name="ViewBackupFilesFailed" xml:space="preserve">
+    <value>Unable to browse backup files</value>
+    <comment>浏览备份文件失败吐司标题（axaml.cs）</comment>
+  </data>
+</root>

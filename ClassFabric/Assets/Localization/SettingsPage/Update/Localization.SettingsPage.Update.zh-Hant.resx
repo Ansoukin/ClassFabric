@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DownloadProgressTitle" xml:space="preserve">
+    <value>下載進度</value>
+  </data>
+  <data name="DownloadStatePending" xml:space="preserve">
+    <value>等待下載</value>
+  </data>
+  <data name="DownloadStateDownloading" xml:space="preserve">
+    <value>正在下載</value>
+  </data>
+  <data name="DownloadStateCompleted" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="DownloadStateError" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="CheckUpdateFailed" xml:space="preserve">
+    <value>檢查更新失敗</value>
+  </data>
+  <data name="LastCheckUpdateTimePrefix" xml:space="preserve">
+    <value>上次檢查更新時間：</value>
+  </data>
+  <data name="NewVersionFoundPrefix" xml:space="preserve">
+    <value>發現新版本：</value>
+  </data>
+  <data name="UpdateErrorInfoBarTitle" xml:space="preserve">
+    <value>更新時發生錯誤。</value>
+  </data>
+  <data name="DeployErrorInfoBarTitle" xml:space="preserve">
+    <value>部署時發生錯誤，請稍後重試。</value>
+  </data>
+  <data name="RestartToApplyInfoBarTitle" xml:space="preserve">
+    <value>更新將在重啓後應用</value>
+  </data>
+  <data name="RestartToApplyInfoBarMessage" xml:space="preserve">
+    <value>已成功部署更新，下次啓動應用時將啓動新版本。您也可以現在重啓以立即使用新版本的 ClassFabric。</value>
+  </data>
+  <data name="CheckForUpdates" xml:space="preserve">
+    <value>檢查更新</value>
+  </data>
+  <data name="DownloadAndInstall" xml:space="preserve">
+    <value>下載並安裝</value>
+  </data>
+  <data name="DownloadOnly" xml:space="preserve">
+    <value>僅下載</value>
+  </data>
+  <data name="InstallUpdate" xml:space="preserve">
+    <value>安裝更新</value>
+  </data>
+  <data name="RestartToApplyUpdate" xml:space="preserve">
+    <value>重啓並應用更新</value>
+  </data>
+  <data name="ShowDownloadStatus" xml:space="preserve">
+    <value>查看下載狀態</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ChangeLogTab" xml:space="preserve">
+    <value>更新日誌</value>
+  </data>
+  <data name="UpdateSettingsTab" xml:space="preserve">
+    <value>更新設置</value>
+  </data>
+  <data name="AlreadyLatestEasterEgg" xml:space="preserve">
+    <value>已經是最新版啦，真棒，誇誇你哦♪</value>
+  </data>
+  <data name="AlreadyLatest" xml:space="preserve">
+    <value>真棒，您已更新到最新版本！</value>
+  </data>
+  <data name="ViewChangeLog" xml:space="preserve">
+    <value>查看更新日誌</value>
+  </data>
+  <data name="UpdateMode" xml:space="preserve">
+    <value>更新模式</value>
+  </data>
+  <data name="UpdateModeDescription" xml:space="preserve">
+    <value>設置應用的更新模式。</value>
+  </data>
+  <data name="UpdateModeNever" xml:space="preserve">
+    <value>從不自動更新</value>
+  </data>
+  <data name="UpdateModeCheckAndNotify" xml:space="preserve">
+    <value>自動檢查更新並通知</value>
+  </data>
+  <data name="UpdateModeCheckAndDownload" xml:space="preserve">
+    <value>自動檢查更新並下載</value>
+  </data>
+  <data name="UpdateModeCheckAndInstall" xml:space="preserve">
+    <value>自動檢查更新並安裝</value>
+  </data>
+  <data name="UpdateSource" xml:space="preserve">
+    <value>更新源</value>
+  </data>
+  <data name="UpdateSourceDescription" xml:space="preserve">
+    <value>控制獲取應用更新信息的來源。GitHub Releases 為默認更新源，匿名訪問受 GitHub 接口速率限制。</value>
+  </data>
+  <data name="UpdateSourceGitHubFallback" xml:space="preserve">
+    <value>GitHub Releases（失敗時回退到 ClassIsland 分發中心）</value>
+  </data>
+  <data name="UpdateSourceDistributionCenterCompat" xml:space="preserve">
+    <value>ClassIsland 分發中心（兼容，不推薦）</value>
+  </data>
+  <data name="UpdateSourceExplanation" xml:space="preserve">
+    <value>GitHub Releases 直接從 ClassFabric 的 GitHub 倉庫讀取發行版本，無需依賴 ClassIsland 分發中心。選擇帶有「回退」的選項時，若 GitHub 檢查失敗，會改用 ClassIsland 分發中心（兼容保留）。</value>
+  </data>
+  <data name="UpdateChannel" xml:space="preserve">
+    <value>更新通道</value>
+  </data>
+  <data name="UpdateChannelDescription" xml:space="preserve">
+    <value>控制應用的更新目標版本。ClassFabric 當前以預覽版發行為主，因此默認使用預覽版通道；版本的發行節奏和穩定程度因更新通道而異，部分通道可能包含不穩定的功能，請謹慎使用。</value>
+  </data>
+  <data name="ForceCheckUpdate" xml:space="preserve">
+    <value>強制檢查更新</value>
+  </data>
+  <data name="ForceCheckUpdateDescription" xml:space="preserve">
+    <value>強制將應用更新到當前通道上的最新版本，即使此版本比應用當前版本更舊。</value>
+  </data>
+  <data name="StatusUpToDate" xml:space="preserve">
+    <value>您已更新到最新版本。</value>
+  </data>
+  <data name="StatusUpdateAvailable" xml:space="preserve">
+    <value>檢測到更新。</value>
+  </data>
+  <data name="StatusUpdateDownloaded" xml:space="preserve">
+    <value>已準備好安裝更新。</value>
+  </data>
+  <data name="StatusUpdateDeployed" xml:space="preserve">
+    <value>更新已就緒。</value>
+  </data>
+  <data name="WorkingStatusIdle" xml:space="preserve">
+    <value>就緒</value>
+  </data>
+  <data name="WorkingStatusCheckingUpdates" xml:space="preserve">
+    <value>正在檢查更新…</value>
+  </data>
+  <data name="WorkingStatusDownloadingUpdates" xml:space="preserve">
+    <value>正在下載更新…</value>
+  </data>
+  <data name="WorkingStatusExtractingUpdates" xml:space="preserve">
+    <value>正在部署更新…</value>
+  </data>
+</root>

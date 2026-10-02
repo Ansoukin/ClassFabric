@@ -16,6 +16,7 @@ using Avalonia.Input.Platform;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform;
+using ClassFabric.Assets.Localization.SettingsPage.About;
 using ClassIsland.Core;
 using ClassIsland.Core.Abstractions.Controls;
 using ClassIsland.Core.Abstractions.Services;
@@ -79,14 +80,14 @@ public partial class AboutSettingsPage : SettingsPageBase
         var diagInfo = ViewModel.DiagnosticService.GetDiagnosticInfo();
         var dialog = new FAContentDialog()
         {
-            Title = "诊断信息",
+            Title = Localization.DiagnosticInfoDialogTitle,
             Content = new TextBox()
             {
                 Text = diagInfo
             },
             IsSecondaryButtonEnabled = true,
-            PrimaryButtonText = "确定",
-            SecondaryButtonText = "复制",
+            PrimaryButtonText = Localization.DialogOk,
+            SecondaryButtonText = Localization.DialogCopy,
             DefaultButton = FAContentDialogButton.Primary
         };
         dialog.SecondaryButtonClick += ButtonCopyDiagnosticInfo_OnClick;
@@ -104,11 +105,11 @@ public partial class AboutSettingsPage : SettingsPageBase
         catch (Exception ex)
         {
             App.GetService<ILogger<AboutSettingsPage>>().LogError(ex, "复制诊断信息失败。");
-            ToastsHelper.ShowErrorToast(this, "复制失败，请全选诊断信息文本后手动复制。");
+            ToastsHelper.ShowErrorToast(this, Localization.CopyFailedToast);
         }
         if (success)
         {
-            ToastsHelper.ShowSuccessToast(this, "复制成功！");
+            ToastsHelper.ShowSuccessToast(this, Localization.CopySuccessToast);
         }
     }
 
@@ -138,7 +139,7 @@ public partial class AboutSettingsPage : SettingsPageBase
             this.ShowToast(new ToastMessage()
             {
                 Severity = FAInfoBarSeverity.Error,
-                Title = "无法获取贡献者名单",
+                Title = Localization.ContributorsFetchFailedTitle,
                 Message = ex.Message,
                 AutoClose = false
             });
@@ -156,7 +157,7 @@ public partial class AboutSettingsPage : SettingsPageBase
         new DocumentReaderWindow()
         {
             Source = new Uri("avares://ClassFabric/Assets/Documents/Privacy_.md"),
-            Title = "ClassFabric 隐私政策"
+            Title = Localization.PrivacyWindowTitle
         }.ShowDialog((TopLevel.GetTopLevel(this) as Window)!);
     }
 
@@ -194,12 +195,12 @@ public partial class AboutSettingsPage : SettingsPageBase
         var license = await AssetLoader.ReadAllTextAsync(new Uri("avares://ClassFabric/Assets/LICENSE.txt"));
         await new FAContentDialog()
         {
-            Title = "开放源代码许可",
+            Title = Localization.OpenSourceLicense,
             Content = new TextBlock()
             {
                 Text = license
             },
-            PrimaryButtonText = "关闭",
+            PrimaryButtonText = Localization.DialogClose,
             DefaultButton = FAContentDialogButton.Primary
         }.ShowAsyncAuto();
     }
@@ -209,14 +210,14 @@ public partial class AboutSettingsPage : SettingsPageBase
         ViewModel.AppIconClickCount++;
         if (ViewModel.SettingsService.Settings.IsDebugOptionsEnabled)
         {
-            this.ShowToast("您已启用调试菜单，无需继续操作。");
+            this.ShowToast(Localization.DebugMenuAlreadyEnabledToast);
             return;
         }
         if (ViewModel.AppIconClickCount >= 10)
         {
             if (ViewModel.ManagementService.Policy.DisableDebugMenu)
             {
-                _ = CommonTaskDialogs.ShowDialog("调试菜单已禁用", "您的组织禁用了调试菜单。", this);
+                _ = CommonTaskDialogs.ShowDialog(Localization.DebugMenuDisabledTitle, Localization.DebugMenuDisabledMessage, this);
                 return;
             }
 
@@ -224,7 +225,7 @@ public partial class AboutSettingsPage : SettingsPageBase
             var textBox = new TextBox();
             var textBlock = new TextBlock {
                 TextWrapping = TextWrapping.Wrap,
-                Text = "您正在发布版本的 ClassFabric 中启用仅供开发使用的调试菜单。请注意此功能仅限于开发和调试用途，ClassFabric 开发者不对以非开发用途使用此页面中功能造成的任何后果负责，也不接受以非开发用途使用时产生的 Bug 的反馈。"+Environment.NewLine
+                Text = Localization.DebugMenuWarningText + Environment.NewLine
             };
             var timesBlockClicked = 0;
             textBlock.PointerPressed += (_,_) => {
@@ -232,7 +233,7 @@ public partial class AboutSettingsPage : SettingsPageBase
             };
             var r = await new FAContentDialog()
             {
-                Title = "启用调试菜单",
+                Title = Localization.DebugMenuDialogTitle,
                 Content = new StackPanel
                 {
                     Spacing = 4,
@@ -242,13 +243,15 @@ public partial class AboutSettingsPage : SettingsPageBase
                         new TextBlock()
                         {
                             TextWrapping = TextWrapping.Wrap,
-                            Text = "如果您确实要启用此功能，请在下方文本框输入⌈我已知晓并同意，开发者不对以非开发用途使用此页面功能造成的任何后果负责，也不接受以非开发用途使用此页面功能产生的 Bug 的反馈⌋，然后点击【继续】。"
+                            Text = string.Format(
+                                Localization.DebugMenuConfirmPrompt,
+                                Localization.DebugMenuConfirmPhrase)
                         },
                         textBox
                     }
                 },
-                PrimaryButtonText = "继续",
-                SecondaryButtonText = "取消",
+                PrimaryButtonText = Localization.DialogContinue,
+                SecondaryButtonText = Localization.DialogCancel,
                 DefaultButton = FAContentDialogButton.Primary
             }.ShowAsyncAuto();
             
@@ -258,14 +261,14 @@ public partial class AboutSettingsPage : SettingsPageBase
                 return;
             }
 
-            if (timesBlockClicked != 3 && textBox.Text != "我已知晓并同意，开发者不对以非开发用途使用此页面功能造成的任何后果负责，也不接受以非开发用途使用此页面功能产生的 Bug 的反馈")
+            if (timesBlockClicked != 3 && textBox.Text != Localization.DebugMenuConfirmPhrase)
             {
-                this.ShowWarningToast("验证结果不正确，请重新输入。");
+                this.ShowWarningToast(Localization.DebugMenuVerificationFailedToast);
                 return;
             }
 #endif
             ViewModel.SettingsService.Settings.IsDebugOptionsEnabled = true;
-            this.ShowSuccessToast("已启用调试菜单。");
+            this.ShowSuccessToast(Localization.DebugMenuEnabledToast);
         }
     }
 
@@ -283,10 +286,10 @@ public partial class AboutSettingsPage : SettingsPageBase
         var contentDialog = new FAContentDialog()
         {
             Content = advancedImage,
-            Title = "查看图片",
-            PrimaryButtonText = "关闭",
+            Title = Localization.ViewImageDialogTitle,
+            PrimaryButtonText = Localization.DialogClose,
             DefaultButton = FAContentDialogButton.Primary,
-            SecondaryButtonText = "在浏览器查看"
+            SecondaryButtonText = Localization.ViewInBrowser
         };
         var r = await contentDialog.ShowAsyncAuto();
         if (r == FAContentDialogResult.Secondary)

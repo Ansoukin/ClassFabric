@@ -29,6 +29,7 @@ using ClassIsland.Services;
 using ClassIsland.Shared;
 using ClassIsland.Shared.Helpers;
 using ClassIsland.ViewModels.SettingsPages;
+using ClassFabric.Assets.Localization.SettingsPage.Component;
 using CommunityToolkit.Mvvm.Input;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
@@ -86,14 +87,14 @@ public partial class ComponentsSettingsPage : SettingsPageBase
         };
         var dialogResult = await new FAContentDialog()
         {
-            Title = "创建组件配置",
+            Title = Localization.CreateConfigDialogTitle,
             DefaultButton = FAContentDialogButton.Primary,
-            PrimaryButtonText = "创建",
-            SecondaryButtonText = "取消",
+            PrimaryButtonText = Localization.CreateButton,
+            SecondaryButtonText = Localization.CancelButton,
             Content = new Field()
             {
                 Content = textBox,
-                Label = "组件名",
+                Label = Localization.ComponentNameLabel,
                 Suffix = ".json"
             }
         }.ShowAsyncAuto();
@@ -274,7 +275,7 @@ public partial class ComponentsSettingsPage : SettingsPageBase
     {
         if (ViewModel.ComponentsService.CurrentComponents.Lines.Count <= 1)
         {
-            this.ShowWarningToast("至少需要保留 1 个主界面行。");
+            this.ShowWarningToast(Localization.AtLeastOneLineWarning);
             return;
         }
 
@@ -286,7 +287,7 @@ public partial class ComponentsSettingsPage : SettingsPageBase
     {
         if (!ViewModel.ComponentsService.CurrentComponents.Lines.Any(x => x.IsNotificationEnabled))
         {
-            this.ShowWarningToast("您已经禁用了所有主界面行的提醒显示功能。如果没有插件注册其它提醒消费者，提醒将不会显示，也不会播放提醒音效、特效和语音。");
+            this.ShowWarningToast(Localization.AllNotificationDisabledWarning);
         }
     }
 
@@ -307,7 +308,7 @@ public partial class ComponentsSettingsPage : SettingsPageBase
             var firstLine = ViewModel.ComponentsService.CurrentComponents.Lines.FirstOrDefault();
             if (firstLine != null) 
                 firstLine.IsMainLine = true;
-            this.ShowToast("已将第一行设置为主要行。");
+            this.ShowToast(Localization.FirstLineSetAsMainToast);
         }
     }
 
@@ -476,7 +477,7 @@ public partial class ComponentsSettingsPage : SettingsPageBase
             }
         };
         ViewModel.ComponentsService.CurrentComponents.Lines.Insert(0, newLine);
-        this.ShowToast("已向上创建新主界面行。");
+        this.ShowToast(Localization.NewLineAboveToast);
     }
     
     [RelayCommand]
@@ -517,7 +518,7 @@ public partial class ComponentsSettingsPage : SettingsPageBase
             }
         };
         ViewModel.ComponentsService.CurrentComponents.Lines.Add(newLine);
-        this.ShowToast("已向下创建新主界面行。");
+        this.ShowToast(Localization.NewLineBelowToast);
     }
 
     [RelayCommand]
@@ -531,7 +532,7 @@ public partial class ComponentsSettingsPage : SettingsPageBase
         
         if (settings == ViewModel.SelectedRootComponent)
         {
-            this.ShowWarningToast("不能将容器组件移动到自身（或其子级）的子组件中。");
+            this.ShowWarningToast(Localization.MoveIntoSelfWarning);
             return;
         }
         

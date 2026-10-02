@@ -34,6 +34,7 @@ using ReactiveUI;
 using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization;
 using Path = System.IO.Path;
+using ClassFabric.Assets.Localization.SettingsPage.Plugins;
 
 namespace ClassIsland.Views.SettingPages;
 
@@ -98,7 +99,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
         }
         catch (Exception e)
         {
-            document = $"> 无法加载文档：{e.Message}";
+            document = string.Format(Localization.ReadmeLoadFailed, e.Message);
         }
         finally
         {
@@ -141,7 +142,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
         PopupHelper.DisableAllPopups();
         var file = await PlatformServices.FilePickerService.SaveFilePickerAsync(new FilePickerSaveOptions()
         {
-            Title = "打包插件",
+            Title = Localization.PackPlugin,
             FileTypeChoices = [
                 IPluginService.PluginPackageFileType
             ],
@@ -155,7 +156,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
         {
             var topLevel = TopLevel.GetTopLevel(this) ?? AppBase.Current.GetRootWindow();
             using var storageFile = await PlatformServices.FilePickerService.GetFileAsync(file, topLevel)
-                                    ?? throw new FileNotFoundException("无法打开所选插件包文件。", file);
+                                    ?? throw new FileNotFoundException(Localization.CannotOpenPackageFile, file);
             await using var outputStream = await storageFile.OpenWriteAsync();
             if (outputStream.CanSeek)
             {
@@ -170,7 +171,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
         }
         catch (Exception ex)
         {
-            this.ShowErrorToast($"无法打包插件 {ViewModel.SelectedPluginInfo.Manifest.Id}", ex);
+            this.ShowErrorToast(string.Format(Localization.PackPluginFailed, ViewModel.SelectedPluginInfo.Manifest.Id), ex);
         }
     }
 
@@ -321,7 +322,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
         if (manifests.Count == 0)
         {
             ViewModel.IsInstallingLocalPlugin = false;
-            this.ShowWarningToast("未能从选择的文件中解析出任何可安装的插件包。");
+            this.ShowWarningToast(Localization.NoValidPackagesToast);
             return;
         }
 
@@ -331,11 +332,11 @@ public partial class PluginsSettingsPage : SettingsPageBase
 
         var dialog = new FAContentDialog()
         {
-            Title = "确认安装?",
+            Title = Localization.InstallConfirmTitle,
             Content = manifests,
             ContentTemplate = contentTemplate,
-            PrimaryButtonText = "安装",
-            CloseButtonText = "取消",
+            PrimaryButtonText = Localization.Install,
+            CloseButtonText = Localization.Cancel,
             DefaultButton = FAContentDialogButton.Primary
         };
 
@@ -358,7 +359,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
             try
             {
                 using var storageFile = await PlatformServices.FilePickerService.GetFileAsync(path, topLevel)
-                                        ?? throw new FileNotFoundException("无法重新打开所选插件包。", path);
+                                        ?? throw new FileNotFoundException(Localization.CannotReopenPackageFile, path);
                 var dest = Path.Combine(
                     Services.PluginService.PluginsPkgRootPath,
                     Path.GetFileName(m.SourceName ?? storageFile.Name));
@@ -370,17 +371,17 @@ public partial class PluginsSettingsPage : SettingsPageBase
             catch (Exception ex)
             {
                 failed++;
-                this.ShowErrorToast($"无法安装插件 {path}", ex);
+                this.ShowErrorToast(string.Format(Localization.InstallPluginFailedToast, path), ex);
             }
         }
         if (success > 0)
         {
-            this.ShowSuccessToast($"成功安装了 {success} 个插件。");
+            this.ShowSuccessToast(string.Format(Localization.InstallSuccessToast, success));
             RequestRestart();
         }
         else if (failed > 0)
         {
-            this.ShowWarningToast($"安装失败：{failed} 个插件。");
+            this.ShowWarningToast(string.Format(Localization.InstallFailedToast, failed));
         }
     }
 
@@ -394,7 +395,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
         PopupHelper.DisableAllPopups();
         var file = await PlatformServices.FilePickerService.OpenFilesPickerAsync(new FilePickerOpenOptions()
         {
-            Title = "从本地安装插件",
+            Title = Localization.InstallFromLocalDialogTitle,
             FileTypeFilter = [IPluginService.PluginPackageFileType],
             AllowMultiple = true
         }, TopLevel.GetTopLevel(this) ?? AppBase.Current.GetRootWindow());
@@ -447,10 +448,10 @@ public partial class PluginsSettingsPage : SettingsPageBase
         {
             var result = await new FAContentDialog()
             {
-                Title = "操作系统不受该插件支持",
-                Content = "此插件所声明支持的操作系统并未包括当前所运行的操作系统。" + Environment.NewLine + "如果继续安装此插件，此插件将可能无法正常工作。您要继续安装此插件吗？",
-                SecondaryButtonText = "取消",
-                PrimaryButtonText = "继续",
+                Title = Localization.UnsupportedOSDialogTitle,
+                Content = Localization.UnsupportedOSContent,
+                SecondaryButtonText = Localization.Cancel,
+                PrimaryButtonText = Localization.DialogContinue,
                 DefaultButton = FAContentDialogButton.Secondary
             }.ShowAsyncAuto();
             if (result != FAContentDialogResult.Primary)
@@ -463,11 +464,11 @@ public partial class PluginsSettingsPage : SettingsPageBase
         {
             var result = await new FAContentDialog()
             {
-                Title = "缺少依赖项",
-                Content = "此插件的部分必选依赖项未安装且无法从市场获取。如果继续安装此插件，此插件将可能无法工作。您要继续安装此插件吗？" + Environment.NewLine + Environment.NewLine +
-                          "未找到的必选依赖项：" + Environment.NewLine + string.Join(Environment.NewLine, missingPlugins),
-                SecondaryButtonText = "取消",
-                PrimaryButtonText = "继续",
+                Title = Localization.MissingDependenciesTitle,
+                Content = string.Format(Localization.MissingDependenciesContent,
+                          string.Join(Environment.NewLine, missingPlugins)),
+                SecondaryButtonText = Localization.Cancel,
+                PrimaryButtonText = Localization.DialogContinue,
                 DefaultButton = FAContentDialogButton.Secondary
             }.ShowAsyncAuto();
             if (result != FAContentDialogResult.Primary)
@@ -527,15 +528,15 @@ public partial class PluginsSettingsPage : SettingsPageBase
             return;
         }
 
-        var userMessage = diagnostic?.UserMessage ?? "该插件加载失败。请确认插件与当前 ClassFabric 版本兼容，或联系插件作者。";
-        var technicalDetails = diagnostic?.TechnicalDetails ?? pluginInfo?.Exception?.ToString() ?? "未记录技术详情。";
+        var userMessage = diagnostic?.UserMessage ?? Localization.DiagnosticDefaultMessage;
+        var technicalDetails = diagnostic?.TechnicalDetails ?? pluginInfo?.Exception?.ToString() ?? Localization.NoTechnicalDetails;
         var dialog = new FAContentDialog
         {
-            Title = "插件加载诊断",
+            Title = Localization.PluginDiagnosticTitle,
             Content = new TextBlock { Text = userMessage, TextWrapping = TextWrapping.Wrap },
             IsSecondaryButtonEnabled = true,
-            PrimaryButtonText = "确定",
-            SecondaryButtonText = "复制诊断信息",
+            PrimaryButtonText = Localization.OK,
+            SecondaryButtonText = Localization.CopyDiagnosticInfo,
             DefaultButton = FAContentDialogButton.Primary
         };
 
@@ -554,12 +555,12 @@ public partial class PluginsSettingsPage : SettingsPageBase
             catch (Exception ex)
             {
                 Logger?.LogError(ex, "复制插件诊断信息失败。");
-                ToastsHelper.ShowErrorToast(this, "复制失败，请全选诊断信息文本后手动复制。");
+                ToastsHelper.ShowErrorToast(this, Localization.CopyFailedToast);
             }
 
             if (success)
             {
-                ToastsHelper.ShowSuccessToast(this, "诊断信息已复制到剪贴板");
+                ToastsHelper.ShowSuccessToast(this, Localization.DiagnosticCopiedToast);
             }
         };
 
@@ -660,15 +661,15 @@ public partial class PluginsSettingsPage : SettingsPageBase
 
         if (supported <= 0)
         {
-            ViewModel.DragInstallHintText = $"仅支持 {IPluginService.PluginPackageExtension} 插件包";
-            ViewModel.DragInstallSubHintText = "请拖入插件包文件";
+            ViewModel.DragInstallHintText = string.Format(Localization.DragInvalidHint, IPluginService.PluginPackageExtension);
+            ViewModel.DragInstallSubHintText = Localization.DragInvalidSubHint;
             e.DragEffects = DragDropEffects.None;
             return;
         }
 
-        ViewModel.DragInstallHintText = supported == 1 ? "松开以安装 1 个插件" : $"松开以安装 {supported} 个插件";
+        ViewModel.DragInstallHintText = supported == 1 ? Localization.DragInstallHintOne : string.Format(Localization.DragInstallHintMany, supported);
         var ignored = files.Count - supported;
-        ViewModel.DragInstallSubHintText = ignored > 0 ? $"将忽略 {ignored} 个不受支持的文件" : $"支持多选（{IPluginService.PluginPackageExtension}）";
+        ViewModel.DragInstallSubHintText = ignored > 0 ? string.Format(Localization.DragIgnoreFiles, ignored) : string.Format(Localization.DragMultiSelectHint, IPluginService.PluginPackageExtension);
         e.DragEffects = DragDropEffects.Copy;
     }
     private async void Grid_Drop(object sender, DragEventArgs e)
@@ -701,7 +702,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
             {
                 if (ViewModel.PluginMarketService.Exception != null)
                 {
-                    this.ShowErrorToast("无法加载插件源", ViewModel.PluginMarketService.Exception);
+                    this.ShowErrorToast(Localization.LoadPluginSourceFailedToast, ViewModel.PluginMarketService.Exception);
                 }
             });
     }

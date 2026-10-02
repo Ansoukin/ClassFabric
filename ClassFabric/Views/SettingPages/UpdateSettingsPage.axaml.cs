@@ -15,6 +15,7 @@ using ClassIsland.Services.AppUpdating.Sources;
 using ClassIsland.Shared;
 using ClassIsland.Shared.Enums;
 using ClassIsland.ViewModels.SettingsPages;
+using ClassFabric.Assets.Localization.SettingsPage.Update;
 using DynamicData.Binding;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
@@ -43,30 +44,30 @@ public partial class UpdateSettingsPage : SettingsPageBase
     public static readonly FuncValueConverter<UpdateStatus, string> UpdateStatusToMessageConverter =
         new(x => x switch
         {
-            UpdateStatus.UpToDate => "您已更新到最新版本。",
-            UpdateStatus.UpdateAvailable => "检测到更新。" ,
-            UpdateStatus.UpdateDownloaded => "已准备好安装更新。",
-            UpdateStatus.UpdateDeployed => "更新已就绪。",
+            UpdateStatus.UpToDate => Localization.StatusUpToDate,
+            UpdateStatus.UpdateAvailable => Localization.StatusUpdateAvailable,
+            UpdateStatus.UpdateDownloaded => Localization.StatusUpdateDownloaded,
+            UpdateStatus.UpdateDeployed => Localization.StatusUpdateDeployed,
             _ => ""
         });
     
     public static readonly FuncValueConverter<UpdateWorkingStatus, string> UpdateWorkingStatusToMessageConverter =
         new(x => x switch
         {
-            UpdateWorkingStatus.Idle => "就绪",
-            UpdateWorkingStatus.CheckingUpdates => "正在检查更新…",
-            UpdateWorkingStatus.DownloadingUpdates => "正在下载更新…",
-            UpdateWorkingStatus.ExtractingUpdates => "正在部署更新…",
+            UpdateWorkingStatus.Idle => Localization.WorkingStatusIdle,
+            UpdateWorkingStatus.CheckingUpdates => Localization.WorkingStatusCheckingUpdates,
+            UpdateWorkingStatus.DownloadingUpdates => Localization.WorkingStatusDownloadingUpdates,
+            UpdateWorkingStatus.ExtractingUpdates => Localization.WorkingStatusExtractingUpdates,
             _ => "???"
         });
 
     public static readonly FuncValueConverter<DownloadState, string> DownloadStateToMessageConverter =
         new(x => x switch
         {
-            DownloadState.Pending => "等待下载",
-            DownloadState.Downloading => "正在下载",
-            DownloadState.Completed => "完成",
-            DownloadState.Error => "错误",
+            DownloadState.Pending => Localization.DownloadStatePending,
+            DownloadState.Downloading => Localization.DownloadStateDownloading,
+            DownloadState.Completed => Localization.DownloadStateCompleted,
+            DownloadState.Error => Localization.DownloadStateError,
             _ => "???"
         });
     

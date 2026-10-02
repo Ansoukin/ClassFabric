@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="RefreshingHeader" xml:space="preserve">
+    <value>定期翻新</value>
+    <comment>翻新页-"定期翻新"Expander</comment>
+  </data>
+  <data name="RefreshingDescription" xml:space="preserve">
+    <value>当在长时间未启动 ClassFabric 的寒假/暑假等学期结束后的长假后启动 ClassFabric 时，显示桌面通知询问是否重新设置应用的部分设置以适应新学期。</value>
+    <comment>定期翻新-描述</comment>
+  </data>
+  <data name="NewConfigDescription" xml:space="preserve">
+    <value>将创建并切换到一个全新的配置文件。</value>
+    <comment>翻新范围项样式描述：新建配置文件</comment>
+  </data>
+  <data name="DisablePluginsDescription" xml:space="preserve">
+    <value>将禁用已经启用的插件。</value>
+    <comment>翻新范围项样式描述：禁用插件</comment>
+  </data>
+  <data name="DefaultRefreshingScopes" xml:space="preserve">
+    <value>默认翻新范围</value>
+    <comment>翻新页-"默认翻新范围"项</comment>
+  </data>
+  <data name="DefaultRefreshingScopesDescription" xml:space="preserve">
+    <value>默认情况下将勾选以下翻新范围，翻新时会重置对应的设置。</value>
+    <comment>默认翻新范围-描述</comment>
+  </data>
+  <data name="ScopeProfile" xml:space="preserve">
+    <value>档案</value>
+    <comment>翻新范围-"档案"</comment>
+  </data>
+  <data name="ScopeProfileClassPlans" xml:space="preserve">
+    <value>课表</value>
+    <comment>翻新范围-"课表"</comment>
+  </data>
+  <data name="ScopeProfileTimeLayouts" xml:space="preserve">
+    <value>时间表</value>
+    <comment>翻新范围-"时间表"</comment>
+  </data>
+  <data name="ChooseReservedContent" xml:space="preserve">
+    <value>选择保留的内容…</value>
+    <comment>翻新范围-"选择保留的内容…"按钮提示</comment>
+  </data>
+  <data name="ScopeComponents" xml:space="preserve">
+    <value>组件配置</value>
+    <comment>翻新范围-"组件配置"</comment>
+  </data>
+  <data name="ScopeAutomations" xml:space="preserve">
+    <value>自动化</value>
+    <comment>翻新范围-"自动化"</comment>
+  </data>
+  <data name="ScopePlugins" xml:space="preserve">
+    <value>插件</value>
+    <comment>翻新范围-"插件"</comment>
+  </data>
+  <data name="RefreshNow" xml:space="preserve">
+    <value>立即翻新</value>
+    <comment>翻新页-"立即翻新"按钮</comment>
+  </data>
+  <data name="OnboardingModeHeader" xml:space="preserve">
+    <value>迎新模式</value>
+    <comment>翻新页-"迎新模式"Expander</comment>
+  </data>
+  <data name="OnboardingModeDescription" xml:space="preserve">
+    <value>启用后，在下次显示翻新提示时将其替换为迎新指引，指引不熟悉 ClassFabric 的新同学上手本应用，并对应用进行翻新。此选项在生效一次后将自动关闭。</value>
+    <comment>迎新模式-描述</comment>
+  </data>
+  <data name="NotificationTitle" xml:space="preserve">
+    <value>通知标题</value>
+    <comment>迎新模式-"通知标题"项</comment>
+  </data>
+  <data name="NotificationBody" xml:space="preserve">
+    <value>通知内容</value>
+    <comment>迎新模式-"通知内容"字段标签</comment>
+  </data>
+  <data name="ResetToDefault" xml:space="preserve">
+    <value>重置为默认值</value>
+    <comment>迎新模式-"重置为默认值"按钮</comment>
+  </data>
+  <data name="TestNotification" xml:space="preserve">
+    <value>测试通知</value>
+    <comment>迎新模式-"测试通知"按钮</comment>
+  </data>
+  <data name="NotificationOptions" xml:space="preserve">
+    <value>通知选项</value>
+    <comment>翻新页-"通知选项"分区标题</comment>
+  </data>
+  <data name="NotificationDisplayInterval" xml:space="preserve">
+    <value>通知显示间隔</value>
+    <comment>翻新页-"通知显示间隔"Expander</comment>
+  </data>
+  <data name="NotificationDisplayIntervalDescription" xml:space="preserve">
+    <value>设置在不启动 ClassFabric 多少天后显示翻新或迎新指引。</value>
+    <comment>通知显示间隔-描述</comment>
+  </data>
+  <data name="DayUnit" xml:space="preserve">
+    <value>天</value>
+    <comment>间隔天数单位后缀</comment>
+  </data>
+  <data name="ShowNotificationOnNextStart" xml:space="preserve">
+    <value>在下次启动时显示通知</value>
+    <comment>通知显示间隔-"在下次启动时显示通知"项</comment>
+  </data>
+  <data name="ShowNotificationOnNextStartDescription" xml:space="preserve">
+    <value>启用后，将在下一次启动应用时立即显示翻新或迎新指引通知。此选项生效后将被关闭。</value>
+    <comment>在下次启动时显示通知-描述</comment>
+  </data>
+  <data name="ExitAppNow" xml:space="preserve">
+    <value>立即退出应用</value>
+    <comment>在下次启动时显示通知-"立即退出应用"按钮</comment>
+  </data>
+  <data name="MaxNotificationCount" xml:space="preserve">
+    <value>最高通知显示次数</value>
+    <comment>翻新页-"最高通知显示次数"Expander</comment>
+  </data>
+  <data name="MaxNotificationCountDescription" xml:space="preserve">
+    <value>如果用户忽略了通知，应用会在下次启动时再次发送给通知询问用户。这里可以设置翻新或迎新指引通知在触发后最多可以显示次数。</value>
+    <comment>最高通知显示次数-描述</comment>
+  </data>
+  <data name="TimesUnit" xml:space="preserve">
+    <value>次</value>
+    <comment>显示次数单位后缀</comment>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清空</value>
+    <comment>最高通知显示次数-"清空"按钮</comment>
+  </data>
+  <data name="LeftNotificationCount" xml:space="preserve">
+    <value>剩余通知次数：</value>
+    <comment>最高通知显示次数-剩余次数文本前缀</comment>
+  </data>
+  <data name="ResetOnboardingMessagesDialogTitle" xml:space="preserve">
+    <value>重置迎新消息设置</value>
+    <comment>重置迎新消息-对话框标题（axaml.cs）</comment>
+  </data>
+  <data name="ResetOnboardingMessagesDialogContent" xml:space="preserve">
+    <value>确定要重置迎新消息设置吗？此操作不可撤销！</value>
+    <comment>重置迎新消息-对话框内容（axaml.cs）</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>重置</value>
+    <comment>重置迎新消息-对话框主按钮（axaml.cs）</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>重置迎新消息-对话框次按钮（axaml.cs）</comment>
+  </data>
+  <data name="OnboardingMessagesReset" xml:space="preserve">
+    <value>已重置迎新消息。</value>
+    <comment>重置迎新消息成功吐司（axaml.cs）</comment>
+  </data>
+</root>

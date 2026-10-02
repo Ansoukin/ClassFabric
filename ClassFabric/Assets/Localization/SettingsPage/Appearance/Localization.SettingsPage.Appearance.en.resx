@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SectionBasic" xml:space="preserve">
+    <value>Basic</value>
+    <comment>外观设置-"基本"分区标题</comment>
+  </data>
+  <data name="SectionTheme" xml:space="preserve">
+    <value>Theme</value>
+    <comment>外观设置-"主题"分区标题</comment>
+  </data>
+  <data name="SectionFont" xml:space="preserve">
+    <value>Font</value>
+    <comment>外观设置-"字体"分区标题</comment>
+  </data>
+  <data name="ScaleHeader" xml:space="preserve">
+    <value>Interface scale</value>
+    <comment>外观-"界面缩放"</comment>
+  </data>
+  <data name="ScaleDescription" xml:space="preserve">
+    <value>The scale of the main window.</value>
+    <comment>界面缩放-描述</comment>
+  </data>
+  <data name="BackgroundColorHeader" xml:space="preserve">
+    <value>Background color</value>
+    <comment>外观-"背景颜色"</comment>
+  </data>
+  <data name="BackgroundColorDescription" xml:space="preserve">
+    <value>The background color of the main window. When disabled, the color is chosen automatically based on the app theme.</value>
+    <comment>背景颜色-描述</comment>
+  </data>
+  <data name="BackgroundOpacityHeader" xml:space="preserve">
+    <value>Background opacity</value>
+    <comment>外观-"背景不透明度"</comment>
+  </data>
+  <data name="BackgroundOpacityDescription" xml:space="preserve">
+    <value>The opacity of the main window background.</value>
+    <comment>背景不透明度-描述</comment>
+  </data>
+  <data name="CornerRadiusHeader" xml:space="preserve">
+    <value>Corner radius</value>
+    <comment>外观-"圆角半径"</comment>
+  </data>
+  <data name="CornerRadiusDescription" xml:space="preserve">
+    <value>The corner radius of the main window. At the maximum value, the left and right edges become semicircles.</value>
+    <comment>圆角半径-描述</comment>
+  </data>
+  <data name="LineSpacingHeader" xml:space="preserve">
+    <value>Line spacing</value>
+    <comment>外观-"行间隔"</comment>
+  </data>
+  <data name="LineSpacingDescription" xml:space="preserve">
+    <value>The spacing between lines on the main window.</value>
+    <comment>行间隔-描述</comment>
+  </data>
+  <data name="SeparateMainWindowHeader" xml:space="preserve">
+    <value>Split main window</value>
+    <comment>外观-"分体主界面"</comment>
+  </data>
+  <data name="SeparateMainWindowDescription" xml:space="preserve">
+    <value>When enabled, components will be separated.</value>
+    <comment>分体主界面-描述</comment>
+  </data>
+  <data name="AppThemeHeader" xml:space="preserve">
+    <value>App theme</value>
+    <comment>外观-"应用主题"</comment>
+  </data>
+  <data name="AppThemeDescription" xml:space="preserve">
+    <value>Control the light or dark theme of the app.</value>
+    <comment>应用主题-描述</comment>
+  </data>
+  <data name="ThemeFollowSystem" xml:space="preserve">
+    <value>Follow system</value>
+    <comment>应用主题-"跟随系统"</comment>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Light</value>
+    <comment>应用主题-"明亮"</comment>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Dark</value>
+    <comment>应用主题-"黑暗"</comment>
+  </data>
+  <data name="ThemeColorSourceHeader" xml:space="preserve">
+    <value>Theme color source</value>
+    <comment>外观-"主题色来源"</comment>
+  </data>
+  <data name="ThemeColorSourceDescription" xml:space="preserve">
+    <value>Control how the app picks its theme color.</value>
+    <comment>主题色来源-描述</comment>
+  </data>
+  <data name="ColorSourceCustom" xml:space="preserve">
+    <value>Custom</value>
+    <comment>主题色来源-"自定义"</comment>
+  </data>
+  <data name="ColorSourceWallpaper" xml:space="preserve">
+    <value>System wallpaper</value>
+    <comment>主题色来源-"系统壁纸"</comment>
+  </data>
+  <data name="ColorSourceSystem" xml:space="preserve">
+    <value>System</value>
+    <comment>主题色来源-"系统"</comment>
+  </data>
+  <data name="ColorSourceScreen" xml:space="preserve">
+    <value>Screen theme color</value>
+    <comment>主题色来源-"屏幕主题色"</comment>
+  </data>
+  <data name="AccentColorHeader" xml:space="preserve">
+    <value>Accent color</value>
+    <comment>外观-"强调色"</comment>
+  </data>
+  <data name="AccentColorDescription" xml:space="preserve">
+    <value>The color used when the app displays emphasized elements.</value>
+    <comment>强调色-描述</comment>
+  </data>
+  <data name="CustomFontHeader" xml:space="preserve">
+    <value>Custom font</value>
+    <comment>外观-"自定义字体"</comment>
+  </data>
+  <data name="CustomFontDescription" xml:space="preserve">
+    <value>Customize the font used by the main window to display the class schedule.</value>
+    <comment>自定义字体-描述</comment>
+  </data>
+  <data name="DefaultFontOption" xml:space="preserve">
+    <value>HarmonyOS Sans SC (default)</value>
+    <comment>字体下拉框默认字体项（含"(default)"后缀，字体名保留原文）</comment>
+  </data>
+  <data name="CustomFontWeightHeader" xml:space="preserve">
+    <value>Custom font weight</value>
+    <comment>外观-"自定义字重"</comment>
+  </data>
+  <data name="CustomFontWeightDescription" xml:space="preserve">
+    <value>Customize the font weight used by the main window. Requires the font to support it.</value>
+    <comment>自定义字重-描述</comment>
+  </data>
+  <data name="FontSizeHeader" xml:space="preserve">
+    <value>Font size</value>
+    <comment>外观-"字体大小"</comment>
+  </data>
+  <data name="FontSizeDescription" xml:space="preserve">
+    <value>Adjust the size of various fonts on the main window.</value>
+    <comment>字体大小-描述</comment>
+  </data>
+  <data name="SecondaryFontSize" xml:space="preserve">
+    <value>Secondary font size</value>
+    <comment>字体大小-"次级字体大小"</comment>
+  </data>
+  <data name="SecondaryFontSizeDescription" xml:space="preserve">
+    <value>Extra info on time points, etc.</value>
+    <comment>次级字体大小-描述</comment>
+  </data>
+  <data name="BodyFontSize" xml:space="preserve">
+    <value>Body font size</value>
+    <comment>字体大小-"正文字体大小"</comment>
+  </data>
+  <data name="BodyFontSizeDescription" xml:space="preserve">
+    <value>The default font size of the main window</value>
+    <comment>正文字体大小-描述</comment>
+  </data>
+  <data name="EmphasizedFontSize" xml:space="preserve">
+    <value>Emphasized font size</value>
+    <comment>字体大小-"强调字体大小"</comment>
+  </data>
+  <data name="EmphasizedFontSizeDescription" xml:space="preserve">
+    <value>The class schedule, clock, notification titles, weather forecast, etc.</value>
+    <comment>强调字体大小-描述</comment>
+  </data>
+  <data name="LargeFontSize" xml:space="preserve">
+    <value>Large font size</value>
+    <comment>字体大小-"大号字体大小"</comment>
+  </data>
+  <data name="LargeFontSizeDescription" xml:space="preserve">
+    <value>The upcoming class forecast, etc.</value>
+    <comment>大号字体大小-描述</comment>
+  </data>
+  <data name="FontColorHeader" xml:space="preserve">
+    <value>Font color</value>
+    <comment>外观-"字体颜色"</comment>
+  </data>
+  <data name="FontColorDescription" xml:space="preserve">
+    <value>Adjust the font color. This overrides the theme default.</value>
+    <comment>字体颜色-描述</comment>
+  </data>
+  <data name="FontPreviewTab" xml:space="preserve">
+    <value>Font preview</value>
+    <comment>字体预览-"字体预览"标签页</comment>
+  </data>
+  <data name="FontPreviewSample" xml:space="preserve">
+    <value>当有一天你不再纠结于答案 当我们又重逢于天涯或沧海
+语文 数学 英语 历史 物理 政治 化学 生物 地理
+the quick brown fox jumps over a lazy dog
+THE QUICK BROWN FOX JUMPS OVER A LAZY DOG
+8:00-12:00 1234567890 +-*/</value>
+    <comment>字体预览示例文本（覆盖中英字形与数字，各语言同文）</comment>
+  </data>
+  <data name="FontSizePreviewTab" xml:space="preserve">
+    <value>Font size preview</value>
+    <comment>字体预览-"字号预览"标签页</comment>
+  </data>
+  <data name="FontSizeTestText" xml:space="preserve">
+    <value>Test text</value>
+    <comment>字号预览-测试文本标签</comment>
+  </data>
+</root>

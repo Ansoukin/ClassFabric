@@ -26,6 +26,8 @@ using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Data;
 using ReactiveUI;
 
+using ClassFabric.Assets.Localization.SettingsPage.Themes;
+
 namespace ClassIsland.Views.SettingPages;
 
 /// <summary>
@@ -57,7 +59,7 @@ public partial class ThemesSettingsPage : SettingsPageBase
                     return;
                 }
 
-                this.ShowErrorToast("无法刷新市场", ViewModel.PluginMarketService.Exception);
+                this.ShowErrorToast(Localization.RefreshMarketFailedTitle, ViewModel.PluginMarketService.Exception);
             });
     }
 
@@ -142,9 +144,9 @@ public partial class ThemesSettingsPage : SettingsPageBase
             .SaveFilePickerAsync(new FilePickerSaveOptions()
             {
                 SuggestedFileName = info.Manifest.Id + ".zip",
-                Title = "打包主题",
+                Title = Localization.PackageThemePickerTitle,
                 FileTypeChoices = [
-                    new FilePickerFileType("ClassFabric 主题包")
+                    new FilePickerFileType(Localization.ThemePackageTypeName)
                     {
                         Patterns = ["*.zip"]
                     }
@@ -156,7 +158,7 @@ public partial class ThemesSettingsPage : SettingsPageBase
         try
         {
             using var storageFile = await PlatformServices.FilePickerService.GetFileAsync(file, topLevel)
-                                    ?? throw new FileNotFoundException("无法打开所选主题包文件。", file);
+                                    ?? throw new FileNotFoundException(Localization.OpenSelectedThemePackageFailed, file);
             await using var outputStream = await storageFile.OpenWriteAsync();
             if (outputStream.CanSeek)
             {
@@ -171,7 +173,7 @@ public partial class ThemesSettingsPage : SettingsPageBase
         }
         catch (Exception ex)
         {
-            this.ShowErrorToast($"无法打包主题 {info.Manifest.Id}", ex);
+            this.ShowErrorToast(string.Format(Localization.PackageThemeFailed, info.Manifest.Id), ex);
         }
     }
 
@@ -196,7 +198,7 @@ public partial class ThemesSettingsPage : SettingsPageBase
             return;
         if (ViewModel.XamlThemeService.EnabledThemes.Count <= 1)
         {
-            this.ShowWarningToast("您必须启用至少一个主题，以保证主界面有显示样式可用。");
+            this.ShowWarningToast(Localization.MustKeepAtLeastOneTheme);
             Dispatcher.UIThread.InvokeAsync(() => switcher.IsChecked = true);
             return;
         }

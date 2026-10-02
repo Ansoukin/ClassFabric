@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ErrorInfoDrawerTitle" xml:space="preserve">
+    <value>Error details</value>
+    <comment>主题页-错误信息抽屉标题</comment>
+  </data>
+  <data name="ThemeLoadOrderTitle" xml:space="preserve">
+    <value>Theme load order</value>
+    <comment>主题页-加载顺序抽屉标题/工具栏按钮</comment>
+  </data>
+  <data name="ThemeLoadOrderDescription" xml:space="preserve">
+    <value>Themes are loaded in the order below, and a theme loaded later can override the styles of themes loaded earlier. Drag to reorder themes.</value>
+    <comment>主题加载顺序-描述</comment>
+  </data>
+  <data name="SeparateMainWindowInfoBar" xml:space="preserve">
+    <value>After enabling a supported theme (such as Fluent), you can turn on the "Split main window" option directly in the 【Appearance】 settings to split the main window. Without this option, the main window will not split even if a supported theme is enabled.</value>
+    <comment>主题页-分体主界面提示 InfoBar</comment>
+  </data>
+  <data name="GoToAppearanceSettings" xml:space="preserve">
+    <value>Go to the 【Appearance】 settings</value>
+    <comment>主题页-InfoBar 动作按钮：前往外观设置</comment>
+  </data>
+  <data name="TabMarket" xml:space="preserve">
+    <value>Market</value>
+    <comment>主题页-市场标签页</comment>
+  </data>
+  <data name="TabInstalled" xml:space="preserve">
+    <value>Installed</value>
+    <comment>主题页-已安装标签页</comment>
+  </data>
+  <data name="RefreshMarket" xml:space="preserve">
+    <value>Refresh market</value>
+    <comment>主题页-工具栏按钮</comment>
+  </data>
+  <data name="ReloadThemes" xml:space="preserve">
+    <value>Reload themes</value>
+    <comment>主题页-工具栏按钮</comment>
+  </data>
+  <data name="OpenThemeFolder" xml:space="preserve">
+    <value>Open themes folder…</value>
+    <comment>主题页-工具栏按钮/右键菜单项</comment>
+  </data>
+  <data name="WebsiteTooltip" xml:space="preserve">
+    <value>Website…</value>
+    <comment>主题卡片-网站按钮提示</comment>
+  </data>
+  <data name="ThemeErrorTooltip" xml:space="preserve">
+    <value>An error occurred while loading this theme</value>
+    <comment>主题卡片-错误按钮提示</comment>
+  </data>
+  <data name="MoreOptionsTooltip" xml:space="preserve">
+    <value>More options…</value>
+    <comment>主题卡片-更多选项按钮提示</comment>
+  </data>
+  <data name="PackageTheme" xml:space="preserve">
+    <value>Package theme…</value>
+    <comment>主题卡片-右键菜单项</comment>
+  </data>
+  <data name="UninstallTheme" xml:space="preserve">
+    <value>Uninstall theme</value>
+    <comment>主题卡片-右键菜单项</comment>
+  </data>
+  <data name="UndoUninstall" xml:space="preserve">
+    <value>Undo uninstall</value>
+    <comment>主题卡片-右键菜单项</comment>
+  </data>
+  <data name="InstallTooltip" xml:space="preserve">
+    <value>Install</value>
+    <comment>主题卡片-安装按钮提示</comment>
+  </data>
+  <data name="UpdateTooltip" xml:space="preserve">
+    <value>Update</value>
+    <comment>主题卡片-更新按钮提示</comment>
+  </data>
+  <data name="RestartToApplyTooltip" xml:space="preserve">
+    <value>Restart to apply changes</value>
+    <comment>主题卡片-重启按钮提示</comment>
+  </data>
+  <data name="ThemesTitle" xml:space="preserve">
+    <value>Themes</value>
+    <comment>主题页-欢迎界面标题</comment>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>Welcome to Themes! Themes can modify or even completely reshape the appearance of the ClassFabric main window. Use themes to create a one-of-a-kind ClassFabric interface.</value>
+    <comment>主题页-欢迎界面描述</comment>
+  </data>
+  <data name="SecurityWarning" xml:space="preserve">
+    <value>Please note that themes are loaded in the form of XAML styles and may be incompatible with some versions of ClassFabric, or even make the application completely unusable. Moreover, themes are compiled into executable code during loading and can execute arbitrary code with the identity and permissions of ClassFabric. Do not install themes from unknown sources, and the developers cannot guarantee that the themes provided by the market are absolutely safe. The ClassFabric development team assumes no responsibility for any consequences caused by using themes.</value>
+    <comment>主题页-欢迎界面安全警告</comment>
+  </data>
+  <data name="AgreeAndStart" xml:space="preserve">
+    <value>Agree and start using themes</value>
+    <comment>主题页-欢迎界面按钮</comment>
+  </data>
+  <data name="RefreshMarketFailedTitle" xml:space="preserve">
+    <value>Unable to refresh market</value>
+    <comment>刷新市场失败吐司标题（axaml.cs）</comment>
+  </data>
+  <data name="PackageThemePickerTitle" xml:space="preserve">
+    <value>Package theme</value>
+    <comment>打包主题-文件保存对话框标题（axaml.cs）</comment>
+  </data>
+  <data name="ThemePackageTypeName" xml:space="preserve">
+    <value>ClassFabric theme package</value>
+    <comment>打包主题-文件类型名称（axaml.cs）</comment>
+  </data>
+  <data name="OpenSelectedThemePackageFailed" xml:space="preserve">
+    <value>Unable to open the selected theme package file.</value>
+    <comment>打包主题-打开所选文件失败的异常消息（axaml.cs）</comment>
+  </data>
+  <data name="PackageThemeFailed" xml:space="preserve">
+    <value>Unable to package theme {0}</value>
+    <comment>打包主题失败吐司标题，{0}=主题 Id（axaml.cs）</comment>
+  </data>
+  <data name="MustKeepAtLeastOneTheme" xml:space="preserve">
+    <value>You must keep at least one theme enabled so that the main window has a display style available.</value>
+    <comment>禁用全部主题时的警告吐司（axaml.cs）</comment>
+  </data>
+</root>

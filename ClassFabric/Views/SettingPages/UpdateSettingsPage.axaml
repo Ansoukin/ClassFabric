@@ -12,6 +12,7 @@
              xmlns:helpers="clr-namespace:ClassIsland.Core.Helpers;assembly=ClassFabric.Core"
              xmlns:icons="clr-namespace:ClassIsland.Core.Icons;assembly=ClassFabric.Core"
              xmlns:classFabric="clr-namespace:ClassIsland"
+             xmlns:locUpd="clr-namespace:ClassFabric.Assets.Localization.SettingsPage.Update"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ClassIsland.Views.SettingPages.UpdateSettingsPage"
              d:DataContext="{d:DesignInstance settingPages:UpdateSettingsPage}"
@@ -19,7 +20,7 @@
     <ci:SettingsPageBase.Resources>
         <converters:SizeLongToStringConverter x:Key="SizeLongToStringConverter" />
         <Grid x:Key="DownloadInfoDrawer" Margin="16" Width="450" RowDefinitions="Auto,*">
-            <TextBlock Text="下载进度" Grid.Row="0"
+            <TextBlock Text="{x:Static locUpd:Localization.DownloadProgressTitle}" Grid.Row="0"
                        Theme="{StaticResource SubtitleTextBlockStyle}" />
             <ListBox Grid.Row="1" ItemsSource="{Binding ViewModel.UpdateService.DownloadTasks}">
                 <ListBox.ItemTemplate>
@@ -120,7 +121,7 @@
                         </MultiBinding>
                     </TextBlock.IsVisible>
                 </TextBlock>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="检查更新失败"
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Static locUpd:Localization.CheckUpdateFailed}"
                            FontSize="24" FontWeight="Medium">
                     <TextBlock.IsVisible>
                         <MultiBinding Converter="{x:Static BoolConverters.And}">
@@ -140,7 +141,7 @@
                             </Binding.ConverterParameter>
                         </Binding>
                     </TextBlock.IsVisible>
-                    <Run Text="上次检查更新时间："/>
+                    <Run Text="{x:Static locUpd:Localization.LastCheckUpdateTimePrefix}"/>
                     <Run Text="{Binding ViewModel.SettingsService.Settings.LastCheckUpdateTime, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock Grid.Row="1" Grid.Column="1" Margin="0 4 0 0">
@@ -151,19 +152,19 @@
                             </Binding.ConverterParameter>
                         </Binding>
                     </TextBlock.IsVisible>
-                    <Run Text="发现新版本："/>
+                    <Run Text="{x:Static locUpd:Localization.NewVersionFoundPrefix}"/>
                     <Run Text="{Binding ViewModel.UpdateService.DistributionInfo.Version, Mode=OneWay}" />
                 </TextBlock>
             </Grid>
-            <controls:FAInfoBar Severity="Error" Title="更新时发生错误。"
+            <controls:FAInfoBar Severity="Error" Title="{x:Static locUpd:Localization.UpdateErrorInfoBarTitle}"
                               Message="{Binding ViewModel.UpdateService.NetworkErrorException.Message, FallbackValue=''}"
                               IsOpen="{Binding ViewModel.UpdateService.NetworkErrorException, Converter={x:Static ObjectConverters.IsNotNull}, Mode=OneWay}"
                               CloseButtonClick="InfoBarError_OnCloseButtonClick"/>
-            <controls:FAInfoBar Severity="Error" Title="部署时发生错误，请稍后重试。" 
+            <controls:FAInfoBar Severity="Error" Title="{x:Static locUpd:Localization.DeployErrorInfoBarTitle}" 
                               Message="{Binding ViewModel.UpdateService.DeployErrorException.Message, FallbackValue=''}"
                               IsOpen="{Binding ViewModel.UpdateService.DeployErrorException, Converter={x:Static ObjectConverters.IsNotNull}, Mode=OneWay}"
                               CloseButtonClick="InfoBarDeployError_OnCloseButtonClick"/>
-            <controls:FAInfoBar Severity="Informational" Title="更新将在重启后应用" Message="已成功部署更新，下次启动应用时将启动新版本。您也可以现在重启以立即使用新版本的 ClassFabric。">
+            <controls:FAInfoBar Severity="Informational" Title="{x:Static locUpd:Localization.RestartToApplyInfoBarTitle}" Message="{x:Static locUpd:Localization.RestartToApplyInfoBarMessage}">
                 <controls:FAInfoBar.IsOpen>
                     <Binding Path="ViewModel.SettingsService.Settings.LastUpdateStatus"
                              Converter="{x:Static ObjectConverters.Equal}">
@@ -182,7 +183,7 @@
                         </Binding.ConverterParameter>
                     </Binding>
                 </WrapPanel.IsEnabled>
-                <Button Content="检查更新" Classes="accent" Margin="4"
+                <Button Content="{x:Static locUpd:Localization.CheckForUpdates}" Classes="accent" Margin="4"
                         Click="ButtonCheckUpdate_OnClick">
                     <Button.IsVisible>
                         <Binding Path="ViewModel.SettingsService.Settings.LastUpdateStatus"
@@ -193,11 +194,11 @@
                         </Binding>
                     </Button.IsVisible>
                 </Button>
-                <SplitButton Content="下载并安装" Classes="accent" Margin="4"
+                <SplitButton Content="{x:Static locUpd:Localization.DownloadAndInstall}" Classes="accent" Margin="4"
                              Click="ButtonDownloadUpdate_OnClick">
                     <SplitButton.Flyout>
                         <MenuFlyout>
-                            <MenuItem Header="仅下载" Click="MenuItemDownloadOnly_OnClick"/>
+                            <MenuItem Header="{x:Static locUpd:Localization.DownloadOnly}" Click="MenuItemDownloadOnly_OnClick"/>
                         </MenuFlyout>
                     </SplitButton.Flyout>
                     <Button.IsVisible>
@@ -209,7 +210,7 @@
                         </Binding>
                     </Button.IsVisible>
                 </SplitButton>
-                <Button Content="安装更新" Classes="accent" Margin="4"
+                <Button Content="{x:Static locUpd:Localization.InstallUpdate}" Classes="accent" Margin="4"
                         Click="ButtonDeployUpdate_OnClick"> 
                     <Button.IsVisible>
                         <Binding Path="ViewModel.SettingsService.Settings.LastUpdateStatus"
@@ -220,7 +221,7 @@
                         </Binding>
                     </Button.IsVisible>
                 </Button>
-                <Button Content="重启并应用更新" Classes="accent" Margin="4"
+                <Button Content="{x:Static locUpd:Localization.RestartToApplyUpdate}" Classes="accent" Margin="4"
                         Click="ButtonRestart_OnClick"> 
                     <Button.IsVisible>
                         <Binding Path="ViewModel.SettingsService.Settings.LastUpdateStatus"
@@ -232,7 +233,7 @@
                     </Button.IsVisible>
                 </Button>
                 
-                <Button Content="检查更新" Margin="4"
+                <Button Content="{x:Static locUpd:Localization.CheckForUpdates}" Margin="4"
                         Click="ButtonCheckUpdate_OnClick">
                     <Button.IsVisible>
                         <MultiBinding Converter="{x:Static BoolConverters.And}">
@@ -275,7 +276,7 @@
             
 
             <WrapPanel Classes="animated-resize" >
-                <Button Content="查看下载状态" Margin="4"
+                <Button Content="{x:Static locUpd:Localization.ShowDownloadStatus}" Margin="4"
                         Click="ButtonOpenDownloadTasks_OnClick">
                     <Button.IsVisible>
                         <Binding Path="ViewModel.UpdateService.CurrentWorkingStatus"
@@ -286,7 +287,7 @@
                         </Binding>
                     </Button.IsVisible>
                 </Button>
-                <Button Content="取消" Margin="4"
+                <Button Content="{x:Static locUpd:Localization.Cancel}" Margin="4"
                         Click="ButtonCancelDownload_OnClick">
                     <Button.IsVisible>
                         <Binding Path="ViewModel.UpdateService.CurrentWorkingStatus"
@@ -311,7 +312,7 @@
                         </Binding.ConverterParameter>
                     </Binding>
                 </TabControl.IsEnabled>
-                <TabItem Header="更新日志">
+                <TabItem Header="{x:Static locUpd:Localization.ChangeLogTab}">
                     <Grid >
                         <ci:Lazy>
                             <mdxaml:MarkdownScrollViewer
@@ -348,58 +349,58 @@
                                        HorizontalAlignment="Center">
                                 <TextBlock.Styles>
                                     <Style Selector="TextBlock">
-                                        <Setter Property="Text" Value="已经是最新版啦，真棒，夸夸你哦♪"/>
+                                        <Setter Property="Text" Value="{x:Static locUpd:Localization.AlreadyLatestEasterEgg}"/>
                                     </Style>  
                                     <Style Selector=":no-easter-eggs TextBlock">
-                                        <Setter Property="Text" Value="真棒，您已更新到最新版本！"/>
+                                        <Setter Property="Text" Value="{x:Static locUpd:Localization.AlreadyLatest}"/>
                                     </Style>
                                 </TextBlock.Styles>
                             </TextBlock>
                             <Button Click="ButtonShowChangeLogs_OnClick">
-                                查看更新日志
+                                <x:Static Member="locUpd:Localization.ViewChangeLog"/>
                             </Button>
                         </StackPanel>
                     </Grid>
                 </TabItem>
-                <TabItem Header="更新设置">
+                <TabItem Header="{x:Static locUpd:Localization.UpdateSettingsTab}">
                     <StackPanel Margin="0" Classes="settings-container animated-intro">
                         <!-- 更新模式 -->
                         <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xe161;}"
-                                                   Header="更新模式"
-                                                   Description="设置应用的更新模式。">
+                                                   Header="{x:Static locUpd:Localization.UpdateMode}"
+                                                   Description="{x:Static locUpd:Localization.UpdateModeDescription}">
                             <controls:FASettingsExpander.Footer>
                                 <ComboBox SelectedIndex="{Binding ViewModel.SettingsService.Settings.UpdateMode}">
-                                    <ComboBoxItem>从不自动更新</ComboBoxItem>
-                                    <ComboBoxItem>自动检查更新并通知</ComboBoxItem>
-                                    <ComboBoxItem>自动检查更新并下载</ComboBoxItem>
-                                    <ComboBoxItem>自动检查更新并安装</ComboBoxItem>
+                                    <ComboBoxItem Content="{x:Static locUpd:Localization.UpdateModeNever}" />
+                                    <ComboBoxItem Content="{x:Static locUpd:Localization.UpdateModeCheckAndNotify}" />
+                                    <ComboBoxItem Content="{x:Static locUpd:Localization.UpdateModeCheckAndDownload}" />
+                                    <ComboBoxItem Content="{x:Static locUpd:Localization.UpdateModeCheckAndInstall}" />
                                 </ComboBox>
                             </controls:FASettingsExpander.Footer>
                         </controls:FASettingsExpander>
                         
                         <!-- 更新源 -->
-                        <controls:FASettingsExpander Header="更新源"
-                                                   Description="控制获取应用更新信息的来源。GitHub Releases 为默认更新源，匿名访问受 GitHub 接口速率限制。">
+                        <controls:FASettingsExpander Header="{x:Static locUpd:Localization.UpdateSource}"
+                                                   Description="{x:Static locUpd:Localization.UpdateSourceDescription}">
                             <controls:FASettingsExpander.IconSource>
                                 <ci:FluentIconSource Glyph="{x:Static icons:FluentIcons.CloudArrowDownRegular}" />
                             </controls:FASettingsExpander.IconSource>
                             <controls:FASettingsExpander.Footer>
                                 <ComboBox SelectedIndex="{Binding ViewModel.SelectedUpdateSourceIndex, Mode=TwoWay}">
-                                    <ComboBoxItem>GitHub Releases</ComboBoxItem>
-                                    <ComboBoxItem>GitHub Releases（失败时回退到 ClassIsland 分发中心）</ComboBoxItem>
-                                    <ComboBoxItem>ClassIsland 分发中心（兼容，不推荐）</ComboBoxItem>
+                                    <ComboBoxItem Content="GitHub Releases" />
+                                    <ComboBoxItem Content="{x:Static locUpd:Localization.UpdateSourceGitHubFallback}" />
+                                    <ComboBoxItem Content="{x:Static locUpd:Localization.UpdateSourceDistributionCenterCompat}" />
                                 </ComboBox>
                             </controls:FASettingsExpander.Footer>
                             <controls:FASettingsExpanderItem>
-                                <TextBlock Text="GitHub Releases 直接从 ClassFabric 的 GitHub 仓库读取发行版本，无需依赖 ClassIsland 分发中心。选择带有「回退」的选项时，若 GitHub 检查失败，会改用 ClassIsland 分发中心（兼容保留）。"
+                                <TextBlock Text="{x:Static locUpd:Localization.UpdateSourceExplanation}"
                                            TextWrapping="Wrap"/>
                             </controls:FASettingsExpanderItem>
                         </controls:FASettingsExpander>
 
                         <!-- 更新通道 -->
                         <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xe3d2;}"
-                                                   Header="更新通道" IsExpanded="True"
-                                                   Description="控制应用的更新目标版本。ClassFabric 当前以预览版发行为主，因此默认使用预览版通道；版本的发行节奏和稳定程度因更新通道而异，部分通道可能包含不稳定的功能，请谨慎使用。">
+                                                   Header="{x:Static locUpd:Localization.UpdateChannel}" IsExpanded="True"
+                                                   Description="{x:Static locUpd:Localization.UpdateChannelDescription}">
                             <controls:FASettingsExpander.Footer>
                                 <ComboBox x:Name="UpdateChannelComboBox"
                                           Loaded="UpdateChannelComboBox_OnLoaded"
@@ -416,10 +417,10 @@
                             <controls:FASettingsExpanderItem>
                                 <TextBlock Text="{Binding ViewModel.SelectedChannel.Description}" TextWrapping="Wrap"/>
                             </controls:FASettingsExpanderItem>
-                            <controls:FASettingsExpanderItem Content="强制检查更新"
+                            <controls:FASettingsExpanderItem Content="{x:Static locUpd:Localization.ForceCheckUpdate}"
                                                            IsClickEnabled="True"
                                                            Click="SettingsExpanderItemCheckUpdateForce_OnClick"
-                                                           Description="强制将应用更新到当前通道上的最新版本，即使此版本比应用当前版本更旧。"
+                                                           Description="{x:Static locUpd:Localization.ForceCheckUpdateDescription}"
                                                            ActionIconSource="{ci:FluentIconSource &#xe44e;}">
                             </controls:FASettingsExpanderItem>
                         </controls:FASettingsExpander>

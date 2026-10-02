@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MoveUpMenu" xml:space="preserve">
+    <value>向上移动一行</value>
+    <comment>组件右键菜单-"向上移动一行"</comment>
+  </data>
+  <data name="MoveDownMenu" xml:space="preserve">
+    <value>向下移动一行</value>
+    <comment>组件右键菜单-"向下移动一行"</comment>
+  </data>
+  <data name="MoveToSelectedContainerMenu" xml:space="preserve">
+    <value>移动到选中的容器</value>
+    <comment>组件右键菜单-"移动到选中的容器"</comment>
+  </data>
+  <data name="MoveOutOfContainerMenu" xml:space="preserve">
+    <value>从容器组件移出</value>
+    <comment>组件右键菜单-"从容器组件移出"</comment>
+  </data>
+  <data name="WrapIntoNewContainerMenu" xml:space="preserve">
+    <value>包裹到新容器</value>
+    <comment>组件右键菜单-"包裹到新容器"</comment>
+  </data>
+  <data name="DuplicateMenu" xml:space="preserve">
+    <value>创建副本</value>
+    <comment>组件右键菜单-"创建副本"</comment>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>更多选项…</value>
+    <comment>组件条目"更多选项"按钮提示</comment>
+  </data>
+  <data name="ViewChildrenToolTip" xml:space="preserve">
+    <value>查看子组件</value>
+    <comment>组件条目"查看子组件"按钮提示</comment>
+  </data>
+  <data name="DeleteToolTip" xml:space="preserve">
+    <value>删除</value>
+    <comment>组件/主界面行"删除"按钮提示</comment>
+  </data>
+  <data name="PageIntroText" xml:space="preserve">
+    <value>以下组件将显示在主界面上，从组件库拖动组件以添加组件。</value>
+    <comment>组件设置页顶部说明</comment>
+  </data>
+  <data name="ConfigProfileLabel" xml:space="preserve">
+    <value>配置方案</value>
+    <comment>组件设置页-"配置方案"下拉框标签</comment>
+  </data>
+  <data name="RefreshToolTip" xml:space="preserve">
+    <value>刷新</value>
+    <comment>组件设置页"刷新"按钮提示</comment>
+  </data>
+  <data name="NewConfigToolTip" xml:space="preserve">
+    <value>新建…</value>
+    <comment>组件设置页"新建配置"按钮提示</comment>
+  </data>
+  <data name="OpenConfigFolderToolTip" xml:space="preserve">
+    <value>打开配置文件夹…</value>
+    <comment>组件设置页"打开配置文件夹"按钮提示</comment>
+  </data>
+  <data name="IsMainLineToolTip" xml:space="preserve">
+    <value>此行是主要行</value>
+    <comment>主界面行"主要行"开关提示</comment>
+  </data>
+  <data name="LineNotificationToolTip" xml:space="preserve">
+    <value>此行可以显示提醒</value>
+    <comment>主界面行"提醒"开关提示</comment>
+  </data>
+  <data name="InsertLineBelowToolTip" xml:space="preserve">
+    <value>在下方插入一行</value>
+    <comment>主界面行"插入行"按钮提示</comment>
+  </data>
+  <data name="NavigateBackToolTip" xml:space="preserve">
+    <value>返回上一层级</value>
+    <comment>子组件视图"返回上一层级"按钮提示</comment>
+  </data>
+  <data name="ChildrenOfComponentText" xml:space="preserve">
+    <value>此组件的子组件</value>
+    <comment>子组件视图标题</comment>
+  </data>
+  <data name="CloseToolTip" xml:space="preserve">
+    <value>关闭</value>
+    <comment>子组件视图"关闭"按钮提示</comment>
+  </data>
+  <data name="TabComponentLibrary" xml:space="preserve">
+    <value>组件库</value>
+    <comment>组件设置页标签页-"组件库"</comment>
+  </data>
+  <data name="TabComponentSettings" xml:space="preserve">
+    <value>组件设置</value>
+    <comment>组件设置页标签页-"组件设置"</comment>
+  </data>
+  <data name="TabAdvancedSettings" xml:space="preserve">
+    <value>高级设置</value>
+    <comment>组件设置页标签页-"高级设置"</comment>
+  </data>
+  <data name="TabLineSettings" xml:space="preserve">
+    <value>行设置</value>
+    <comment>组件设置页标签页-"行设置"</comment>
+  </data>
+  <data name="HideOnRuleHeader" xml:space="preserve">
+    <value>按规则隐藏</value>
+    <comment>行设置-"按规则隐藏"（也用于组件设置的"按规则隐藏"复选框）</comment>
+  </data>
+  <data name="HideOnRuleDescription" xml:space="preserve">
+    <value>在指定规则满足时，自动隐藏此组件。注意此处的隐藏不会释放组件资源。</value>
+    <comment>按规则隐藏-描述</comment>
+  </data>
+  <data name="EditRuleset" xml:space="preserve">
+    <value>编辑规则集…</value>
+    <comment>"编辑规则集"按钮文本与提示（同文复用：IconText 与 ToolTip）</comment>
+  </data>
+  <data name="SplitMainWindowHeader" xml:space="preserve">
+    <value>分体主界面</value>
+    <comment>行设置-"分体主界面"</comment>
+  </data>
+  <data name="SplitMainWindowDescription" xml:space="preserve">
+    <value>启用后主界面会分开。</value>
+    <comment>分体主界面-描述</comment>
+  </data>
+  <data name="InheritOption" xml:space="preserve">
+    <value>继承</value>
+    <comment>分体主界面/自定义背景效果-"继承"选项</comment>
+  </data>
+  <data name="DisableOption" xml:space="preserve">
+    <value>禁用</value>
+    <comment>分体主界面/自定义背景效果-"禁用"选项</comment>
+  </data>
+  <data name="EnableOption" xml:space="preserve">
+    <value>启用</value>
+    <comment>分体主界面/自定义背景效果-"启用"选项</comment>
+  </data>
+  <data name="SectionAppearance" xml:space="preserve">
+    <value>外观</value>
+    <comment>行设置-"外观"分区标题</comment>
+  </data>
+  <data name="OpacityHeader" xml:space="preserve">
+    <value>不透明度</value>
+    <comment>行设置-"不透明度"</comment>
+  </data>
+  <data name="OpacityDescription" xml:space="preserve">
+    <value>主界面行整体的不透明度。</value>
+    <comment>不透明度-描述</comment>
+  </data>
+  <data name="CustomBackgroundEffectHeader" xml:space="preserve">
+    <value>自定义背景效果</value>
+    <comment>行设置-"自定义背景效果"</comment>
+  </data>
+  <data name="CustomBackgroundEffectDescription" xml:space="preserve">
+    <value>自定义主界面的背景效果，仅在较新版本的 Windows 上可用，可能会产生额外性能开销。</value>
+    <comment>自定义背景效果-描述</comment>
+  </data>
+  <data name="MaterialTypeItem" xml:space="preserve">
+    <value>材质类型</value>
+    <comment>自定义背景效果-"材质类型"</comment>
+  </data>
+  <data name="MaterialAcrylic" xml:space="preserve">
+    <value>亚克力</value>
+    <comment>材质类型-"亚克力"</comment>
+  </data>
+  <data name="MaterialLiquidGlass" xml:space="preserve">
+    <value>类液态玻璃</value>
+    <comment>材质类型-"类液态玻璃"</comment>
+  </data>
+  <data name="MaterialMica" xml:space="preserve">
+    <value>云母</value>
+    <comment>材质类型-"云母"</comment>
+  </data>
+  <data name="CustomBackgroundColorHeader" xml:space="preserve">
+    <value>自定义背景颜色</value>
+    <comment>行设置-"自定义背景颜色"</comment>
+  </data>
+  <data name="CustomBackgroundColorDescription" xml:space="preserve">
+    <value>当前主界面行背景颜色，禁用时将使用上级默认值。</value>
+    <comment>自定义背景颜色-描述</comment>
+  </data>
+  <data name="CustomBackgroundOpacityHeader" xml:space="preserve">
+    <value>自定义背景不透明度</value>
+    <comment>行设置-"自定义背景不透明度"</comment>
+  </data>
+  <data name="CustomBackgroundOpacityDescription" xml:space="preserve">
+    <value>当前主界面行的背景的不透明度，禁用将使用上级默认值。</value>
+    <comment>自定义背景不透明度-描述</comment>
+  </data>
+  <data name="CustomCornerRadiusHeader" xml:space="preserve">
+    <value>自定义背景圆角半径</value>
+    <comment>行设置-"自定义背景圆角半径"</comment>
+  </data>
+  <data name="CustomCornerRadiusDescription" xml:space="preserve">
+    <value>当前主界面行背景圆角半径，调至最大数值时左右边缘为半圆。</value>
+    <comment>自定义背景圆角半径-描述</comment>
+  </data>
+  <data name="SectionFont" xml:space="preserve">
+    <value>字体</value>
+    <comment>行设置-"字体"分区标题</comment>
+  </data>
+  <data name="FontSizeHeader" xml:space="preserve">
+    <value>字体大小</value>
+    <comment>行设置-"字体大小"</comment>
+  </data>
+  <data name="FontSizeDescription" xml:space="preserve">
+    <value>调整组件上各类字体的大小，将覆盖【外观】设置和主界面行中设置的字体大小。</value>
+    <comment>字体大小-描述</comment>
+  </data>
+  <data name="SecondaryFontSize" xml:space="preserve">
+    <value>次级字体大小</value>
+    <comment>字体大小-"次级字体大小"</comment>
+  </data>
+  <data name="SecondaryFontSizeDescription" xml:space="preserve">
+    <value>时间点附加信息等</value>
+    <comment>次级字体大小-描述</comment>
+  </data>
+  <data name="BodyFontSize" xml:space="preserve">
+    <value>正文字体大小</value>
+    <comment>字体大小-"正文字体大小"</comment>
+  </data>
+  <data name="BodyFontSizeDescription" xml:space="preserve">
+    <value>主界面默认字体大小</value>
+    <comment>正文字体大小-描述</comment>
+  </data>
+  <data name="EmphasizedFontSize" xml:space="preserve">
+    <value>强调字体大小</value>
+    <comment>字体大小-"强调字体大小"</comment>
+  </data>
+  <data name="EmphasizedFontSizeDescription" xml:space="preserve">
+    <value>课程表、时钟、提醒标题、天气预报等内容</value>
+    <comment>强调字体大小-描述</comment>
+  </data>
+  <data name="LargeFontSize" xml:space="preserve">
+    <value>大号字体大小</value>
+    <comment>字体大小-"大号字体大小"</comment>
+  </data>
+  <data name="LargeFontSizeDescription" xml:space="preserve">
+    <value>课程预报等内容</value>
+    <comment>大号字体大小-描述</comment>
+  </data>
+  <data name="FontColorHeader" xml:space="preserve">
+    <value>字体颜色</value>
+    <comment>行设置-"字体颜色"</comment>
+  </data>
+  <data name="FontColorDescription" xml:space="preserve">
+    <value>调整字体颜色，将覆盖【外观】设置和主界面行中设置的值。</value>
+    <comment>字体颜色-描述</comment>
+  </data>
+  <data name="EditEllipsisText" xml:space="preserve">
+    <value>编辑…</value>
+    <comment>组件设置页"编辑规则"按钮文本</comment>
+  </data>
+  <data name="EditModeInfoBarMessage" xml:space="preserve">
+    <value>新功能：现在可以使用⌈编辑模式⌋更加直观地编辑主界面上的组件！</value>
+    <comment>组件设置页底部提示横幅</comment>
+  </data>
+  <data name="EnterEditModeButton" xml:space="preserve">
+    <value>进入编辑模式</value>
+    <comment>提示横幅-"进入编辑模式"按钮</comment>
+  </data>
+  <data name="CreateConfigDialogTitle" xml:space="preserve">
+    <value>创建组件配置</value>
+    <comment>创建组件配置对话框标题</comment>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>创建</value>
+    <comment>创建组件配置对话框"创建"按钮</comment>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+    <comment>创建组件配置对话框"取消"按钮</comment>
+  </data>
+  <data name="ComponentNameLabel" xml:space="preserve">
+    <value>组件名</value>
+    <comment>创建组件配置对话框"组件名"标签</comment>
+  </data>
+  <data name="AtLeastOneLineWarning" xml:space="preserve">
+    <value>至少需要保留 1 个主界面行。</value>
+    <comment>警告吐司：主界面行数量下限（同文已于 Main 组 AtLeastOneLineWarning 出现）</comment>
+  </data>
+  <data name="AllNotificationDisabledWarning" xml:space="preserve">
+    <value>您已经禁用了所有主界面行的提醒显示功能。如果没有插件注册其它提醒消费者，提醒将不会显示，也不会播放提醒音效、特效和语音。</value>
+    <comment>警告吐司：所有主界面行提醒均已禁用（同文已于 Main 组 AllNotificationDisabledWarning 出现）</comment>
+  </data>
+  <data name="FirstLineSetAsMainToast" xml:space="preserve">
+    <value>已将第一行设置为主要行。</value>
+    <comment>吐司：第一行已自动设为主要行（同文已于 Main 组 FirstLineSetAsMainToast 出现）</comment>
+  </data>
+  <data name="NewLineAboveToast" xml:space="preserve">
+    <value>已向上创建新主界面行。</value>
+    <comment>吐司：向上移动时新建主界面行</comment>
+  </data>
+  <data name="NewLineBelowToast" xml:space="preserve">
+    <value>已向下创建新主界面行。</value>
+    <comment>吐司：向下移动时新建主界面行</comment>
+  </data>
+  <data name="MoveIntoSelfWarning" xml:space="preserve">
+    <value>不能将容器组件移动到自身（或其子级）的子组件中。</value>
+    <comment>警告吐司：容器组件不能移动到自身子级</comment>
+  </data>
+</root>

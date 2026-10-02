@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="WindowDockingLocation" xml:space="preserve">
+    <value>窗口停靠位置</value>
+    <comment>窗口设置-WindowDockingLocation</comment>
+  </data>
+  <data name="StartButtonToolTip" xml:space="preserve">
+    <value>總之這是開始按鈕，或類似開始的按鈕</value>
+    <comment>窗口设置-StartButtonToolTip</comment>
+  </data>
+  <data name="OffsetRightLabel" xml:space="preserve">
+    <value>向右偏移</value>
+    <comment>窗口设置-OffsetRightLabel</comment>
+  </data>
+  <data name="OffsetDownLabel" xml:space="preserve">
+    <value>向下偏移</value>
+    <comment>窗口设置-OffsetDownLabel</comment>
+  </data>
+  <data name="MonitorLabel" xml:space="preserve">
+    <value>顯示器</value>
+    <comment>窗口设置-MonitorLabel</comment>
+  </data>
+  <data name="RefreshMonitors" xml:space="preserve">
+    <value>刷新顯示器列表</value>
+    <comment>窗口设置-RefreshMonitors</comment>
+  </data>
+  <data name="MonitorHint" xml:space="preserve">
+    <value>應用會以左圖的位置顯示在指定的顯示器上。如果指定的顯示器不存在，那麼應用會顯示在主顯示器上。</value>
+    <comment>窗口设置-MonitorHint</comment>
+  </data>
+  <data name="RawInputInitFailedWarning" xml:space="preserve">
+    <value>初始化 RawInput 失敗，將使用兼容模式判斷光標位置。詳細請查看日誌。</value>
+    <comment>窗口设置-RawInputInitFailedWarning</comment>
+  </data>
+  <data name="RawInputAdminWarning" xml:space="preserve">
+    <value>使用原始輸入判斷鼠標位置時，如果前台窗口的進程以管理員身份運行，可能會出現無法判定鼠標位置的情況。以管理員身份運行 ClassFabric 可以解決此問題。</value>
+    <comment>窗口设置-RawInputAdminWarning</comment>
+  </data>
+  <data name="WindowLayerHeader" xml:space="preserve">
+    <value>窗口層級</value>
+    <comment>窗口设置-WindowLayerHeader</comment>
+  </data>
+  <data name="WindowLayerDescription" xml:space="preserve">
+    <value>窗口在屏幕上的層級。置底則會顯示在所有窗口的後方，置頂則將顯示在所有窗口的前方。</value>
+    <comment>窗口设置-WindowLayerDescription</comment>
+  </data>
+  <data name="LayerBottom" xml:space="preserve">
+    <value>置底</value>
+    <comment>窗口设置-LayerBottom</comment>
+  </data>
+  <data name="LayerTop" xml:space="preserve">
+    <value>置頂</value>
+    <comment>窗口设置-LayerTop</comment>
+  </data>
+  <data name="LayerSetFrequencyContent" xml:space="preserve">
+    <value>窗口層級設置頻率</value>
+    <comment>窗口设置-LayerSetFrequencyContent</comment>
+  </data>
+  <data name="LayerSetFrequencyDescription" xml:space="preserve">
+    <value>ClassFabric 在什麼時候重新設置窗口置頂/置底狀態。請注意，較高的設置頻率可能會產生較高的性能佔用並導致主界面內容閃爍。</value>
+    <comment>窗口设置-LayerSetFrequencyDescription</comment>
+  </data>
+  <data name="LayerModeWindowChange" xml:space="preserve">
+    <value>窗口層級變化時（默認）</value>
+    <comment>窗口设置-LayerModeWindowChange</comment>
+  </data>
+  <data name="LayerModeForegroundChange" xml:space="preserve">
+    <value>前台窗口變化時</value>
+    <comment>窗口设置-LayerModeForegroundChange</comment>
+  </data>
+  <data name="LayerMode50ms" xml:space="preserve">
+    <value>每 50ms</value>
+    <comment>窗口设置-LayerMode50ms</comment>
+  </data>
+  <data name="LayerMode1ms" xml:space="preserve">
+    <value>每 1ms</value>
+    <comment>窗口设置-LayerMode1ms</comment>
+  </data>
+  <data name="BackgroundEffectHeader" xml:space="preserve">
+    <value>自定義背景效果</value>
+    <comment>窗口设置-BackgroundEffectHeader</comment>
+  </data>
+  <data name="BackgroundEffectDescription" xml:space="preserve">
+    <value>自定義主界面的背景效果，僅在較新版本的 Windows 上可用，可能會產生額外性能開銷。</value>
+    <comment>窗口设置-BackgroundEffectDescription</comment>
+  </data>
+  <data name="BrushTypeContent" xml:space="preserve">
+    <value>畫刷類型</value>
+    <comment>窗口设置-BrushTypeContent</comment>
+  </data>
+  <data name="BrushTypeDescription" xml:space="preserve">
+    <value>選擇主界面背景使用的材質。</value>
+    <comment>窗口设置-BrushTypeDescription</comment>
+  </data>
+  <data name="MaterialAcrylic" xml:space="preserve">
+    <value>亞克力</value>
+    <comment>窗口设置-MaterialAcrylic</comment>
+  </data>
+  <data name="MaterialLiquidGlass" xml:space="preserve">
+    <value>類液態玻璃</value>
+    <comment>窗口设置-MaterialLiquidGlass</comment>
+  </data>
+  <data name="MaterialMica" xml:space="preserve">
+    <value>雲母</value>
+    <comment>窗口设置-MaterialMica</comment>
+  </data>
+  <data name="MouseFadingHeader" xml:space="preserve">
+    <value>指針移入淡化</value>
+    <comment>窗口设置-MouseFadingHeader</comment>
+  </data>
+  <data name="MouseFadingDescription" xml:space="preserve">
+    <value>啓用後，在鼠標移入或觸屏點擊主界面區域時，將淡化主界面。</value>
+    <comment>窗口设置-MouseFadingDescription</comment>
+  </data>
+  <data name="UseRawInputContent" xml:space="preserve">
+    <value>使用原始輸入</value>
+    <comment>窗口设置-UseRawInputContent</comment>
+  </data>
+  <data name="UseRawInputDescription" xml:space="preserve">
+    <value>啓用後，ClassFabric 將使用 RawInput 接收鼠標/觸屏事件，而不是輪詢獲取光標位置。這允許應用辨別鼠標和觸摸事件，並分別做出更適宜的響應。如果出現不兼容的問題，請嘗試禁用此選項。</value>
+    <comment>窗口设置-UseRawInputDescription</comment>
+  </data>
+  <data name="TouchRecoveryContent" xml:space="preserve">
+    <value>觸屏點擊後自動恢復時間</value>
+    <comment>窗口设置-TouchRecoveryContent</comment>
+  </data>
+  <data name="TouchRecoveryDescription" xml:space="preserve">
+    <value>啓用後，觸屏點擊主界面區域後將在一定時間後自動恢復主界面顯示。設置為0為禁用。</value>
+    <comment>窗口设置-TouchRecoveryDescription</comment>
+  </data>
+  <data name="MouseFadingReversedContent" xml:space="preserve">
+    <value>反轉指針移入淡化</value>
+    <comment>窗口设置-MouseFadingReversedContent</comment>
+  </data>
+  <data name="MouseFadingReversedDescription" xml:space="preserve">
+    <value>啓用後，將默認淡化主界面，使主界面僅在鼠標移入時顯示。此開關不影響隱藏主界面。</value>
+    <comment>窗口设置-MouseFadingReversedDescription</comment>
+  </data>
+  <data name="RawScreenSizeHeader" xml:space="preserve">
+    <value>使用原始屏幕尺寸</value>
+    <comment>窗口设置-RawScreenSizeHeader</comment>
+  </data>
+  <data name="RawScreenSizeDescription" xml:space="preserve">
+    <value>若啓用，主界面調整位置時將忽略系統工作區設置（通常包括任務欄和部分頂欄應用）。</value>
+    <comment>窗口设置-RawScreenSizeDescription</comment>
+  </data>
+  <data name="RecordingModeHeader" xml:space="preserve">
+    <value>錄製模式</value>
+    <comment>窗口设置-RecordingModeHeader</comment>
+  </data>
+  <data name="RecordingModeDescription" xml:space="preserve">
+    <value>啓用後，ClassFabric 將調整窗口屬性以便被錄屏軟件錄製。這會導致主界面窗口顯示在任務欄中且主界面窗口只會在一個虛擬桌面上顯示，如您沒有錄製 ClassFabric 窗口的需求，請勿開啓此選項。</value>
+    <comment>窗口设置-RecordingModeDescription</comment>
+  </data>
+  <data name="BlockCaptureHeader" xml:space="preserve">
+    <value>阻止截圖</value>
+    <comment>窗口设置-BlockCaptureHeader</comment>
+  </data>
+  <data name="BlockCaptureDescription" xml:space="preserve">
+    <value>開啓後，其他應用無法截取 ClassFabric 主界面窗口內容，錄製時也不會錄製到主頁面。</value>
+    <comment>窗口设置-BlockCaptureDescription</comment>
+  </data>
+</root>

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ProjectHomepage" xml:space="preserve">
+    <value>Project homepage</value>
+  </data>
+  <data name="StatusLoaded" xml:space="preserve">
+    <value>Loaded</value>
+  </data>
+  <data name="StatusDisabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="StatusError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="StatusNotLoaded" xml:space="preserve">
+    <value>Not loaded</value>
+  </data>
+  <data name="EnabledLabel" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="UndoRemove" xml:space="preserve">
+    <value>Undo remove</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="RestartToApply" xml:space="preserve">
+    <value>Restart to apply changes</value>
+  </data>
+  <data name="UnsupportedOSWarning" xml:space="preserve">
+    <value>This plugin does not declare support for the operating system you are currently running. It may not work as expected.</value>
+  </data>
+  <data name="InstallFailedNetworkMessage" xml:space="preserve">
+    <value>Unable to install the plugin. Please check your network connection. Switching to another plugin mirror may fix this.</value>
+  </data>
+  <data name="ChangePluginMirror" xml:space="preserve">
+    <value>Switch plugin mirror</value>
+  </data>
+  <data name="MoreOptionsToolTip" xml:space="preserve">
+    <value>More options…</value>
+  </data>
+  <data name="PackPlugin" xml:space="preserve">
+    <value>Pack plugin</value>
+  </data>
+  <data name="OpenPluginFolder" xml:space="preserve">
+    <value>Open plugin folder…</value>
+  </data>
+  <data name="OpenPluginConfigFolder" xml:space="preserve">
+    <value>Open configuration folder…</value>
+  </data>
+  <data name="OverviewTab" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="ErrorInfoTab" xml:space="preserve">
+    <value>Error info</value>
+  </data>
+  <data name="DependenciesTab" xml:space="preserve">
+    <value>Dependencies</value>
+  </data>
+  <data name="PluginIdColumnHeader" xml:space="preserve">
+    <value>Plugin ID</value>
+  </data>
+  <data name="RequiredColumnHeader" xml:space="preserve">
+    <value>Required?</value>
+  </data>
+  <data name="PluginUpdateSettingsTitle" xml:space="preserve">
+    <value>Plugin update settings</value>
+  </data>
+  <data name="NotifyOnPluginUpdates" xml:space="preserve">
+    <value>Notify me when plugin updates are available</value>
+  </data>
+  <data name="AutoUpdatePlugins" xml:space="preserve">
+    <value>Update plugins automatically</value>
+  </data>
+  <data name="ManagePluginSources" xml:space="preserve">
+    <value>Manage plugin sources</value>
+  </data>
+  <data name="BuiltinPluginSources" xml:space="preserve">
+    <value>Built-in plugin sources</value>
+  </data>
+  <data name="BuiltinMirrorLabel" xml:space="preserve">
+    <value>Built-in source mirror</value>
+  </data>
+  <data name="IgnoreSslErrors" xml:space="preserve">
+    <value>Ignore SSL/TLS certificate errors</value>
+  </data>
+  <data name="IgnoreSslToolTip" xml:space="preserve">
+    <value>Disabling plugin mirror certificate validation reduces security.</value>
+  </data>
+  <data name="CustomPluginSources" xml:space="preserve">
+    <value>Custom plugin sources</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="MirrorColumnHeader" xml:space="preserve">
+    <value>Mirror</value>
+  </data>
+  <data name="UnknownSourceRiskWarning" xml:space="preserve">
+    <value>Installing plugins from unknown sources may be risky.</value>
+  </data>
+  <data name="NoMatchingPlugins" xml:space="preserve">
+    <value>No plugins match the current filters. Adjust the filters and try again</value>
+  </data>
+  <data name="NoPluginsInstalled" xml:space="preserve">
+    <value>No plugins installed yet. Take a look at the plugin market</value>
+  </data>
+  <data name="GoToMarket" xml:space="preserve">
+    <value>Go to plugin market</value>
+  </data>
+  <data name="PluginDetails" xml:space="preserve">
+    <value>Plugin details</value>
+  </data>
+  <data name="SearchPluginsWatermark" xml:space="preserve">
+    <value>Search plugins…</value>
+  </data>
+  <data name="MarketTab" xml:space="preserve">
+    <value>Market</value>
+  </data>
+  <data name="InstalledTab" xml:space="preserve">
+    <value>Installed</value>
+  </data>
+  <data name="ReloadFromCache" xml:space="preserve">
+    <value>Reload plugin sources from cache</value>
+  </data>
+  <data name="ManagePluginSourcesMenu" xml:space="preserve">
+    <value>Manage plugin sources…</value>
+  </data>
+  <data name="PluginUpdateSettingsMenu" xml:space="preserve">
+    <value>Plugin update settings…</value>
+  </data>
+  <data name="InstallFromLocal" xml:space="preserve">
+    <value>Install from local file…</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="DownloadsToolTip" xml:space="preserve">
+    <value>Downloads</value>
+  </data>
+  <data name="PendingRemoveToolTip" xml:space="preserve">
+    <value>This plugin will be removed after a restart.</value>
+  </data>
+  <data name="RestartRequiredToolTip" xml:space="preserve">
+    <value>The plugin needs a restart to apply changes.</value>
+  </data>
+  <data name="LoadErrorToolTip" xml:space="preserve">
+    <value>An error occurred while loading this plugin.</value>
+  </data>
+  <data name="ShowDiagnosticToolTip" xml:space="preserve">
+    <value>Show diagnostic info</value>
+  </data>
+  <data name="UpdateAvailableToolTip" xml:space="preserve">
+    <value>Update available.</value>
+  </data>
+  <data name="AlreadyInstalledToolTip" xml:space="preserve">
+    <value>This plugin is already installed.</value>
+  </data>
+  <data name="EnablePluginToolTip" xml:space="preserve">
+    <value>Enable plugin</value>
+  </data>
+  <data name="PluginsHeader" xml:space="preserve">
+    <value>Plugins</value>
+  </data>
+  <data name="WelcomeText" xml:space="preserve">
+    <value>Welcome to plugins! Plugins can extend ClassFabric, for example by adding a widget or integrating with other apps, and more.</value>
+  </data>
+  <data name="MarketWarningText" xml:space="preserve">
+    <value>Keep in mind that plugins can use system resources and request arbitrary permissions as ClassFabric, and can freely access all files on the device. Do not install plugins from unknown sources, and the developers cannot guarantee that all plugins offered in the market are absolutely safe. The ClassFabric development team is not liable for any consequences caused by using plugins.</value>
+  </data>
+  <data name="AgreeAndStart" xml:space="preserve">
+    <value>Agree and start using plugins</value>
+  </data>
+  <data name="ParsingText" xml:space="preserve">
+    <value>Parsing...</value>
+  </data>
+  <data name="DragFilesPrefix" xml:space="preserve">
+    <value>In total </value>
+  </data>
+  <data name="DragFilesMiddle" xml:space="preserve">
+    <value> file(s), </value>
+  </data>
+  <data name="DragFilesSuffix" xml:space="preserve">
+    <value> plugin package(s) recognized</value>
+  </data>
+  <data name="ReadmeLoadFailed" xml:space="preserve">
+    <value>> Failed to load document: {0}</value>
+  </data>
+  <data name="CannotOpenPackageFile" xml:space="preserve">
+    <value>Unable to open the selected plugin package.</value>
+  </data>
+  <data name="PackPluginFailed" xml:space="preserve">
+    <value>Unable to pack plugin {0}</value>
+  </data>
+  <data name="NoValidPackagesToast" xml:space="preserve">
+    <value>No installable plugin packages could be parsed from the selected files.</value>
+  </data>
+  <data name="InstallConfirmTitle" xml:space="preserve">
+    <value>Confirm installation?</value>
+  </data>
+  <data name="CannotReopenPackageFile" xml:space="preserve">
+    <value>Unable to reopen the selected plugin package.</value>
+  </data>
+  <data name="InstallPluginFailedToast" xml:space="preserve">
+    <value>Unable to install plugin {0}</value>
+  </data>
+  <data name="InstallSuccessToast" xml:space="preserve">
+    <value>Successfully installed {0} plugin(s).</value>
+  </data>
+  <data name="InstallFailedToast" xml:space="preserve">
+    <value>Installation failed for {0} plugin(s).</value>
+  </data>
+  <data name="InstallFromLocalDialogTitle" xml:space="preserve">
+    <value>Install plugin from local file</value>
+  </data>
+  <data name="UnsupportedOSDialogTitle" xml:space="preserve">
+    <value>Operating system not supported by this plugin</value>
+  </data>
+  <data name="UnsupportedOSContent" xml:space="preserve">
+    <value>The operating systems declared as supported by this plugin do not include the one you are currently running.
+If you continue installing, the plugin may not work properly. Do you want to continue?</value>
+  </data>
+  <data name="MissingDependenciesTitle" xml:space="preserve">
+    <value>Missing dependencies</value>
+  </data>
+  <data name="MissingDependenciesContent" xml:space="preserve">
+    <value>Some required dependencies of this plugin are not installed and cannot be fetched from the market. If you continue installing, the plugin may not work. Do you want to continue?
+
+
+Required dependencies not found:
+{0}</value>
+  </data>
+  <data name="DialogContinue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="DiagnosticDefaultMessage" xml:space="preserve">
+    <value>This plugin failed to load. Please check that the plugin is compatible with the current ClassFabric version, or contact the plugin author.</value>
+  </data>
+  <data name="NoTechnicalDetails" xml:space="preserve">
+    <value>No technical details recorded.</value>
+  </data>
+  <data name="PluginDiagnosticTitle" xml:space="preserve">
+    <value>Plugin loading diagnostics</value>
+  </data>
+  <data name="CopyDiagnosticInfo" xml:space="preserve">
+    <value>Copy diagnostic info</value>
+  </data>
+  <data name="CopyFailedToast" xml:space="preserve">
+    <value>Copy failed. Select all diagnostic text and copy it manually.</value>
+  </data>
+  <data name="DiagnosticCopiedToast" xml:space="preserve">
+    <value>Diagnostic info copied to clipboard</value>
+  </data>
+  <data name="LoadPluginSourceFailedToast" xml:space="preserve">
+    <value>Unable to load plugin source</value>
+  </data>
+  <data name="DragInvalidHint" xml:space="preserve">
+    <value>Only {0} plugin packages are supported</value>
+  </data>
+  <data name="DragInvalidSubHint" xml:space="preserve">
+    <value>Please drop a plugin package file</value>
+  </data>
+  <data name="DragInstallHintOne" xml:space="preserve">
+    <value>Drop to install 1 plugin</value>
+  </data>
+  <data name="DragInstallHintMany" xml:space="preserve">
+    <value>Drop to install {0} plugins</value>
+  </data>
+  <data name="DragIgnoreFiles" xml:space="preserve">
+    <value>{0} unsupported file(s) will be ignored</value>
+  </data>
+  <data name="DragMultiSelectHint" xml:space="preserve">
+    <value>Multi-select supported ({0})</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>通用对话框按钮-"取消"</comment>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>通用对话框按钮-"确定"</comment>
+  </data>
+</root>

@@ -13,6 +13,7 @@ using ClassIsland.Platforms.Abstraction;
 using ClassIsland.Services;
 using ClassIsland.Shared;
 using ClassIsland.ViewModels.SettingsPages;
+using ClassFabric.Assets.Localization.SettingsPage.Storage;
 using Microsoft.Extensions.Logging;
 using Path = System.IO.Path;
 
@@ -44,12 +45,12 @@ public partial class StorageSettingsPage : SettingsPageBase
         {
             await FileFolderService.CreateBackupAsync();
             ViewModel.IsBackupFinished = true;
-            this.ShowSuccessToast("备份成功。");
+            this.ShowSuccessToast(Localization.BackupSucceedToolTip);
         }
         catch (Exception exception)
         {
             Logger.LogError(exception, "无法创建备份。");
-            this.ShowErrorToast("无法创建备份", exception);
+            this.ShowErrorToast(Localization.CreateBackupFailedTitle, exception);
         }
         ViewModel.IsBackingUp = false;
     }
@@ -63,7 +64,7 @@ public partial class StorageSettingsPage : SettingsPageBase
         catch (Exception exception)
         {
             Logger.LogError(exception, "无法浏览备份文件。");
-            this.ShowErrorToast($"无法浏览备份文件", exception);
+            this.ShowErrorToast(Localization.ViewBackupFilesFailed, exception);
         }
     }
 

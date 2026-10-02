@@ -12,6 +12,7 @@ using ClassIsland.Core.Helpers.UI;
 using ClassIsland.Services;
 using ClassIsland.Shared;
 using ClassIsland.ViewModels.SettingsPages;
+using ClassFabric.Assets.Localization.SettingsPage.Refreshing;
 using FluentAvalonia.UI.Controls;
 
 namespace ClassIsland.Views.SettingPages;
@@ -37,11 +38,11 @@ public partial class RefreshingSettingsPage : SettingsPageBase
     {
         var dialog = new FAContentDialog()
         {
-            Title = "重置迎新消息设置",
-            Content = "确定要重置迎新消息设置吗？此操作不可撤销！",
-            PrimaryButtonText = "重置",
+            Title = Localization.ResetOnboardingMessagesDialogTitle,
+            Content = Localization.ResetOnboardingMessagesDialogContent,
+            PrimaryButtonText = Localization.Reset,
             DefaultButton = FAContentDialogButton.Primary,
-            SecondaryButtonText = "取消"
+            SecondaryButtonText = Localization.Cancel
         };
         var r = await dialog.ShowAsyncAuto(TopLevel.GetTopLevel(this));
         if (r != FAContentDialogResult.Primary)
@@ -51,7 +52,7 @@ public partial class RefreshingSettingsPage : SettingsPageBase
 
         ViewModel.SettingsService.Settings.OnboardingToastTitle = RefreshingService.DefaultOnboardingToastTitle;
         ViewModel.SettingsService.Settings.OnboardingToastBody = RefreshingService.DefaultOnboardingToastBody;
-        this.ShowToast("已重置迎新消息。");
+        this.ShowToast(Localization.OnboardingMessagesReset);
     }
 
     private void SettingsExpanderItemTestOnboardingDialog_OnClick(object? sender, RoutedEventArgs e)

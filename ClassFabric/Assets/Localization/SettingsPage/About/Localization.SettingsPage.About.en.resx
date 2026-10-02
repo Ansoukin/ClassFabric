@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutHeader" xml:space="preserve">
+    <value>About ClassFabric</value>
+    <comment>设置-关于-页面标题</comment>
+  </data>
+  <data name="ContributorsHeader" xml:space="preserve">
+    <value>Contributors</value>
+    <comment>贡献人员抽屉/条目标题</comment>
+  </data>
+  <data name="ContributorsThanks" xml:space="preserve">
+    <value>Thanks to the following people for their contributions to this project!</value>
+    <comment>贡献人员抽屉-描述</comment>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+    <comment>贡献人员抽屉-"刷新"按钮</comment>
+  </data>
+  <data name="ThirdPartyLibsHeader" xml:space="preserve">
+    <value>Third-party libraries</value>
+    <comment>第三方库抽屉/条目标题</comment>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>Website…</value>
+    <comment>第三方库条目-"网站…"链接</comment>
+  </data>
+  <data name="LicensePrefix" xml:space="preserve">
+    <value>License: </value>
+    <comment>第三方库条目-许可证前缀（后接许可证名）</comment>
+  </data>
+  <data name="OpenSourceLicense" xml:space="preserve">
+    <value>Open-source license</value>
+    <comment>设置-关于-"开放源代码许可"按钮/对话框标题</comment>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy policy</value>
+    <comment>设置-关于-"隐私政策"按钮</comment>
+  </data>
+  <data name="LicenseStatement" xml:space="preserve">
+    <value>This project is licensed under the GNU General Public License v3.0.</value>
+    <comment>设置-关于-许可声明</comment>
+  </data>
+  <data name="CommonLinks" xml:space="preserve">
+    <value>Common links</value>
+    <comment>设置-关于-"常用链接"条目</comment>
+  </data>
+  <data name="ProjectHomepage" xml:space="preserve">
+    <value>Project homepage</value>
+    <comment>常用链接-"项目主页"</comment>
+  </data>
+  <data name="Documentation" xml:space="preserve">
+    <value>Help documentation</value>
+    <comment>常用链接-"帮助文档"</comment>
+  </data>
+  <data name="JoinCommunity" xml:space="preserve">
+    <value>Join the community</value>
+    <comment>常用链接-"加入社区"</comment>
+  </data>
+  <data name="TroubleshootingHeader" xml:space="preserve">
+    <value>Having trouble?</value>
+    <comment>设置-关于-"遇到问题？"分区</comment>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Issue reports and feature suggestions</value>
+    <comment>遇到问题？-"问题反馈/功能建议"条目</comment>
+  </data>
+  <data name="FeatureVoting" xml:space="preserve">
+    <value>Feature voting</value>
+    <comment>遇到问题？-"功能投票"条目</comment>
+  </data>
+  <data name="ViewDiagnosticInfo" xml:space="preserve">
+    <value>View diagnostic information</value>
+    <comment>遇到问题？-"查看诊断信息"条目</comment>
+  </data>
+  <data name="AcknowledgementsHeader" xml:space="preserve">
+    <value>Acknowledgements</value>
+    <comment>设置-关于-"鸣谢"分区</comment>
+  </data>
+  <data name="InspiredByPrefix" xml:space="preserve">
+    <value>This project was inspired by </value>
+    <comment>鸣谢-受启发于（前段，后接项目链接）</comment>
+  </data>
+  <data name="InspiredBySuffix" xml:space="preserve">
+    <value>.</value>
+    <comment>鸣谢-受启发于（后段）</comment>
+  </data>
+  <data name="ThemeFrameworkCredit" xml:space="preserve">
+    <value>The UI theme and some controls use the FluentAvalonia framework.</value>
+    <comment>鸣谢-界面框架</comment>
+  </data>
+  <data name="FontCredit" xml:space="preserve">
+    <value>The application font is HarmonyOS Sans by Huawei.</value>
+    <comment>鸣谢-应用字体</comment>
+  </data>
+  <data name="TesterCredit" xml:space="preserve">
+    <value>Thanks to everyone who helped test this application.</value>
+    <comment>鸣谢-测试协助</comment>
+  </data>
+  <data name="ServerResourceCreditPrefix" xml:space="preserve">
+    <value>Thanks to </value>
+    <comment>鸣谢-服务器资源（前段，后接链接）</comment>
+  </data>
+  <data name="ServerResourceCreditMiddle" xml:space="preserve">
+    <value> for providing server resources, </value>
+    <comment>鸣谢-服务器资源（中段）</comment>
+  </data>
+  <data name="ServerResourceCreditSuffix" xml:space="preserve">
+    <value> for providing TTS, telemetry and other service resources.</value>
+    <comment>鸣谢-服务器资源（后段）</comment>
+  </data>
+  <data name="WeatherDataCredit" xml:space="preserve">
+    <value>Weather data is provided by Xiaomi Weather.</value>
+    <comment>鸣谢-天气数据来源</comment>
+  </data>
+  <data name="SpecialThanksPrefix" xml:space="preserve">
+    <value>Special thanks to </value>
+    <comment>鸣谢-特别感谢（前段，后接作者链接）</comment>
+  </data>
+  <data name="SpecialThanksMiddle" xml:space="preserve">
+    <value> (Programmer-MrWang) for developing the </value>
+    <comment>鸣谢-特别感谢（中段）</comment>
+  </data>
+  <data name="SpecialThanksSuffix" xml:space="preserve">
+    <value> plugin, which provided an important reference for extending the built-in capabilities of ClassFabric.</value>
+    <comment>鸣谢-特别感谢（后段）</comment>
+  </data>
+  <data name="OtherCredits" xml:space="preserve">
+    <value>Thanks to the other third-party libraries and contributors. See the contributor list and the third-party libraries for details.</value>
+    <comment>鸣谢-其他致谢</comment>
+  </data>
+  <data name="EchoCaveHeader" xml:space="preserve">
+    <value>Echo cave</value>
+    <comment>设置-关于-"回声洞"分区</comment>
+  </data>
+  <data name="Dedication" xml:space="preserve">
+    <value>This application is dedicated to the classmates who have kept me company, now or in the past. May time flow on, and may everyone reunite with the ones they hold dear.</value>
+    <comment>设置-关于-页尾献词</comment>
+  </data>
+  <data name="DiagnosticInfoDialogTitle" xml:space="preserve">
+    <value>Diagnostic information</value>
+    <comment>诊断信息对话框标题</comment>
+  </data>
+  <data name="DialogOk" xml:space="preserve">
+    <value>OK</value>
+    <comment>对话框"确定"按钮（通用）</comment>
+  </data>
+  <data name="DialogCancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>对话框"取消"按钮（通用）</comment>
+  </data>
+  <data name="DialogCopy" xml:space="preserve">
+    <value>Copy</value>
+    <comment>对话框"复制"按钮</comment>
+  </data>
+  <data name="DialogClose" xml:space="preserve">
+    <value>Close</value>
+    <comment>对话框"关闭"按钮</comment>
+  </data>
+  <data name="DialogContinue" xml:space="preserve">
+    <value>Continue</value>
+    <comment>对话框"继续"按钮</comment>
+  </data>
+  <data name="CopyFailedToast" xml:space="preserve">
+    <value>Copy failed. Please select all the diagnostic info text and copy it manually.</value>
+    <comment>吐司：复制诊断信息失败</comment>
+  </data>
+  <data name="CopySuccessToast" xml:space="preserve">
+    <value>Copied successfully!</value>
+    <comment>吐司：诊断信息复制成功</comment>
+  </data>
+  <data name="ContributorsFetchFailedTitle" xml:space="preserve">
+    <value>Unable to fetch the contributor list</value>
+    <comment>吐司标题：获取贡献者名单失败</comment>
+  </data>
+  <data name="PrivacyWindowTitle" xml:space="preserve">
+    <value>ClassFabric Privacy Policy</value>
+    <comment>隐私政策窗口标题</comment>
+  </data>
+  <data name="DebugMenuAlreadyEnabledToast" xml:space="preserve">
+    <value>The debug menu is already enabled; no further action is needed.</value>
+    <comment>吐司：调试菜单已启用</comment>
+  </data>
+  <data name="DebugMenuDisabledTitle" xml:space="preserve">
+    <value>Debug menu disabled</value>
+    <comment>对话框标题：调试菜单被策略禁用</comment>
+  </data>
+  <data name="DebugMenuDisabledMessage" xml:space="preserve">
+    <value>The debug menu has been disabled by your organization.</value>
+    <comment>对话框内容：调试菜单被策略禁用</comment>
+  </data>
+  <data name="DebugMenuWarningText" xml:space="preserve">
+    <value>You are enabling the development-only debug menu in a release build of ClassFabric. Note that this feature is intended for development and debugging only. The ClassFabric developers are not responsible for any consequences caused by using the features on this page for non-development purposes, and do not accept bug reports from such use.</value>
+    <comment>对话框内容：发布版本启用调试菜单警告</comment>
+  </data>
+  <data name="DebugMenuDialogTitle" xml:space="preserve">
+    <value>Enable debug menu</value>
+    <comment>对话框标题：启用调试菜单</comment>
+  </data>
+  <data name="DebugMenuConfirmPrompt" xml:space="preserve">
+    <value>If you really want to enable this feature, type "{0}" into the text box below, then click [Continue].</value>
+    <comment>对话框内容：启用调试菜单确认指引，{0}=确认语</comment>
+  </data>
+  <data name="DebugMenuConfirmPhrase" xml:space="preserve">
+    <value>I understand and agree that the developers are not responsible for any consequences caused by using the features on this page for non-development purposes, and do not accept bug reports from such use</value>
+    <comment>启用调试菜单确认语（用户需逐字输入；必须与 DebugMenuConfirmPrompt 的指引联动）</comment>
+  </data>
+  <data name="DebugMenuVerificationFailedToast" xml:space="preserve">
+    <value>Verification failed. Please try again.</value>
+    <comment>吐司：调试菜单确认语校验失败</comment>
+  </data>
+  <data name="DebugMenuEnabledToast" xml:space="preserve">
+    <value>Debug menu enabled.</value>
+    <comment>吐司：调试菜单启用成功</comment>
+  </data>
+  <data name="ViewImageDialogTitle" xml:space="preserve">
+    <value>View image</value>
+    <comment>对话框标题：查看彩蛋图片</comment>
+  </data>
+  <data name="ViewInBrowser" xml:space="preserve">
+    <value>View in browser</value>
+    <comment>对话框"在浏览器查看"按钮</comment>
+  </data>
+</root>

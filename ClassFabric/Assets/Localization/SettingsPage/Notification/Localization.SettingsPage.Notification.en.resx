@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EnableNotification" xml:space="preserve">
+    <value>Enable reminders</value>
+    <comment>提醒设置-"启用提醒"开关</comment>
+  </data>
+  <data name="EnableNotificationDescription" xml:space="preserve">
+    <value>When reminders are enabled, prominent reminders are shown for important events. Drag the reminder providers to adjust the priority of each type of reminder.</value>
+    <comment>启用提醒-描述</comment>
+  </data>
+  <data name="NotificationMayNotShowTitle" xml:space="preserve">
+    <value>Reminders may not be displayed</value>
+    <comment>InfoBar 标题：主界面行提醒已禁用</comment>
+  </data>
+  <data name="NotificationMayNotShowMessage" xml:space="preserve">
+    <value>You have disabled reminders for all main window lines, which may prevent all reminders from being displayed. To fix this, enable reminders for at least one main window line on the 【Components】 page.</value>
+    <comment>InfoBar 内容：主界面行提醒已禁用</comment>
+  </data>
+  <data name="GoToComponentsPage" xml:space="preserve">
+    <value>Go to the 【Components】 page</value>
+    <comment>InfoBar 动作按钮：前往组件设置页</comment>
+  </data>
+  <data name="NotificationProvidersTab" xml:space="preserve">
+    <value>Reminder providers</value>
+    <comment>提供方列表 Tab 标题</comment>
+  </data>
+  <data name="NotificationChannelsHeader" xml:space="preserve">
+    <value>Reminder channels</value>
+    <comment>提供方条目内"提醒渠道"折叠区</comment>
+  </data>
+  <data name="AdvancedSettingsTab" xml:space="preserve">
+    <value>Advanced settings</value>
+    <comment>"高级设置" Tab 标题</comment>
+  </data>
+  <data name="EnableNotificationSpeech" xml:space="preserve">
+    <value>Enable reminder speech</value>
+    <comment>高级设置-"启用提醒语音"开关</comment>
+  </data>
+  <data name="EnableNotificationSpeechDescription" xml:space="preserve">
+    <value>Read reminder content aloud with speech when a reminder is shown.</value>
+    <comment>启用提醒语音-描述</comment>
+  </data>
+  <data name="EnableByDefault" xml:space="preserve">
+    <value>Enable by default</value>
+    <comment>各开关下"默认启用"复选框</comment>
+  </data>
+  <data name="SpeechEngine" xml:space="preserve">
+    <value>Speech engine</value>
+    <comment>高级设置-"语音引擎"选择</comment>
+  </data>
+  <data name="SpeechVolume" xml:space="preserve">
+    <value>Speech volume</value>
+    <comment>高级设置-"语音音量"滑块</comment>
+  </data>
+  <data name="TestSpeechText" xml:space="preserve">
+    <value>Test speech text</value>
+    <comment>高级设置-"测试朗读文本"输入框</comment>
+  </data>
+  <data name="TestSpeech" xml:space="preserve">
+    <value>Test speech</value>
+    <comment>高级设置-"测试语音"按钮</comment>
+  </data>
+  <data name="EnableNotificationEffect" xml:space="preserve">
+    <value>Enable reminder emphasis effects</value>
+    <comment>高级设置-"启用提醒强调特效"开关</comment>
+  </data>
+  <data name="EnableNotificationEffectDescription" xml:space="preserve">
+    <value>When enabled, a full-screen emphasis effect is played when a reminder is shown.</value>
+    <comment>启用提醒强调特效-描述</comment>
+  </data>
+  <data name="NotificationEffectRenderingScale" xml:space="preserve">
+    <value>Reminder effect rendering scale</value>
+    <comment>高级设置-"提醒特效渲染精度"滑块</comment>
+  </data>
+  <data name="NotificationEffectRenderingScaleDescription" xml:space="preserve">
+    <value>The precision used when rendering reminder effects; a lower scale yields better performance.</value>
+    <comment>提醒特效渲染精度-描述</comment>
+  </data>
+  <data name="EnableNotificationSound" xml:space="preserve">
+    <value>Enable reminder sound</value>
+    <comment>高级设置-"启用提醒音效"开关</comment>
+  </data>
+  <data name="EnableNotificationSoundDescription" xml:space="preserve">
+    <value>When enabled, a sound effect is played when a reminder is shown.</value>
+    <comment>启用提醒音效-描述</comment>
+  </data>
+  <data name="NotificationSoundVolume" xml:space="preserve">
+    <value>Sound volume</value>
+    <comment>高级设置-"音效音量"滑块</comment>
+  </data>
+  <data name="CustomNotificationSound" xml:space="preserve">
+    <value>Custom sound</value>
+    <comment>高级设置-"自定义音效"</comment>
+  </data>
+  <data name="CustomNotificationSoundDescription" xml:space="preserve">
+    <value>Set a custom sound; leave empty to disable. If the sound is longer than the reminder display time, the extra part is cut off.</value>
+    <comment>自定义音效-描述</comment>
+  </data>
+  <data name="NotificationSoundPathPlaceholder" xml:space="preserve">
+    <value>(default sound)</value>
+    <comment>自定义音效路径占位文本</comment>
+  </data>
+  <data name="TopmostNotification" xml:space="preserve">
+    <value>Topmost reminders</value>
+    <comment>高级设置-"置顶提醒"开关</comment>
+  </data>
+  <data name="TopmostNotificationDescription" xml:space="preserve">
+    <value>Force the main window to show and stay on top when a reminder is issued.</value>
+    <comment>置顶提醒-描述</comment>
+  </data>
+  <data name="BasicSettingsTab" xml:space="preserve">
+    <value>Basic settings</value>
+    <comment>提供方详情-"基本设置" Tab</comment>
+  </data>
+  <data name="ProviderNoSettings" xml:space="preserve">
+    <value>This reminder provider has no settings.</value>
+    <comment>提供方详情-无设置占位文本</comment>
+  </data>
+  <data name="EnablePerProviderAdvancedSettings" xml:space="preserve">
+    <value>Enable special advanced settings for this reminder source</value>
+    <comment>提供方高级设置-"对此提醒来源启用特殊高级设置"开关</comment>
+  </data>
+  <data name="EnablePerProviderAdvancedSettingsDescription" xml:space="preserve">
+    <value>When enabled, the settings here override global settings and the settings required by the reminder request.</value>
+    <comment>提供方高级设置-描述（同为 InfoBar 提示内容）</comment>
+  </data>
+</root>

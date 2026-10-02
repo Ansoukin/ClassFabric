@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="using:ClassIsland.Views.SettingPages"
+      xmlns:locAbout="clr-namespace:ClassFabric.Assets.Localization.SettingsPage.About"
       xmlns:controls="using:ClassIsland.Core.Abstractions.Controls"
       xmlns:ci="using:ClassIsland"
       xmlns:controls1="using:ClassIsland.Core.Controls"
@@ -19,13 +20,13 @@
       d:DataContext="{d:DesignInstance local:AboutSettingsPage}">
     <controls:SettingsPageBase.Resources>
         <Grid Margin="16" x:Key="ContributorsDrawer" Width="300" RowDefinitions="Auto,Auto,Auto,*">
-            <TextBlock Grid.Row="0" Text="贡献人员" Theme="{StaticResource SubtitleTextBlockStyle}" />
-            <TextBlock Grid.Row="1" Margin="0 6 0 0" Text="感谢以下同学为本项目做出的贡献！"/>
+            <TextBlock Grid.Row="0" Text="{x:Static locAbout:Localization.ContributorsHeader}" Theme="{StaticResource SubtitleTextBlockStyle}" />
+            <TextBlock Grid.Row="1" Margin="0 6 0 0" Text="{x:Static locAbout:Localization.ContributorsThanks}"/>
             <Button Grid.Row="2" HorizontalAlignment="Left" 
                     Click="ButtonRefreshContributors_OnClick"
                     Margin="0 2 0 0"
                     IsEnabled="{Binding ViewModel.IsRefreshingContributors, Converter={StaticResource InvertBooleanConverter}}">
-                <controls1:IconText Glyph="&#xE0B5;" Text="刷新"/>
+                <controls1:IconText Glyph="&#xE0B5;" Text="{x:Static locAbout:Localization.Refresh}"/>
             </Button>
             <ListBox Grid.Row="3" Margin="0 2 0 0"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -65,7 +66,7 @@
         </Grid>
 
         <Grid Margin="16" x:Key="ThirdPartyLibs" Width="300" RowDefinitions="Auto,*">
-            <TextBlock Grid.Row="0" Text="第三方库" Theme="{StaticResource SubtitleTextBlockStyle}" />
+            <TextBlock Grid.Row="0" Text="{x:Static locAbout:Localization.ThirdPartyLibsHeader}" Theme="{StaticResource SubtitleTextBlockStyle}" />
             <ListBox Grid.Row="1" Margin="0 6 0 0"
                      ItemsSource="{Binding ViewModel.ThirdPartyLibs}">
                 <ListBox.ItemTemplate>
@@ -83,12 +84,11 @@
                                        VerticalAlignment="Center" 
                                        IsVisible="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBoxItem}}">
                                  <commands:NavHyperlink NavTarget="{Binding PackageProjectUrl}"
-                                                        ToolTip.Tip="{Binding PackageProjectUrl}">
-                                     网站…
-                                 </commands:NavHyperlink>
+                                                        ToolTip.Tip="{Binding PackageProjectUrl}"
+                                                        Content="{x:Static locAbout:Localization.Website}" />
                                  <commands:NavHyperlink NavTarget="{Binding LicenseUrl}"
                                                         ToolTip.Tip="{Binding LicenseUrl}">
-                                     <TextBlock Text="{Binding License, StringFormat='许可证：{0}'}" />
+                                     <TextBlock><Run Text="{x:Static locAbout:Localization.LicensePrefix}"/><Run Text="{Binding License, Mode=OneWay}"/></TextBlock>
                                  </commands:NavHyperlink>
                              </WrapPanel>
                              <!--<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Description}"  Margin="0 3 0 0" TextWrapping="Wrap"/>-->
@@ -177,7 +177,7 @@
                 <Border Margin="12 16 18 0"
                         MaxWidth="{StaticResource SettingsContainerWidth}">
                     <TextBlock FontWeight="Normal"
-                               Text="关于 ClassFabric"
+                               Text="{x:Static locAbout:Localization.AboutHeader}"
                                VerticalAlignment="Bottom"
                                Theme="{StaticResource TitleTextBlockStyle}"
                                Margin="0 8"/>
@@ -206,21 +206,21 @@
                             </WrapPanel.Styles>
                             <HyperlinkButton Click="SettingsExpanderItemShowOssLicense_OnClick"
                                              CommandParameter="https://classisland.tech">
-                                <TextBlock Text="开放源代码许可"/>
+                                <TextBlock Text="{x:Static locAbout:Localization.OpenSourceLicense}"/>
                             </HyperlinkButton>
                             <HyperlinkButton Click="ButtonPrivacy_OnClick"
                                              CommandParameter="https://docs.classisland.tech">
-                                <TextBlock Text="隐私政策"/>
+                                <TextBlock Text="{x:Static locAbout:Localization.PrivacyPolicy}"/>
                             </HyperlinkButton>
                         </WrapPanel>
                     </controls3:FASettingsExpanderItem.Footer>
                     <TextBlock Background="Transparent">
-                        <Run Text="本项目基于 GNU General Public License v3.0 获得许可。"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.LicenseStatement}"/><LineBreak/>
                         <Run Text="Copyright (c) 2023-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /> HelloWRC<LineBreak/>
                         <Run Text="Copyright (c) 2026-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /> Ansoukin
                     </TextBlock>
                 </controls3:FASettingsExpanderItem>
-                <controls3:FASettingsExpanderItem Content="常用链接">
+                <controls3:FASettingsExpanderItem Content="{x:Static locAbout:Localization.CommonLinks}">
                     <controls3:FASettingsExpanderItem.Footer>
                         <WrapPanel Classes="animated-resize">
                             <WrapPanel.Styles>
@@ -232,11 +232,11 @@
                             <HyperlinkButton Click="UriNavigationCommands_OnClick"
                                              CommandParameter="https://classisland.tech"
                                              IsVisible="False">
-                                <TextBlock Text="项目主页"/>
+                                <TextBlock Text="{x:Static locAbout:Localization.ProjectHomepage}"/>
                             </HyperlinkButton>
                             <HyperlinkButton Click="UriNavigationCommands_OnClick"
                                              CommandParameter="https://docs.classisland.tech">
-                                <TextBlock Text="帮助文档"/>
+                                <TextBlock Text="{x:Static locAbout:Localization.Documentation}"/>
                             </HyperlinkButton>
                             <HyperlinkButton Click="UriNavigationCommands_OnClick"
                                              CommandParameter="https://github.com/Ansoukin/ClassFabric">
@@ -245,7 +245,7 @@
                             <HyperlinkButton Click="UriNavigationCommands_OnClick"
                                              CommandParameter="https://docs.classisland.tech/community/"
                                              IsVisible="False">
-                                <TextBlock Text="加入社区"/>
+                                <TextBlock Text="{x:Static locAbout:Localization.JoinCommunity}"/>
                             </HyperlinkButton>
                         </WrapPanel>
                     </controls3:FASettingsExpanderItem.Footer>
@@ -253,55 +253,55 @@
                 
             </controls3:FASettingsExpander>
 
-            <controls3:FASettingsExpander Header="遇到问题？" IconSource="{commands:FluentIconSource &#xE3F6;}"
+            <controls3:FASettingsExpander Header="{x:Static locAbout:Localization.TroubleshootingHeader}" IconSource="{commands:FluentIconSource &#xE3F6;}"
                                         IsExpanded="True">
                 <controls3:FASettingsExpanderItem
                     Click="UriNavigationCommands_OnClick"
                     CommandParameter="https://github.com/Ansoukin/ClassFabric/issues"
-                    Content="问题反馈/功能建议"
+                    Content="{x:Static locAbout:Localization.Feedback}"
                     ActionIconSource="{controls1:FluentIconSource &#xEC2E;} "
                     IsClickEnabled="True"/>
                 <controls3:FASettingsExpanderItem
                     Click="UriNavigationCommands_OnClick"
                     CommandParameter="https://github.com/ClassIsland/voting/discussions/categories/classisland?discussions_q=is%3Aopen+category%3AClassIsland+sort%3Atop"
-                    Content="功能投票"
+                    Content="{x:Static locAbout:Localization.FeatureVoting}"
                     ActionIconSource="{controls1:FluentIconSource &#xEC2E;} "
                     IsClickEnabled="True"
                     IsVisible="False"/>
                 <controls3:FASettingsExpanderItem 
                     Click="ButtonDiagnosticInfo_OnClick"
-                    Content="查看诊断信息"
+                    Content="{x:Static locAbout:Localization.ViewDiagnosticInfo}"
                     IsClickEnabled="True"/>
             </controls3:FASettingsExpander>
             
-            <controls3:FASettingsExpander Header="鸣谢" IconSource="{commands:FluentIconSource &#xE971;}"
+            <controls3:FASettingsExpander Header="{x:Static locAbout:Localization.AcknowledgementsHeader}" IconSource="{commands:FluentIconSource &#xE971;}"
                                         IsExpanded="True">
                 <controls3:FASettingsExpanderItem 
-                    Content="贡献人员"
+                    Content="{x:Static locAbout:Localization.ContributorsHeader}"
                     Click="ButtonContributors_OnClick"
                     IsClickEnabled="True"/>
                 <controls3:FASettingsExpanderItem 
-                    Content="第三方库"
+                    Content="{x:Static locAbout:Localization.ThirdPartyLibsHeader}"
                     Click="ButtonThirdPartyLibs_OnClick"
                     IsClickEnabled="True"/>
                 <controls3:FASettingsExpanderItem>
                     <TextBlock LineHeight="30" Margin="0 0 0 0" FontSize="14" TextWrapping="Wrap">
-                        本项目受到
+                        <Run Text="{x:Static locAbout:Localization.InspiredByPrefix}"/>
                         <HyperlinkButton Click="Hyperlink2_OnClick">DuguSand/class_form</HyperlinkButton>
-                        的启发而开发。<LineBreak/>
-                        界面主题和部分控件使用了 FluentAvalonia 框架。<LineBreak/>
-                        应用字体使用了华为出品的 HarmonyOS Sans。<LineBreak/>
-                        感谢协助本应用测试的同学。<LineBreak/>
-                        感谢<commands:NavHyperlink NavTarget="https://forum.smart-teach.cn/">智教联盟</commands:NavHyperlink>提供服务器资源，<commands:NavHyperlink NavTarget="https://xiaowuap.com/">吴恩泽</commands:NavHyperlink>提供 TTS、遥测等服务资源。<LineBreak/>
-                        天气数据来源于小米天气。<LineBreak/>
-                        特别感谢<commands:NavHyperlink NavTarget="https://github.com/Programmer-MrWang">MrWang</commands:NavHyperlink>（Programmer-MrWang）开发的<commands:NavHyperlink NavTarget="https://github.com/Programmer-MrWang/SystemTools">SystemTools</commands:NavHyperlink>插件，为 ClassFabric 内置能力的扩充提供了重要参考。<LineBreak/>
-                        感谢其他使用的第三方库和贡献成员，详见贡献名单和第三方库。
+                        <Run Text="{x:Static locAbout:Localization.InspiredBySuffix}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.ThemeFrameworkCredit}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.FontCredit}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.TesterCredit}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.ServerResourceCreditPrefix}"/><commands:NavHyperlink NavTarget="https://forum.smart-teach.cn/">智教联盟</commands:NavHyperlink><Run Text="{x:Static locAbout:Localization.ServerResourceCreditMiddle}"/><commands:NavHyperlink NavTarget="https://xiaowuap.com/">吴恩泽</commands:NavHyperlink><Run Text="{x:Static locAbout:Localization.ServerResourceCreditSuffix}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.WeatherDataCredit}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.SpecialThanksPrefix}"/><commands:NavHyperlink NavTarget="https://github.com/Programmer-MrWang">MrWang</commands:NavHyperlink><Run Text="{x:Static locAbout:Localization.SpecialThanksMiddle}"/><commands:NavHyperlink NavTarget="https://github.com/Programmer-MrWang/SystemTools">SystemTools</commands:NavHyperlink><Run Text="{x:Static locAbout:Localization.SpecialThanksSuffix}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.OtherCredits}"/>
                     </TextBlock>
                 </controls3:FASettingsExpanderItem>
 
             </controls3:FASettingsExpander>
             
-            <controls3:FASettingsExpander Header="回声洞" IconSource="{commands:FluentIconSource &#xE55F;}">
+            <controls3:FASettingsExpander Header="{x:Static locAbout:Localization.EchoCaveHeader}" IconSource="{commands:FluentIconSource &#xE55F;}">
                 <controls3:FASettingsExpanderItem 
                     IsClickEnabled="True"
                     Click="Sayings_OnMouseLeftButtonDown">
@@ -313,7 +313,7 @@
                 </controls3:FASettingsExpanderItem>
             </controls3:FASettingsExpander>
             
-            <TextBlock Text="谨以此应用，献给现在或曾经陪伴着我的同学们。愿时光流转，各位能与所念之人重逢。"
+            <TextBlock Text="{x:Static locAbout:Localization.Dedication}"
                        Margin="0 8 0 0"
                        Classes="l-instructive" FontSize="13"
                        VerticalAlignment="Center" TextAlignment="Center"

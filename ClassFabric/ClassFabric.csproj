@@ -102,6 +102,10 @@
         <Folder Include="Assets\Localization\SettingsPage\Storage\" />
         <Folder Include="Assets\Localization\SettingsPage\Privacy\" />
         <Folder Include="Assets\Localization\SettingsPage\About\" />
+        <Folder Include="Assets\Localization\SettingsPage\Clock\" />
+        <Folder Include="Assets\Localization\SettingsPage\Refreshing\" />
+        <Folder Include="Assets\Localization\SettingsPage\Themes\" />
+        <Folder Include="Assets\Localization\SettingsPage\Plugins\" />
         <Folder Include="Models\Logging\" />
         <Folder Include="Models\Native\" />
         <Folder Include="Models\TimeRules\" />
@@ -120,6 +124,19 @@
         <AvaloniaResource Remove="Assets\Localization\SettingsPage\Localization.SettingsPage.resx" />
         <AvaloniaResource Remove="Assets\Localization\TrayMenu\Localization.TrayMenu.resx" />
         <AvaloniaResource Remove="Assets\Localization\Main\Localization.Main.resx" />
+        <!-- 文案资源组的默认 resx 由 SDK 通配嵌入编译；在此从 Avalonia 资源中排除，避免同一文件双重打包 -->
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Appearance\Localization.SettingsPage.Appearance.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Component\Localization.SettingsPage.Component.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Notification\Localization.SettingsPage.Notification.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Window\Localization.SettingsPage.Window.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Weather\Localization.SettingsPage.Weather.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Update\Localization.SettingsPage.Update.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Storage\Localization.SettingsPage.Storage.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\About\Localization.SettingsPage.About.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Clock\Localization.SettingsPage.Clock.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Refreshing\Localization.SettingsPage.Refreshing.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Themes\Localization.SettingsPage.Themes.resx" />
+        <AvaloniaResource Remove="Assets\Localization\SettingsPage\Plugins\Localization.SettingsPage.Plugins.resx" />
         <None Include="Assets\AppLogo.png" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" PublishFolderType="Resource" />
     </ItemGroup>
     <ItemGroup Condition="'$(ClassFabricBundleAssetsInAssembly)' == 'true'">
@@ -144,6 +161,19 @@
         <None Include="Assets\Localization\SettingsPage\Localization.SettingsPage.resx" />
         <None Include="Assets\Localization\TrayMenu\Localization.TrayMenu.resx" />
         <None Include="Assets\Localization\Main\Localization.Main.resx" />
+        <!-- 默认 resx 逐一登记为 None，便于在解决方案里查看；en/zh-Hans/zh-Hant 变体由 SDK 通配处理，无需逐个登记 -->
+        <None Include="Assets\Localization\SettingsPage\Appearance\Localization.SettingsPage.Appearance.resx" />
+        <None Include="Assets\Localization\SettingsPage\Component\Localization.SettingsPage.Component.resx" />
+        <None Include="Assets\Localization\SettingsPage\Notification\Localization.SettingsPage.Notification.resx" />
+        <None Include="Assets\Localization\SettingsPage\Window\Localization.SettingsPage.Window.resx" />
+        <None Include="Assets\Localization\SettingsPage\Weather\Localization.SettingsPage.Weather.resx" />
+        <None Include="Assets\Localization\SettingsPage\Update\Localization.SettingsPage.Update.resx" />
+        <None Include="Assets\Localization\SettingsPage\Storage\Localization.SettingsPage.Storage.resx" />
+        <None Include="Assets\Localization\SettingsPage\About\Localization.SettingsPage.About.resx" />
+        <None Include="Assets\Localization\SettingsPage\Clock\Localization.SettingsPage.Clock.resx" />
+        <None Include="Assets\Localization\SettingsPage\Refreshing\Localization.SettingsPage.Refreshing.resx" />
+        <None Include="Assets\Localization\SettingsPage\Themes\Localization.SettingsPage.Themes.resx" />
+        <None Include="Assets\Localization\SettingsPage\Plugins\Localization.SettingsPage.Plugins.resx" />
     </ItemGroup>
     <ItemGroup Condition="'$(TrimAssets)'=='true'">
         <Resource Remove="Assets\Fonts\*.ttf" />

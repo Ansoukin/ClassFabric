@@ -14,6 +14,7 @@ using ClassIsland.Core.Models.Weather;
 using ClassIsland.Services;
 using ClassIsland.Shared;
 using ClassIsland.ViewModels.SettingsPages;
+using ClassFabric.Assets.Localization.SettingsPage.Weather;
 using FluentAvalonia.UI.Controls;
 using Microsoft.Extensions.Logging;
 
@@ -62,18 +63,18 @@ public partial class WeatherSettingsPage : SettingsPageBase
 
     private async void ButtonGetCurrentPos_OnClick(object sender, RoutedEventArgs e)
     {
-        var toast = this.ShowToastRef(new ToastMessage("正在定位...") { AutoClose = false });
+        var toast = this.ShowToastRef(new ToastMessage(Localization.LocatingToast) { AutoClose = false });
         try
         {
             await ViewModel.GetCurrentPositionAsync();
             toast.Close();
-            this.ShowSuccessToast("定位成功");
+            this.ShowSuccessToast(Localization.LocateSuccessToast);
         }
         catch (Exception exception)
         {
             toast.Close();
             Logger.LogError(exception, "无法获取当前位置");
-            this.ShowErrorToast($"无法获取当前位置：{exception.Message}");
+            this.ShowErrorToast(string.Format(Localization.GetCurrentPositionFailedFormat, exception.Message));
         }
     }
 
@@ -92,23 +93,23 @@ public partial class WeatherSettingsPage : SettingsPageBase
             {
                 if (result.IsPrecisionDegraded)
                 {
-                    this.ShowWarningToast($"此天气信息降级了坐标精度: {result.DegradedPrecision}位小数");
-                    this.ShowSuccessToast("天气刷新成功");
+                    this.ShowWarningToast(string.Format(Localization.WeatherPrecisionDegradedFormat, result.DegradedPrecision));
+                    this.ShowSuccessToast(Localization.WeatherRefreshSuccessToast);
                 }
                 else
                 {
-                    this.ShowSuccessToast("天气刷新成功");
+                    this.ShowSuccessToast(Localization.WeatherRefreshSuccessToast);
                 }
             }
             else
             {
-                this.ShowErrorToast($"天气刷新失败: {result.ErrorMessage}");
+                this.ShowErrorToast(string.Format(Localization.WeatherRefreshFailedFormat, result.ErrorMessage));
             }
         }
         catch (Exception exception)
         {
             Logger.LogError(exception, "天气刷新失败");
-            this.ShowErrorToast($"天气刷新失败: {exception.Message}");
+            this.ShowErrorToast(string.Format(Localization.WeatherRefreshFailedFormat, exception.Message));
         }
     }
 

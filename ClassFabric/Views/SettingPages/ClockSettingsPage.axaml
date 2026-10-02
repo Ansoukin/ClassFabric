@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ci="http://classfabric.tech/schemas/xaml/core"
+             xmlns:locClk="clr-namespace:ClassFabric.Assets.Localization.SettingsPage.Clock"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
              xmlns:local="clr-namespace:ClassIsland.Views.SettingPages"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -19,16 +20,16 @@
                            Classes="l-instructive"/>
             </StackPanel>
             <Separator Margin="0 12 0 4" />
-            <ci:IconText Glyph="&#xE4C4;" Text="时钟" Margin="0 0 0 4" />
+            <ci:IconText Glyph="&#xE4C4;" Text="{x:Static locClk:Localization.ClockHeader}" Margin="0 0 0 4" />
             <!-- 使用精确时间 -->
             <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE4C8;}" 
-                                        Header="使用精确时间"
-                                        Description="启用后，应用将使用从指定服务器同步的精确时间，而不是使用系统时间。"
+                                        Header="{x:Static locClk:Localization.UseExactTime}"
+                                        Description="{x:Static locClk:Localization.UseExactTimeDescription}"
                                         IsExpanded="{Binding ViewModel.SettingsService.Settings.IsExactTimeEnabled, Mode=OneWay}">
                 <controls:FASettingsExpander.Footer>
                     <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.IsExactTimeEnabled, Mode=TwoWay}"/>
                 </controls:FASettingsExpander.Footer>
-                <controls:FASettingsExpanderItem Content="时间服务器">
+                <controls:FASettingsExpanderItem Content="{x:Static locClk:Localization.TimeServer}">
                     <controls:FASettingsExpanderItem.Footer>
                         <TextBox VerticalAlignment="Stretch"
                               Text="{Binding ViewModel.SettingsService.Settings.ExactTimeServer}"
@@ -44,7 +45,7 @@
                                 Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
                                 HorizontalAlignment="Left"
                                 Click="ButtonSyncTimeNow_OnClick">
-                            <ci:IconText Glyph="&#xE0B5;" Text="立即同步"/>
+                            <ci:IconText Glyph="&#xE0B5;" Text="{x:Static locClk:Localization.SyncNow}"/>
                         </Button>
                     </controls:FASettingsExpanderItem.Footer>
                     <TextBlock Margin="0 6 0 0" Text="{Binding ViewModel.ExactTimeService.SyncStatusMessage}"
@@ -54,19 +55,19 @@
             
             <!-- 时间偏移 -->
             <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE4C4;}" 
-                                        Header="时间偏移"
-                                        Description="设定课程时间与实际时间的偏移值。增大偏移以抵消铃声提前，减小偏移以抵消铃声滞后。"
+                                        Header="{x:Static locClk:Localization.TimeOffset}"
+                                        Description="{x:Static locClk:Localization.TimeOffsetDescription}"
                                         IsExpanded="True">
                 <controls:FASettingsExpander.Footer>
-                    <ci:Field Suffix="秒">
+                    <ci:Field Suffix="{x:Static locClk:Localization.SecondUnit}">
                         <controls:FANumberBox VerticalAlignment="Center"
                                              MinWidth="147"
                                              SpinButtonPlacementMode="Inline"
                                              Value="{Binding ViewModel.SettingsService.Settings.TimeOffsetSeconds, Converter={x:Static ci:NotNaNConverter.Instance}}" />
                     </ci:Field>
                 </controls:FASettingsExpander.Footer>
-                <controls:FASettingsExpanderItem Content="自动时间偏移"
-                                                Description="若启用，每天自动以设定的增量值调整时间偏移量。"
+                <controls:FASettingsExpanderItem Content="{x:Static locClk:Localization.AutoTimeOffset}"
+                                                Description="{x:Static locClk:Localization.AutoTimeOffsetDescription}"
                                                 IconSource="{ci:FluentIconSource &#xE4D2;}">
 
                     <controls:FASettingsExpanderItem.Footer>
@@ -75,7 +76,7 @@
                                           Margin="8 -8 0 0"
                                           VerticalAlignment="Center"
                                           IsChecked="{Binding ViewModel.SettingsService.Settings.IsTimeAutoAdjustEnabled}"/>
-                            <ci:Field Suffix="秒" VerticalAlignment="Center">
+                            <ci:Field Suffix="{x:Static locClk:Localization.SecondUnit}" VerticalAlignment="Center">
                                 <controls:FANumberBox
                                     MinWidth="147"
                                     SpinButtonPlacementMode="Inline"
@@ -85,7 +86,7 @@
                         </DockPanel>
                     </controls:FASettingsExpanderItem.Footer>
                 </controls:FASettingsExpanderItem>
-                <controls:FASettingsExpanderItem Content="对齐铃声"
+                <controls:FASettingsExpanderItem Content="{x:Static locClk:Localization.AlignBell}"
                                                 IsClickEnabled="True"
                                                 Click="ButtonAdjustTime_OnClick"/>
             </controls:FASettingsExpander>
