@@ -1185,11 +1185,14 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             await File.WriteAllTextAsync(Path.Combine(Environment.CurrentDirectory, ".destroy"), "");
             File.Delete(Path.Combine(appPath, ".partial"));
             foreach (var deployment in Directory.GetDirectories(root)
-                         .Where(x => Path.GetFileName(x).StartsWith("app") 
+                         .Where(x => Path.GetFileName(x).StartsWith("app")
                                      && Path.GetFullPath(Path.Combine(root, x)) != Path.GetFullPath(Environment.CurrentDirectory)
-                                     && File.Exists(Path.Combine(x, ".current"))))
+                                     && Path.GetFullPath(Path.Combine(root, x)) != Path.GetFullPath(appPath)))
             {
+                // 顺手把其余部署目录也标记为待清扫：只摘 .current 的话，手动解压覆盖出来的
+                // 无标记旧目录永远清不掉，旧版文件会一直赖在磁盘上。
                 File.Delete(Path.Combine(deployment, ".current"));
+                await File.WriteAllTextAsync(Path.Combine(deployment, ".destroy"), "");
             }
 
             Settings.LastUpdateStatus = UpdateStatus.UpdateDeployed;
@@ -1408,6 +1411,16 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
 
         await File.WriteAllTextAsync(Path.Combine(root, uniqueName, ".current"), "");
         await File.WriteAllTextAsync(Path.Combine(Environment.CurrentDirectory, ".destroy"), "");
+        // 只认 .destroy 的清扫有个死角：手动解压覆盖或更早版本留下的旧部署目录没有任何标记，
+        // 永远清不掉，旧版文件就一直赖在磁盘上。部署新版本时把其余部署目录统统标记掉，
+        // 下次启动就只剩这一份。用户数据在 Package 根（Config/Profiles 与部署目录平级），不在此列。
+        foreach (var stale in Directory.GetDirectories(root)
+                     .Where(x => Path.GetFileName(x).StartsWith("app")
+                                 && Path.GetFullPath(Path.Combine(root, x)) != Path.GetFullPath(Path.Combine(root, uniqueName))
+                                 && Path.GetFullPath(Path.Combine(root, x)) != Path.GetFullPath(Environment.CurrentDirectory)))
+        {
+            await File.WriteAllTextAsync(Path.Combine(stale, ".destroy"), "");
+        }
         Settings.LastUpdateStatus = UpdateStatus.UpdateDeployed;
         ClearPendingUpdate();
         Logger.LogInformation("部署成功");
