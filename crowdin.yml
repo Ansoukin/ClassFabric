@@ -1,0 +1,145 @@
+# Crowdin 本地化同步配置（GitHub App 与 CLI 共用）
+# 凭据不入库：GitHub App 在集成界面授权；CLI 走环境变量 CROWDIN_PROJECT_ID / CROWDIN_PERSONAL_TOKEN
+# 维护规则：新增本地化资源组时，在 files 中追加对应条目（源文件=无语言后缀的默认 resx，即简中文案）
+# 首次同步校验点：源字符串总数应为 734（Main 86 + SettingsPage 41 + General 57 + TrayMenu 8 + 设置页 12 组 542）
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_PERSONAL_TOKEN
+base_path: .
+base_url: 'https://api.crowdin.com'
+preserve_hierarchy: true
+
+pull_request_title: 'chore(i18n): Crowdin 翻译更新'
+pull_request_labels:
+  - crowdin
+  - i18n
+
+files:
+  # ── 主界面、设置窗口、托盘菜单（语言设置基础设施同期资源组）──
+  - source: /ClassFabric/Assets/Localization/Main/Localization.Main.resx
+    translation: /ClassFabric/Assets/Localization/Main/Localization.Main.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Localization.SettingsPage.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Localization.SettingsPage.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/General/Localization.SettingsPage.General.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/General/Localization.SettingsPage.General.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/TrayMenu/Localization.TrayMenu.resx
+    translation: /ClassFabric/Assets/Localization/TrayMenu/Localization.TrayMenu.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  # ── 各设置页资源组 ──
+  - source: /ClassFabric/Assets/Localization/SettingsPage/About/Localization.SettingsPage.About.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/About/Localization.SettingsPage.About.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Appearance/Localization.SettingsPage.Appearance.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Appearance/Localization.SettingsPage.Appearance.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Clock/Localization.SettingsPage.Clock.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Clock/Localization.SettingsPage.Clock.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Component/Localization.SettingsPage.Component.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Component/Localization.SettingsPage.Component.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Notification/Localization.SettingsPage.Notification.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Notification/Localization.SettingsPage.Notification.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Plugins/Localization.SettingsPage.Plugins.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Plugins/Localization.SettingsPage.Plugins.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Refreshing/Localization.SettingsPage.Refreshing.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Refreshing/Localization.SettingsPage.Refreshing.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Storage/Localization.SettingsPage.Storage.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Storage/Localization.SettingsPage.Storage.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Themes/Localization.SettingsPage.Themes.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Themes/Localization.SettingsPage.Themes.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Update/Localization.SettingsPage.Update.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Update/Localization.SettingsPage.Update.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Weather/Localization.SettingsPage.Weather.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Weather/Localization.SettingsPage.Weather.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/SettingsPage/Window/Localization.SettingsPage.Window.resx
+    translation: /ClassFabric/Assets/Localization/SettingsPage/Window/Localization.SettingsPage.Window.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        zh-TW: zh-Hant
