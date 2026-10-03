@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,209 +117,241 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <!-- ========== 分区标题 ========== -->
-  <data name="SectionBasic" xml:space="preserve">
+  <data name="BasicSection" xml:space="preserve">
     <value>基本</value>
-    <comment>外观设置-"基本"分区标题</comment>
   </data>
-  <data name="SectionTheme" xml:space="preserve">
-    <value>主題</value>
-    <comment>外观设置-"主题"分区标题</comment>
-  </data>
-  <data name="SectionFont" xml:space="preserve">
-    <value>字體</value>
-    <comment>外观设置-"字体"分区标题</comment>
-  </data>
-  <!-- ========== 界面缩放/背景/圆角/行间隔/分体主界面 ========== -->
-  <data name="ScaleHeader" xml:space="preserve">
+  <data name="UiScale" xml:space="preserve">
     <value>界面縮放</value>
-    <comment>外观-"界面缩放"</comment>
   </data>
-  <data name="ScaleDescription" xml:space="preserve">
+  <data name="UiScaleDescription" xml:space="preserve">
     <value>主界面的縮放大小。</value>
-    <comment>界面缩放-描述</comment>
   </data>
-  <data name="BackgroundColorHeader" xml:space="preserve">
+  <data name="BackgroundColor" xml:space="preserve">
     <value>背景顏色</value>
-    <comment>外观-"背景颜色"</comment>
   </data>
   <data name="BackgroundColorDescription" xml:space="preserve">
     <value>主界面背景顏色，禁用時將根據應用主題自動選擇顏色。</value>
-    <comment>背景颜色-描述</comment>
   </data>
-  <data name="BackgroundOpacityHeader" xml:space="preserve">
+  <data name="BackgroundOpacity" xml:space="preserve">
     <value>背景不透明度</value>
-    <comment>外观-"背景不透明度"</comment>
   </data>
   <data name="BackgroundOpacityDescription" xml:space="preserve">
-    <value>主介面背景的不透明度。</value>
-    <comment>背景不透明度-描述</comment>
+    <value>主界面背景的不透明度。</value>
   </data>
-  <data name="CornerRadiusHeader" xml:space="preserve">
+  <data name="CornerRadius" xml:space="preserve">
     <value>圓角半徑</value>
-    <comment>外观-"圆角半径"</comment>
   </data>
   <data name="CornerRadiusDescription" xml:space="preserve">
     <value>主界面圓角半徑，調至最大數值時左右邊緣為半圓。</value>
-    <comment>圆角半径-描述</comment>
   </data>
-  <data name="LineSpacingHeader" xml:space="preserve">
+  <data name="LineSpacing" xml:space="preserve">
     <value>行間隔</value>
-    <comment>外观-"行间隔"</comment>
   </data>
   <data name="LineSpacingDescription" xml:space="preserve">
     <value>主界面行間間隔。</value>
-    <comment>行间隔-描述</comment>
   </data>
-  <data name="SeparateMainWindowHeader" xml:space="preserve">
+  <data name="SeparateMainWindow" xml:space="preserve">
     <value>分體主界面</value>
-    <comment>外观-"分体主界面"</comment>
   </data>
-  <data name="SeparateMainWindowDescription" xml:space="preserve">
+  <data name="SeparateMainWindowMainDescription" xml:space="preserve">
     <value>啓用後組件會分開。</value>
-    <comment>分体主界面-描述</comment>
   </data>
-  <!-- ========== 应用主题与主题色来源 ========== -->
-  <data name="AppThemeHeader" xml:space="preserve">
-    <value>應用主題</value>
-    <comment>外观-"应用主题"</comment>
+  <data name="SeparateMainWindowLineDescription" xml:space="preserve">
+    <value>啓用後主界面會分開。</value>
   </data>
-  <data name="AppThemeDescription" xml:space="preserve">
-    <value>控制應用的明暗主題。</value>
-    <comment>应用主题-描述</comment>
+  <data name="MoreAppearanceSettings" xml:space="preserve">
+    <value>更多外觀設置</value>
   </data>
-  <data name="ThemeFollowSystem" xml:space="preserve">
-    <value>跟隨系統</value>
-    <comment>应用主题-"跟随系统"</comment>
+  <data name="DragToAddHint" xml:space="preserve">
+    <value>將組件拖動到主界面上即可添加組件。</value>
   </data>
-  <data name="ThemeLight" xml:space="preserve">
-    <value>明亮</value>
-    <comment>应用主题-"明亮"</comment>
+  <data name="SelectOrDragToAddHint" xml:space="preserve">
+    <value>選擇要添加的組件，或將組件拖動到主界面上即可添加組件。</value>
   </data>
-  <data name="ThemeDark" xml:space="preserve">
-    <value>黑暗</value>
-    <comment>应用主题-"黑暗"</comment>
+  <data name="Add" xml:space="preserve">
+    <value>添加</value>
   </data>
-  <data name="ThemeColorSourceHeader" xml:space="preserve">
-    <value>主題色來源</value>
-    <comment>外观-"主题色来源"</comment>
+  <data name="ComponentSettingsTab" xml:space="preserve">
+    <value>組件設置</value>
   </data>
-  <data name="ThemeColorSourceDescription" xml:space="preserve">
-    <value>控制應用選取主題色的途徑。</value>
-    <comment>主题色来源-描述</comment>
+  <data name="AdvancedSettingsTab" xml:space="preserve">
+    <value>高級設置</value>
   </data>
-  <data name="ColorSourceCustom" xml:space="preserve">
-    <value>自定義</value>
-    <comment>主题色来源-"自定义"</comment>
+  <data name="Edit" xml:space="preserve">
+    <value>編輯…</value>
   </data>
-  <data name="ColorSourceWallpaper" xml:space="preserve">
-    <value>系統壁紙</value>
-    <comment>主题色来源-"系统壁纸"</comment>
+  <data name="EditRulesetTip" xml:space="preserve">
+    <value>編輯規則集…</value>
   </data>
-  <data name="ColorSourceSystem" xml:space="preserve">
-    <value>系統</value>
-    <comment>主题色来源-"系统"</comment>
+  <data name="HideOnRule" xml:space="preserve">
+    <value>按規則隱藏</value>
   </data>
-  <data name="ColorSourceScreen" xml:space="preserve">
-    <value>屏幕主題色</value>
-    <comment>主题色来源-"屏幕主题色"</comment>
+  <data name="MainWindowLineSettings" xml:space="preserve">
+    <value>主界面行設置</value>
   </data>
-  <data name="AccentColorHeader" xml:space="preserve">
-    <value>強調色</value>
-    <comment>外观-"强调色"</comment>
+  <data name="Inherit" xml:space="preserve">
+    <value>繼承</value>
   </data>
-  <data name="AccentColorDescription" xml:space="preserve">
-    <value>應用顯示強調元素時所使用的顏色。</value>
-    <comment>强调色-描述</comment>
+  <data name="Disabled" xml:space="preserve">
+    <value>禁用</value>
   </data>
-  <!-- ========== 字体 ========== -->
-  <data name="CustomFontHeader" xml:space="preserve">
-    <value>自定義字體</value>
-    <comment>外观-"自定义字体"</comment>
+  <data name="Enabled" xml:space="preserve">
+    <value>啓用</value>
   </data>
-  <data name="CustomFontDescription" xml:space="preserve">
-    <value>自定義主界面顯示課表的字體。</value>
-    <comment>自定义字体-描述</comment>
+  <data name="Appearance" xml:space="preserve">
+    <value>外觀</value>
   </data>
-  <data name="DefaultFontOption" xml:space="preserve">
-    <value>HarmonyOS Sans SC（默認）</value>
-    <comment>字体下拉框默认字体项（含"（默认）"后缀，字体名保留原文）</comment>
+  <data name="Opacity" xml:space="preserve">
+    <value>不透明度</value>
   </data>
-  <data name="CustomFontWeightHeader" xml:space="preserve">
-    <value>自定義字重</value>
-    <comment>外观-"自定义字重"</comment>
+  <data name="OpacityLineDescription" xml:space="preserve">
+    <value>主界面行整體的不透明度。</value>
   </data>
-  <data name="CustomFontWeightDescription" xml:space="preserve">
-    <value>自定義主界面顯示的字體的字重，需要對應字體支持。</value>
-    <comment>自定义字重-描述</comment>
+  <data name="CustomBackgroundEffect" xml:space="preserve">
+    <value>自定義背景效果</value>
   </data>
-  <data name="FontSizeHeader" xml:space="preserve">
+  <data name="CustomBackgroundEffectDescription" xml:space="preserve">
+    <value>自定義主界面的背景效果，僅在較新版本的 Windows 上可用，可能會產生額外性能開銷。</value>
+  </data>
+  <data name="MaterialType" xml:space="preserve">
+    <value>材質類型</value>
+  </data>
+  <data name="MaterialAcrylic" xml:space="preserve">
+    <value>亞克力</value>
+  </data>
+  <data name="MaterialLiquidGlass" xml:space="preserve">
+    <value>類液態玻璃</value>
+  </data>
+  <data name="MaterialMica" xml:space="preserve">
+    <value>雲母</value>
+  </data>
+  <data name="CustomBackgroundColor" xml:space="preserve">
+    <value>自定義背景顏色</value>
+  </data>
+  <data name="CustomBackgroundColorDescription" xml:space="preserve">
+    <value>當前主界面行背景顏色，禁用時將使用上級默認值。</value>
+  </data>
+  <data name="CustomBackgroundOpacity" xml:space="preserve">
+    <value>自定義背景不透明度</value>
+  </data>
+  <data name="CustomBackgroundOpacityDescription" xml:space="preserve">
+    <value>當前主界面行的背景的不透明度，禁用將使用上級默認值。</value>
+  </data>
+  <data name="CustomBackgroundCornerRadius" xml:space="preserve">
+    <value>自定義背景圓角半徑</value>
+  </data>
+  <data name="CustomBackgroundCornerRadiusDescription" xml:space="preserve">
+    <value>當前主界面行背景圓角半徑，調至最大數值時左右邊緣為半圓。</value>
+  </data>
+  <data name="FontSection" xml:space="preserve">
+    <value>字體</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
     <value>字體大小</value>
-    <comment>外观-"字体大小"</comment>
   </data>
   <data name="FontSizeDescription" xml:space="preserve">
-    <value>調整主界面上各類字體的大小。</value>
-    <comment>字体大小-描述</comment>
+    <value>調整組件上各類字體的大小，將覆蓋【外觀】設置和主界面行中設置的字體大小。</value>
   </data>
-  <data name="SecondaryFontSize" xml:space="preserve">
+  <data name="SecondaryFontSizeName" xml:space="preserve">
     <value>次級字體大小</value>
-    <comment>字体大小-"次级字体大小"</comment>
   </data>
   <data name="SecondaryFontSizeDescription" xml:space="preserve">
     <value>時間點附加信息等</value>
-    <comment>次级字体大小-描述</comment>
   </data>
-  <data name="BodyFontSize" xml:space="preserve">
+  <data name="BodyFontSizeName" xml:space="preserve">
     <value>正文字體大小</value>
-    <comment>字体大小-"正文字体大小"</comment>
   </data>
   <data name="BodyFontSizeDescription" xml:space="preserve">
     <value>主界面默認字體大小</value>
-    <comment>正文字体大小-描述</comment>
   </data>
-  <data name="EmphasizedFontSize" xml:space="preserve">
+  <data name="EmphasizedFontSizeName" xml:space="preserve">
     <value>強調字體大小</value>
-    <comment>字体大小-"强调字体大小"</comment>
   </data>
   <data name="EmphasizedFontSizeDescription" xml:space="preserve">
     <value>課程表、時鐘、提醒標題、天氣預報等內容</value>
-    <comment>强调字体大小-描述</comment>
   </data>
-  <data name="LargeFontSize" xml:space="preserve">
+  <data name="LargeFontSizeName" xml:space="preserve">
     <value>大號字體大小</value>
-    <comment>字体大小-"大号字体大小"</comment>
   </data>
   <data name="LargeFontSizeDescription" xml:space="preserve">
     <value>課程預報等內容</value>
-    <comment>大号字体大小-描述</comment>
   </data>
-  <data name="FontColorHeader" xml:space="preserve">
+  <data name="FontColor" xml:space="preserve">
     <value>字體顏色</value>
-    <comment>外观-"字体颜色"</comment>
   </data>
   <data name="FontColorDescription" xml:space="preserve">
-    <value>調整字體顏色，將覆蓋主題默認值。</value>
-    <comment>字体颜色-描述</comment>
+    <value>調整字體顏色，將覆蓋【外觀】設置和主界面行中設置的值。</value>
   </data>
-  <!-- ========== 字体预览 ========== -->
-  <data name="FontPreviewTab" xml:space="preserve">
-    <value>字體預覽</value>
-    <comment>字体预览-"字体预览"标签页</comment>
+  <data name="SelectProfileToEnable" xml:space="preserve">
+    <value>選擇要啓用的組件配置</value>
   </data>
-  <data name="FontPreviewSample" xml:space="preserve">
-    <value>當有一天你不再糾結於答案 當我們又重逢於天涯或滄海
-語文 數學 英語 歷史 物理 政治 化學 生物 地理
-the quick brown fox jumps over a lazy dog
-THE QUICK BROWN FOX JUMPS OVER A LAZY DOG
-8:00-12:00 1234567890 +-*/</value>
-    <comment>字体预览示例文本（覆盖中英字形与数字，各语言同文）</comment>
+  <data name="RefreshTip" xml:space="preserve">
+    <value>重新整理</value>
   </data>
-  <data name="FontSizePreviewTab" xml:space="preserve">
-    <value>字號預覽</value>
-    <comment>字体预览-"字号预览"标签页</comment>
+  <data name="NewTip" xml:space="preserve">
+    <value>新建…</value>
   </data>
-  <data name="FontSizeTestText" xml:space="preserve">
-    <value>測試文本</value>
-    <comment>字号预览-测试文本标签</comment>
+  <data name="OpenConfigFolderTip" xml:space="preserve">
+    <value>打開配置文件夾…</value>
+  </data>
+  <data name="DuplicateTip" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="ComponentsLibrary" xml:space="preserve">
+    <value>組件庫</value>
+  </data>
+  <data name="EditRuleset" xml:space="preserve">
+    <value>編輯規則集</value>
+  </data>
+  <data name="CreateProfileTitle" xml:space="preserve">
+    <value>創建組件配置</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>創建</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ProfileNameLabel" xml:space="preserve">
+    <value>組件名</value>
+  </data>
+  <data name="CannotDeleteLoadedProfileToast" xml:space="preserve">
+    <value>無法刪除已載入或將要載入的組件配置。</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>刪除組件配置</value>
+  </data>
+  <data name="DeleteProfileConfirmFmt" xml:space="preserve">
+    <value>您確定要刪除組件配置 {0} 嗎？此操作無法撤銷，組件配置內的組件信息都將被刪除！</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="RenameProfileTitle" xml:space="preserve">
+    <value>重新命名組件配置方案</value>
+  </data>
+  <data name="ProfileSchemeNameLabel" xml:space="preserve">
+    <value>組件配置方案名稱</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>重新命名</value>
+  </data>
+  <data name="RenameConflictToast" xml:space="preserve">
+    <value>無法重新命名組件配置，因為已存在一個相同名稱的組件配置。</value>
+  </data>
+  <data name="ViewChildComponentsTip" xml:space="preserve">
+    <value>查看子組件</value>
+  </data>
+  <data name="MoreOptionsTip" xml:space="preserve">
+    <value>更多選項…</value>
+  </data>
+  <data name="WrapToNewContainer" xml:space="preserve">
+    <value>包裹到新容器</value>
+  </data>
+  <data name="CreateDuplicateTip" xml:space="preserve">
+    <value>創建副本</value>
+  </data>
+  <data name="ContainerCannotContainSelfToast" xml:space="preserve">
+    <value>容器組件不能包含自己。</value>
   </data>
 </root>

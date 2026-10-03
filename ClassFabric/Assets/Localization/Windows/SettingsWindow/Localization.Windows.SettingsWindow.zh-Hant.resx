@@ -117,139 +117,85 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmptyScheduleFile" xml:space="preserve">
-    <value>The content of the Class Widgets 2 schedule file is empty.</value>
+  <data name="RestartRequiredTitle" xml:space="preserve">
+    <value>需要重啓</value>
   </data>
-  <data name="MissingMetaInfo" xml:space="preserve">
-    <value>The schedule file is missing meta information.</value>
+  <data name="RestartRequiredContent" xml:space="preserve">
+    <value>部分設定需要重啓以應用更改。</value>
   </data>
-  <data name="UnsupportedVersionFmt" xml:space="preserve">
-    <value>Class Widgets 2 schedule version {0} is not supported; only version {1} is currently supported.</value>
+  <data name="RestartButton" xml:space="preserve">
+    <value>重啓</value>
   </data>
-  <data name="MaxWeekCycleInvalid" xml:space="preserve">
-    <value>meta.maxWeekCycle must be greater than 0.</value>
+  <data name="CancelLabel" xml:space="preserve">
+    <value>取消</value>
   </data>
-  <data name="InvalidStartDate" xml:space="preserve">
-    <value>meta.startDate is not a valid yyyy-MM-dd date.</value>
+  <data name="ExitManagementFailedTitle" xml:space="preserve">
+    <value>無法退出管理</value>
   </data>
-  <data name="WeekCycleTruncationWarningFmt" xml:space="preserve">
-    <value>The schedule uses a {0}-week rotation, exceeding the {1} weeks supported by ClassFabric; only weekly schedules, non-cycle-specific overrides, and specified-date schedules will be retained</value>
+  <data name="ExitManagementFailedMessageFmt" xml:space="preserve">
+    <value>無法退出管理：{0}</value>
   </data>
-  <data name="WarningInvalidSubject" xml:space="preserve">
-    <value>Subjects missing an ID or name will be skipped</value>
+  <data name="ExportingDiagnosticsMessage" xml:space="preserve">
+    <value>正在導出診斷信息…</value>
   </data>
-  <data name="WarningDuplicateSubject" xml:space="preserve">
-    <value>For subjects with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="ExportDiagnosticsHeader" xml:space="preserve">
+    <value>導出診斷信息</value>
   </data>
-  <data name="WarningUnsupportedSubjectFields" xml:space="preserve">
-    <value>Subject icon, color, or location fields are not supported and will be ignored</value>
+  <data name="ExportDiagnosticsContent" xml:space="preserve">
+    <value>您正在導出應用的診斷數據。導出的診斷數據將包含應用 30 天內產生的日誌、系統及環境信息、應用設定、當前載入的設定檔、所使用的插件（如有）和集控設定（如有），可能包含敏感信息，請在導出後注意檢查。</value>
   </data>
-  <data name="WarningInvalidTimeline" xml:space="preserve">
-    <value>Timelines missing an ID will be skipped</value>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>繼續</value>
   </data>
-  <data name="WarningDuplicateTimeline" xml:space="preserve">
-    <value>For timelines with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="ExportDiagnosticsPickerTitle" xml:space="preserve">
+    <value>導出診斷數據</value>
   </data>
-  <data name="EntityTimeline" xml:space="preserve">
-    <value>Timeline</value>
+  <data name="ArchiveFileType" xml:space="preserve">
+    <value>壓縮文件</value>
   </data>
-  <data name="WarningInvalidDate" xml:space="preserve">
-    <value>Invalid specified dates will be ignored; if a timeline has no valid weekday information, the entire timeline will also be skipped</value>
+  <data name="CannotOpenDiagnosticsFile" xml:space="preserve">
+    <value>無法打開所選診斷數據文件。</value>
   </data>
-  <data name="WarningTimelineWithoutDay" xml:space="preserve">
-    <value>Timelines without a valid weekday or specified date will be skipped</value>
+  <data name="DiagnosticsExportedToPathFmt" xml:space="preserve">
+    <value>已導出診斷信息到 {0}。</value>
   </data>
-  <data name="WarningOversizedCycleTimeline" xml:space="preserve">
-    <value>Cycle-specific timelines in an oversized rotation will be skipped</value>
+  <data name="DiagnosticsExportFailed" xml:space="preserve">
+    <value>無法導出診斷信息</value>
   </data>
-  <data name="WarningInvalidEntry" xml:space="preserve">
-    <value>Schedule entries missing an ID will be skipped</value>
+  <data name="DesktopShortcutCreated" xml:space="preserve">
+    <value>已創建桌面快捷方式。</value>
   </data>
-  <data name="WarningDuplicateEntry" xml:space="preserve">
-    <value>For schedule entries with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="DesktopShortcutFailed" xml:space="preserve">
+    <value>無法創建桌面快捷方式</value>
   </data>
-  <data name="WarningUnknownEntryType" xml:space="preserve">
-    <value>Schedule entries with unknown types will be skipped</value>
+  <data name="StartMenuShortcutCreated" xml:space="preserve">
+    <value>已創建開始菜單快捷方式。</value>
   </data>
-  <data name="WarningInvalidEntryTime" xml:space="preserve">
-    <value>Schedule entries with invalid start or end times will be skipped</value>
+  <data name="StartMenuShortcutFailed" xml:space="preserve">
+    <value>無法創建開始菜單快捷方式</value>
   </data>
-  <data name="WarningUnknownEntrySubject" xml:space="preserve">
-    <value>A schedule entry references a nonexistent subject; the subject reference will be ignored</value>
+  <data name="QuickClassChangeShortcutHeader" xml:space="preserve">
+    <value>創建快捷換課快捷方式</value>
   </data>
-  <data name="WarningInvalidOverrideId" xml:space="preserve">
-    <value>Overrides missing an ID or with duplicate IDs will be skipped</value>
+  <data name="QuickClassChangeNeedsUrlProtocolContent" xml:space="preserve">
+    <value>快捷換課快捷方式需要啓用【註冊 Url 協議】選項才能工作。您要啓用它嗎？</value>
   </data>
-  <data name="WarningUnknownOverrideEntry" xml:space="preserve">
-    <value>Overrides that reference nonexistent schedule entries will be skipped</value>
+  <data name="EnableButton" xml:space="preserve">
+    <value>啓用</value>
   </data>
-  <data name="EntityOverride" xml:space="preserve">
-    <value>Override</value>
+  <data name="QuickClassChangeSuggestedFileName" xml:space="preserve">
+    <value>快捷換課.url</value>
   </data>
-  <data name="WarningOversizedCycleOverride" xml:space="preserve">
-    <value>Cycle-specific overrides in an oversized rotation will be skipped</value>
+  <data name="ShortcutFileType" xml:space="preserve">
+    <value>捷徑</value>
   </data>
-  <data name="WarningUnknownOverrideSubject" xml:space="preserve">
-    <value>An override references a nonexistent subject; the subject modification will be ignored</value>
+  <data name="CannotOpenShortcutFile" xml:space="preserve">
+    <value>無法打開所選快捷方式文件。</value>
   </data>
-  <data name="WarningInvalidOverrideTime" xml:space="preserve">
-    <value>Invalid start or end times in an override will be ignored</value>
+  <data name="QuickClassChangeExportedToPathFmt" xml:space="preserve">
+    <value>已創建快捷換課圖標到 {0}。</value>
   </data>
-  <data name="WarningDuplicateDateTimeline" xml:space="preserve">
-    <value>For multiple timelines with the same specified date, only the first will be retained</value>
-  </data>
-  <data name="NamedDateSuffix" xml:space="preserve">
-    <value>(Specified date)</value>
-  </data>
-  <data name="WarningInvalidDayFmt" xml:space="preserve">
-    <value>Invalid weekday values in {0} will be ignored</value>
-  </data>
-  <data name="WarningUnknownWeeksFmt" xml:space="preserve">
-    <value>Unknown week rotation values in {0} will cause that element to be skipped</value>
-  </data>
-  <data name="WarningOutOfRangeWeeksFmt" xml:space="preserve">
-    <value>Out-of-range week rotation values in {0} will be ignored</value>
-  </data>
-  <data name="DayMonday" xml:space="preserve">
-    <value>Monday</value>
-  </data>
-  <data name="DayTuesday" xml:space="preserve">
-    <value>Tuesday</value>
-  </data>
-  <data name="DayWednesday" xml:space="preserve">
-    <value>Wednesday</value>
-  </data>
-  <data name="DayThursday" xml:space="preserve">
-    <value>Thursday</value>
-  </data>
-  <data name="DayFriday" xml:space="preserve">
-    <value>Friday</value>
-  </data>
-  <data name="DaySaturday" xml:space="preserve">
-    <value>Saturday</value>
-  </data>
-  <data name="DaySunday" xml:space="preserve">
-    <value>Sunday</value>
-  </data>
-  <data name="DayUnknown" xml:space="preserve">
-    <value>Unknown weekday</value>
-  </data>
-  <data name="OddWeekLabel" xml:space="preserve">
-    <value>Odd week</value>
-  </data>
-  <data name="EvenWeekLabel" xml:space="preserve">
-    <value>Even week</value>
-  </data>
-  <data name="OddEvenWeekSuffixFmt" xml:space="preserve">
-    <value>({0})</value>
-  </data>
-  <data name="WeekCycleSuffixFmt" xml:space="preserve">
-    <value>(Week {0}/{1})</value>
-  </data>
-  <data name="WarningCountSuffixFmt" xml:space="preserve">
-    <value>({0} items)</value>
-  </data>
-  <data name="WarningInvalidResolvedTime" xml:space="preserve">
-    <value>Schedule entries with invalid start or end times after applying overrides will be skipped</value>
+  <data name="QuickClassChangeExportFailed" xml:space="preserve">
+    <value>無法創建快捷換課圖標</value>
   </data>
 </root>

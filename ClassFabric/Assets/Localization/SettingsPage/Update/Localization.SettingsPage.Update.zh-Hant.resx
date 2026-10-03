@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,143 +119,190 @@
   </resheader>
   <data name="DownloadProgressTitle" xml:space="preserve">
     <value>下載進度</value>
+    <comment>下载状态抽屉-标题</comment>
   </data>
   <data name="DownloadStatePending" xml:space="preserve">
     <value>等待下載</value>
+    <comment>下载任务状态：等待下载</comment>
   </data>
   <data name="DownloadStateDownloading" xml:space="preserve">
     <value>正在下載</value>
+    <comment>下载任务状态：正在下载</comment>
   </data>
   <data name="DownloadStateCompleted" xml:space="preserve">
     <value>完成</value>
+    <comment>下载任务状态：完成</comment>
   </data>
   <data name="DownloadStateError" xml:space="preserve">
     <value>錯誤</value>
+    <comment>下载任务状态：错误</comment>
   </data>
   <data name="CheckUpdateFailed" xml:space="preserve">
     <value>檢查更新失敗</value>
+    <comment>状态标题：检查更新失败</comment>
   </data>
   <data name="LastCheckUpdateTimePrefix" xml:space="preserve">
     <value>上次檢查更新時間：</value>
+    <comment>状态行前缀：上次检查更新时间</comment>
   </data>
   <data name="NewVersionFoundPrefix" xml:space="preserve">
     <value>發現新版本：</value>
+    <comment>状态行前缀：发现新版本</comment>
   </data>
   <data name="UpdateErrorInfoBarTitle" xml:space="preserve">
     <value>更新時發生錯誤。</value>
+    <comment>InfoBar 标题：更新时发生错误</comment>
   </data>
   <data name="DeployErrorInfoBarTitle" xml:space="preserve">
     <value>部署時發生錯誤，請稍後重試。</value>
+    <comment>InfoBar 标题：部署更新时发生错误</comment>
   </data>
   <data name="RestartToApplyInfoBarTitle" xml:space="preserve">
     <value>更新將在重啓後應用</value>
+    <comment>InfoBar 标题：更新将在重启后应用</comment>
   </data>
   <data name="RestartToApplyInfoBarMessage" xml:space="preserve">
     <value>已成功部署更新，下次啓動應用時將啓動新版本。您也可以現在重啓以立即使用新版本的 ClassFabric。</value>
+    <comment>InfoBar 内容：更新已部署待重启</comment>
   </data>
   <data name="CheckForUpdates" xml:space="preserve">
     <value>檢查更新</value>
+    <comment>按钮：检查更新</comment>
   </data>
   <data name="DownloadAndInstall" xml:space="preserve">
     <value>下載並安裝</value>
+    <comment>按钮：下载并安装</comment>
   </data>
   <data name="DownloadOnly" xml:space="preserve">
     <value>僅下載</value>
+    <comment>菜单项：仅下载</comment>
   </data>
   <data name="InstallUpdate" xml:space="preserve">
     <value>安裝更新</value>
+    <comment>按钮：安装更新</comment>
   </data>
   <data name="RestartToApplyUpdate" xml:space="preserve">
     <value>重啓並應用更新</value>
+    <comment>按钮：重启并应用更新</comment>
   </data>
   <data name="ShowDownloadStatus" xml:space="preserve">
     <value>查看下載狀態</value>
+    <comment>按钮：查看下载状态</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
+    <comment>按钮：取消下载</comment>
   </data>
   <data name="ChangeLogTab" xml:space="preserve">
     <value>更新日誌</value>
+    <comment>Tab：更新日志</comment>
   </data>
   <data name="UpdateSettingsTab" xml:space="preserve">
     <value>更新設置</value>
+    <comment>Tab：更新设置</comment>
   </data>
   <data name="AlreadyLatestEasterEgg" xml:space="preserve">
     <value>已經是最新版啦，真棒，誇誇你哦♪</value>
+    <comment>更新日志页空态文案（彩蛋版，:no-easter-eggs 之外显示）</comment>
   </data>
   <data name="AlreadyLatest" xml:space="preserve">
     <value>真棒，您已更新到最新版本！</value>
+    <comment>更新日志页空态文案（常规版）</comment>
   </data>
   <data name="ViewChangeLog" xml:space="preserve">
     <value>查看更新日誌</value>
+    <comment>按钮：查看更新日志</comment>
   </data>
   <data name="UpdateMode" xml:space="preserve">
     <value>更新模式</value>
+    <comment>更新设置-"更新模式"</comment>
   </data>
   <data name="UpdateModeDescription" xml:space="preserve">
     <value>設置應用的更新模式。</value>
+    <comment>更新模式-描述</comment>
   </data>
   <data name="UpdateModeNever" xml:space="preserve">
     <value>從不自動更新</value>
+    <comment>更新模式-"从不自动更新"</comment>
   </data>
   <data name="UpdateModeCheckAndNotify" xml:space="preserve">
     <value>自動檢查更新並通知</value>
+    <comment>更新模式-"自动检查更新并通知"</comment>
   </data>
   <data name="UpdateModeCheckAndDownload" xml:space="preserve">
     <value>自動檢查更新並下載</value>
+    <comment>更新模式-"自动检查更新并下载"</comment>
   </data>
   <data name="UpdateModeCheckAndInstall" xml:space="preserve">
     <value>自動檢查更新並安裝</value>
+    <comment>更新模式-"自动检查更新并安装"</comment>
   </data>
   <data name="UpdateSource" xml:space="preserve">
     <value>更新源</value>
+    <comment>更新设置-"更新源"</comment>
   </data>
   <data name="UpdateSourceDescription" xml:space="preserve">
     <value>控制獲取應用更新信息的來源。GitHub Releases 為默認更新源，匿名訪問受 GitHub 接口速率限制。</value>
+    <comment>更新源-描述</comment>
   </data>
   <data name="UpdateSourceGitHubFallback" xml:space="preserve">
     <value>GitHub Releases（失敗時回退到 ClassIsland 分發中心）</value>
+    <comment>更新源-"GitHub Releases（失败时回退）"选项</comment>
   </data>
   <data name="UpdateSourceDistributionCenterCompat" xml:space="preserve">
     <value>ClassIsland 分發中心（兼容，不推薦）</value>
+    <comment>更新源-"ClassIsland 分发中心（兼容，不推荐）"选项</comment>
   </data>
   <data name="UpdateSourceExplanation" xml:space="preserve">
     <value>GitHub Releases 直接從 ClassFabric 的 GitHub 倉庫讀取發行版本，無需依賴 ClassIsland 分發中心。選擇帶有「回退」的選項時，若 GitHub 檢查失敗，會改用 ClassIsland 分發中心（兼容保留）。</value>
+    <comment>更新源-补充说明</comment>
   </data>
   <data name="UpdateChannel" xml:space="preserve">
     <value>更新通道</value>
+    <comment>更新设置-"更新通道"</comment>
   </data>
   <data name="UpdateChannelDescription" xml:space="preserve">
     <value>控制應用的更新目標版本。ClassFabric 當前以預覽版發行為主，因此默認使用預覽版通道；版本的發行節奏和穩定程度因更新通道而異，部分通道可能包含不穩定的功能，請謹慎使用。</value>
+    <comment>更新通道-描述</comment>
   </data>
   <data name="ForceCheckUpdate" xml:space="preserve">
     <value>強制檢查更新</value>
+    <comment>更新通道-"强制检查更新"操作</comment>
   </data>
   <data name="ForceCheckUpdateDescription" xml:space="preserve">
     <value>強制將應用更新到當前通道上的最新版本，即使此版本比應用當前版本更舊。</value>
+    <comment>强制检查更新-描述</comment>
   </data>
   <data name="StatusUpToDate" xml:space="preserve">
     <value>您已更新到最新版本。</value>
+    <comment>状态标题：已是最新版本</comment>
   </data>
   <data name="StatusUpdateAvailable" xml:space="preserve">
     <value>檢測到更新。</value>
+    <comment>状态标题：检测到更新</comment>
   </data>
   <data name="StatusUpdateDownloaded" xml:space="preserve">
     <value>已準備好安裝更新。</value>
+    <comment>状态标题：已下载待安装</comment>
   </data>
   <data name="StatusUpdateDeployed" xml:space="preserve">
     <value>更新已就緒。</value>
+    <comment>状态标题：更新已部署待重启</comment>
   </data>
   <data name="WorkingStatusIdle" xml:space="preserve">
     <value>就緒</value>
+    <comment>工作状态：空闲</comment>
   </data>
   <data name="WorkingStatusCheckingUpdates" xml:space="preserve">
     <value>正在檢查更新…</value>
+    <comment>工作状态：正在检查更新</comment>
   </data>
   <data name="WorkingStatusDownloadingUpdates" xml:space="preserve">
     <value>正在下載更新…</value>
+    <comment>工作状态：正在下载更新</comment>
   </data>
   <data name="WorkingStatusExtractingUpdates" xml:space="preserve">
     <value>正在部署更新…</value>
+    <comment>工作状态：正在部署（解压）更新</comment>
   </data>
 </root>

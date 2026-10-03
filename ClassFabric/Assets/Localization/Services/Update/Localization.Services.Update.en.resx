@@ -117,4 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="UpdateSuccessTitle" xml:space="preserve">
+    <value>Update successful</value>
+  </data>
+  <data name="UpdateSuccessBodyFmt" xml:space="preserve">
+    <value>The app has been updated to {0}. Click to view details.</value>
+  </data>
+  <data name="InstallMethodNotSupportedMessage" xml:space="preserve">
+    <value>The current install method does not support in-app automatic updates. Please go to the project homepage to manually download and install the latest version.</value>
+  </data>
+  <data name="NewVersionFoundTitle" xml:space="preserve">
+    <value>New version found</value>
+  </data>
+  <data name="NewVersionFoundFooter" xml:space="preserve">
+    <value>Click to view details.</value>
+  </data>
+  <data name="NoAvailableUpdateSourceMessage" xml:space="preserve">
+    <value>No app update sources are available. Please check the update source settings.</value>
+  </data>
+  <data name="UpdatePackageMissingOnSourceFmt" xml:space="preserve">
+    <value>The latest version {1} on update source {0} does not provide an update package matching the current install method. Please try again later or go to the project homepage to download it manually.</value>
+  </data>
+  <data name="UnrecognizedVersionFromSourceFmt" xml:space="preserve">
+    <value>The update source returned an unrecognized version number: {0}</value>
+  </data>
+  <data name="ManifestSignatureVerificationFailed" xml:space="preserve">
+    <value>Manifest signature verification failed</value>
+  </data>
+  <data name="ManifestParseFailed" xml:space="preserve">
+    <value>Manifest parsing failed</value>
+  </data>
+  <data name="ManifestRootInvalid" xml:space="preserve">
+    <value>Invalid manifest component root directory</value>
+  </data>
+  <data name="FileHashMismatch" xml:space="preserve">
+    <value>Manifest hash does not match the one at download time; it may be corrupted</value>
+  </data>
+  <data name="UpdateNotForChannel" xml:space="preserve">
+    <value>The downloaded update does not apply to ClassFabric in the current subchannel</value>
+  </data>
+  <data name="FileSha512MismatchFmt" xml:space="preserve">
+    <value>SHA512 verification failed for file {0}/{1} </value>
+  </data>
+  <data name="InvalidFilePathInManifest" xml:space="preserve">
+    <value>Manifest contains an invalid file path</value>
+  </data>
+  <data name="DeploymentSourceNotFoundFmt" xml:space="preserve">
+    <value>Deployment source not found for file {0}/{1}</value>
+  </data>
+  <data name="PendingUpdateMissingPackageInfo" xml:space="preserve">
+    <value>The pending update is missing update package download information. Please check for updates again.</value>
+  </data>
+  <data name="DownloadedUpdatePackageNotFound" xml:space="preserve">
+    <value>Downloaded update package not found. Please download the update again.</value>
+  </data>
+  <data name="NoDeploymentDirectoryMessage" xml:space="preserve">
+    <value>No standalone package directory was detected. The current installation type cannot deploy updates in place. Please manually download the installation package to update.</value>
+  </data>
+  <data name="UpdatePackageStructureInvalid" xml:space="preserve">
+    <value>Invalid update package structure: application deployment directory not found.</value>
+  </data>
 </root>

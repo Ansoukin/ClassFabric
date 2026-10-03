@@ -210,6 +210,9 @@
   <data name="DurationMinutesFmt" xml:space="preserve">
     <value>{0} minutes</value>
   </data>
+  <data name="DurationHoursFmt" xml:space="preserve">
+    <value>{0} hour(s)</value>
+  </data>
   <data name="DurationShortMinutesFmt" xml:space="preserve">
     <value>{0} points</value>
   </data>

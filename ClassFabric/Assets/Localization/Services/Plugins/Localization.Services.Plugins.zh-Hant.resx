@@ -117,139 +117,91 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmptyScheduleFile" xml:space="preserve">
-    <value>The content of the Class Widgets 2 schedule file is empty.</value>
+  <data name="IncompatibleApiVersionFmt" xml:space="preserve">
+    <value>不兼容的 API 版本 {0}。插件的 API 版本需要至少為 2.0.0.0 才能被當前版本的 ClassFabric 加載。</value>
   </data>
-  <data name="MissingMetaInfo" xml:space="preserve">
-    <value>The schedule file is missing meta information.</value>
+  <data name="PluginIncompatibleDefault" xml:space="preserve">
+    <value>外掛不相容</value>
   </data>
-  <data name="UnsupportedVersionFmt" xml:space="preserve">
-    <value>Class Widgets 2 schedule version {0} is not supported; only version {1} is currently supported.</value>
+  <data name="PluginNotFoundFmt" xml:space="preserve">
+    <value>找不到外掛 {0}。</value>
   </data>
-  <data name="MaxWeekCycleInvalid" xml:space="preserve">
-    <value>meta.maxWeekCycle must be greater than 0.</value>
+  <data name="CircularDependencyDetectedFmt" xml:space="preserve">
+    <value>檢測到循環依賴：{0}</value>
   </data>
-  <data name="InvalidStartDate" xml:space="preserve">
-    <value>meta.startDate is not a valid yyyy-MM-dd date.</value>
+  <data name="MissingDependencyFmt" xml:space="preserve">
+    <value>插件 {0} 依賴的必選插件 {1} 不存在或處於無法加載狀態。</value>
   </data>
-  <data name="WeekCycleTruncationWarningFmt" xml:space="preserve">
-    <value>The schedule uses a {0}-week rotation, exceeding the {1} weeks supported by ClassFabric; only weekly schedules, non-cycle-specific overrides, and specified-date schedules will be retained</value>
+  <data name="IncompatibleUiFrameworkMessage" xml:space="preserve">
+    <value>該插件可能基於不兼容的 UI 框架版本構建。請確認插件與當前 ClassFabric 版本兼容，或聯繫插件作者更新。</value>
   </data>
-  <data name="WarningInvalidSubject" xml:space="preserve">
-    <value>Subjects missing an ID or name will be skipped</value>
+  <data name="MissingMethodMessage" xml:space="preserve">
+    <value>該插件缺少必要的方法引用，可能是版本不兼容導致的。請聯繫插件作者進行更新。</value>
   </data>
-  <data name="WarningDuplicateSubject" xml:space="preserve">
-    <value>For subjects with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="MissingAssemblyMessage" xml:space="preserve">
+    <value>該插件缺少依賴的程序集。請確認插件完整性，或聯繫插件作者。</value>
   </data>
-  <data name="WarningUnsupportedSubjectFields" xml:space="preserve">
-    <value>Subject icon, color, or location fields are not supported and will be ignored</value>
+  <data name="LoadFailedMessage" xml:space="preserve">
+    <value>該插件加載失敗。請確認插件版本與當前 ClassFabric 版本兼容，或聯繫插件作者。</value>
   </data>
-  <data name="WarningInvalidTimeline" xml:space="preserve">
-    <value>Timelines missing an ID will be skipped</value>
+  <data name="DiagnosticsManifestHeader" xml:space="preserve">
+    <value>=== 插件清單 ===</value>
   </data>
-  <data name="WarningDuplicateTimeline" xml:space="preserve">
-    <value>For timelines with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="DiagnosticsPluginIdFmt" xml:space="preserve">
+    <value>外掛 ID：{0}</value>
   </data>
-  <data name="EntityTimeline" xml:space="preserve">
-    <value>Timeline</value>
+  <data name="DiagnosticsPluginNameFmt" xml:space="preserve">
+    <value>插件名稱: {0}</value>
   </data>
-  <data name="WarningInvalidDate" xml:space="preserve">
-    <value>Invalid specified dates will be ignored; if a timeline has no valid weekday information, the entire timeline will also be skipped</value>
+  <data name="DiagnosticsPluginVersionFmt" xml:space="preserve">
+    <value>外掛版本：{0}</value>
   </data>
-  <data name="WarningTimelineWithoutDay" xml:space="preserve">
-    <value>Timelines without a valid weekday or specified date will be skipped</value>
+  <data name="DiagnosticsApiVersionFmt" xml:space="preserve">
+    <value>API 版本：{0}</value>
   </data>
-  <data name="WarningOversizedCycleTimeline" xml:space="preserve">
-    <value>Cycle-specific timelines in an oversized rotation will be skipped</value>
+  <data name="DiagnosticsEntranceAssemblyFmt" xml:space="preserve">
+    <value>入口組件：{0}</value>
   </data>
-  <data name="WarningInvalidEntry" xml:space="preserve">
-    <value>Schedule entries missing an ID will be skipped</value>
+  <data name="DiagnosticsFailureHeader" xml:space="preserve">
+    <value>=== 插件加載失敗診斷信息 ===</value>
   </data>
-  <data name="WarningDuplicateEntry" xml:space="preserve">
-    <value>For schedule entries with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="DiagnosticsRuntimeHeader" xml:space="preserve">
+    <value>=== 運行時環境 ===</value>
   </data>
-  <data name="WarningUnknownEntryType" xml:space="preserve">
-    <value>Schedule entries with unknown types will be skipped</value>
+  <data name="DiagnosticsClassFabricVersionFmt" xml:space="preserve">
+    <value>ClassFabric 版本：{0}</value>
   </data>
-  <data name="WarningInvalidEntryTime" xml:space="preserve">
-    <value>Schedule entries with invalid start or end times will be skipped</value>
+  <data name="DiagnosticsAvaloniaVersionFmt" xml:space="preserve">
+    <value>Avalonia 版本：{0}</value>
   </data>
-  <data name="WarningUnknownEntrySubject" xml:space="preserve">
-    <value>A schedule entry references a nonexistent subject; the subject reference will be ignored</value>
+  <data name="DiagnosticsFluentAvaloniaVersionFmt" xml:space="preserve">
+    <value>FluentAvalonia 版本：{0}</value>
   </data>
-  <data name="WarningInvalidOverrideId" xml:space="preserve">
-    <value>Overrides missing an ID or with duplicate IDs will be skipped</value>
+  <data name="DiagnosticsExceptionHeader" xml:space="preserve">
+    <value>=== 異常信息 ===</value>
   </data>
-  <data name="WarningUnknownOverrideEntry" xml:space="preserve">
-    <value>Overrides that reference nonexistent schedule entries will be skipped</value>
+  <data name="DiagnosticsExceptionTypeFmt" xml:space="preserve">
+    <value>異常類型: {0}</value>
   </data>
-  <data name="EntityOverride" xml:space="preserve">
-    <value>Override</value>
+  <data name="DiagnosticsExceptionMessageFmt" xml:space="preserve">
+    <value>異常消息: {0}</value>
   </data>
-  <data name="WarningOversizedCycleOverride" xml:space="preserve">
-    <value>Cycle-specific overrides in an oversized rotation will be skipped</value>
+  <data name="DiagnosticsStackTraceHeader" xml:space="preserve">
+    <value>=== 堆棧跟蹤 ===</value>
   </data>
-  <data name="WarningUnknownOverrideSubject" xml:space="preserve">
-    <value>An override references a nonexistent subject; the subject modification will be ignored</value>
+  <data name="DiagnosticsInnerExceptionHeader" xml:space="preserve">
+    <value>=== 內部異常 ===</value>
   </data>
-  <data name="WarningInvalidOverrideTime" xml:space="preserve">
-    <value>Invalid start or end times in an override will be ignored</value>
+  <data name="DiagnosticsInnerTypeFmt" xml:space="preserve">
+    <value>類型: {0}</value>
   </data>
-  <data name="WarningDuplicateDateTimeline" xml:space="preserve">
-    <value>For multiple timelines with the same specified date, only the first will be retained</value>
+  <data name="DiagnosticsInnerMessageFmt" xml:space="preserve">
+    <value>訊息：{0}</value>
   </data>
-  <data name="NamedDateSuffix" xml:space="preserve">
-    <value>(Specified date)</value>
+  <data name="NotLoadedLabel" xml:space="preserve">
+    <value>未加載</value>
   </data>
-  <data name="WarningInvalidDayFmt" xml:space="preserve">
-    <value>Invalid weekday values in {0} will be ignored</value>
-  </data>
-  <data name="WarningUnknownWeeksFmt" xml:space="preserve">
-    <value>Unknown week rotation values in {0} will cause that element to be skipped</value>
-  </data>
-  <data name="WarningOutOfRangeWeeksFmt" xml:space="preserve">
-    <value>Out-of-range week rotation values in {0} will be ignored</value>
-  </data>
-  <data name="DayMonday" xml:space="preserve">
-    <value>Monday</value>
-  </data>
-  <data name="DayTuesday" xml:space="preserve">
-    <value>Tuesday</value>
-  </data>
-  <data name="DayWednesday" xml:space="preserve">
-    <value>Wednesday</value>
-  </data>
-  <data name="DayThursday" xml:space="preserve">
-    <value>Thursday</value>
-  </data>
-  <data name="DayFriday" xml:space="preserve">
-    <value>Friday</value>
-  </data>
-  <data name="DaySaturday" xml:space="preserve">
-    <value>Saturday</value>
-  </data>
-  <data name="DaySunday" xml:space="preserve">
-    <value>Sunday</value>
-  </data>
-  <data name="DayUnknown" xml:space="preserve">
-    <value>Unknown weekday</value>
-  </data>
-  <data name="OddWeekLabel" xml:space="preserve">
-    <value>Odd week</value>
-  </data>
-  <data name="EvenWeekLabel" xml:space="preserve">
-    <value>Even week</value>
-  </data>
-  <data name="OddEvenWeekSuffixFmt" xml:space="preserve">
-    <value>({0})</value>
-  </data>
-  <data name="WeekCycleSuffixFmt" xml:space="preserve">
-    <value>(Week {0}/{1})</value>
-  </data>
-  <data name="WarningCountSuffixFmt" xml:space="preserve">
-    <value>({0} items)</value>
-  </data>
-  <data name="WarningInvalidResolvedTime" xml:space="preserve">
-    <value>Schedule entries with invalid start or end times after applying overrides will be skipped</value>
+  <data name="UnknownLabel" xml:space="preserve">
+    <value>不明</value>
   </data>
 </root>

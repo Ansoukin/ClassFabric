@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,235 +119,312 @@
   </resheader>
   <data name="ProjectHomepage" xml:space="preserve">
     <value>項目主頁</value>
+    <comment>插件详情-"项目主页"链接</comment>
   </data>
   <data name="StatusLoaded" xml:space="preserve">
     <value>已加載</value>
+    <comment>插件状态-"已加载"</comment>
   </data>
   <data name="StatusDisabled" xml:space="preserve">
     <value>已禁用</value>
+    <comment>插件状态-"已禁用"</comment>
   </data>
   <data name="StatusError" xml:space="preserve">
     <value>錯誤</value>
+    <comment>插件状态-"错误"</comment>
   </data>
   <data name="StatusNotLoaded" xml:space="preserve">
     <value>未加載</value>
+    <comment>插件状态-"未加载"</comment>
   </data>
   <data name="EnabledLabel" xml:space="preserve">
     <value>已啓用</value>
+    <comment>插件详情-"已启用"复选框</comment>
   </data>
   <data name="Update" xml:space="preserve">
     <value>更新</value>
+    <comment>"更新"按钮及其工具提示（通用）</comment>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>移除</value>
+    <comment>"移除"按钮</comment>
   </data>
   <data name="UndoRemove" xml:space="preserve">
     <value>撤銷移除</value>
+    <comment>"撤销移除"按钮</comment>
   </data>
   <data name="Install" xml:space="preserve">
     <value>安裝</value>
+    <comment>"安装"按钮、对话框按钮及其工具提示（通用）</comment>
   </data>
   <data name="RestartToApply" xml:space="preserve">
     <value>重啓以應用更改</value>
+    <comment>"重启以应用更改"按钮及其工具提示</comment>
   </data>
   <data name="UnsupportedOSWarning" xml:space="preserve">
     <value>此插件未聲明支持當前所運行的操作系統。此插件可能不能正常按預期工作。</value>
+    <comment>信息条/安装预览：操作系统不兼容警告</comment>
   </data>
   <data name="InstallFailedNetworkMessage" xml:space="preserve">
     <value>無法安裝插件，請檢查您的網絡連接。更換插件鏡像源可能可以解決此問題。</value>
+    <comment>信息条：安装失败（网络）</comment>
   </data>
   <data name="ChangePluginMirror" xml:space="preserve">
     <value>更換插件鏡像源</value>
+    <comment>"更换插件镜像源"链接</comment>
   </data>
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>更多選項…</value>
+    <comment>"更多选项"按钮工具提示</comment>
   </data>
   <data name="PackPlugin" xml:space="preserve">
     <value>打包插件</value>
+    <comment>"打包插件"菜单项/文件对话框标题</comment>
   </data>
   <data name="OpenPluginFolder" xml:space="preserve">
     <value>打開插件文件夾…</value>
+    <comment>"打开插件文件夹…"菜单项</comment>
   </data>
   <data name="OpenPluginConfigFolder" xml:space="preserve">
     <value>打開配置文件夾…</value>
+    <comment>"打开配置文件夹…"菜单项</comment>
   </data>
   <data name="OverviewTab" xml:space="preserve">
     <value>概覽</value>
+    <comment>插件详情-"概览"选项卡</comment>
   </data>
   <data name="ErrorInfoTab" xml:space="preserve">
     <value>錯誤信息</value>
+    <comment>插件详情-"错误信息"选项卡</comment>
   </data>
   <data name="DependenciesTab" xml:space="preserve">
     <value>依賴項</value>
+    <comment>插件详情-"依赖项"选项卡</comment>
   </data>
   <data name="PluginIdColumnHeader" xml:space="preserve">
     <value>插件 ID</value>
+    <comment>依赖项列表-"插件 ID"列头</comment>
   </data>
   <data name="RequiredColumnHeader" xml:space="preserve">
     <value>必選？</value>
+    <comment>依赖项列表-"必选？"列头</comment>
   </data>
   <data name="PluginUpdateSettingsTitle" xml:space="preserve">
     <value>插件更新設置</value>
+    <comment>插件更新设置抽屉标题</comment>
   </data>
   <data name="NotifyOnPluginUpdates" xml:space="preserve">
     <value>插件有更新時通知我</value>
+    <comment>复选框：插件有更新时通知我</comment>
   </data>
   <data name="AutoUpdatePlugins" xml:space="preserve">
     <value>自動更新插件</value>
+    <comment>复选框：自动更新插件</comment>
   </data>
   <data name="ManagePluginSources" xml:space="preserve">
     <value>管理插件源</value>
+    <comment>管理插件源抽屉标题</comment>
   </data>
   <data name="BuiltinPluginSources" xml:space="preserve">
     <value>內置插件源</value>
+    <comment>管理插件源抽屉-"内置插件源"小节</comment>
   </data>
   <data name="BuiltinMirrorLabel" xml:space="preserve">
     <value>內置插件源鏡像</value>
+    <comment>管理插件源抽屉-"内置插件源镜像"字段</comment>
   </data>
   <data name="IgnoreSslErrors" xml:space="preserve">
     <value>忽略 SSL/TLS 證書錯誤</value>
+    <comment>复选框：忽略 SSL/TLS 证书错误</comment>
   </data>
   <data name="IgnoreSslToolTip" xml:space="preserve">
     <value>禁用插件鏡像證書校驗, 將降低安全性。</value>
+    <comment>忽略 SSL/TLS 证书错误工具提示（保留原文半角逗号与空格）</comment>
   </data>
   <data name="CustomPluginSources" xml:space="preserve">
     <value>自定義插件源</value>
+    <comment>管理插件源抽屉-"自定义插件源"小节</comment>
   </data>
   <data name="Add" xml:space="preserve">
     <value>添加</value>
+    <comment>"添加"按钮</comment>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>刪除</value>
+    <comment>"删除"按钮</comment>
   </data>
   <data name="MirrorColumnHeader" xml:space="preserve">
     <value>鏡像</value>
+    <comment>自定义插件源列表-"镜像"列头</comment>
   </data>
   <data name="UnknownSourceRiskWarning" xml:space="preserve">
     <value>安裝未知來源的插件可能存在風險。</value>
+    <comment>自定义插件源列表脚注：未知来源风险</comment>
   </data>
   <data name="NoMatchingPlugins" xml:space="preserve">
     <value>找不到符合條件的插件，請調整篩選條件後重試</value>
+    <comment>已安装列表-无匹配结果占位文本</comment>
   </data>
   <data name="NoPluginsInstalled" xml:space="preserve">
     <value>還沒有安裝任何插件，不妨去插件市場看看吧</value>
+    <comment>已安装列表-空列表占位文本</comment>
   </data>
   <data name="GoToMarket" xml:space="preserve">
     <value>前往插件市場</value>
+    <comment>"前往插件市场"按钮</comment>
   </data>
   <data name="PluginDetails" xml:space="preserve">
     <value>插件詳細</value>
+    <comment>插件详情区标题</comment>
   </data>
   <data name="SearchPluginsWatermark" xml:space="preserve">
     <value>搜索插件…</value>
+    <comment>插件搜索框水印</comment>
   </data>
   <data name="MarketTab" xml:space="preserve">
     <value>市場</value>
+    <comment>"市场"选项卡</comment>
   </data>
   <data name="InstalledTab" xml:space="preserve">
     <value>已安裝</value>
+    <comment>"已安装"选项卡</comment>
   </data>
   <data name="ReloadFromCache" xml:space="preserve">
     <value>從緩存重載插件源</value>
+    <comment>菜单项：从缓存重载插件源</comment>
   </data>
   <data name="ManagePluginSourcesMenu" xml:space="preserve">
     <value>管理插件源…</value>
+    <comment>菜单项：管理插件源…</comment>
   </data>
   <data name="PluginUpdateSettingsMenu" xml:space="preserve">
     <value>插件更新設置…</value>
+    <comment>菜单项：插件更新设置…</comment>
   </data>
   <data name="InstallFromLocal" xml:space="preserve">
     <value>從本地安裝…</value>
+    <comment>菜单项：从本地安装…</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
+    <comment>"刷新"按钮</comment>
   </data>
   <data name="DownloadsToolTip" xml:space="preserve">
     <value>下載量</value>
+    <comment>市场卡片-下载量图标工具提示</comment>
   </data>
   <data name="PendingRemoveToolTip" xml:space="preserve">
     <value>此插件將在重啓後被移除。</value>
+    <comment>市场卡片状态图标工具提示：待移除</comment>
   </data>
   <data name="RestartRequiredToolTip" xml:space="preserve">
     <value>插件需要重啓以應用更改。</value>
+    <comment>市场卡片状态图标工具提示：需要重启</comment>
   </data>
   <data name="LoadErrorToolTip" xml:space="preserve">
     <value>加載此插件時出現錯誤。</value>
+    <comment>市场卡片状态图标工具提示：加载错误</comment>
   </data>
   <data name="ShowDiagnosticToolTip" xml:space="preserve">
     <value>顯示診斷信息</value>
+    <comment>市场卡片状态图标工具提示：显示诊断信息</comment>
   </data>
   <data name="UpdateAvailableToolTip" xml:space="preserve">
     <value>更新可用。</value>
+    <comment>市场卡片状态图标工具提示：更新可用</comment>
   </data>
   <data name="AlreadyInstalledToolTip" xml:space="preserve">
     <value>此插件已安裝。</value>
+    <comment>市场卡片状态图标工具提示：已安装</comment>
   </data>
   <data name="EnablePluginToolTip" xml:space="preserve">
     <value>啓用插件</value>
+    <comment>市场卡片操作按钮工具提示：启用插件</comment>
   </data>
   <data name="PluginsHeader" xml:space="preserve">
     <value>插件</value>
+    <comment>插件页欢迎屏标题</comment>
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>歡迎使用插件！插件可以擴展 ClassFabric 的功能，比如添加一個組件，或者和其它軟件聯動，等等。</value>
+    <comment>插件页欢迎屏-欢迎语</comment>
   </data>
   <data name="MarketWarningText" xml:space="preserve">
     <value>需要注意，插件可以以 ClassFabric 的身份使用各項系統資源並請求任意權限，還可以自由訪問設備上的所有文件。請不要安裝來路不明的插件，開發者也無法保證市場所提供的插件都是絕對安全的。ClassFabric 開發團隊對使用插件造成的一切後果概不負責。</value>
+    <comment>插件页欢迎屏-安全提示</comment>
   </data>
   <data name="AgreeAndStart" xml:space="preserve">
     <value>同意並開始使用插件</value>
+    <comment>"同意并开始使用插件"按钮</comment>
   </data>
   <data name="ParsingText" xml:space="preserve">
     <value>Parsing...</value>
+    <comment>解析插件包时进度文本（保留半角三点）</comment>
   </data>
   <data name="DragFilesPrefix" xml:space="preserve">
     <value>共 </value>
+    <comment>拖拽解析结果-数量前段（末尾含空格）</comment>
   </data>
   <data name="DragFilesMiddle" xml:space="preserve">
     <value> 個文件，識別到 </value>
+    <comment>拖拽解析结果-数量中段（两端含空格）</comment>
   </data>
   <data name="DragFilesSuffix" xml:space="preserve">
     <value> 個插件包</value>
+    <comment>拖拽解析结果-数量后段（开头含空格）</comment>
   </data>
   <data name="ReadmeLoadFailed" xml:space="preserve">
     <value>> 無法加載文檔：{0}</value>
+    <comment>README 加载失败的 Markdown 占位文本，{0}=异常消息（开头的"&gt; "为 Markdown 引用语法）</comment>
   </data>
   <data name="CannotOpenPackageFile" xml:space="preserve">
     <value>無法打開所選插件包文件。</value>
+    <comment>异常消息：无法打开所选插件包文件</comment>
   </data>
   <data name="PackPluginFailed" xml:space="preserve">
     <value>無法打包插件 {0}</value>
+    <comment>吐司：打包插件失败，{0}=插件 ID</comment>
   </data>
   <data name="NoValidPackagesToast" xml:space="preserve">
     <value>未能從選擇的文件中解析出任何可安裝的插件包。</value>
+    <comment>吐司：未解析出可安装的插件包</comment>
   </data>
   <data name="InstallConfirmTitle" xml:space="preserve">
     <value>確認安裝?</value>
+    <comment>对话框标题：确认安装（保留半角问号）</comment>
   </data>
   <data name="CannotReopenPackageFile" xml:space="preserve">
     <value>無法重新打開所選插件包。</value>
+    <comment>异常消息：无法重新打开所选插件包</comment>
   </data>
   <data name="InstallPluginFailedToast" xml:space="preserve">
     <value>無法安裝插件 {0}</value>
+    <comment>吐司：安装插件失败，{0}=文件路径</comment>
   </data>
   <data name="InstallSuccessToast" xml:space="preserve">
     <value>成功安裝了 {0} 個插件。</value>
+    <comment>吐司：安装成功，{0}=数量</comment>
   </data>
   <data name="InstallFailedToast" xml:space="preserve">
     <value>安裝失敗：{0} 個插件。</value>
+    <comment>吐司：安装失败，{0}=数量</comment>
   </data>
   <data name="InstallFromLocalDialogTitle" xml:space="preserve">
     <value>從本地安裝插件</value>
+    <comment>文件选择对话框标题：从本地安装插件</comment>
   </data>
   <data name="UnsupportedOSDialogTitle" xml:space="preserve">
     <value>操作系統不受該插件支持</value>
+    <comment>对话框标题：操作系统不受该插件支持</comment>
   </data>
   <data name="UnsupportedOSContent" xml:space="preserve">
     <value>此插件所聲明支持的操作系統並未包括當前所運行的操作系統。
 如果繼續安裝此插件，此插件將可能無法正常工作。您要繼續安裝此插件嗎？</value>
+    <comment>对话框内容：操作系统不兼容确认（值内换行为真实换行符）</comment>
   </data>
   <data name="MissingDependenciesTitle" xml:space="preserve">
     <value>缺少依賴項</value>
+    <comment>对话框标题：缺少依赖项</comment>
   </data>
   <data name="MissingDependenciesContent" xml:space="preserve">
     <value>此插件的部分必選依賴項未安裝且無法從市場獲取。如果繼續安裝此插件，此插件將可能無法工作。您要繼續安裝此插件嗎？
@@ -355,48 +432,63 @@
 
 未找到的必選依賴項：
 {0}</value>
+    <comment>对话框内容：缺少依赖项确认，{0}=依赖项清单（值内换行为真实换行符）</comment>
   </data>
   <data name="DialogContinue" xml:space="preserve">
     <value>繼續</value>
+    <comment>对话框"继续"按钮</comment>
   </data>
   <data name="DiagnosticDefaultMessage" xml:space="preserve">
     <value>該插件加載失敗。請確認插件與當前 ClassFabric 版本兼容，或聯繫插件作者。</value>
+    <comment>插件诊断对话框-默认用户消息</comment>
   </data>
   <data name="NoTechnicalDetails" xml:space="preserve">
     <value>未記錄技術詳情。</value>
+    <comment>插件诊断对话框-无技术详情占位</comment>
   </data>
   <data name="PluginDiagnosticTitle" xml:space="preserve">
     <value>插件加載診斷</value>
+    <comment>插件诊断对话框标题</comment>
   </data>
   <data name="CopyDiagnosticInfo" xml:space="preserve">
     <value>複製診斷信息</value>
+    <comment>对话框"复制诊断信息"按钮</comment>
   </data>
   <data name="CopyFailedToast" xml:space="preserve">
     <value>複製失敗，請全選診斷信息文本後手動複製。</value>
+    <comment>吐司：复制诊断信息失败</comment>
   </data>
   <data name="DiagnosticCopiedToast" xml:space="preserve">
     <value>診斷信息已複製到剪貼板</value>
+    <comment>吐司：诊断信息复制成功</comment>
   </data>
   <data name="LoadPluginSourceFailedToast" xml:space="preserve">
     <value>無法加載插件源</value>
+    <comment>吐司：无法加载插件源</comment>
   </data>
   <data name="DragInvalidHint" xml:space="preserve">
     <value>僅支持 {0} 插件包</value>
+    <comment>拖拽提示：格式不支持，{0}=扩展名</comment>
   </data>
   <data name="DragInvalidSubHint" xml:space="preserve">
     <value>請拖入插件包文件</value>
+    <comment>拖拽提示：请拖入插件包文件</comment>
   </data>
   <data name="DragInstallHintOne" xml:space="preserve">
     <value>鬆開以安裝 1 個插件</value>
+    <comment>拖拽提示：松开以安装 1 个插件</comment>
   </data>
   <data name="DragInstallHintMany" xml:space="preserve">
     <value>鬆開以安裝 {0} 個插件</value>
+    <comment>拖拽提示：松开以安装多个插件，{0}=数量</comment>
   </data>
   <data name="DragIgnoreFiles" xml:space="preserve">
     <value>將忽略 {0} 個不受支持的文件</value>
+    <comment>拖拽提示：忽略不受支持的文件，{0}=数量</comment>
   </data>
   <data name="DragMultiSelectHint" xml:space="preserve">
     <value>支持多選（{0}）</value>
+    <comment>拖拽提示：支持多选，{0}=扩展名</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>

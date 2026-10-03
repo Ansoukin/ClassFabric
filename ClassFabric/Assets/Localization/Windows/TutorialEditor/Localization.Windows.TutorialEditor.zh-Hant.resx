@@ -117,139 +117,175 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmptyScheduleFile" xml:space="preserve">
-    <value>The content of the Class Widgets 2 schedule file is empty.</value>
+  <data name="EditorTitle" xml:space="preserve">
+    <value>教程編輯器</value>
   </data>
-  <data name="MissingMetaInfo" xml:space="preserve">
-    <value>The schedule file is missing meta information.</value>
+  <data name="TutorialGroup" xml:space="preserve">
+    <value>教程組</value>
   </data>
-  <data name="UnsupportedVersionFmt" xml:space="preserve">
-    <value>Class Widgets 2 schedule version {0} is not supported; only version {1} is currently supported.</value>
+  <data name="Title" xml:space="preserve">
+    <value>標題</value>
   </data>
-  <data name="MaxWeekCycleInvalid" xml:space="preserve">
-    <value>meta.maxWeekCycle must be greater than 0.</value>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
   </data>
-  <data name="InvalidStartDate" xml:space="preserve">
-    <value>meta.startDate is not a valid yyyy-MM-dd date.</value>
+  <data name="Tutorial" xml:space="preserve">
+    <value>教學課程</value>
   </data>
-  <data name="WeekCycleTruncationWarningFmt" xml:space="preserve">
-    <value>The schedule uses a {0}-week rotation, exceeding the {1} weeks supported by ClassFabric; only weekly schedules, non-cycle-specific overrides, and specified-date schedules will be retained</value>
+  <data name="WatermarkDefault" xml:space="preserve">
+    <value>（默認）</value>
   </data>
-  <data name="WarningInvalidSubject" xml:space="preserve">
-    <value>Subjects missing an ID or name will be skipped</value>
+  <data name="BasicTab" xml:space="preserve">
+    <value>基本</value>
   </data>
-  <data name="WarningDuplicateSubject" xml:space="preserve">
-    <value>For subjects with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="Paragraph" xml:space="preserve">
+    <value>段落</value>
   </data>
-  <data name="WarningUnsupportedSubjectFields" xml:space="preserve">
-    <value>Subject icon, color, or location fields are not supported and will be ignored</value>
+  <data name="TopLevelClassName" xml:space="preserve">
+    <value>TopLevel 類名</value>
   </data>
-  <data name="WarningInvalidTimeline" xml:space="preserve">
-    <value>Timelines missing an ID will be skipped</value>
+  <data name="EnableBarrier" xml:space="preserve">
+    <value>啟用屏障</value>
   </data>
-  <data name="WarningDuplicateTimeline" xml:space="preserve">
-    <value>For timelines with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="EnterEventTab" xml:space="preserve">
+    <value>進入事件</value>
   </data>
-  <data name="EntityTimeline" xml:space="preserve">
-    <value>Timeline</value>
+  <data name="Sentence" xml:space="preserve">
+    <value>語句</value>
   </data>
-  <data name="WarningInvalidDate" xml:space="preserve">
-    <value>Invalid specified dates will be ignored; if a timeline has no valid weekday information, the entire timeline will also be skipped</value>
+  <data name="Content" xml:space="preserve">
+    <value>內容</value>
   </data>
-  <data name="WarningTimelineWithoutDay" xml:space="preserve">
-    <value>Timelines without a valid weekday or specified date will be skipped</value>
+  <data name="HeroImage" xml:space="preserve">
+    <value>頭圖</value>
   </data>
-  <data name="WarningOversizedCycleTimeline" xml:space="preserve">
-    <value>Cycle-specific timelines in an oversized rotation will be skipped</value>
+  <data name="WatermarkDisabled" xml:space="preserve">
+    <value>（已停用）</value>
   </data>
-  <data name="WarningInvalidEntry" xml:space="preserve">
-    <value>Schedule entries missing an ID will be skipped</value>
+  <data name="Icon" xml:space="preserve">
+    <value>圖標</value>
   </data>
-  <data name="WarningDuplicateEntry" xml:space="preserve">
-    <value>For schedule entries with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="TargetSelectorLabel" xml:space="preserve">
+    <value>目標控件選擇器</value>
   </data>
-  <data name="WarningUnknownEntryType" xml:space="preserve">
-    <value>Schedule entries with unknown types will be skipped</value>
+  <data name="TeachingTipPlacement" xml:space="preserve">
+    <value>教學提示擺放模式</value>
   </data>
-  <data name="WarningInvalidEntryTime" xml:space="preserve">
-    <value>Schedule entries with invalid start or end times will be skipped</value>
+  <data name="PointToTarget" xml:space="preserve">
+    <value>指向目標</value>
   </data>
-  <data name="WarningUnknownEntrySubject" xml:space="preserve">
-    <value>A schedule entry references a nonexistent subject; the subject reference will be ignored</value>
+  <data name="HighlightTarget" xml:space="preserve">
+    <value>高亮目標</value>
   </data>
-  <data name="WarningInvalidOverrideId" xml:space="preserve">
-    <value>Overrides missing an ID or with duplicate IDs will be skipped</value>
+  <data name="ModalTarget" xml:space="preserve">
+    <value>使目標具有模態</value>
   </data>
-  <data name="WarningUnknownOverrideEntry" xml:space="preserve">
-    <value>Overrides that reference nonexistent schedule entries will be skipped</value>
+  <data name="WaitForNextCommand" xml:space="preserve">
+    <value>可等待被外部推動</value>
   </data>
-  <data name="EntityOverride" xml:space="preserve">
-    <value>Override</value>
+  <data name="UseLightDismiss" xml:space="preserve">
+    <value>使用 LightDismiss 代替右側按鈕</value>
   </data>
-  <data name="WarningOversizedCycleOverride" xml:space="preserve">
-    <value>Cycle-specific overrides in an oversized rotation will be skipped</value>
+  <data name="RightButton" xml:space="preserve">
+    <value>右側按鈕</value>
   </data>
-  <data name="WarningUnknownOverrideSubject" xml:space="preserve">
-    <value>An override references a nonexistent subject; the subject modification will be ignored</value>
+  <data name="LeftButton" xml:space="preserve">
+    <value>左側按鈕</value>
   </data>
-  <data name="WarningInvalidOverrideTime" xml:space="preserve">
-    <value>Invalid start or end times in an override will be ignored</value>
+  <data name="LeftButtonEventTab" xml:space="preserve">
+    <value>左按鈕事件</value>
   </data>
-  <data name="WarningDuplicateDateTimeline" xml:space="preserve">
-    <value>For multiple timelines with the same specified date, only the first will be retained</value>
+  <data name="RightButtonEventTab" xml:space="preserve">
+    <value>右按鈕事件</value>
   </data>
-  <data name="NamedDateSuffix" xml:space="preserve">
-    <value>(Specified date)</value>
+  <data name="ScriptTab" xml:space="preserve">
+    <value>腳本</value>
   </data>
-  <data name="WarningInvalidDayFmt" xml:space="preserve">
-    <value>Invalid weekday values in {0} will be ignored</value>
+  <data name="TutorialScript" xml:space="preserve">
+    <value>教程腳本</value>
   </data>
-  <data name="WarningUnknownWeeksFmt" xml:space="preserve">
-    <value>Unknown week rotation values in {0} will cause that element to be skipped</value>
+  <data name="EnableScript" xml:space="preserve">
+    <value>啟用腳本</value>
   </data>
-  <data name="WarningOutOfRangeWeeksFmt" xml:space="preserve">
-    <value>Out-of-range week rotation values in {0} will be ignored</value>
+  <data name="EditScriptHint" xml:space="preserve">
+    <value>使用獨立編輯器編輯此語句的 Lua 腳本。</value>
   </data>
-  <data name="DayMonday" xml:space="preserve">
-    <value>Monday</value>
+  <data name="EditScript" xml:space="preserve">
+    <value>編輯腳本…</value>
   </data>
-  <data name="DayTuesday" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="FileMenu" xml:space="preserve">
+    <value>檔案</value>
   </data>
-  <data name="DayWednesday" xml:space="preserve">
-    <value>Wednesday</value>
+  <data name="Open" xml:space="preserve">
+    <value>打開…</value>
   </data>
-  <data name="DayThursday" xml:space="preserve">
-    <value>Thursday</value>
+  <data name="Save" xml:space="preserve">
+    <value>儲存…</value>
   </data>
-  <data name="DayFriday" xml:space="preserve">
-    <value>Friday</value>
+  <data name="SaveAs" xml:space="preserve">
+    <value>另存為…</value>
   </data>
-  <data name="DaySaturday" xml:space="preserve">
-    <value>Saturday</value>
+  <data name="ChapterInfo" xml:space="preserve">
+    <value>教程章節信息…</value>
   </data>
-  <data name="DaySunday" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="RunMenu" xml:space="preserve">
+    <value>運行</value>
   </data>
-  <data name="DayUnknown" xml:space="preserve">
-    <value>Unknown weekday</value>
+  <data name="RunCurrent" xml:space="preserve">
+    <value>運行當前教程</value>
   </data>
-  <data name="OddWeekLabel" xml:space="preserve">
-    <value>Odd week</value>
+  <data name="RunFromParagraph" xml:space="preserve">
+    <value>從當前段落開始運行</value>
   </data>
-  <data name="EvenWeekLabel" xml:space="preserve">
-    <value>Even week</value>
+  <data name="StopRunning" xml:space="preserve">
+    <value>停止運行</value>
   </data>
-  <data name="OddEvenWeekSuffixFmt" xml:space="preserve">
-    <value>({0})</value>
+  <data name="Add" xml:space="preserve">
+    <value>新增</value>
   </data>
-  <data name="WeekCycleSuffixFmt" xml:space="preserve">
-    <value>(Week {0}/{1})</value>
+  <data name="Duplicate" xml:space="preserve">
+    <value>複製</value>
   </data>
-  <data name="WarningCountSuffixFmt" xml:space="preserve">
-    <value>({0} items)</value>
+  <data name="Delete" xml:space="preserve">
+    <value>刪除</value>
   </data>
-  <data name="WarningInvalidResolvedTime" xml:space="preserve">
-    <value>Schedule entries with invalid start or end times after applying overrides will be skipped</value>
+  <data name="TargetSelector" xml:space="preserve">
+    <value>目標選擇器</value>
+  </data>
+  <data name="NewTutorial" xml:space="preserve">
+    <value>新教學課程</value>
+  </data>
+  <data name="NewParagraph" xml:space="preserve">
+    <value>新段落</value>
+  </data>
+  <data name="ErrorCannotOpenTutorialFile" xml:space="preserve">
+    <value>無法打開所選教程文件。</value>
+  </data>
+  <data name="OpenedToast" xml:space="preserve">
+    <value>已打開 {0}</value>
+  </data>
+  <data name="ReplacedGroupToast" xml:space="preserve">
+    <value>已替換 ID 為 {0} 的教程組並啟用熱重載。</value>
+  </data>
+  <data name="ErrorOpenTutorialFile" xml:space="preserve">
+    <value>無法打開教程文件</value>
+  </data>
+  <data name="SavedToast" xml:space="preserve">
+    <value>已儲存 {0}</value>
+  </data>
+  <data name="ErrorSaveTutorialFile" xml:space="preserve">
+    <value>無法保存教程文件</value>
+  </data>
+  <data name="UnsavedChangesTitle" xml:space="preserve">
+    <value>變更尚未儲存</value>
+  </data>
+  <data name="UnsavedChangesContent" xml:space="preserve">
+    <value>更改尚未保存，您要在退出前保存更改嗎？</value>
+  </data>
+  <data name="DontSave" xml:space="preserve">
+    <value>不儲存</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
   </data>
 </root>

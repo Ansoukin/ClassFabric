@@ -117,4 +117,91 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="IncompatibleApiVersionFmt" xml:space="preserve">
+    <value>Incompatible API version {0}. The plugin's API version must be at least 2.0.0.0 to be loaded by the current version of ClassFabric.</value>
+  </data>
+  <data name="PluginIncompatibleDefault" xml:space="preserve">
+    <value>Incompatible plugin</value>
+  </data>
+  <data name="PluginNotFoundFmt" xml:space="preserve">
+    <value>Plugin {0} not found.</value>
+  </data>
+  <data name="CircularDependencyDetectedFmt" xml:space="preserve">
+    <value>Circular dependency detected: {0}</value>
+  </data>
+  <data name="MissingDependencyFmt" xml:space="preserve">
+    <value>The required plugin {1} that plugin {0} depends on does not exist or is in an unloadable state.</value>
+  </data>
+  <data name="IncompatibleUiFrameworkMessage" xml:space="preserve">
+    <value>This plugin may have been built against an incompatible UI framework version. Please check that the plugin is compatible with the current ClassFabric version, or contact the plugin author for an update.</value>
+  </data>
+  <data name="MissingMethodMessage" xml:space="preserve">
+    <value>This plugin is missing a required method reference, which may be caused by version incompatibility. Please contact the plugin author for an update.</value>
+  </data>
+  <data name="MissingAssemblyMessage" xml:space="preserve">
+    <value>This plugin is missing a dependent assembly. Please verify the plugin's integrity, or contact the plugin author.</value>
+  </data>
+  <data name="LoadFailedMessage" xml:space="preserve">
+    <value>This plugin failed to load. Please check that the plugin version is compatible with the current ClassFabric version, or contact the plugin author.</value>
+  </data>
+  <data name="DiagnosticsManifestHeader" xml:space="preserve">
+    <value>=== Plugin Manifest ===</value>
+  </data>
+  <data name="DiagnosticsPluginIdFmt" xml:space="preserve">
+    <value>Plugin ID: {0}</value>
+  </data>
+  <data name="DiagnosticsPluginNameFmt" xml:space="preserve">
+    <value>Plugin Name: {0}</value>
+  </data>
+  <data name="DiagnosticsPluginVersionFmt" xml:space="preserve">
+    <value>Plugin Version: {0}</value>
+  </data>
+  <data name="DiagnosticsApiVersionFmt" xml:space="preserve">
+    <value>API Version: {0}</value>
+  </data>
+  <data name="DiagnosticsEntranceAssemblyFmt" xml:space="preserve">
+    <value>Entry Assembly: {0}</value>
+  </data>
+  <data name="DiagnosticsFailureHeader" xml:space="preserve">
+    <value>=== Plugin Load Failure Diagnostic Information ===</value>
+  </data>
+  <data name="DiagnosticsRuntimeHeader" xml:space="preserve">
+    <value>=== Runtime Environment ===</value>
+  </data>
+  <data name="DiagnosticsClassFabricVersionFmt" xml:space="preserve">
+    <value>ClassFabric Version: {0}</value>
+  </data>
+  <data name="DiagnosticsAvaloniaVersionFmt" xml:space="preserve">
+    <value>Avalonia Version: {0}</value>
+  </data>
+  <data name="DiagnosticsFluentAvaloniaVersionFmt" xml:space="preserve">
+    <value>FluentAvalonia Version: {0}</value>
+  </data>
+  <data name="DiagnosticsExceptionHeader" xml:space="preserve">
+    <value>=== Exception Information ===</value>
+  </data>
+  <data name="DiagnosticsExceptionTypeFmt" xml:space="preserve">
+    <value>Exception Type: {0}</value>
+  </data>
+  <data name="DiagnosticsExceptionMessageFmt" xml:space="preserve">
+    <value>Exception Message: {0}</value>
+  </data>
+  <data name="DiagnosticsStackTraceHeader" xml:space="preserve">
+    <value>=== Stack Trace ===</value>
+  </data>
+  <data name="DiagnosticsInnerExceptionHeader" xml:space="preserve">
+    <value>=== Inner Exception ===</value>
+  </data>
+  <data name="DiagnosticsInnerTypeFmt" xml:space="preserve">
+    <value>Type: {0}</value>
+  </data>
+  <data name="DiagnosticsInnerMessageFmt" xml:space="preserve">
+    <value>Message: {0}</value>
+  </data>
+  <data name="NotLoadedLabel" xml:space="preserve">
+    <value>Not loaded</value>
+  </data>
+  <data name="UnknownLabel" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
 </root>

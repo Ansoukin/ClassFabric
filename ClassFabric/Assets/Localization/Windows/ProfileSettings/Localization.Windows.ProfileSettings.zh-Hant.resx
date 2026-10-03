@@ -118,684 +118,684 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ProfileEditorHeader" xml:space="preserve">
-    <value>File Edit</value>
+    <value>檔案編輯</value>
   </data>
   <data name="ClassPlansTabHeader" xml:space="preserve">
-    <value>Class Plans</value>
+    <value>課表</value>
   </data>
   <data name="SchedulesTabHeader" xml:space="preserve">
-    <value>Courses</value>
+    <value>課程</value>
   </data>
   <data name="ForbiddenTabHeader" xml:space="preserve">
-    <value>Banned</value>
+    <value>已禁止</value>
   </data>
   <data name="AdjustmentTabHeader" xml:space="preserve">
-    <value>Instruction</value>
+    <value>調課</value>
   </data>
   <data name="ClassPlanInfoHeader" xml:space="preserve">
-    <value>Course Table Information</value>
+    <value>課程表資訊</value>
   </data>
   <data name="TimeLayoutInfoHeader" xml:space="preserve">
-    <value>Time Layout Information</value>
+    <value>時間表資訊</value>
   </data>
   <data name="ManageProfilesHeader" xml:space="preserve">
-    <value>Manage Profiles</value>
+    <value>管理檔案</value>
   </data>
   <data name="ManageProfilesDescription" xml:space="preserve">
-    <value>Manage and toggle saved files. Changing files requires restarting the app.</value>
+    <value>管理與切換保存的檔案。切換檔案需要重新啟動應用程式。</value>
   </data>
   <data name="CurrentClassPlanHeader" xml:space="preserve">
-    <value>Table currently enabled</value>
+    <value>當前啟用的課表</value>
   </data>
   <data name="WeekOffsetHeader" xml:space="preserve">
-    <value>Multi-week rotation offset</value>
+    <value>多周輪換偏移</value>
   </data>
   <data name="EditTimePointHeader" xml:space="preserve">
-    <value>Edit time point</value>
+    <value>編輯時間點</value>
   </data>
   <data name="EditClassInfoHeader" xml:space="preserve">
-    <value>Edit Course Info</value>
+    <value>編輯課程資訊</value>
   </data>
   <data name="EditSubjectInfoHeader" xml:space="preserve">
-    <value>Edit Account Information</value>
+    <value>編輯科目資訊</value>
   </data>
   <data name="ClassPlanGroupLabel" xml:space="preserve">
-    <value>Table Group</value>
+    <value>課表群</value>
   </data>
   <data name="TempClassPlanGroupLabel" xml:space="preserve">
-    <value>Temporary Table Group</value>
+    <value>臨時課表群</value>
   </data>
   <data name="TempClassPlanLabel" xml:space="preserve">
-    <value>Temporary Course Table</value>
+    <value>臨時課表</value>
   </data>
   <data name="OverlayLabel" xml:space="preserve">
-    <value>Temporary Layer</value>
+    <value>臨時層</value>
   </data>
   <data name="ProfileMigrationsDebugHeader" xml:space="preserve">
-    <value>Migration information (debugging)</value>
+    <value>遷移資訊（調試）</value>
   </data>
   <data name="ProfileMigrationsDebugDescription" xml:space="preserve">
-    <value>Edit the migration record of the current file directly in the same way as other files modified.</value>
+    <value>直接編輯當前檔案的遷移記錄，保存方式與其他檔案修改相同。</value>
   </data>
   <data name="NameLabel" xml:space="preserve">
-    <value>Name</value>
+    <value>名稱</value>
   </data>
   <data name="TimeLayoutLabel" xml:space="preserve">
-    <value>Time Layout</value>
+    <value>時間表</value>
   </data>
   <data name="SubjectLabel" xml:space="preserve">
-    <value>Account</value>
+    <value>科目</value>
   </data>
   <data name="TypeLabel" xml:space="preserve">
-    <value>Type</value>
+    <value>類型</value>
   </data>
   <data name="MoreOptionsLabel" xml:space="preserve">
-    <value>More Options</value>
+    <value>更多選項</value>
   </data>
   <data name="RefreshLabel" xml:space="preserve">
-    <value>Refresh</value>
+    <value>重新整理</value>
   </data>
   <data name="AddLabel" xml:space="preserve">
-    <value>Add</value>
+    <value>新增</value>
   </data>
   <data name="AddNewLabel" xml:space="preserve">
-    <value>Add new</value>
+    <value>新增</value>
   </data>
   <data name="DuplicateLabel" xml:space="preserve">
-    <value>Copy</value>
+    <value>複製</value>
   </data>
   <data name="CreateLabel" xml:space="preserve">
-    <value>Create New</value>
+    <value>創建</value>
   </data>
   <data name="CreateDuplicateLabel" xml:space="preserve">
-    <value>Create a copy</value>
+    <value>創建副本</value>
   </data>
   <data name="NewLabel" xml:space="preserve">
-    <value>Create New</value>
+    <value>建立</value>
   </data>
   <data name="DeleteLabel" xml:space="preserve">
-    <value>Delete</value>
+    <value>刪除</value>
   </data>
   <data name="DeleteSelectedItemLabel" xml:space="preserve">
-    <value>Delete Selected</value>
+    <value>刪除選中項</value>
   </data>
   <data name="RenameLabel" xml:space="preserve">
-    <value>Rename</value>
+    <value>重新命名</value>
   </data>
   <data name="CancelLabel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="OKLabel" xml:space="preserve">
-    <value>OK</value>
+    <value>確定</value>
   </data>
   <data name="SaveLabel" xml:space="preserve">
-    <value>Save</value>
+    <value>儲存</value>
   </data>
   <data name="HelpLabel" xml:space="preserve">
-    <value>Help</value>
+    <value>說明</value>
   </data>
   <data name="UntrustedLabel" xml:space="preserve">
-    <value>Untrusted</value>
+    <value>不受信任</value>
   </data>
   <data name="ImportExportLabel" xml:space="preserve">
-    <value>Import/Export</value>
+    <value>匯入/匯出</value>
   </data>
   <data name="ClearLabel" xml:space="preserve">
-    <value>Clear</value>
+    <value>清除</value>
   </data>
   <data name="ClearOverlayLabel" xml:space="preserve">
-    <value>Clear temporary layer</value>
+    <value>清除臨時層</value>
   </data>
   <data name="ClearTempClassPlanLabel" xml:space="preserve">
-    <value>Clear temporary forms</value>
+    <value>清除臨時課表</value>
   </data>
   <data name="CreateProfileLabel" xml:space="preserve">
-    <value>New Profile</value>
+    <value>新建檔案</value>
   </data>
   <data name="OpenFolderLabel" xml:space="preserve">
-    <value>Open Folder</value>
+    <value>打開資料夾</value>
   </data>
   <data name="DetailsLabel" xml:space="preserve">
-    <value>Details</value>
+    <value>詳細資訊</value>
   </data>
   <data name="DetailsDashboardLabel" xml:space="preserve">
-    <value>Detailed board</value>
+    <value>詳細看板</value>
   </data>
   <data name="CreateOverlayHeader" xml:space="preserve">
-    <value>Create temporary layer</value>
+    <value>創建臨時層</value>
   </data>
   <data name="ChangeClassHeader" xml:space="preserve">
-    <value>Modify Course</value>
+    <value>修改課程</value>
   </data>
   <data name="SwapClassesLabel" xml:space="preserve">
-    <value>Exchange Courses</value>
+    <value>交換課程</value>
   </data>
   <data name="CompleteSwapLabel" xml:space="preserve">
-    <value>Finish Exchange</value>
+    <value>完成交換</value>
   </data>
   <data name="TempSwapModeLabel" xml:space="preserve">
-    <value>Change Lesson permanently</value>
+    <value>永久換課</value>
   </data>
   <data name="ThisWeekLabel" xml:space="preserve">
-    <value>This Week</value>
+    <value>本週</value>
   </data>
   <data name="UndoButton" xml:space="preserve">
-    <value>Undo</value>
+    <value>復原</value>
   </data>
   <data name="UndoLastStepButton" xml:space="preserve">
-    <value>Undo Previous (Ctrl+Z)</value>
+    <value>復原上一步 (Ctrl+Z)</value>
   </data>
   <data name="RedoLastStepButton" xml:space="preserve">
-    <value>Redo Previous (Ctrl+Y)</value>
+    <value>重做上一步 (Ctrl+Y)</value>
   </data>
   <data name="UndoHistoryLabel" xml:space="preserve">
-    <value>Undo History</value>
+    <value>復原歷程</value>
   </data>
   <data name="RedoHistoryLabel" xml:space="preserve">
-    <value>Redo History</value>
+    <value>重做歷程</value>
   </data>
   <data name="GoToTimeLayoutsButton" xml:space="preserve">
-    <value>Go to scheduling</value>
+    <value>前往編排時間表</value>
   </data>
   <data name="GoToSetTimeLayoutButton" xml:space="preserve">
-    <value>Go to Settings Schedule</value>
+    <value>前往設定時間表</value>
   </data>
   <data name="RestartNowButton" xml:space="preserve">
-    <value>Restart now</value>
+    <value>立即重新啟動</value>
   </data>
   <data name="NewClassPlanButton" xml:space="preserve">
-    <value>New Table</value>
+    <value>新建課表</value>
   </data>
   <data name="TrustProfileButton" xml:space="preserve">
-    <value>Trust this profile</value>
+    <value>信任此檔案</value>
   </data>
   <data name="ContinueLabel" xml:space="preserve">
-    <value>Continue</value>
+    <value>繼續</value>
   </data>
   <data name="DeleteTimeLayoutLabel" xml:space="preserve">
-    <value>Delete time layout</value>
+    <value>刪除時間表</value>
   </data>
   <data name="CurrentPrefixLabel" xml:space="preserve">
-    <value>Current：</value>
+    <value>當前：</value>
   </data>
   <data name="MinutesSuffix" xml:space="preserve">
-    <value>minutes</value>
+    <value>分鐘</value>
   </data>
   <data name="WeekUnitSuffix" xml:space="preserve">
-    <value>Weeks</value>
+    <value>週</value>
   </data>
   <data name="DayUnitSuffix" xml:space="preserve">
-    <value>day</value>
+    <value>天</value>
   </data>
   <data name="CurrentProfileNoneLabel" xml:space="preserve">
-    <value>(No)</value>
+    <value>（無）</value>
   </data>
   <data name="LearnMoreLabel" xml:space="preserve">
-    <value>Learn more about…</value>
+    <value>瞭解更多…</value>
   </data>
   <data name="AdjustWeekOffsetLabel" xml:space="preserve">
-    <value>Adjust weeks of rotation offset…</value>
+    <value>調整多周輪換偏移…</value>
   </data>
   <data name="OverrideLabel" xml:space="preserve">
-    <value>Overwrite</value>
+    <value>覆蓋</value>
   </data>
   <data name="InheritLabel" xml:space="preserve">
-    <value>Inherit</value>
+    <value>繼承</value>
   </data>
   <data name="ScheduleTypeClassic" xml:space="preserve">
-    <value>Classic</value>
+    <value>經典</value>
   </data>
   <data name="ScheduleTypeExperimental" xml:space="preserve">
-    <value>exp_calendar</value>
+    <value>exp_排程</value>
   </data>
   <data name="NoClassPlanSelected" xml:space="preserve">
-    <value>No Table Selected</value>
+    <value>未選擇課表</value>
   </data>
   <data name="ListViewToolTip" xml:space="preserve">
-    <value>List View</value>
+    <value>清單檢視</value>
   </data>
   <data name="WeekViewToolTip" xml:space="preserve">
-    <value>Weekly View</value>
+    <value>週檢視</value>
   </data>
   <data name="MonthViewToolTip" xml:space="preserve">
-    <value>Month View</value>
+    <value>月檢視</value>
   </data>
   <data name="ScheduleViewToolTip" xml:space="preserve">
-    <value>Calendar View</value>
+    <value>日程檢視</value>
   </data>
   <data name="TriggerRuleToolTip" xml:space="preserve">
-    <value>Trigger Rule</value>
+    <value>觸發規則</value>
   </data>
   <data name="CreateProfileTip" xml:space="preserve">
-    <value>Create a new file.</value>
+    <value>新建檔案。</value>
   </data>
   <data name="OpenProfileFolderTip" xml:space="preserve">
-    <value>Open profile folder.</value>
+    <value>打開檔案資料夾。</value>
   </data>
   <data name="RefreshProfilesTip" xml:space="preserve">
-    <value>Reload the list of files.</value>
+    <value>重新載入檔案清單。</value>
   </data>
   <data name="CreateClassPlanGroupTip" xml:space="preserve">
-    <value>Create a new class of lessons.</value>
+    <value>創建一個新的課表群。</value>
   </data>
   <data name="CreateClassPlanTip" xml:space="preserve">
-    <value>Create a new table.</value>
+    <value>新建一個課表。</value>
   </data>
   <data name="DuplicateClassPlanTip" xml:space="preserve">
-    <value>Copy a copy of the currently selected course.</value>
+    <value>複製一個當前選中的課表的副本。</value>
   </data>
   <data name="DeleteClassPlanTip" xml:space="preserve">
-    <value>Delete this table.</value>
+    <value>刪除該課表。</value>
   </data>
   <data name="ViewClassPlanDetailsTip" xml:space="preserve">
-    <value>View and edit the basic information about the course.</value>
+    <value>檢視並編輯課表的基本資訊。</value>
   </data>
   <data name="DetailsDashboardTip" xml:space="preserve">
-    <value>View inheritance of all time points in the table with additional settings.</value>
+    <value>檢視課表的所有時間點的附加設定繼承情況。</value>
   </data>
   <data name="CreateOverlayTip" xml:space="preserve">
-    <value>Create temporary class layer.</value>
+    <value>創建臨時課表層。</value>
   </data>
   <data name="ClearOverlayTip" xml:space="preserve">
-    <value>Clear the temporary level of lessons.</value>
+    <value>清除臨時層課表。</value>
   </data>
   <data name="ClearTempClassPlanTip" xml:space="preserve">
-    <value>Clear the selected temporary forms and revert to the normal course schedule.</value>
+    <value>清除選擇的臨時課表，並恢復至正常課表安排。</value>
   </data>
   <data name="CreateTimeLayoutTip" xml:space="preserve">
-    <value>Create a new schedule.</value>
+    <value>新建一個時間表。</value>
   </data>
   <data name="DuplicateTimeLayoutTip" xml:space="preserve">
-    <value>Duplicate the selected time layout.</value>
+    <value>複製選中的時間表。</value>
   </data>
   <data name="TimeLayoutActiveTip" xml:space="preserve">
-    <value>This schedule is active.</value>
+    <value>此時間表正在活動。</value>
   </data>
   <data name="AddOnClassTimePointTip" xml:space="preserve">
-    <value>Add Course Time Point.</value>
+    <value>新增上課時間點。</value>
   </data>
   <data name="AddBreakTimePointTip" xml:space="preserve">
-    <value>Add a break point for the course.</value>
+    <value>新增課間休息時間點。</value>
   </data>
   <data name="AddSeparatorTip" xml:space="preserve">
-    <value>Add split line.</value>
+    <value>新增分割線。</value>
   </data>
   <data name="AddActionTimePointTip" xml:space="preserve">
-    <value>Add action time point.</value>
+    <value>新增行動時間點。</value>
   </data>
   <data name="DuplicateTimePointTip" xml:space="preserve">
-    <value>Create a copy of the selected time point.</value>
+    <value>創建選中時間點的副本。</value>
   </data>
   <data name="UndoStepToolTip" xml:space="preserve">
-    <value>Undo (Ctrl+Z single step)</value>
+    <value>復原 (Ctrl+Z 單步)</value>
   </data>
   <data name="RedoStepToolTip" xml:space="preserve">
-    <value>Redo (Ctrl+Y Step</value>
+    <value>重做 (Ctrl+Y 單步)</value>
   </data>
   <data name="DeleteTimePointTip" xml:space="preserve">
-    <value>Delete selected time points.</value>
+    <value>刪除選中的時間點。</value>
   </data>
   <data name="ResortTimePointsTip" xml:space="preserve">
-    <value>Reorder the time point in this time layout.</value>
+    <value>重新排序該時間表中的時間點。</value>
   </data>
   <data name="ViewTimeLayoutDetailsTip" xml:space="preserve">
-    <value>View and edit the basic information about the schedule.</value>
+    <value>檢視並編輯時間表的基本資訊。</value>
   </data>
   <data name="DeleteTimeLayoutTip" xml:space="preserve">
-    <value>Delete this time layout.</value>
+    <value>刪除該時間表。</value>
   </data>
   <data name="TimePointSnapTip" xml:space="preserve">
-    <value>Time snap</value>
+    <value>時間點吸附</value>
   </data>
   <data name="ZoomOutTip" xml:space="preserve">
-    <value>Zoom Out</value>
+    <value>縮小</value>
   </data>
   <data name="ZoomInTip" xml:space="preserve">
-    <value>Zoom in</value>
+    <value>放大</value>
   </data>
   <data name="LocateSelectedTimePointTip" xml:space="preserve">
-    <value>Locate to selected time point</value>
+    <value>定位到選擇的時間點</value>
   </data>
   <data name="CreateScheduleTip" xml:space="preserve">
-    <value>Create a new course.</value>
+    <value>新建一個課程。</value>
   </data>
   <data name="DuplicateScheduleTip" xml:space="preserve">
-    <value>Copy the selected course.</value>
+    <value>複製選中的課程。</value>
   </data>
   <data name="DeleteScheduleTip" xml:space="preserve">
-    <value>Delete the selected course.</value>
+    <value>刪除選中的課程。</value>
   </data>
   <data name="DragToReorderTip" xml:space="preserve">
-    <value>Drag to reorder course</value>
+    <value>拖曳調整課程順序</value>
   </data>
   <data name="PickDateToJumpWeekTip" xml:space="preserve">
-    <value>Select date to jump to week</value>
+    <value>選擇日期以跳轉到所在週</value>
   </data>
   <data name="PreviousWeekTip" xml:space="preserve">
-    <value>Last week</value>
+    <value>上一週</value>
   </data>
   <data name="NextWeekTip" xml:space="preserve">
-    <value>Next week</value>
+    <value>下一週</value>
   </data>
   <data name="CreateSubjectTip" xml:space="preserve">
-    <value>Create a new account.</value>
+    <value>新建一個科目。</value>
   </data>
   <data name="DuplicateSubjectTip" xml:space="preserve">
-    <value>Duplicate Selected Accounts.</value>
+    <value>複製選中的科目。</value>
   </data>
   <data name="DeleteSubjectTip" xml:space="preserve">
-    <value>Delete selected items.</value>
+    <value>刪除選中的科目。</value>
   </data>
   <data name="CurrentProfileTip" xml:space="preserve">
-    <value>Currently enabled profile</value>
+    <value>當前啟用的檔案</value>
   </data>
   <data name="EnableTempClassPlanTip" xml:space="preserve">
-    <value>Enable temporary classes</value>
+    <value>啟用臨時課表</value>
   </data>
   <data name="SaveProfileTip" xml:space="preserve">
-    <value>Save the current profile file.</value>
+    <value>儲存當前檔案。</value>
   </data>
   <data name="ImportExportTip" xml:space="preserve">
-    <value>Import external course information, or export current profile information.</value>
+    <value>匯入外部的課程資訊，或匯出當前的檔案資訊。</value>
   </data>
   <data name="ViewHelpTip" xml:space="preserve">
-    <value>View File Editor Help</value>
+    <value>檢視檔案編輯器說明</value>
   </data>
   <data name="UntrustedProfileTip" xml:space="preserve">
-    <value>The current file is not trusted and some features are limited.</value>
+    <value>當前檔案不受信任，部分功能受限。</value>
   </data>
   <data name="ChangeClassToSelectorLabel" xml:space="preserve">
-    <value>Exchange to…</value>
+    <value>換課成…</value>
   </data>
   <data name="ExpireDateLabel" xml:space="preserve">
-    <value>Expiration date</value>
+    <value>到期日</value>
   </data>
   <data name="OverrideModeLabel" xml:space="preserve">
-    <value>Overwrite mode</value>
+    <value>覆蓋模式</value>
   </data>
   <data name="EnableDateLabel" xml:space="preserve">
-    <value>Enabled Date</value>
+    <value>啟用日期</value>
   </data>
   <data name="ManageClassPlanGroupsLabel" xml:space="preserve">
-    <value>Manage Table Groups</value>
+    <value>管理課表群</value>
   </data>
   <data name="CreateClassPlanGroupLabel" xml:space="preserve">
-    <value>New Table Group</value>
+    <value>新建課表群</value>
   </data>
   <data name="TimePointDurationHeader" xml:space="preserve">
-    <value>Time Duration</value>
+    <value>時間點時長</value>
   </data>
   <data name="DefaultOnClassDurationLabel" xml:space="preserve">
-    <value>Default Course Duration</value>
+    <value>預設上課時間點時長</value>
   </data>
   <data name="DefaultBreakDurationLabel" xml:space="preserve">
-    <value>Default hour duration</value>
+    <value>預設課間時間點時長</value>
   </data>
   <data name="StartTimeLabel" xml:space="preserve">
-    <value>Start Time</value>
+    <value>開始時間</value>
   </data>
   <data name="EndTimeLabel" xml:space="preserve">
-    <value>End Time</value>
+    <value>結束時間</value>
   </data>
   <data name="HideByDefault" xml:space="preserve">
-    <value>Hide by default</value>
+    <value>預設隱藏</value>
   </data>
   <data name="OverwriteExistingClasses" xml:space="preserve">
-    <value>Overwrite existing courses</value>
+    <value>覆蓋現有課程</value>
   </data>
   <data name="IsOutdoorSubject" xml:space="preserve">
-    <value>This subject is an outdoor course</value>
+    <value>該科目是戶外課程</value>
   </data>
   <data name="AlsoCreateTempTimeLayout" xml:space="preserve">
-    <value>Also create a temporary schedule</value>
+    <value>同時創建臨時時間表</value>
   </data>
   <data name="AutoEnable" xml:space="preserve">
-    <value>Auto Enabled</value>
+    <value>自動啟用</value>
   </data>
   <data name="AutoMoveNextAfterSubjectSelected" xml:space="preserve">
-    <value>Enjoy your account automatically to next course</value>
+    <value>選完科目自動移動到下一個課程</value>
   </data>
   <data name="BreakNameLabel" xml:space="preserve">
-    <value>Class Name</value>
+    <value>課間名稱</value>
   </data>
   <data name="OnClassLabel" xml:space="preserve">
-    <value>Class</value>
+    <value>上課</value>
   </data>
   <data name="BreakLabel" xml:space="preserve">
-    <value>Classroom</value>
+    <value>課間</value>
   </data>
   <data name="BreakRestLabel" xml:space="preserve">
-    <value>Breaks</value>
+    <value>課間休息</value>
   </data>
   <data name="SeparatorLabel" xml:space="preserve">
-    <value>Split Line</value>
+    <value>分割線</value>
   </data>
   <data name="ActionLabel" xml:space="preserve">
-    <value>Action</value>
+    <value>行動</value>
   </data>
   <data name="DefaultClassLabel" xml:space="preserve">
-    <value>Default Course</value>
+    <value>預設課程</value>
   </data>
   <data name="IconLabel" xml:space="preserve">
-    <value>Icons</value>
+    <value>圖示</value>
   </data>
   <data name="SubjectNameLabel" xml:space="preserve">
-    <value>Account Name</value>
+    <value>科目名稱</value>
   </data>
   <data name="ShortNameLabel" xml:space="preserve">
-    <value>Abbreviations</value>
+    <value>簡稱</value>
   </data>
   <data name="ThemeColorLabel" xml:space="preserve">
-    <value>Theme color</value>
+    <value>主題色</value>
   </data>
   <data name="TeacherLabel" xml:space="preserve">
-    <value>Teacher</value>
+    <value>科任老師</value>
   </data>
   <data name="LocationLabel" xml:space="preserve">
-    <value>Location</value>
+    <value>地點</value>
   </data>
   <data name="EnabledColumnHeader" xml:space="preserve">
-    <value>Enabled</value>
+    <value>啟用</value>
   </data>
   <data name="TimeColumnHeader" xml:space="preserve">
-    <value>Time</value>
+    <value>時間</value>
   </data>
   <data name="IsOutdoorColumnHeader" xml:space="preserve">
-    <value>Outdoor courses?</value>
+    <value>戶外課程？</value>
   </data>
   <data name="MigrationIdColumnHeader" xml:space="preserve">
-    <value>Migration ID</value>
+    <value>遷移 ID</value>
   </data>
   <data name="AllowDowngradeColumnHeader" xml:space="preserve">
-    <value>Allow downgrade</value>
+    <value>允許降級</value>
   </data>
   <data name="RemoveOnDowngradeColumnHeader" xml:space="preserve">
-    <value>Remove on downgrade</value>
+    <value>降級時移除</value>
   </data>
   <data name="ClassPlanOverlayInfoBarMessage" xml:space="preserve">
-    <value>This is a temporary layer table that will be deleted automatically after use.</value>
+    <value>這是一個臨時層課表，將在使用過後自動刪除。</value>
   </data>
   <data name="OverlayIgnoresTriggerRulesDescription" xml:space="preserve">
-    <value>Temporary Layouts will ignore triggering rule force enabled.</value>
+    <value>臨時層課表將忽略觸發規則強制啟用。</value>
   </data>
   <data name="AutoEnableByTriggerRulesDescription" xml:space="preserve">
-    <value>This table will be automatically enabled under trigger rules.</value>
+    <value>將會根據觸發規則自動啟用該課表。</value>
   </data>
   <data name="ManualEnableOnlyDescription" xml:space="preserve">
-    <value>This form will not be automatically enabled, it can only be enabled manually via temporary tabs or temporary layers.</value>
+    <value>該課表不會自動啟用，只能通過臨時課表或臨時層手動啟用該課表。</value>
   </data>
   <data name="OverlayPriorityDescription" xml:space="preserve">
-    <value>A temporary layer of course will take precedence over a temporary course's application. The temporary layer tables will be automatically cleared when the course expires.</value>
+    <value>臨時層課表將優先於臨時課表應用。臨時層課表將在該課表過期後自動清除。</value>
   </data>
   <data name="TempClassPlanDescription" xml:space="preserve">
-    <value>If there is a change in the course schedule for the day, you can temporarily select a table for the day. This setting is valid only on the same day.</value>
+    <value>若當天授課計劃有變，可臨時選擇某一課表作為當天的課表。該設定僅在當天有效。</value>
   </data>
   <data name="TempClassPlanCoveredByOverlayDescription" xml:space="preserve">
-    <value>Temporary sessions are overwritten by temporary layer tables. To use temporary forms, please temporarily disable or clear the temporary level of lessons.</value>
+    <value>臨時課表被臨時層課表覆蓋。要使用臨時課表，請暫時禁用或清除臨時層課表。</value>
   </data>
   <data name="ClassPlanGroupsIntroPrefix" xml:space="preserve">
-    <value>You can group your tables through the class and enable a set of tables flexibly.</value>
+    <value>您可以通過課表群對課表進行分組，並靈活地啟用一批課表。</value>
   </data>
   <data name="NoTimeLayoutWarningMessage" xml:space="preserve">
-    <value>Before setting the schedule, you need to schedule the schedule in the 'Time' page based on the interest schedule of the school.</value>
+    <value>在設定課表之前，您需要在【時間表】頁面中根據學校的作息安排編排時間表。</value>
   </data>
   <data name="EmptyTimeLayoutWarningMessage" xml:space="preserve">
-    <value>You have not set a schedule for this course. Before scheduling this course, you need to set a schedule in the [details].</value>
+    <value>您還沒有為此課表設定時間表。在編排課程之前，您需要在【詳細資訊】中為本課表設定一個時間表。</value>
   </data>
   <data name="CannotBeUndoneDescription" xml:space="preserve">
-    <value>This action cannot be undone.</value>
+    <value>此操作無法復原。</value>
   </data>
   <data name="DeleteClassPlanConfirmPrefix" xml:space="preserve">
-    <value>To delete the table</value>
+    <value>要刪除課表</value>
   </data>
   <data name="DeleteClassPlanConfirmSuffix" xml:space="preserve">
-    <value>Are you sure?</value>
+    <value>嗎？</value>
   </data>
   <data name="SwapClassesIntroPrefix" xml:space="preserve">
-    <value>Exchange course. Select with</value>
+    <value>正在交換課程。選擇要與</value>
   </data>
   <data name="SwapClassesIntroSuffix" xml:space="preserve">
-    <value>Exchange courses and then click 'Finish'.</value>
+    <value>交換的課程，然後點擊【完成交換】。</value>
   </data>
   <data name="HideByDefaultDescription" xml:space="preserve">
-    <value>If a point of time is hidden by default, this point will only be displayed if it is at this point of time.</value>
+    <value>若預設隱藏一個時間點，那麼只有在處於此時間點時，此時間點才會顯示。</value>
   </data>
   <data name="UntrustedProfileTitle" xml:space="preserve">
-    <value>Untrusted files</value>
+    <value>不信任的檔案</value>
   </data>
   <data name="UntrustedProfileInfoBarMessage" xml:space="preserve">
-    <value>The current file is not trusted, the action time point will not run automatically.</value>
+    <value>當前檔案不受信任，行動時間點不會自動運行。</value>
   </data>
   <data name="ProfileEditingDisabledByPolicy" xml:space="preserve">
-    <value>File editing is disabled for your organization.</value>
+    <value>您的組織已禁用檔案編輯功能。</value>
   </data>
   <data name="ExperimentalFeatureWarning" xml:space="preserve">
-    <value>Experimental functionality, which is being developed, does not guarantee full backward compatibility of data, please use the final version.</value>
+    <value>實驗性功能，正在開發中，不保證資料完全向後相容，請以最終版本為準。</value>
   </data>
   <data name="TransferImportLabel" xml:space="preserve">
-    <value>Import</value>
+    <value>匯入</value>
   </data>
   <data name="TransferExportLabel" xml:space="preserve">
-    <value>Export</value>
+    <value>匯出</value>
   </data>
   <data name="TransferExecuteLabel" xml:space="preserve">
-    <value>Implementation</value>
+    <value>執行</value>
   </data>
   <data name="TransferMigrateLabel" xml:space="preserve">
-    <value>Migrate</value>
+    <value>遷移</value>
   </data>
   <data name="UntrustedProfileDialogContent" xml:space="preserve">
-    <value>The current file is not trusted, some features (e.g. action time points) will be disabled. If you trust this file and wish to enable these restricted features, set this to trust.</value>
+    <value>當前檔案不受信任，部分功能（如行動時間點等）將禁用。如果您信任此檔案並希望啟用這些受限的功能，請將此檔案設定為信任。</value>
   </data>
   <data name="ProfileSavedToPathFmt" xml:space="preserve">
-    <value>Saved to {0}.</value>
+    <value>已儲存到 {0}。</value>
   </data>
   <data name="SaveProfileFailedToast" xml:space="preserve">
-    <value>Unable to save file</value>
+    <value>無法儲存檔案</value>
   </data>
   <data name="ProfileNameLabel" xml:space="preserve">
-    <value>File Name</value>
+    <value>檔案名稱</value>
   </data>
   <data name="RenameProfileConflictToast" xml:space="preserve">
-    <value>Could not rename the profile because a profile with the same name already exists.</value>
+    <value>無法重新命名檔案，因為已存在一個相同名稱的檔案。</value>
   </data>
   <data name="RenameProfileTitle" xml:space="preserve">
-    <value>Rename Profile</value>
+    <value>重新命名檔案</value>
   </data>
   <data name="CannotDeleteLoadedProfileToast" xml:space="preserve">
-    <value>Could not delete file that has been loaded or is about to be loaded.</value>
+    <value>無法刪除已載入或將要載入的檔案。</value>
   </data>
   <data name="DeleteProfileTitle" xml:space="preserve">
-    <value>Delete Profile</value>
+    <value>刪除檔案</value>
   </data>
   <data name="DeleteProfileConfirmFmt" xml:space="preserve">
-    <value>Are you sure you want to delete the {0} ? This cannot be undone. The course tables, schedules, subjects, etc. in the file will be deleted!</value>
+    <value>您確定要刪除檔案 {0} 嗎？此操作無法復原，檔案內的課表、時間表、科目等資訊都將被刪除！</value>
   </data>
   <data name="RestartRequiredTitle" xml:space="preserve">
-    <value>Restart required</value>
+    <value>需要重新啟動</value>
   </data>
   <data name="SwitchProfileRestartMessage" xml:space="preserve">
-    <value>Changing files requires a restart of the app to take effect.</value>
+    <value>切換檔案需要重新啟動應用程式以生效。</value>
   </data>
   <data name="OverlayAlreadyExistsToast" xml:space="preserve">
-    <value>A temporary layer table already exists on this date and cannot create a new temporary layer table.</value>
+    <value>在這一天已存在一個臨時層課表，無法創建新的臨時層課表。</value>
   </data>
   <data name="WeeklyEntryCompletedToast" xml:space="preserve">
-    <value>Entries have been completed on this week's course.</value>
+    <value>已完成本週課表的錄入。</value>
   </data>
   <data name="JumpedToNextDayToast" xml:space="preserve">
-    <value>Skipped to the next day course.</value>
+    <value>已跳轉到次日課表。</value>
   </data>
   <data name="ClassPlanEntryCompletedToast" xml:space="preserve">
-    <value>Course with this form completed is entered.</value>
+    <value>已完成此課表的課程錄入。</value>
   </data>
   <data name="TimeLayoutInUseToast" xml:space="preserve">
-    <value>A class plan is still using this time layout. Delete all class plans using it before deleting this time layout.</value>
+    <value>仍有課表在使用該時間表。刪除時間表前需要刪除所有使用該時間表的課表。</value>
   </data>
   <data name="DeleteTimeLayoutConfirmFmt" xml:space="preserve">
-    <value>Delete schedule “{0}”? This cannot be undone.</value>
+    <value>要刪除時間表“{0}”嗎？此操作無法復原。</value>
   </data>
   <data name="AddUndoDescriptionFmt" xml:space="preserve">
-    <value>Add{0}</value>
+    <value>新增{0}</value>
   </data>
   <data name="DeleteUndoDescriptionFmt" xml:space="preserve">
-    <value>Delete{0}</value>
+    <value>刪除{0}</value>
   </data>
   <data name="NoRoomToInsertTimePointToast" xml:space="preserve">
-    <value>There are no suitable locations to insert new time points.</value>
+    <value>沒有合適的位置來插入新的時間點。</value>
   </data>
   <data name="InsertedBeforeToast" xml:space="preserve">
-    <value>A new point of time has been inserted forward.</value>
+    <value>已向前插入了新的時間點。</value>
   </data>
   <data name="InsertShrunkToast" xml:space="preserve">
-    <value>There is not enough space to fully insert this point in time, which has been shortened.</value>
+    <value>沒有足夠的空間完全插入該時間點，已縮短時間點長度。</value>
   </data>
   <data name="SeparatorExistsToast" xml:space="preserve">
-    <value>Here is already a split line.</value>
+    <value>這裡已經存在一條分割線。</value>
   </data>
   <data name="ActionExistsToast" xml:space="preserve">
-    <value>There is already an action here.</value>
+    <value>這裡已經存在一個行動。</value>
   </data>
   <data name="NoRoomToDuplicateTimePointToast" xml:space="preserve">
-    <value>There is not enough space to copy the time point.</value>
+    <value>沒有足夠的空間來複製時間點。</value>
   </data>
   <data name="NoRoomBeforeToDuplicateTimePointToast" xml:space="preserve">
-    <value>There are no suitable locations for copying time points.</value>
+    <value>沒有合適的位置來複製時間點。</value>
   </data>
   <data name="DuplicateShrunkToast" xml:space="preserve">
-    <value>There is not enough space to fully replicate this time point, which has been shortened.</value>
+    <value>沒有足夠的空間完全複製該時間點，已縮短時間點長度。</value>
   </data>
   <data name="TimePointDuplicatedToast" xml:space="preserve">
-    <value>A copy of the time point was created.</value>
+    <value>已創建時間點副本。</value>
   </data>
   <data name="CannotMoveScheduleItemToast" xml:space="preserve">
-    <value>Unable to move to that date or time. Please check the time and the scope of the course on the right side.</value>
+    <value>無法移動到該日期或時間，請在右側檢查課程的時間和啟用範圍。</value>
   </data>
   <data name="DeletedClassItemsFmt" xml:space="preserve">
-    <value>Deleted {0} schedules.</value>
+    <value>已刪除 {0} 個課程。</value>
   </data>
   <data name="DeletedSubjectsFmt" xml:space="preserve">
-    <value>Deleted {0} items.</value>
+    <value>已刪除 {0} 個科目。</value>
   </data>
   <data name="InvalidClassSelectionToast" xml:space="preserve">
-    <value>Invalid choice of course area.</value>
+    <value>選擇課程區域無效。</value>
   </data>
   <data name="ContinueTransferConfirmTitleFmt" xml:space="preserve">
-    <value>Continue{0}</value>
+    <value>要繼續{0}嗎</value>
   </data>
   <data name="ContinueTransferConfirmMessageFmt" xml:space="preserve">
-    <value>You have already successfully {0}ed the profile. Do you want to continue {0}ing?</value>
+    <value>您先前已經成功地{0}了檔案，您還要繼續{0}嗎？</value>
   </data>
   <data name="LoadClassPlanToggle" xml:space="preserve">
-    <value>Load Table</value>
+    <value>載入課表</value>
   </data>
   <data name="EnableOverlayToggle" xml:space="preserve">
-    <value>Enable temporary layer</value>
+    <value>啟用臨時層</value>
   </data>
   <data name="RefreshCurrentViewTip" xml:space="preserve">
-    <value>Refresh the current view.</value>
+    <value>重新整理當前檢視。</value>
   </data>
   <data name="EditSubjectTabHeader" xml:space="preserve">
-    <value>Edit Account</value>
+    <value>編輯科目</value>
   </data>
 </root>

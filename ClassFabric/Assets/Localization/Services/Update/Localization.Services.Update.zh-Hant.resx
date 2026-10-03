@@ -117,120 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ErrorInfoDrawerTitle" xml:space="preserve">
-    <value>錯誤信息</value>
-    <comment>主题页-错误信息抽屉标题</comment>
+  <data name="UpdateSuccessTitle" xml:space="preserve">
+    <value>更新成功</value>
   </data>
-  <data name="ThemeLoadOrderTitle" xml:space="preserve">
-    <value>主題加載順序</value>
-    <comment>主题页-加载顺序抽屉标题/工具栏按钮</comment>
+  <data name="UpdateSuccessBodyFmt" xml:space="preserve">
+    <value>應用程式已更新至 {0}，點擊以查看詳細資訊。</value>
   </data>
-  <data name="ThemeLoadOrderDescription" xml:space="preserve">
-    <value>主題將按照以下的順序加載，後加載的主題可以覆蓋前面主題的樣式。拖動以對主題進行排序。</value>
-    <comment>主题加载顺序-描述</comment>
+  <data name="InstallMethodNotSupportedMessage" xml:space="preserve">
+    <value>目前安裝方式不支援應用程式內自動更新。請前往專案首頁手動下載並安裝最新版本。</value>
   </data>
-  <data name="SeparateMainWindowInfoBar" xml:space="preserve">
-    <value>在啓用了支持的主題（如 Fluent）後，您可以在直接【外觀】設置中開啓【分體主界面】選項使主界面分開。在沒有開啓此選項時，即使啓用了支持的主題，主界面也不會分開。</value>
-    <comment>主题页-分体主界面提示 InfoBar</comment>
+  <data name="NewVersionFoundTitle" xml:space="preserve">
+    <value>發現新版本</value>
   </data>
-  <data name="GoToAppearanceSettings" xml:space="preserve">
-    <value>前往【外觀】設置</value>
-    <comment>主题页-InfoBar 动作按钮：前往外观设置</comment>
+  <data name="NewVersionFoundFooter" xml:space="preserve">
+    <value>點擊以查看詳細資訊。</value>
   </data>
-  <data name="TabMarket" xml:space="preserve">
-    <value>市場</value>
-    <comment>主题页-市场标签页</comment>
+  <data name="NoAvailableUpdateSourceMessage" xml:space="preserve">
+    <value>沒有可用的應用程式更新來源，請檢查更新來源設定。</value>
   </data>
-  <data name="TabInstalled" xml:space="preserve">
-    <value>已安裝</value>
-    <comment>主题页-已安装标签页</comment>
+  <data name="UpdatePackageMissingOnSourceFmt" xml:space="preserve">
+    <value>更新來源 {0} 上的最新版本 {1} 沒有提供與目前安裝方式相符的更新套件，請稍後重試或前往專案首頁手動下載。</value>
   </data>
-  <data name="RefreshMarket" xml:space="preserve">
-    <value>刷新市場</value>
-    <comment>主题页-工具栏按钮</comment>
+  <data name="UnrecognizedVersionFromSourceFmt" xml:space="preserve">
+    <value>更新來源傳回了無法辨識的版本號碼：{0}</value>
   </data>
-  <data name="ReloadThemes" xml:space="preserve">
-    <value>重載主題</value>
-    <comment>主题页-工具栏按钮</comment>
+  <data name="ManifestSignatureVerificationFailed" xml:space="preserve">
+    <value>檔案圖簽章驗證失敗</value>
   </data>
-  <data name="OpenThemeFolder" xml:space="preserve">
-    <value>打開主題資料夾…</value>
-    <comment>主题页-工具栏按钮/右键菜单项</comment>
+  <data name="ManifestParseFailed" xml:space="preserve">
+    <value>檔案圖解析失敗</value>
   </data>
-  <data name="WebsiteTooltip" xml:space="preserve">
-    <value>網站…</value>
-    <comment>主题卡片-网站按钮提示</comment>
+  <data name="ManifestRootInvalid" xml:space="preserve">
+    <value>檔案圖元件根目錄無效</value>
   </data>
-  <data name="ThemeErrorTooltip" xml:space="preserve">
-    <value>加載此主題時發生錯誤</value>
-    <comment>主题卡片-错误按钮提示</comment>
+  <data name="FileHashMismatch" xml:space="preserve">
+    <value>檔案圖雜湊與下載時不符，可能已經損毀</value>
   </data>
-  <data name="MoreOptionsTooltip" xml:space="preserve">
-    <value>更多選項…</value>
-    <comment>主题卡片-更多选项按钮提示</comment>
+  <data name="UpdateNotForChannel" xml:space="preserve">
+    <value>下載的更新不適用於目前子頻道的 ClassFabric</value>
   </data>
-  <data name="PackageTheme" xml:space="preserve">
-    <value>打包主題…</value>
-    <comment>主题卡片-右键菜单项</comment>
+  <data name="FileSha512MismatchFmt" xml:space="preserve">
+    <value>檔案 {0}/{1} 的 SHA512 驗證失敗 </value>
   </data>
-  <data name="UninstallTheme" xml:space="preserve">
-    <value>卸載主題</value>
-    <comment>主题卡片-右键菜单项</comment>
+  <data name="InvalidFilePathInManifest" xml:space="preserve">
+    <value>檔案圖發現非法檔案路徑</value>
   </data>
-  <data name="UndoUninstall" xml:space="preserve">
-    <value>撤銷卸載</value>
-    <comment>主题卡片-右键菜单项</comment>
+  <data name="DeploymentSourceNotFoundFmt" xml:space="preserve">
+    <value>檔案 {0}/{1} 未找到部署來源</value>
   </data>
-  <data name="InstallTooltip" xml:space="preserve">
-    <value>安裝</value>
-    <comment>主题卡片-安装按钮提示</comment>
+  <data name="PendingUpdateMissingPackageInfo" xml:space="preserve">
+    <value>待處理更新缺少更新套件下載資訊，請重新檢查更新。</value>
   </data>
-  <data name="UpdateTooltip" xml:space="preserve">
-    <value>更新</value>
-    <comment>主题卡片-更新按钮提示</comment>
+  <data name="DownloadedUpdatePackageNotFound" xml:space="preserve">
+    <value>未找到已下載的更新套件，請重新下載更新。</value>
   </data>
-  <data name="RestartToApplyTooltip" xml:space="preserve">
-    <value>重啓以應用更改</value>
-    <comment>主题卡片-重启按钮提示</comment>
+  <data name="NoDeploymentDirectoryMessage" xml:space="preserve">
+    <value>未偵測到獨立的程式套件目錄，目前安裝形態無法就地部署更新，請手動下載安裝套件進行更新。</value>
   </data>
-  <data name="ThemesTitle" xml:space="preserve">
-    <value>主題</value>
-    <comment>主题页-欢迎界面标题</comment>
-  </data>
-  <data name="WelcomeDescription" xml:space="preserve">
-    <value>歡迎使用主題！主題可以修改甚至完全重塑 ClassFabric 主界面的外觀。您可以使用主題功能打造出獨一無二的 ClassFabric 界面。</value>
-    <comment>主题页-欢迎界面描述</comment>
-  </data>
-  <data name="SecurityWarning" xml:space="preserve">
-    <value>需要注意，主題以 XAML 樣式的形式加載，可能存在與部分 ClassFabric 版本不兼容，甚至使應用完全無法使用的情況。並且主題在加載過程中會轉譯為可執行代碼，可以以 ClassFabric 的身份和權限執行任意代碼。請不要安裝來路不明的主題，開發者也無法保證市場所提供的主題都是絕對安全的。ClassFabric 開發團隊對使用主題造成的一切後果概不負責。</value>
-    <comment>主题页-欢迎界面安全警告</comment>
-  </data>
-  <data name="AgreeAndStart" xml:space="preserve">
-    <value>同意並開始使用主題</value>
-    <comment>主题页-欢迎界面按钮</comment>
-  </data>
-  <data name="RefreshMarketFailedTitle" xml:space="preserve">
-    <value>無法刷新市場</value>
-    <comment>刷新市场失败吐司标题（axaml.cs）</comment>
-  </data>
-  <data name="PackageThemePickerTitle" xml:space="preserve">
-    <value>打包主題</value>
-    <comment>打包主题-文件保存对话框标题（axaml.cs）</comment>
-  </data>
-  <data name="ThemePackageTypeName" xml:space="preserve">
-    <value>ClassFabric 主題包</value>
-    <comment>打包主题-文件类型名称（axaml.cs）</comment>
-  </data>
-  <data name="OpenSelectedThemePackageFailed" xml:space="preserve">
-    <value>無法打開所選主題包文件。</value>
-    <comment>打包主题-打开所选文件失败的异常消息（axaml.cs）</comment>
-  </data>
-  <data name="PackageThemeFailed" xml:space="preserve">
-    <value>無法打包主題 {0}</value>
-    <comment>打包主题失败吐司标题，{0}=主题 Id（axaml.cs）</comment>
-  </data>
-  <data name="MustKeepAtLeastOneTheme" xml:space="preserve">
-    <value>您必須啓用至少一個主題，以保證主界面有顯示樣式可用。</value>
-    <comment>禁用全部主题时的警告吐司（axaml.cs）</comment>
+  <data name="UpdatePackageStructureInvalid" xml:space="preserve">
+    <value>更新套件結構無效：未找到應用程式部署目錄。</value>
   </data>
 </root>

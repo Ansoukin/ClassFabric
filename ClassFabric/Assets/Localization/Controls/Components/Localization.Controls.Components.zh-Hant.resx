@@ -118,492 +118,492 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="UseRealTime" xml:space="preserve">
-    <value>Use actual time</value>
+    <value>使用實際時間</value>
   </data>
   <data name="UseRealTimeDescription" xml:space="preserve">
-    <value>Show system time without time offset.</value>
+    <value>顯示不經過時間偏移的系統時間。</value>
   </data>
   <data name="ShowSeconds" xml:space="preserve">
-    <value>Show seconds</value>
+    <value>顯示秒數</value>
   </data>
   <data name="ShowSecondsDescription" xml:space="preserve">
-    <value>When enabled, the clock will show the time that is accurate to seconds.</value>
+    <value>啟用後，時鐘將顯示精確到秒的時間。</value>
   </data>
   <data name="FlashTimeSeparator" xml:space="preserve">
-    <value>Flash Time Separator</value>
+    <value>閃動時間分隔符</value>
   </data>
   <data name="FlashTimeSeparatorDescription" xml:space="preserve">
-    <value>Simulates the separator flash effect of the electronic clock.</value>
+    <value>模擬電子時鐘的分隔符閃動效果。</value>
   </data>
   <data name="TextContent" xml:space="preserve">
-    <value>Text content</value>
+    <value>文字內容</value>
   </data>
   <data name="TextContentDescription" xml:space="preserve">
-    <value>Text to display.</value>
+    <value>要顯示的文字。</value>
   </data>
   <data name="CustomFontColor" xml:space="preserve">
-    <value>Custom font color</value>
+    <value>自訂字體顏色</value>
   </data>
   <data name="CustomFontColorDescription" xml:space="preserve">
-    <value>Select the color of the text to show.</value>
+    <value>選擇要顯示文字的顏色。</value>
   </data>
   <data name="FontSize" xml:space="preserve">
-    <value>Font size</value>
+    <value>字體大小</value>
   </data>
   <data name="TextFontSizeDescription" xml:space="preserve">
-    <value>Change the size of the text to display.</value>
+    <value>修改要顯示的文字的大小。</value>
   </data>
   <data name="WeatherSettingsInfoBarMessage" xml:space="preserve">
-    <value>This page only contains component settings. To adjust the cities where the weather is shown, go to the Weather Tab</value>
+    <value>本頁面僅包含組件設定，要調整顯示天氣的城市，請前往【天氣】索引標籤</value>
   </data>
   <data name="ShowWeatherInfo" xml:space="preserve">
-    <value>Show weather information</value>
+    <value>顯示天氣資訊</value>
   </data>
   <data name="ShowWeatherInfoDescription" xml:space="preserve">
-    <value>Show summary of current weather information.</value>
+    <value>顯示目前天氣資訊摘要。</value>
   </data>
   <data name="WeatherTypeTemperature" xml:space="preserve">
-    <value>Weather type/temperature</value>
+    <value>天氣類型/氣溫</value>
   </data>
   <data name="Humidity" xml:space="preserve">
-    <value>Humidity</value>
+    <value>濕度</value>
   </data>
   <data name="WindPower" xml:space="preserve">
-    <value>Wind</value>
+    <value>風力</value>
   </data>
   <data name="AirPressure" xml:space="preserve">
-    <value>Pressure</value>
+    <value>氣壓</value>
   </data>
   <data name="FeelsLikeTemperature" xml:space="preserve">
-    <value>Body Temperature</value>
+    <value>體感溫度</value>
   </data>
   <data name="ShowAlerts" xml:space="preserve">
-    <value>Show early warning signals</value>
+    <value>顯示預警信號</value>
   </data>
   <data name="ShowAlertsDescription" xml:space="preserve">
-    <value>When enabled, early warning will be displayed on the weather component in icon form.</value>
+    <value>啟用後，預警將以圖示形式顯示在天氣組件上。</value>
   </data>
   <data name="ShowAlertType" xml:space="preserve">
-    <value>Show Early Warning Type</value>
+    <value>顯示預警類型</value>
   </data>
   <data name="ShowAlertTypeDescription" xml:space="preserve">
-    <value>Set where to display warning types.</value>
+    <value>設定何種情況下顯示預警類型。</value>
   </data>
   <data name="DoNotShow" xml:space="preserve">
-    <value>Don't show</value>
+    <value>不顯示</value>
   </data>
   <data name="OnlyWhenIconMissing" xml:space="preserve">
-    <value>Only when there is no corresponding icon</value>
+    <value>僅當沒有對應圖示時</value>
   </data>
   <data name="AlwaysShow" xml:space="preserve">
-    <value>Always show</value>
+    <value>總是顯示</value>
   </data>
   <data name="ShowRainTip" xml:space="preserve">
-    <value>Show precipitation tips</value>
+    <value>顯示降水提示</value>
   </data>
   <data name="ShowRainTipDescription" xml:space="preserve">
-    <value>When enabled, the impending time of precipitation and the rest of precipitation. Positive numbers represent the impending time of precipitation, negative numbers represent the remaining time.</value>
+    <value>啟用後，將顯示降水即將到來的時間和降水剩餘時間。正數代表降水即將到來的時間，負數代表剩餘時間。</value>
   </data>
   <data name="FuzzyLongRainCountdownPrecision" xml:space="preserve">
-    <value>Blur countdown time for long rainfall</value>
+    <value>模糊長時間降雨倒數計時時間顯示精度</value>
   </data>
   <data name="FuzzyLongRainCountdownPrecisionDescription" xml:space="preserve">
-    <value>When enabled, rainfall time greater than 60min will be blurred in 0.5h and off will always be displayed in exact minutes.</value>
+    <value>開啟後，大於 60min 的降雨時間將會以 0.5h 為單位模糊顯示，關閉則總是以精確分鐘顯示。</value>
   </data>
   <data name="RollingWidthWarningMessage" xml:space="preserve">
-    <value>Scroll components will only begin to scroll if their content exceeds the width of the scrolling. You may need to set a 'max-width' or 'fixed width' for this component in the 'Advanced Settings' to limit the width of the component, so that the content will not start scrolling if the component content exceeds the limited width.</value>
+    <value>滾動組件僅在組件內容超出滾動組件寬度時才會開始滾動。您可能需要在【進階設定】中為本組件設定【最大寬度】或【固定寬度】以限制組件的寬度，這樣在組件內容超出限制的寬度時內容才會開始滾動。</value>
   </data>
   <data name="ScrollSpeed" xml:space="preserve">
-    <value>Scroll speed</value>
+    <value>滾動速度</value>
   </data>
   <data name="ScrollSpeedDescription" xml:space="preserve">
-    <value>Scroll speed of component content</value>
+    <value>組件內容的滾動速度</value>
   </data>
   <data name="SpeedUnitPixelsPerSecond" xml:space="preserve">
-    <value>px/s</value>
+    <value>px/秒</value>
   </data>
   <data name="TimedPause" xml:space="preserve">
-    <value>Time paused</value>
+    <value>定時暫停</value>
   </data>
   <data name="TimedPauseDescription" xml:space="preserve">
-    <value>When enabled, the scroll will be suspended for a period of time after scrolling to the specified location</value>
+    <value>啟用後，將在滾動到指定位置後暫停滾動一段時間</value>
   </data>
   <data name="PauseDuration" xml:space="preserve">
-    <value>Pause duration</value>
+    <value>暫停時長</value>
   </data>
   <data name="PauseDurationDescription" xml:space="preserve">
-    <value>Time spent on each pause</value>
+    <value>每次暫停時停留的時長</value>
   </data>
   <data name="SecondsUnit" xml:space="preserve">
-    <value>Seconds</value>
+    <value>秒</value>
   </data>
   <data name="PausePosition" xml:space="preserve">
-    <value>Pause location</value>
+    <value>暫停位置</value>
   </data>
   <data name="PausePositionDescription" xml:space="preserve">
-    <value>Suspend Scroll Offset</value>
+    <value>暫停時的滾動偏移值</value>
   </data>
   <data name="StopWhenRuleMet" xml:space="preserve">
-    <value>Stop on rules</value>
+    <value>滿足規則時停止</value>
   </data>
   <data name="RollingStopWhenRuleMetDescription" xml:space="preserve">
-    <value>Stop scrolling when specified rules are satisfied. Stop scrolling and return to initial location when stopped.</value>
+    <value>在指定規則滿足時停止滾動。停止時會停止滾動，並回到初始位置。</value>
   </data>
   <data name="EditRuleset" xml:space="preserve">
-    <value>Edit Rules Set…</value>
+    <value>編輯規則集…</value>
   </data>
   <data name="RotationInterval" xml:space="preserve">
-    <value>Rotation Interval</value>
+    <value>輪換間隔</value>
   </data>
   <data name="RotationIntervalDescription" xml:space="preserve">
-    <value>Interval between automatic rotation of components</value>
+    <value>組件自動輪換的間隔時間</value>
   </data>
   <data name="RotationMode" xml:space="preserve">
-    <value>Rotation mode</value>
+    <value>輪換模式</value>
   </data>
   <data name="RotationModeDescription" xml:space="preserve">
-    <value>Set rotation component behavior</value>
+    <value>設定輪換組件的行為</value>
   </data>
   <data name="LoopMode" xml:space="preserve">
-    <value>Loop</value>
+    <value>循環</value>
   </data>
   <data name="RandomMode" xml:space="preserve">
-    <value>Random</value>
+    <value>隨機</value>
   </data>
   <data name="PingPongMode" xml:space="preserve">
-    <value>Rehabilitation</value>
+    <value>往復</value>
   </data>
   <data name="PauseWhenRuleMet" xml:space="preserve">
-    <value>Pause when rules are satisfied</value>
+    <value>滿足規則時暫停</value>
   </data>
   <data name="PauseWhenRuleMetDescription" xml:space="preserve">
-    <value>Pause the rotation when the specified rule is satisfied.</value>
+    <value>在指定規則滿足時暫停輪播。</value>
   </data>
   <data name="SlideStopWhenRuleMetDescription" xml:space="preserve">
-    <value>Stop playing when specified rules are satisfied. Stop playing and return to the first component. If the rules and suspension rules are met at the same time, stop playing instead of pausing them.</value>
+    <value>在指定規則滿足時停止輪播。停止時會停止輪播，並回到第一個組件。如果此處的規則和暫停規則同時滿足，會停止輪播而不是暫停。</value>
   </data>
   <data name="EnableAnimation" xml:space="preserve">
-    <value>Enable animation</value>
+    <value>啟用動畫</value>
   </data>
   <data name="EnableAnimationDescription" xml:space="preserve">
-    <value>When enabled, transition animations will be played when switching components.</value>
+    <value>啟用後，將在切換組件時播放過渡動畫。</value>
   </data>
   <data name="AttachedSettingsOverrideMessage" xml:space="preserve">
-    <value>This setting can be overridden by attached settings in the profile settings.</value>
+    <value>此處的設定可以在檔案設定中被附加設定覆蓋。</value>
   </data>
   <data name="ViewAttachedSettings" xml:space="preserve">
-    <value>View…</value>
+    <value>檢視…</value>
   </data>
   <data name="ShowExtraInfoOnTimePoint" xml:space="preserve">
-    <value>Show Time Point Additional Information</value>
+    <value>顯示時間點附加資訊</value>
   </data>
   <data name="ShowExtraInfoOnTimePointDescription" xml:space="preserve">
-    <value>Show additional information on the current time point at the current time point.</value>
+    <value>在目前的時間點上顯示目前時間點的附加資訊。</value>
   </data>
   <data name="ExtraInfoToDisplay" xml:space="preserve">
-    <value>Additional information to display</value>
+    <value>要顯示的附加資訊</value>
   </data>
   <data name="ExtraInfoTimePointDuration" xml:space="preserve">
-    <value>Time point duration</value>
+    <value>時間點持續時間</value>
   </data>
   <data name="ExtraInfoElapsedTimeOverDuration" xml:space="preserve">
-    <value>Time expired/duration</value>
+    <value>已過時間/持續時間</value>
   </data>
   <data name="ExtraInfoRemainingOverDuration" xml:space="preserve">
-    <value>Remaining time/duration</value>
+    <value>剩餘時間/持續時間</value>
   </data>
   <data name="ExtraInfoElapsedTimePercentage" xml:space="preserve">
-    <value>Percentage over time</value>
+    <value>已過時間百分比</value>
   </data>
   <data name="ExtraInfoRemainingTime" xml:space="preserve">
-    <value>Remaining time</value>
+    <value>剩餘時間</value>
   </data>
   <data name="ExtraInfoCountdown" xml:space="preserve">
-    <value>Countdown</value>
+    <value>倒數計時</value>
   </data>
   <data name="ShowExactCountdown" xml:space="preserve">
-    <value>Show exact countdown</value>
+    <value>顯示精確倒數計時</value>
   </data>
   <data name="WhenRemainingLessThan" xml:space="preserve">
-    <value>When not enough time left</value>
+    <value>當剩餘時間不足</value>
   </data>
   <data name="TimePointEndCountdown" xml:space="preserve">
-    <value>Time point ends in countdown</value>
+    <value>時間點結束倒數計時</value>
   </data>
   <data name="TimePointEndCountdownDescription" xml:space="preserve">
-    <value>Show countdown time when the current point is coming to an end.</value>
+    <value>在目前時間點將要結束時顯示倒數計時。</value>
   </data>
   <data name="TimePointEndCountdownDuration" xml:space="preserve">
-    <value>End countdown duration</value>
+    <value>時間點結束倒數計時時長</value>
   </data>
   <data name="UseFuzzyCountdown" xml:space="preserve">
-    <value>Use blur countdown</value>
+    <value>使用模糊倒數計時</value>
   </data>
   <data name="ShowCurrentLessonOnly" xml:space="preserve">
-    <value>Show the current course only during class</value>
+    <value>上課時僅顯示目前課程</value>
   </data>
   <data name="ShowCurrentLessonOnlyDescription" xml:space="preserve">
-    <value>Only show the current point when in class type of time.</value>
+    <value>在處於上課類型的時間點時，只顯示目前時間點。</value>
   </data>
   <data name="HideFinishedLessons" xml:space="preserve">
-    <value>Do not show finished courses</value>
+    <value>不顯示已結束的課程</value>
   </data>
   <data name="HideFinishedLessonsDescription" xml:space="preserve">
-    <value>Hide finished courses, show only current courses and those that are not started.</value>
+    <value>隱藏已結束的課程，只顯示目前課程與尚未開始的課程。</value>
   </data>
   <data name="FadeCompletedLessons" xml:space="preserve">
-    <value>Destroy lessons taken</value>
+    <value>淡化上過的課程</value>
   </data>
   <data name="FadeCompletedLessonsDescription" xml:space="preserve">
-    <value>Courses that have already been taken will be downloaded.</value>
+    <value>已經上過的課程將被淡化顯示。</value>
   </data>
   <data name="HighlightClassChanges" xml:space="preserve">
-    <value>Flag for Course</value>
+    <value>標記換課課程</value>
   </data>
   <data name="HighlightClassChangesDescription" xml:space="preserve">
-    <value>Highlight courses in the temporary class with a colour-coded tag. Only courses with "Easy course" modifications are supported.</value>
+    <value>將臨時層中的換課課程以高亮色標記，僅支援使用“換課”修改的課程。</value>
   </data>
   <data name="ScheduleTextSpacing" xml:space="preserve">
-    <value>Course Table Text Space</value>
+    <value>課程表文字間距</value>
   </data>
   <data name="ScheduleTextSpacingDescription" xml:space="preserve">
-    <value>Make the class plan display more compact or roomier.</value>
+    <value>使課程表顯示更緊湊或寬鬆。</value>
   </data>
   <data name="ShowPlaceholderOnEmptyPlan" xml:space="preserve">
-    <value>Show placeholder when no course is available</value>
+    <value>無課程時顯示佔位符</value>
   </data>
   <data name="ShowPlaceholderOnEmptyPlanDescription" xml:space="preserve">
-    <value>Displays the specified placeholder when there is currently no payroll, or when all courses have finished on the same day and do not display the second day course.</value>
+    <value>當目前沒有載入課表或當日所有課程都已結束且不顯示第二日課程時，顯示指定的佔位符。</value>
   </data>
   <data name="NoClassPlaceholderContent" xml:space="preserve">
-    <value>There is no placeholder content for the course on the day</value>
+    <value>當日沒有課程的佔位符內容</value>
   </data>
   <data name="AllEndedPlaceholderContent" xml:space="preserve">
-    <value>Placeholder content at the end of the day</value>
+    <value>當日課程結束的佔位符內容</value>
   </data>
   <data name="ShowTomorrowSchedule" xml:space="preserve">
-    <value>Show Tomorrow Table</value>
+    <value>顯示明天課表</value>
   </data>
   <data name="ShowTomorrowScheduleDescription" xml:space="preserve">
-    <value>Set when to display tomorrow's course.</value>
+    <value>設定什麼時候顯示明天課表。</value>
   </data>
   <data name="ShowAfterSchool" xml:space="preserve">
-    <value>Show after school</value>
+    <value>放學後顯示</value>
   </data>
   <data name="ShowWhenNoDisplayedLesson" xml:space="preserve">
-    <value>Display when no display course is available</value>
+    <value>無展示課程時顯示</value>
   </data>
   <data name="CountdownName" xml:space="preserve">
-    <value>Countdown name</value>
+    <value>倒數計時名稱</value>
   </data>
   <data name="CountdownNameDescription" xml:space="preserve">
-    <value>Will be displayed as a date event name.</value>
+    <value>會作為設定日期事件名稱顯示。</value>
   </data>
   <data name="Time" xml:space="preserve">
-    <value>Time</value>
+    <value>時間</value>
   </data>
   <data name="TimeDescription" xml:space="preserve">
-    <value>Countdown start and end time.</value>
+    <value>倒數計時的開始和結束時間。</value>
   </data>
   <data name="FixedTime" xml:space="preserve">
-    <value>Fixed time</value>
+    <value>固定時間</value>
   </data>
   <data name="Cycle" xml:space="preserve">
-    <value>Periodicity</value>
+    <value>週期</value>
   </data>
   <data name="Today" xml:space="preserve">
-    <value>Today</value>
+    <value>今天</value>
   </data>
   <data name="ThisWeek" xml:space="preserve">
-    <value>This Week</value>
+    <value>本週</value>
   </data>
   <data name="StartDate" xml:space="preserve">
-    <value>Start date</value>
+    <value>開始日期</value>
   </data>
   <data name="StartDateDescription" xml:space="preserve">
-    <value>Countdown start date.</value>
+    <value>倒數計時開始的日期。</value>
   </data>
   <data name="EndDate" xml:space="preserve">
-    <value>End date</value>
+    <value>結束日期</value>
   </data>
   <data name="EndDateDescription" xml:space="preserve">
-    <value>Countdown date is 0 days.</value>
+    <value>倒數計時為 0 天時的日期。</value>
   </data>
   <data name="AdvancedTiming" xml:space="preserve">
-    <value>Advanced Timer</value>
+    <value>進階計時</value>
   </data>
   <data name="CycleBeforeDurationLabel" xml:space="preserve">
-    <value>Time before cycle</value>
+    <value>週期前時長</value>
   </data>
   <data name="CycleBeforeDurationHint" xml:space="preserve">
-    <value>Interval time before start of cycle</value>
+    <value>在本週期開始計時前的間隔時長</value>
   </data>
   <data name="CycleTimingDurationLabel" xml:space="preserve">
-    <value>Cycle timeout</value>
+    <value>週期計時時長</value>
   </data>
   <data name="CycleTimingDurationHint" xml:space="preserve">
-    <value>Period to show countdown duration</value>
+    <value>週期要顯示倒數計時的時長</value>
   </data>
   <data name="CycleAfterDurationLabel" xml:space="preserve">
-    <value>Duration after cycle</value>
+    <value>週期後時長</value>
   </data>
   <data name="CycleAfterDurationHint" xml:space="preserve">
-    <value>Interval between end of current cycle and start of next cycle</value>
+    <value>從本週期計時結束，到下個週期開始的間隔時長</value>
   </data>
   <data name="CycleDurationLabel" xml:space="preserve">
-    <value>Cycle duration</value>
+    <value>週期持續時間</value>
   </data>
   <data name="CycleStartTimeLabel" xml:space="preserve">
-    <value>Cycle Start Time</value>
+    <value>週期開始時間</value>
   </data>
   <data name="CycleStartTimeLabelDescription" xml:space="preserve">
-    <value>The start time of the entire cycle, starting from the pre-cycle stage.</value>
+    <value>整個週期的開始時間，從週期前階段開始計時。</value>
   </data>
   <data name="LimitCycleLoops" xml:space="preserve">
-    <value>Limit Cycle Count</value>
+    <value>限制週期循環次數</value>
   </data>
   <data name="LimitCycleLoopsDescription" xml:space="preserve">
-    <value>When enabled, the maximum number of loops in the countdown cycle will be limited.</value>
+    <value>啟用後，將限制倒數計時週期的最大循環次數。</value>
   </data>
   <data name="TimeMode" xml:space="preserve">
-    <value>Time mode</value>
+    <value>時間模式</value>
   </data>
   <data name="TimeModeDailyDescription" xml:space="preserve">
-    <value>By default the countdown time will be obtained from the day course and the start time of the first class or break point of the day will be the start time, the end of the last class or break of the course will be the end time. If the day course is not available, the natural time between the morning and the early morning of the next day will be used. When the time mode is specified in the box on the right, if the selected time mode is not available, no countdown will be made.</value>
+    <value>預設情況下將從當日課程安排取得倒數計時時間，以當天的第一個上課或課間休息時間點的開始時間為開始時間，最後一個上課或課間休息時間點的結束時間為結束時間。如果當日課程不可用，將使用從當日凌晨至次日凌晨的自然時間。當在右側核取方塊指定了時間模式後，如果選擇的時間模式不可用，將不會進行倒數計時。</value>
   </data>
   <data name="TimeModeWeeklyDescription" xml:space="preserve">
-    <value>Countdown time will be obtained from this week's course by default from the start time of the first class or break point of the week and the end time of the last class or course break point will be the end time. If this week's course is not available, the natural time will be used from the early morning of the first morning of this week to the morning of the last day of the week. When the time mode is specified on the right side, no countdown will be made if the chosen time mode is not available.</value>
+    <value>預設情況下將從本週課程安排取得倒數計時時間，以本週的第一個上課或課間休息時間點的開始時間為開始時間，最後一個上課或課間休息時間點的結束時間為結束時間。如果本週課程不可用，將使用從本週第一天凌晨至本週最後一天次日凌晨的自然時間。當在右側核取方塊指定了時間模式後，如果選擇的時間模式不可用，將不會進行倒數計時。</value>
   </data>
   <data name="TimeModeDefault" xml:space="preserve">
-    <value>Default</value>
+    <value>預設</value>
   </data>
   <data name="ForceNaturalTime" xml:space="preserve">
-    <value>Force Natural Time</value>
+    <value>強制自然時間</value>
   </data>
   <data name="ForceClassTime" xml:space="preserve">
-    <value>Mandatory Course Time</value>
+    <value>強制課程時間</value>
   </data>
   <data name="CustomWeekStartDay" xml:space="preserve">
-    <value>Custom First Day of the Week</value>
+    <value>自訂每週的第一天</value>
   </data>
   <data name="CustomWeekStartDayDescription" xml:space="preserve">
-    <value>By default, you will use the week set in the [Basic] start time as the first day of each week. When enabled, you will use the week specified here.</value>
+    <value>預設情況下將使用在【基本】中設定的學期開始時間的星期作為每週的第一天，啟用後將使用此處指定的星期。</value>
   </data>
   <data name="WeekdaySunday" xml:space="preserve">
-    <value>Sunday</value>
+    <value>星期日</value>
   </data>
   <data name="WeekdayMonday" xml:space="preserve">
-    <value>Monday</value>
+    <value>星期一</value>
   </data>
   <data name="WeekdayTuesday" xml:space="preserve">
-    <value>Tuesday</value>
+    <value>星期二</value>
   </data>
   <data name="WeekdayWednesday" xml:space="preserve">
-    <value>Wednesday</value>
+    <value>星期三</value>
   </data>
   <data name="WeekdayThursday" xml:space="preserve">
-    <value>Thursday</value>
+    <value>星期四</value>
   </data>
   <data name="WeekdayFriday" xml:space="preserve">
-    <value>Friday</value>
+    <value>星期五</value>
   </data>
   <data name="WeekdaySaturday" xml:space="preserve">
-    <value>Saturday</value>
+    <value>星期六</value>
   </data>
   <data name="DisplayContent" xml:space="preserve">
-    <value>Show content</value>
+    <value>顯示內容</value>
   </data>
   <data name="DisplayContentDescription" xml:space="preserve">
-    <value>Information to display on component</value>
+    <value>要在組件上顯示的資訊</value>
   </data>
   <data name="ProgressBar" xml:space="preserve">
-    <value>Progress bar</value>
+    <value>進度條</value>
   </data>
   <data name="ProgressRing" xml:space="preserve">
-    <value>Progress Ring</value>
+    <value>進度環</value>
   </data>
   <data name="CountdownConnector" xml:space="preserve">
-    <value>Countdown connection word</value>
+    <value>倒數計時連接詞</value>
   </data>
   <data name="Countdown" xml:space="preserve">
-    <value>Countdown</value>
+    <value>倒數計時</value>
   </data>
   <data name="FormatVariablesHelp" xml:space="preserve">
-    <value>Format Variable Description</value>
+    <value>格式化變數說明</value>
   </data>
   <data name="FormatTotalDays" xml:space="preserve">
-    <value>%D - Total days</value>
+    <value>%D - 總天數</value>
   </data>
   <data name="FormatTotalHours" xml:space="preserve">
-    <value>%H - Total Hours</value>
+    <value>%H - 總小時數</value>
   </data>
   <data name="FormatTotalMinutes" xml:space="preserve">
-    <value>%M - total minutes</value>
+    <value>%M - 總分鐘數</value>
   </data>
   <data name="FormatTotalSeconds" xml:space="preserve">
-    <value>%S - Total seconds</value>
+    <value>%S - 總秒數</value>
   </data>
   <data name="FormatTotalMilliseconds" xml:space="preserve">
-    <value>%X - Total milliseconds</value>
+    <value>%X - 總毫秒數</value>
   </data>
   <data name="FormatRoundUpNote" xml:space="preserve">
-    <value>The above values are rounded up.</value>
+    <value>以上數值向上取整。</value>
   </data>
   <data name="FormatRemainingPercent" xml:space="preserve">
-    <value>%L - remaining percentage</value>
+    <value>%L - 剩餘百分比</value>
   </data>
   <data name="FormatElapsedPercent" xml:space="preserve">
-    <value>%P - Elapsed percentage</value>
+    <value>%P - 已過百分比</value>
   </data>
   <data name="FormatElapsedPercent2Decimals" xml:space="preserve">
-    <value>%p - Elapsed percentage (2 decimal places)</value>
+    <value>%p - 已過百分比(兩位小數)</value>
   </data>
   <data name="FormatRoundingNote" xml:space="preserve">
-    <value>The above values are rounded to the nearest whole number.</value>
+    <value>以上數值四捨五入取整。</value>
   </data>
   <data name="FormatDays" xml:space="preserve">
-    <value>%d - Days</value>
+    <value>%d - 天</value>
   </data>
   <data name="FormatHours" xml:space="preserve">
-    <value>%h - Hours</value>
+    <value>%h - 小時</value>
   </data>
   <data name="FormatMinutes" xml:space="preserve">
-    <value>%m - minutes</value>
+    <value>%m - 分鐘</value>
   </data>
   <data name="FormatSeconds" xml:space="preserve">
-    <value>%s - Second</value>
+    <value>%s - 秒</value>
   </data>
   <data name="FormatMilliseconds" xml:space="preserve">
-    <value>%x - Milliseconds</value>
+    <value>%x - 毫秒</value>
   </data>
   <data name="FormatElementValueNote" xml:space="preserve">
-    <value>The above value takes the corresponding element.</value>
+    <value>以上數值取對應元素的值。</value>
   </data>
   <data name="AccentColor" xml:space="preserve">
-    <value>Highlight color</value>
+    <value>強調色</value>
   </data>
   <data name="AccentColorDescription" xml:space="preserve">
-    <value>The name of the event and the font color of the countdown.</value>
+    <value>事件名稱和倒數計時的字體顏色。</value>
   </data>
   <data name="ProgressBarUseAccent" xml:space="preserve">
-    <value>Use highlighted color for progress bar</value>
+    <value>進度條使用強調色</value>
   </data>
   <data name="ProgressBarUseAccentDescription" xml:space="preserve">
-    <value>When enabled, the progress bar will use the selected theme color as the theme instead of using the theme color of the application.</value>
+    <value>啟用後，進度條將使用選定的主題色作為主題色，而不是使用應用程式的主題色。</value>
   </data>
   <data name="ConnectorUseAccent" xml:space="preserve">
-    <value>Use color for countdown connection words</value>
+    <value>倒數計時連接詞使用強調顏色</value>
   </data>
   <data name="ConnectorUseAccentDescription" xml:space="preserve">
-    <value>When enabled, the countdown connection word color matches the font color, otherwise the default color.</value>
+    <value>啟用後，倒數計時連接詞顏色與字體顏色一致，否則為預設顏色。</value>
   </data>
   <data name="CountdownFontSizeDescription" xml:space="preserve">
-    <value>Event name and countdown font size.</value>
+    <value>事件名稱和倒數計時的字體大小。</value>
   </data>
   <data name="CountdownDistancePrefix" xml:space="preserve">
-    <value>Distance</value>
+    <value>距離</value>
   </data>
   <data name="TomorrowLabel" xml:space="preserve">
-    <value>Tomorrow</value>
+    <value>明天</value>
   </data>
 </root>

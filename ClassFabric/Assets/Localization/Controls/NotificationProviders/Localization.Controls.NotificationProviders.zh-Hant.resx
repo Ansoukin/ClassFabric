@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,139 +117,154 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmptyScheduleFile" xml:space="preserve">
-    <value>The content of the Class Widgets 2 schedule file is empty.</value>
+  <data name="AttachedSettingsOverrideMessage" xml:space="preserve">
+    <value>此處的設定可以在檔案設定中被附加設定覆寫。</value>
   </data>
-  <data name="MissingMetaInfo" xml:space="preserve">
-    <value>The schedule file is missing meta information.</value>
+  <data name="ViewAttachedSettings" xml:space="preserve">
+    <value>檢視…</value>
   </data>
-  <data name="UnsupportedVersionFmt" xml:space="preserve">
-    <value>Class Widgets 2 schedule version {0} is not supported; only version {1} is currently supported.</value>
+  <data name="NotifyOnAfterSchool" xml:space="preserve">
+    <value>在放學時發出提醒</value>
   </data>
-  <data name="MaxWeekCycleInvalid" xml:space="preserve">
-    <value>meta.maxWeekCycle must be greater than 0.</value>
+  <data name="NotifyOnAfterSchoolDescription" xml:space="preserve">
+    <value>在當日所有時間點結束後顯示醒目提醒，提示已經放學。</value>
   </data>
-  <data name="InvalidStartDate" xml:space="preserve">
-    <value>meta.startDate is not a valid yyyy-MM-dd date.</value>
+  <data name="NotificationDisplayContent" xml:space="preserve">
+    <value>提醒顯示內容</value>
   </data>
-  <data name="WeekCycleTruncationWarningFmt" xml:space="preserve">
-    <value>The schedule uses a {0}-week rotation, exceeding the {1} weeks supported by ClassFabric; only weekly schedules, non-cycle-specific overrides, and specified-date schedules will be retained</value>
+  <data name="NotifyOnClassPreparing" xml:space="preserve">
+    <value>在課前準備時發出提醒</value>
   </data>
-  <data name="WarningInvalidSubject" xml:space="preserve">
-    <value>Subjects missing an ID or name will be skipped</value>
+  <data name="NotifyOnClassPreparingDescription" xml:space="preserve">
+    <value>在上課前一段時間發出醒目提醒，提示做好上課準備。</value>
   </data>
-  <data name="WarningDuplicateSubject" xml:space="preserve">
-    <value>For subjects with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="EnableSpeech" xml:space="preserve">
+    <value>啟用語音</value>
   </data>
-  <data name="WarningUnsupportedSubjectFields" xml:space="preserve">
-    <value>Subject icon, color, or location fields are not supported and will be ignored</value>
+  <data name="IndoorPreparationNotifyTime" xml:space="preserve">
+    <value>室內課程課前提醒時間</value>
   </data>
-  <data name="WarningInvalidTimeline" xml:space="preserve">
-    <value>Timelines missing an ID will be skipped</value>
+  <data name="IndoorPreparationNotifyTimeDescription" xml:space="preserve">
+    <value>在室內課程的上課前指定時間進行上課提醒。</value>
   </data>
-  <data name="WarningDuplicateTimeline" xml:space="preserve">
-    <value>For timelines with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="SecondsUnit" xml:space="preserve">
+    <value>秒</value>
   </data>
-  <data name="EntityTimeline" xml:space="preserve">
-    <value>Timeline</value>
+  <data name="OutdoorPreparationNotifyTime" xml:space="preserve">
+    <value>室外課程課前提醒時間</value>
   </data>
-  <data name="WarningInvalidDate" xml:space="preserve">
-    <value>Invalid specified dates will be ignored; if a timeline has no valid weekday information, the entire timeline will also be skipped</value>
+  <data name="OutdoorPreparationNotifyTimeDescription" xml:space="preserve">
+    <value>在室外課程的上課前指定時間進行上課提醒。</value>
   </data>
-  <data name="WarningTimelineWithoutDay" xml:space="preserve">
-    <value>Timelines without a valid weekday or specified date will be skipped</value>
+  <data name="IndoorClassPreparingNotificationText" xml:space="preserve">
+    <value>室內課程準備上課提醒文字</value>
   </data>
-  <data name="WarningOversizedCycleTimeline" xml:space="preserve">
-    <value>Cycle-specific timelines in an oversized rotation will be skipped</value>
+  <data name="DisabledWatermark" xml:space="preserve">
+    <value>（禁用）</value>
   </data>
-  <data name="WarningInvalidEntry" xml:space="preserve">
-    <value>Schedule entries missing an ID will be skipped</value>
+  <data name="IndoorClassPreparingMaskText" xml:space="preserve">
+    <value>室內課程準備上課遮罩文字</value>
   </data>
-  <data name="WarningDuplicateEntry" xml:space="preserve">
-    <value>For schedule entries with duplicate IDs, the first will be retained and the rest will be skipped</value>
+  <data name="OutdoorClassPreparingNotificationText" xml:space="preserve">
+    <value>戶外課程準備上課提醒文字</value>
   </data>
-  <data name="WarningUnknownEntryType" xml:space="preserve">
-    <value>Schedule entries with unknown types will be skipped</value>
+  <data name="OutdoorClassPreparingMaskText" xml:space="preserve">
+    <value>戶外課程準備上課遮罩文字</value>
   </data>
-  <data name="WarningInvalidEntryTime" xml:space="preserve">
-    <value>Schedule entries with invalid start or end times will be skipped</value>
+  <data name="NotifyOnClassOn" xml:space="preserve">
+    <value>在上課時發出提醒</value>
   </data>
-  <data name="WarningUnknownEntrySubject" xml:space="preserve">
-    <value>A schedule entry references a nonexistent subject; the subject reference will be ignored</value>
+  <data name="NotifyOnClassOnDescription" xml:space="preserve">
+    <value>在上課時發出醒目提醒，提示已經上課。</value>
   </data>
-  <data name="WarningInvalidOverrideId" xml:space="preserve">
-    <value>Overrides missing an ID or with duplicate IDs will be skipped</value>
+  <data name="ClassOnMaskText" xml:space="preserve">
+    <value>上課遮罩文字</value>
   </data>
-  <data name="WarningUnknownOverrideEntry" xml:space="preserve">
-    <value>Overrides that reference nonexistent schedule entries will be skipped</value>
+  <data name="NotifyOnClassOff" xml:space="preserve">
+    <value>在下課時發出提醒</value>
   </data>
-  <data name="EntityOverride" xml:space="preserve">
-    <value>Override</value>
+  <data name="NotifyOnClassOffDescription" xml:space="preserve">
+    <value>在下課時發出醒目提醒，提示已經下課。</value>
   </data>
-  <data name="WarningOversizedCycleOverride" xml:space="preserve">
-    <value>Cycle-specific overrides in an oversized rotation will be skipped</value>
+  <data name="ClassOffNotificationText" xml:space="preserve">
+    <value>下課提醒文字</value>
   </data>
-  <data name="WarningUnknownOverrideSubject" xml:space="preserve">
-    <value>An override references a nonexistent subject; the subject modification will be ignored</value>
+  <data name="ShowTeacherName" xml:space="preserve">
+    <value>顯示科任老師名字</value>
   </data>
-  <data name="WarningInvalidOverrideTime" xml:space="preserve">
-    <value>Invalid start or end times in an override will be ignored</value>
+  <data name="ShowTeacherNameDescription" xml:space="preserve">
+    <value>在顯示課程相關的提醒時同時展示並播報對應科任老師的名字</value>
   </data>
-  <data name="WarningDuplicateDateTimeline" xml:space="preserve">
-    <value>For multiple timelines with the same specified date, only the first will be retained</value>
+  <data name="UntilClassStarts" xml:space="preserve">
+    <value>距上課還剩</value>
   </data>
-  <data name="NamedDateSuffix" xml:space="preserve">
-    <value>(Specified date)</value>
+  <data name="NextLessonIs" xml:space="preserve">
+    <value>下節課是：</value>
   </data>
-  <data name="WarningInvalidDayFmt" xml:space="preserve">
-    <value>Invalid weekday values in {0} will be ignored</value>
+  <data name="CurrentLessonPrefix" xml:space="preserve">
+    <value>本節</value>
   </data>
-  <data name="WarningUnknownWeeksFmt" xml:space="preserve">
-    <value>Unknown week rotation values in {0} will cause that element to be skipped</value>
+  <data name="DurationSuffix" xml:space="preserve">
+    <value>長</value>
   </data>
-  <data name="WarningOutOfRangeWeeksFmt" xml:space="preserve">
-    <value>Out-of-range week rotation values in {0} will be ignored</value>
+  <data name="DurationMinutesFmt" xml:space="preserve">
+    <value>{0} 分鐘</value>
   </data>
-  <data name="DayMonday" xml:space="preserve">
-    <value>Monday</value>
+  <data name="DurationHoursFmt" xml:space="preserve">
+    <value>{0} 小時</value>
   </data>
-  <data name="DayTuesday" xml:space="preserve">
-    <value>Tuesday</value>
+  <data name="DurationShortMinutesFmt" xml:space="preserve">
+    <value>{0} 分</value>
   </data>
-  <data name="DayWednesday" xml:space="preserve">
-    <value>Wednesday</value>
+  <data name="DurationSecondsFmt" xml:space="preserve">
+    <value>{0} 秒</value>
   </data>
-  <data name="DayThursday" xml:space="preserve">
-    <value>Thursday</value>
+  <data name="EnableWeatherForecast" xml:space="preserve">
+    <value>啟用天氣預報</value>
   </data>
-  <data name="DayFriday" xml:space="preserve">
-    <value>Friday</value>
+  <data name="EnableWeatherForecastDescription" xml:space="preserve">
+    <value>若啟用天氣預報，會在指定時間段顯示今天和明後兩天的天氣概況。</value>
   </data>
-  <data name="DaySaturday" xml:space="preserve">
-    <value>Saturday</value>
+  <data name="EnableWeatherAlert" xml:space="preserve">
+    <value>啟用極端天氣預警</value>
   </data>
-  <data name="DaySunday" xml:space="preserve">
-    <value>Sunday</value>
+  <data name="EnableWeatherAlertDescription" xml:space="preserve">
+    <value>當發布氣象預警時，會在指定的時間段進行通知。</value>
   </data>
-  <data name="DayUnknown" xml:space="preserve">
-    <value>Unknown weekday</value>
+  <data name="DefaultForecastShowMode" xml:space="preserve">
+    <value>默認天氣預報顯示模式</value>
   </data>
-  <data name="OddWeekLabel" xml:space="preserve">
-    <value>Odd week</value>
+  <data name="DefaultForecastShowModeDescription" xml:space="preserve">
+    <value>天氣預報的默認顯示模式，可以在各個時間點覆寫該設定。</value>
   </data>
-  <data name="EvenWeekLabel" xml:space="preserve">
-    <value>Even week</value>
+  <data name="DefaultDisabled" xml:space="preserve">
+    <value>默認禁用</value>
   </data>
-  <data name="OddEvenWeekSuffixFmt" xml:space="preserve">
-    <value>({0})</value>
+  <data name="DefaultEnabled" xml:space="preserve">
+    <value>默認啟用</value>
   </data>
-  <data name="WeekCycleSuffixFmt" xml:space="preserve">
-    <value>(Week {0}/{1})</value>
+  <data name="DefaultAlertShowMode" xml:space="preserve">
+    <value>默認極端天氣提醒顯示模式</value>
   </data>
-  <data name="WarningCountSuffixFmt" xml:space="preserve">
-    <value>({0} items)</value>
+  <data name="DefaultAlertShowModeDescription" xml:space="preserve">
+    <value>極端天氣提醒的默認顯示模式，可以在各個時間點覆寫該設定。</value>
   </data>
-  <data name="WarningInvalidResolvedTime" xml:space="preserve">
-    <value>Schedule entries with invalid start or end times after applying overrides will be skipped</value>
+  <data name="WeatherAlertScrollSpeed" xml:space="preserve">
+    <value>極端天氣預警滾動速度（字/秒）</value>
+  </data>
+  <data name="WeatherAlertScrollSpeedDescription" xml:space="preserve">
+    <value>顯示天氣預警詳細信息時文本滾動一輪的速度。無論此選項設定為何值，滾動一輪的時間始終限制在10~90秒內。</value>
+  </data>
+  <data name="WeatherForecastTitle" xml:space="preserve">
+    <value>天氣預報</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="TomorrowLabel" xml:space="preserve">
+    <value>明天</value>
+  </data>
+  <data name="DayAfterTomorrowLabel" xml:space="preserve">
+    <value>後天</value>
   </data>
 </root>

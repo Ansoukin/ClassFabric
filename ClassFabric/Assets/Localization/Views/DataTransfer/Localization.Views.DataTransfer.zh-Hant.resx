@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>數據遷移</value>
+  </data>
+  <data name="PageDescription" xml:space="preserve">
+    <value>向 ClassFabric 匯入或從 ClassFabric 匯出資料。</value>
+  </data>
+  <data name="ImportTab" xml:space="preserve">
+    <value>匯入</value>
+  </data>
+  <data name="ExportTab" xml:space="preserve">
+    <value>匯出</value>
+  </data>
+  <data name="ExportInfoBarMessage" xml:space="preserve">
+    <value>此處的資料匯出功能主要用於在不同 ClassFabric 執行個體間轉移資料。若需匯出診斷資訊，請前往【應用設置】->【更多選項…】->【匯出診斷資料】；若需備份應用資料，請使用【應用設置】->【通用】->【儲存】中的備份功能。</value>
+  </data>
+  <data name="SelectDataToImport" xml:space="preserve">
+    <value>選擇要匯入的資料</value>
+  </data>
+  <data name="SelectDataToExport" xml:space="preserve">
+    <value>選擇要匯出的資料</value>
+  </data>
+  <data name="SelectInfoToImport" xml:space="preserve">
+    <value>選擇要匯入的資訊</value>
+  </data>
+  <data name="SelectInfoToExport" xml:space="preserve">
+    <value>選擇要匯出的資訊</value>
+  </data>
+  <data name="ProfileDataHeader" xml:space="preserve">
+    <value>課表設定</value>
+  </data>
+  <data name="ProfileDataDescription" xml:space="preserve">
+    <value>包括課表內容、時間安排、科目定義等資訊。</value>
+  </data>
+  <data name="SettingsDataHeader" xml:space="preserve">
+    <value>應用設置</value>
+  </data>
+  <data name="SettingsDataDescription" xml:space="preserve">
+    <value>包括應用程式的各個偏好設定，如隱藏設定、顏色設定、提醒/鈴聲設定、天氣資訊等。</value>
+  </data>
+  <data name="OtherConfigHeader" xml:space="preserve">
+    <value>其他配置</value>
+  </data>
+  <data name="OtherConfigDescription" xml:space="preserve">
+    <value>元件、自動化等設定檔。</value>
+  </data>
+  <data name="PreviousToolTip" xml:space="preserve">
+    <value>上一步</value>
+  </data>
+  <data name="NextToolTip" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="ImportSourceTitle" xml:space="preserve">
+    <value>匯入來源</value>
+  </data>
+  <data name="ExportTargetTitle" xml:space="preserve">
+    <value>匯出目標</value>
+  </data>
+  <data name="SelectImportSourceDescription" xml:space="preserve">
+    <value>選擇要匯入的資料來源。</value>
+  </data>
+  <data name="SelectExportTargetDescription" xml:space="preserve">
+    <value>選擇要匯出到的目標。</value>
+  </data>
+  <data name="BrowseHeader" xml:space="preserve">
+    <value>瀏覽…</value>
+  </data>
+  <data name="BrowseImportDescription" xml:space="preserve">
+    <value>手動瀏覽匯入位置</value>
+  </data>
+  <data name="BrowseExportDescription" xml:space="preserve">
+    <value>手動瀏覽匯出位置</value>
+  </data>
+  <data name="ImportingTitle" xml:space="preserve">
+    <value>正在匯入</value>
+  </data>
+  <data name="ExportingTitle" xml:space="preserve">
+    <value>正在匯出</value>
+  </data>
+  <data name="ImportingDescription" xml:space="preserve">
+    <value>請坐和放寬，匯入很快就能完成。</value>
+  </data>
+  <data name="ExportingDescription" xml:space="preserve">
+    <value>請坐和放寬，匯出很快就能完成。</value>
+  </data>
+  <data name="ImportCompleteTitle" xml:space="preserve">
+    <value>匯入完成</value>
+  </data>
+  <data name="ExportCompleteTitle" xml:space="preserve">
+    <value>匯出完成</value>
+  </data>
+  <data name="ImportCompleteDescription" xml:space="preserve">
+    <value>已成功完成匯入。</value>
+  </data>
+  <data name="ExportCompleteDescription" xml:space="preserve">
+    <value>已成功完成匯出。</value>
+  </data>
+  <data name="FinishToolTip" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ImportDescriptionFromClassIsland" xml:space="preserve">
+    <value>支援從 1.x 版本的 ClassIsland 匯入課表、元件設定、自動化設定、應用設置、部分外掛和主題等資料。</value>
+  </data>
+  <data name="PickerTitleFromClassIsland" xml:space="preserve">
+    <value>選擇先前版本的 ClassIsland 執行個體</value>
+  </data>
+  <data name="FileTypeClassIslandExecutable" xml:space="preserve">
+    <value>ClassIsland 可執行檔</value>
+  </data>
+  <data name="RestartToContinueTitle" xml:space="preserve">
+    <value>重新啟動以繼續</value>
+  </data>
+  <data name="RestartToContinueImportContent" xml:space="preserve">
+    <value>應用程式需要重新啟動以繼續匯入操作，要重新啟動以繼續匯入嗎？</value>
+  </data>
+  <data name="RestartAndContinue" xml:space="preserve">
+    <value>重新啟動並繼續</value>
+  </data>
+  <data name="ErrorSourceVersionNotSupported" xml:space="preserve">
+    <value>來源 ClassFabric 版本必須在 1.7.0.x，才能進行匯入。</value>
+  </data>
+  <data name="UnexpectedImportError" xml:space="preserve">
+    <value>匯入時發生意外錯誤</value>
+  </data>
+  <data name="ImportDescriptionFromClassFabric2" xml:space="preserve">
+    <value>支援從 ClassFabric 2.x 資料檔案匯入課表、元件設定、自動化設定、應用設置、部分外掛和主題等資料。</value>
+  </data>
+  <data name="PickerTitleFromClassFabric2" xml:space="preserve">
+    <value>瀏覽 ClassFabric 2 匯出檔案</value>
+  </data>
+  <data name="FileTypeClassFabricData" xml:space="preserve">
+    <value>ClassFabric 資料檔案</value>
+  </data>
+  <data name="ErrorCannotOpenDataFile" xml:space="preserve">
+    <value>無法開啟所選 ClassFabric 資料檔案。</value>
+  </data>
+  <data name="ErrorInvalidEntryPath" xml:space="preserve">
+    <value>壓縮檔包含無效路徑：{0}</value>
+  </data>
+  <data name="ExportDescription" xml:space="preserve">
+    <value>支援匯出為可以匯入到其他 ClassFabric 2 執行個體的檔案格式。</value>
+  </data>
+  <data name="PickerTitleForExport" xml:space="preserve">
+    <value>瀏覽儲存的匯出檔案</value>
+  </data>
+  <data name="UnexpectedExportError" xml:space="preserve">
+    <value>匯出資料時發生意外錯誤。</value>
+  </data>
+  <data name="ImportDescriptionFromClassWidgets" xml:space="preserve">
+    <value>支援從 Class Widgets 1 匯入全部課表資訊和大部分設定。</value>
+  </data>
+  <data name="PickerTitleFromClassWidgets" xml:space="preserve">
+    <value>瀏覽 Class Widgets 安裝（即有 ClassWidgets[.exe]）的資料夾或其資料目錄</value>
+  </data>
+  <data name="RestartToContinueApplyContent" xml:space="preserve">
+    <value>應用程式需要重新啟動以完全套用匯入操作，要繼續嗎？</value>
+  </data>
+  <data name="UpgradingPluginsTitle" xml:space="preserve">
+    <value>正在升級外掛</value>
+  </data>
+  <data name="UpgradingPluginsBody" xml:space="preserve">
+    <value>正在升級從 ClassIsland 1 匯入的外掛到相容 ClassFabric 2 的版本，這可能需要一定的時間，應用程式將在升級完成後顯示一則通知。部分外掛可能暫不支援 ClassFabric 2。</value>
+  </data>
+</root>

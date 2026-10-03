@@ -264,6 +264,9 @@
   <data name="OpenedToast" xml:space="preserve">
     <value>On {0}</value>
   </data>
+  <data name="ReplacedGroupToast" xml:space="preserve">
+    <value>Replaced the tutorial group with ID {0} and enabled hot reload.</value>
+  </data>
   <data name="ErrorOpenTutorialFile" xml:space="preserve">
     <value>Unable to open tutorial file</value>
   </data>

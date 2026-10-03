@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -127,55 +127,55 @@
   </data>
   <data name="NewConfigDescription" xml:space="preserve">
     <value>將創建並切換到一個全新的配置文件。</value>
-    <comment>翻新範圍項樣式描述：新建配置文件</comment>
+    <comment>翻新范围项样式描述：新建配置文件</comment>
   </data>
   <data name="DisablePluginsDescription" xml:space="preserve">
     <value>將禁用已經啓用的插件。</value>
-    <comment>翻新範圍項樣式描述：禁用插件</comment>
+    <comment>翻新范围项样式描述：禁用插件</comment>
   </data>
   <data name="DefaultRefreshingScopes" xml:space="preserve">
     <value>默認翻新範圍</value>
-    <comment>翻新頁-"默認翻新範圍"項</comment>
+    <comment>翻新页-"默认翻新范围"项</comment>
   </data>
   <data name="DefaultRefreshingScopesDescription" xml:space="preserve">
     <value>默認情況下將勾選以下翻新範圍，翻新時會重置對應的設置。</value>
-    <comment>默認翻新範圍-描述</comment>
+    <comment>默认翻新范围-描述</comment>
   </data>
   <data name="ScopeProfile" xml:space="preserve">
     <value>檔案</value>
-    <comment>翻新範圍-"檔案"</comment>
+    <comment>翻新范围-"档案"</comment>
   </data>
   <data name="ScopeProfileClassPlans" xml:space="preserve">
     <value>課表</value>
-    <comment>翻新範圍-"課表"</comment>
+    <comment>翻新范围-"课表"</comment>
   </data>
   <data name="ScopeProfileTimeLayouts" xml:space="preserve">
     <value>時間表</value>
-    <comment>翻新範圍-"時間表"</comment>
+    <comment>翻新范围-"时间表"</comment>
   </data>
   <data name="ChooseReservedContent" xml:space="preserve">
     <value>選擇保留的內容…</value>
-    <comment>翻新範圍-"選擇保留的內容…"按鈕提示</comment>
+    <comment>翻新范围-"选择保留的内容…"按钮提示</comment>
   </data>
   <data name="ScopeComponents" xml:space="preserve">
     <value>組件配置</value>
-    <comment>翻新範圍-"組件配置"</comment>
+    <comment>翻新范围-"组件配置"</comment>
   </data>
   <data name="ScopeAutomations" xml:space="preserve">
     <value>自動化</value>
-    <comment>翻新範圍-"自動化"</comment>
+    <comment>翻新范围-"自动化"</comment>
   </data>
   <data name="ScopePlugins" xml:space="preserve">
-    <value>插件</value>
-    <comment>翻新範圍-"插件"</comment>
+    <value>外掛程式</value>
+    <comment>翻新范围-"插件"</comment>
   </data>
   <data name="RefreshNow" xml:space="preserve">
     <value>立即翻新</value>
-    <comment>翻新頁-"立即翻新"按鈕</comment>
+    <comment>翻新页-"立即翻新"按钮</comment>
   </data>
   <data name="OnboardingModeHeader" xml:space="preserve">
-    <value>迎新模式</value>
-    <comment>翻新頁-"迎新模式"Expander</comment>
+    <value>迎接模式</value>
+    <comment>翻新页-"迎新模式"Expander</comment>
   </data>
   <data name="OnboardingModeDescription" xml:space="preserve">
     <value>啓用後，在下次顯示翻新提示時將其替換為迎新指引，指引不熟悉 ClassFabric 的新同學上手本應用，並對應用進行翻新。此選項在生效一次後將自動關閉。</value>
@@ -183,86 +183,86 @@
   </data>
   <data name="NotificationTitle" xml:space="preserve">
     <value>通知標題</value>
-    <comment>迎新模式-"通知標題"項</comment>
+    <comment>迎新模式-"通知标题"项</comment>
   </data>
   <data name="NotificationBody" xml:space="preserve">
     <value>通知內容</value>
-    <comment>迎新模式-"通知內容"字段標籤</comment>
+    <comment>迎新模式-"通知内容"字段标签</comment>
   </data>
   <data name="ResetToDefault" xml:space="preserve">
     <value>重置為默認值</value>
-    <comment>迎新模式-"重置為默認值"按鈕</comment>
+    <comment>迎新模式-"重置为默认值"按钮</comment>
   </data>
   <data name="TestNotification" xml:space="preserve">
     <value>測試通知</value>
-    <comment>迎新模式-"測試通知"按鈕</comment>
+    <comment>迎新模式-"测试通知"按钮</comment>
   </data>
   <data name="NotificationOptions" xml:space="preserve">
     <value>通知選項</value>
-    <comment>翻新頁-"通知選項"分區標題</comment>
+    <comment>翻新页-"通知选项"分区标题</comment>
   </data>
   <data name="NotificationDisplayInterval" xml:space="preserve">
     <value>通知顯示間隔</value>
-    <comment>翻新頁-"通知顯示間隔"Expander</comment>
+    <comment>翻新页-"通知显示间隔"Expander</comment>
   </data>
   <data name="NotificationDisplayIntervalDescription" xml:space="preserve">
     <value>設置在不啓動 ClassFabric 多少天後顯示翻新或迎新指引。</value>
-    <comment>通知顯示間隔-描述</comment>
+    <comment>通知显示间隔-描述</comment>
   </data>
   <data name="DayUnit" xml:space="preserve">
     <value>天</value>
-    <comment>間隔天數單位後綴</comment>
+    <comment>间隔天数单位后缀</comment>
   </data>
   <data name="ShowNotificationOnNextStart" xml:space="preserve">
     <value>在下次啓動時顯示通知</value>
-    <comment>通知顯示間隔-"在下次啓動時顯示通知"項</comment>
+    <comment>通知显示间隔-"在下次启动时显示通知"项</comment>
   </data>
   <data name="ShowNotificationOnNextStartDescription" xml:space="preserve">
     <value>啓用後，將在下一次啓動應用時立即顯示翻新或迎新指引通知。此選項生效後將被關閉。</value>
-    <comment>在下次啓動時顯示通知-描述</comment>
+    <comment>在下次启动时显示通知-描述</comment>
   </data>
   <data name="ExitAppNow" xml:space="preserve">
     <value>立即退出應用</value>
-    <comment>在下次啓動時顯示通知-"立即退出應用"按鈕</comment>
+    <comment>在下次启动时显示通知-"立即退出应用"按钮</comment>
   </data>
   <data name="MaxNotificationCount" xml:space="preserve">
     <value>最高通知顯示次數</value>
-    <comment>翻新頁-"最高通知顯示次數"Expander</comment>
+    <comment>翻新页-"最高通知显示次数"Expander</comment>
   </data>
   <data name="MaxNotificationCountDescription" xml:space="preserve">
     <value>如果用戶忽略了通知，應用會在下次啓動時再次發送給通知詢問用戶。這裏可以設置翻新或迎新指引通知在觸發後最多可以顯示次數。</value>
-    <comment>最高通知顯示次數-描述</comment>
+    <comment>最高通知显示次数-描述</comment>
   </data>
   <data name="TimesUnit" xml:space="preserve">
     <value>次</value>
-    <comment>顯示次數單位後綴</comment>
+    <comment>显示次数单位后缀</comment>
   </data>
   <data name="Clear" xml:space="preserve">
     <value>清空</value>
-    <comment>最高通知顯示次數-"清空"按鈕</comment>
+    <comment>最高通知显示次数-"清空"按钮</comment>
   </data>
   <data name="LeftNotificationCount" xml:space="preserve">
     <value>剩餘通知次數：</value>
-    <comment>最高通知顯示次數-剩餘次數文本前綴</comment>
+    <comment>最高通知显示次数-剩余次数文本前缀</comment>
   </data>
   <data name="ResetOnboardingMessagesDialogTitle" xml:space="preserve">
     <value>重置迎新消息設置</value>
-    <comment>重置迎新消息-對話框標題（axaml.cs）</comment>
+    <comment>重置迎新消息-对话框标题（axaml.cs）</comment>
   </data>
   <data name="ResetOnboardingMessagesDialogContent" xml:space="preserve">
     <value>確定要重置迎新消息設置嗎？此操作不可撤銷！</value>
-    <comment>重置迎新消息-對話框內容（axaml.cs）</comment>
+    <comment>重置迎新消息-对话框内容（axaml.cs）</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>重置</value>
-    <comment>重置迎新消息-對話框主按鈕（axaml.cs）</comment>
+    <value>重設</value>
+    <comment>重置迎新消息-对话框主按钮（axaml.cs）</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
-    <comment>重置迎新消息-對話框次按鈕（axaml.cs）</comment>
+    <comment>重置迎新消息-对话框次按钮（axaml.cs）</comment>
   </data>
   <data name="OnboardingMessagesReset" xml:space="preserve">
-    <value>已重置迎新消息。</value>
+    <value>已重設迎新訊息。</value>
     <comment>重置迎新消息成功吐司（axaml.cs）</comment>
   </data>
 </root>

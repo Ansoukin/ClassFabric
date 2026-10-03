@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="WindowDockingLocation" xml:space="preserve">
-    <value>窗口停靠位置</value>
+    <value>視窗停靠位置</value>
     <comment>窗口设置-WindowDockingLocation</comment>
   </data>
   <data name="StartButtonToolTip" xml:space="preserve">
@@ -126,11 +126,11 @@
     <comment>窗口设置-StartButtonToolTip</comment>
   </data>
   <data name="OffsetRightLabel" xml:space="preserve">
-    <value>向右偏移</value>
+    <value>往右偏移</value>
     <comment>窗口设置-OffsetRightLabel</comment>
   </data>
   <data name="OffsetDownLabel" xml:space="preserve">
-    <value>向下偏移</value>
+    <value>往下偏移</value>
     <comment>窗口设置-OffsetDownLabel</comment>
   </data>
   <data name="MonitorLabel" xml:space="preserve">
@@ -162,7 +162,7 @@
     <comment>窗口设置-WindowLayerDescription</comment>
   </data>
   <data name="LayerBottom" xml:space="preserve">
-    <value>置底</value>
+    <value>置於底層</value>
     <comment>窗口设置-LayerBottom</comment>
   </data>
   <data name="LayerTop" xml:space="preserve">
@@ -186,11 +186,11 @@
     <comment>窗口设置-LayerModeForegroundChange</comment>
   </data>
   <data name="LayerMode50ms" xml:space="preserve">
-    <value>每 50ms</value>
+    <value>每 50 毫秒</value>
     <comment>窗口设置-LayerMode50ms</comment>
   </data>
   <data name="LayerMode1ms" xml:space="preserve">
-    <value>每 1ms</value>
+    <value>每 1 毫秒</value>
     <comment>窗口设置-LayerMode1ms</comment>
   </data>
   <data name="BackgroundEffectHeader" xml:space="preserve">
@@ -254,7 +254,7 @@
     <comment>窗口设置-MouseFadingReversedDescription</comment>
   </data>
   <data name="RawScreenSizeHeader" xml:space="preserve">
-    <value>使用原始屏幕尺寸</value>
+    <value>使用原始螢幕尺寸</value>
     <comment>窗口设置-RawScreenSizeHeader</comment>
   </data>
   <data name="RawScreenSizeDescription" xml:space="preserve">

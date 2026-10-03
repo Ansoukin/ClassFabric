@@ -118,138 +118,138 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EmptyScheduleFile" xml:space="preserve">
-    <value>The content of the Class Widgets 2 schedule file is empty.</value>
+    <value>Class Widgets 2 課表檔案內容為空。</value>
   </data>
   <data name="MissingMetaInfo" xml:space="preserve">
-    <value>The schedule file is missing meta information.</value>
+    <value>課表檔案缺少 meta 資訊。</value>
   </data>
   <data name="UnsupportedVersionFmt" xml:space="preserve">
-    <value>Class Widgets 2 schedule version {0} is not supported; only version {1} is currently supported.</value>
+    <value>不支援 Class Widgets 2 課表版本 {0}，目前僅支援版本 {1}。</value>
   </data>
   <data name="MaxWeekCycleInvalid" xml:space="preserve">
-    <value>meta.maxWeekCycle must be greater than 0.</value>
+    <value>meta.maxWeekCycle 必須大於 0。</value>
   </data>
   <data name="InvalidStartDate" xml:space="preserve">
-    <value>meta.startDate is not a valid yyyy-MM-dd date.</value>
+    <value>meta.startDate 並非有效的 yyyy-MM-dd 日期。</value>
   </data>
   <data name="WeekCycleTruncationWarningFmt" xml:space="preserve">
-    <value>The schedule uses a {0}-week rotation, exceeding the {1} weeks supported by ClassFabric; only weekly schedules, non-cycle-specific overrides, and specified-date schedules will be retained</value>
+    <value>課表使用 {0} 週輪換，超過 ClassFabric 支援的 {1} 週；將僅保留每週課表、非週期覆蓋項和指定日期課表</value>
   </data>
   <data name="WarningInvalidSubject" xml:space="preserve">
-    <value>Subjects missing an ID or name will be skipped</value>
+    <value>缺少 ID 或名稱的科目將被跳過</value>
   </data>
   <data name="WarningDuplicateSubject" xml:space="preserve">
-    <value>For subjects with duplicate IDs, the first will be retained and the rest will be skipped</value>
+    <value>ID 重複的科目將保留第一個，其餘將被跳過</value>
   </data>
   <data name="WarningUnsupportedSubjectFields" xml:space="preserve">
-    <value>Subject icon, color, or location fields are not supported and will be ignored</value>
+    <value>科目的圖示、顏色或地點欄位不受支援，將被忽略</value>
   </data>
   <data name="WarningInvalidTimeline" xml:space="preserve">
-    <value>Timelines missing an ID will be skipped</value>
+    <value>缺少 ID 的時間線將被跳過</value>
   </data>
   <data name="WarningDuplicateTimeline" xml:space="preserve">
-    <value>For timelines with duplicate IDs, the first will be retained and the rest will be skipped</value>
+    <value>ID 重複的時間線將保留第一個，其餘將被跳過</value>
   </data>
   <data name="EntityTimeline" xml:space="preserve">
-    <value>Timeline</value>
+    <value>時間線</value>
   </data>
   <data name="WarningInvalidDate" xml:space="preserve">
-    <value>Invalid specified dates will be ignored; if a timeline has no valid weekday information, the entire timeline will also be skipped</value>
+    <value>無效的指定日期將被忽略；若時間線沒有有效星期資訊，整條時間線也會被跳過</value>
   </data>
   <data name="WarningTimelineWithoutDay" xml:space="preserve">
-    <value>Timelines without a valid weekday or specified date will be skipped</value>
+    <value>沒有有效星期或指定日期的時間線將被跳過</value>
   </data>
   <data name="WarningOversizedCycleTimeline" xml:space="preserve">
-    <value>Cycle-specific timelines in an oversized rotation will be skipped</value>
+    <value>超長輪換中的週期限定時間線將被跳過</value>
   </data>
   <data name="WarningInvalidEntry" xml:space="preserve">
-    <value>Schedule entries missing an ID will be skipped</value>
+    <value>缺少 ID 的課表條目將被跳過</value>
   </data>
   <data name="WarningDuplicateEntry" xml:space="preserve">
-    <value>For schedule entries with duplicate IDs, the first will be retained and the rest will be skipped</value>
+    <value>ID 重複的課表條目將保留第一個，其餘將被跳過</value>
   </data>
   <data name="WarningUnknownEntryType" xml:space="preserve">
-    <value>Schedule entries with unknown types will be skipped</value>
+    <value>類型未知的課表條目將被跳過</value>
   </data>
   <data name="WarningInvalidEntryTime" xml:space="preserve">
-    <value>Schedule entries with invalid start or end times will be skipped</value>
+    <value>起訖時間無效的課表條目將被跳過</value>
   </data>
   <data name="WarningUnknownEntrySubject" xml:space="preserve">
-    <value>A schedule entry references a nonexistent subject; the subject reference will be ignored</value>
+    <value>課表條目參照了不存在的科目，該科目參照將被忽略</value>
   </data>
   <data name="WarningInvalidOverrideId" xml:space="preserve">
-    <value>Overrides missing an ID or with duplicate IDs will be skipped</value>
+    <value>缺少 ID 或 ID 重複的覆蓋項將被跳過</value>
   </data>
   <data name="WarningUnknownOverrideEntry" xml:space="preserve">
-    <value>Overrides that reference nonexistent schedule entries will be skipped</value>
+    <value>參照不存在課表條目的覆蓋項將被跳過</value>
   </data>
   <data name="EntityOverride" xml:space="preserve">
-    <value>Override</value>
+    <value>覆蓋項</value>
   </data>
   <data name="WarningOversizedCycleOverride" xml:space="preserve">
-    <value>Cycle-specific overrides in an oversized rotation will be skipped</value>
+    <value>超長輪換中的週期限定覆蓋項將被跳過</value>
   </data>
   <data name="WarningUnknownOverrideSubject" xml:space="preserve">
-    <value>An override references a nonexistent subject; the subject modification will be ignored</value>
+    <value>覆蓋項參照了不存在的科目，該科目修改將被忽略</value>
   </data>
   <data name="WarningInvalidOverrideTime" xml:space="preserve">
-    <value>Invalid start or end times in an override will be ignored</value>
+    <value>覆蓋項中的無效起訖時間將被忽略</value>
   </data>
   <data name="WarningDuplicateDateTimeline" xml:space="preserve">
-    <value>For multiple timelines with the same specified date, only the first will be retained</value>
+    <value>同一指定日期的多條時間線將只保留第一條</value>
   </data>
   <data name="NamedDateSuffix" xml:space="preserve">
-    <value>(Specified date)</value>
+    <value>（指定日期）</value>
   </data>
   <data name="WarningInvalidDayFmt" xml:space="preserve">
-    <value>Invalid weekday values in {0} will be ignored</value>
+    <value>{0}中的無效星期值將被忽略</value>
   </data>
   <data name="WarningUnknownWeeksFmt" xml:space="preserve">
-    <value>Unknown week rotation values in {0} will cause that element to be skipped</value>
+    <value>{0}中的未知週輪換值將導致該元素被跳過</value>
   </data>
   <data name="WarningOutOfRangeWeeksFmt" xml:space="preserve">
-    <value>Out-of-range week rotation values in {0} will be ignored</value>
+    <value>{0}中的越界週輪換值將被忽略</value>
   </data>
   <data name="DayMonday" xml:space="preserve">
-    <value>Monday</value>
+    <value>週一</value>
   </data>
   <data name="DayTuesday" xml:space="preserve">
-    <value>Tuesday</value>
+    <value>週二</value>
   </data>
   <data name="DayWednesday" xml:space="preserve">
-    <value>Wednesday</value>
+    <value>週三</value>
   </data>
   <data name="DayThursday" xml:space="preserve">
-    <value>Thursday</value>
+    <value>週四</value>
   </data>
   <data name="DayFriday" xml:space="preserve">
-    <value>Friday</value>
+    <value>週五</value>
   </data>
   <data name="DaySaturday" xml:space="preserve">
-    <value>Saturday</value>
+    <value>週六</value>
   </data>
   <data name="DaySunday" xml:space="preserve">
-    <value>Sunday</value>
+    <value>週日</value>
   </data>
   <data name="DayUnknown" xml:space="preserve">
-    <value>Unknown weekday</value>
+    <value>未知星期</value>
   </data>
   <data name="OddWeekLabel" xml:space="preserve">
-    <value>Odd week</value>
+    <value>單週</value>
   </data>
   <data name="EvenWeekLabel" xml:space="preserve">
-    <value>Even week</value>
+    <value>雙週</value>
   </data>
   <data name="OddEvenWeekSuffixFmt" xml:space="preserve">
-    <value>({0})</value>
+    <value>（{0}）</value>
   </data>
   <data name="WeekCycleSuffixFmt" xml:space="preserve">
-    <value>(Week {0}/{1})</value>
+    <value>（第 {0}/{1} 週）</value>
   </data>
   <data name="WarningCountSuffixFmt" xml:space="preserve">
-    <value>({0} items)</value>
+    <value>（{0} 項）</value>
   </data>
   <data name="WarningInvalidResolvedTime" xml:space="preserve">
-    <value>Schedule entries with invalid start or end times after applying overrides will be skipped</value>
+    <value>套用覆蓋項後起訖時間無效的課表條目將被跳過</value>
   </data>
 </root>
