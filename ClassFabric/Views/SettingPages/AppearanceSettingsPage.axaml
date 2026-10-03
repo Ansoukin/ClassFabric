@@ -562,7 +562,7 @@
                         FontFamily="{Binding ViewModel.SettingsService.Settings.MainWindowFont, Mode=OneWay, Converter={StaticResource StringToFontFamilyConverter}}"
                         Margin="0 4 0 0"
                         TextAlignment="Center"
-                        xml:space="preserve">{x:Static locApp:Localization.FontPreviewSample}</TextBox>
+                        Text="{x:Static locApp:Localization.FontPreviewSample}" />
                 </TabItem>
                 <TabItem Header="{x:Static locApp:Localization.FontSizePreviewTab}">
                     <StackPanel Spacing="2">

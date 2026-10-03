@@ -159,8 +159,8 @@
                                                 Description="{x:Static locWnd:Localization.LayerSetFrequencyDescription}">
                     <controls1:FASettingsExpanderItem.Footer>
                         <ComboBox SelectedIndex="{Binding ViewModel.SettingsService.Settings.WindowTopmostRecheckMode}">
-                            <ComboBoxItem>{x:Static locWnd:Localization.LayerModeWindowChange}</ComboBoxItem>
-                            <ComboBoxItem>{x:Static locWnd:Localization.LayerModeForegroundChange}</ComboBoxItem>
+                            <ComboBoxItem Content="{x:Static locWnd:Localization.LayerModeWindowChange}" />
+                            <ComboBoxItem Content="{x:Static locWnd:Localization.LayerModeForegroundChange}" />
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal"
                                             Classes="items-valign-center"
@@ -207,9 +207,9 @@
                     <controls1:FASettingsExpanderItem.Footer>
                         <ComboBox SelectedIndex="{Binding ViewModel.SettingsService.Settings.MainWindowBackgroundMaterialType, Mode=TwoWay, Converter={x:Static ci:EnumToIntConverter.Instance}}"
                                   Foreground="{DynamicResource MaterialDesignBody}">
-                            <ComboBoxItem>{x:Static locWnd:Localization.MaterialAcrylic}</ComboBoxItem>
-                            <ComboBoxItem>{x:Static locWnd:Localization.MaterialLiquidGlass}</ComboBoxItem>
-                            <ComboBoxItem>{x:Static locWnd:Localization.MaterialMica}</ComboBoxItem>
+                            <ComboBoxItem Content="{x:Static locWnd:Localization.MaterialAcrylic}" />
+                            <ComboBoxItem Content="{x:Static locWnd:Localization.MaterialLiquidGlass}" />
+                            <ComboBoxItem Content="{x:Static locWnd:Localization.MaterialMica}" />
                         </ComboBox>
                     </controls1:FASettingsExpanderItem.Footer>
                 </controls1:FASettingsExpanderItem>

@@ -82,7 +82,7 @@
                           IsVisible="{Binding !ViewModel.SettingsService.Settings.IsThemeWarningVisible}">
             <controls:FAInfoBar.ActionButton>
                 <HyperlinkButton Command="{x:Static ci:UriNavigationCommands.UriNavigationCommand}"
-                                 CommandParameter="classfabric://app/settings/appearance">{x:Static locThm:Localization.GoToAppearanceSettings}</HyperlinkButton>
+                                 CommandParameter="classfabric://app/settings/appearance" Content="{x:Static locThm:Localization.GoToAppearanceSettings}" />
             </controls:FAInfoBar.ActionButton>
         </controls:FAInfoBar>
 
@@ -90,8 +90,8 @@
             <TabStrip Grid.Column="0" Classes="compact"
                       SelectionChanged="ListBoxCategory_OnSelectionChanged"
                       SelectedIndex="{Binding ViewModel.ThemeCategoryIndex}">
-                <TabStripItem>{x:Static locThm:Localization.TabMarket}</TabStripItem>
-                <TabStripItem>{x:Static locThm:Localization.TabInstalled}</TabStripItem>
+                <TabStripItem Content="{x:Static locThm:Localization.TabMarket}" />
+                <TabStripItem Content="{x:Static locThm:Localization.TabInstalled}" />
             </TabStrip>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">

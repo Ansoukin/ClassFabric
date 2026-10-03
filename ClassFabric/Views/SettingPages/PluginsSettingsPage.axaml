@@ -48,7 +48,7 @@
                             <TextBlock VerticalAlignment="Center">
                                 <Run Text="{Binding Manifest.Version}"/>
                                 <Run Text=" | " Classes="l-decoration"/>
-                                <ci:NavHyperlink NavTarget="{Binding Manifest.Url}">{x:Static locPlg:Localization.ProjectHomepage}</ci:NavHyperlink>
+                                <ci:NavHyperlink NavTarget="{Binding Manifest.Url}" Content="{x:Static locPlg:Localization.ProjectHomepage}" />
                                 <Run Text=" | " Classes="l-decoration"/>
                                 <Run Text="{Binding Manifest.Author}"/>
                                 <Run Text=" | " Classes="l-decoration"/>
@@ -200,7 +200,7 @@
                                            Severity="Error"
                                            IsOpen="{Binding DownloadProgress.Exception, Mode=OneWay, Converter={x:Static ObjectConverters.IsNotNull}}">
                             <controls2:FAInfoBar.ActionButton>
-                                <HyperlinkButton Click="MenuItemManagePluginSources_OnClick">{x:Static locPlg:Localization.ChangePluginMirror}</HyperlinkButton>
+                                <HyperlinkButton Click="MenuItemManagePluginSources_OnClick" Content="{x:Static locPlg:Localization.ChangePluginMirror}" />
                             </controls2:FAInfoBar.ActionButton>
                         </controls2:FAInfoBar>
                         
