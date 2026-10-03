@@ -117,48 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClockHeader" xml:space="preserve">
-    <value>Clock</value>
-    <comment>设置-时钟-"时钟"分区标题</comment>
-  </data>
-  <data name="UseExactTime" xml:space="preserve">
-    <value>Use exact time</value>
-    <comment>设置-时钟-"使用精确时间"</comment>
-  </data>
-  <data name="UseExactTimeDescription" xml:space="preserve">
-    <value>When enabled, the application uses exact time synchronized from a specified server instead of the system time.</value>
-    <comment>使用精确时间-描述</comment>
-  </data>
-  <data name="TimeServer" xml:space="preserve">
-    <value>Time server</value>
-    <comment>使用精确时间-"时间服务器"</comment>
-  </data>
-  <data name="SyncNow" xml:space="preserve">
-    <value>Sync now</value>
-    <comment>使用精确时间-"立即同步"按钮</comment>
-  </data>
-  <data name="TimeOffset" xml:space="preserve">
-    <value>Time offset</value>
-    <comment>设置-时钟-"时间偏移"</comment>
-  </data>
-  <data name="TimeOffsetDescription" xml:space="preserve">
-    <value>Set the offset between class time and actual time. Increase the offset to compensate for early bells, decrease it to compensate for late bells.</value>
-    <comment>时间偏移-描述</comment>
-  </data>
-  <data name="SecondUnit" xml:space="preserve">
-    <value>s</value>
-    <comment>时间偏移-秒（单位后缀）</comment>
-  </data>
-  <data name="AutoTimeOffset" xml:space="preserve">
-    <value>Automatic time offset</value>
-    <comment>时间偏移-"自动时间偏移"</comment>
-  </data>
-  <data name="AutoTimeOffsetDescription" xml:space="preserve">
-    <value>If enabled, the time offset is adjusted automatically every day by the configured increment.</value>
-    <comment>自动时间偏移-描述</comment>
-  </data>
-  <data name="AlignBell" xml:space="preserve">
-    <value>Align bells</value>
-    <comment>时间偏移-"对齐铃声"按钮</comment>
-  </data>
 </root>

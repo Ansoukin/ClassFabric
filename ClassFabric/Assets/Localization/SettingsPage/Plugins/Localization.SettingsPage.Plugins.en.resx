@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,235 +119,312 @@
   </resheader>
   <data name="ProjectHomepage" xml:space="preserve">
     <value>Project homepage</value>
+    <comment>插件详情-"项目主页"链接</comment>
   </data>
   <data name="StatusLoaded" xml:space="preserve">
     <value>Loaded</value>
+    <comment>插件状态-"已加载"</comment>
   </data>
   <data name="StatusDisabled" xml:space="preserve">
     <value>Disabled</value>
+    <comment>插件状态-"已禁用"</comment>
   </data>
   <data name="StatusError" xml:space="preserve">
     <value>Error</value>
+    <comment>插件状态-"错误"</comment>
   </data>
   <data name="StatusNotLoaded" xml:space="preserve">
     <value>Not loaded</value>
+    <comment>插件状态-"未加载"</comment>
   </data>
   <data name="EnabledLabel" xml:space="preserve">
     <value>Enabled</value>
+    <comment>插件详情-"已启用"复选框</comment>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Update</value>
+    <comment>"更新"按钮及其工具提示（通用）</comment>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
+    <comment>"移除"按钮</comment>
   </data>
   <data name="UndoRemove" xml:space="preserve">
     <value>Undo remove</value>
+    <comment>"撤销移除"按钮</comment>
   </data>
   <data name="Install" xml:space="preserve">
     <value>Install</value>
+    <comment>"安装"按钮、对话框按钮及其工具提示（通用）</comment>
   </data>
   <data name="RestartToApply" xml:space="preserve">
     <value>Restart to apply changes</value>
+    <comment>"重启以应用更改"按钮及其工具提示</comment>
   </data>
   <data name="UnsupportedOSWarning" xml:space="preserve">
     <value>This plugin does not declare support for the operating system you are currently running. It may not work as expected.</value>
+    <comment>信息条/安装预览：操作系统不兼容警告</comment>
   </data>
   <data name="InstallFailedNetworkMessage" xml:space="preserve">
     <value>Unable to install the plugin. Please check your network connection. Switching to another plugin mirror may fix this.</value>
+    <comment>信息条：安装失败（网络）</comment>
   </data>
   <data name="ChangePluginMirror" xml:space="preserve">
     <value>Switch plugin mirror</value>
+    <comment>"更换插件镜像源"链接</comment>
   </data>
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>More options…</value>
+    <comment>"更多选项"按钮工具提示</comment>
   </data>
   <data name="PackPlugin" xml:space="preserve">
     <value>Pack plugin</value>
+    <comment>"打包插件"菜单项/文件对话框标题</comment>
   </data>
   <data name="OpenPluginFolder" xml:space="preserve">
     <value>Open plugin folder…</value>
+    <comment>"打开插件文件夹…"菜单项</comment>
   </data>
   <data name="OpenPluginConfigFolder" xml:space="preserve">
     <value>Open configuration folder…</value>
+    <comment>"打开配置文件夹…"菜单项</comment>
   </data>
   <data name="OverviewTab" xml:space="preserve">
     <value>Overview</value>
+    <comment>插件详情-"概览"选项卡</comment>
   </data>
   <data name="ErrorInfoTab" xml:space="preserve">
     <value>Error info</value>
+    <comment>插件详情-"错误信息"选项卡</comment>
   </data>
   <data name="DependenciesTab" xml:space="preserve">
     <value>Dependencies</value>
+    <comment>插件详情-"依赖项"选项卡</comment>
   </data>
   <data name="PluginIdColumnHeader" xml:space="preserve">
     <value>Plugin ID</value>
+    <comment>依赖项列表-"插件 ID"列头</comment>
   </data>
   <data name="RequiredColumnHeader" xml:space="preserve">
     <value>Required?</value>
+    <comment>依赖项列表-"必选？"列头</comment>
   </data>
   <data name="PluginUpdateSettingsTitle" xml:space="preserve">
     <value>Plugin update settings</value>
+    <comment>插件更新设置抽屉标题</comment>
   </data>
   <data name="NotifyOnPluginUpdates" xml:space="preserve">
     <value>Notify me when plugin updates are available</value>
+    <comment>复选框：插件有更新时通知我</comment>
   </data>
   <data name="AutoUpdatePlugins" xml:space="preserve">
     <value>Update plugins automatically</value>
+    <comment>复选框：自动更新插件</comment>
   </data>
   <data name="ManagePluginSources" xml:space="preserve">
     <value>Manage plugin sources</value>
+    <comment>管理插件源抽屉标题</comment>
   </data>
   <data name="BuiltinPluginSources" xml:space="preserve">
     <value>Built-in plugin sources</value>
+    <comment>管理插件源抽屉-"内置插件源"小节</comment>
   </data>
   <data name="BuiltinMirrorLabel" xml:space="preserve">
     <value>Built-in source mirror</value>
+    <comment>管理插件源抽屉-"内置插件源镜像"字段</comment>
   </data>
   <data name="IgnoreSslErrors" xml:space="preserve">
     <value>Ignore SSL/TLS certificate errors</value>
+    <comment>复选框：忽略 SSL/TLS 证书错误</comment>
   </data>
   <data name="IgnoreSslToolTip" xml:space="preserve">
     <value>Disabling plugin mirror certificate validation reduces security.</value>
+    <comment>忽略 SSL/TLS 证书错误工具提示（保留原文半角逗号与空格）</comment>
   </data>
   <data name="CustomPluginSources" xml:space="preserve">
     <value>Custom plugin sources</value>
+    <comment>管理插件源抽屉-"自定义插件源"小节</comment>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Add</value>
+    <comment>"添加"按钮</comment>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+    <comment>"删除"按钮</comment>
   </data>
   <data name="MirrorColumnHeader" xml:space="preserve">
     <value>Mirror</value>
+    <comment>自定义插件源列表-"镜像"列头</comment>
   </data>
   <data name="UnknownSourceRiskWarning" xml:space="preserve">
     <value>Installing plugins from unknown sources may be risky.</value>
+    <comment>自定义插件源列表脚注：未知来源风险</comment>
   </data>
   <data name="NoMatchingPlugins" xml:space="preserve">
     <value>No plugins match the current filters. Adjust the filters and try again</value>
+    <comment>已安装列表-无匹配结果占位文本</comment>
   </data>
   <data name="NoPluginsInstalled" xml:space="preserve">
     <value>No plugins installed yet. Take a look at the plugin market</value>
+    <comment>已安装列表-空列表占位文本</comment>
   </data>
   <data name="GoToMarket" xml:space="preserve">
     <value>Go to plugin market</value>
+    <comment>"前往插件市场"按钮</comment>
   </data>
   <data name="PluginDetails" xml:space="preserve">
     <value>Plugin details</value>
+    <comment>插件详情区标题</comment>
   </data>
   <data name="SearchPluginsWatermark" xml:space="preserve">
     <value>Search plugins…</value>
+    <comment>插件搜索框水印</comment>
   </data>
   <data name="MarketTab" xml:space="preserve">
     <value>Market</value>
+    <comment>"市场"选项卡</comment>
   </data>
   <data name="InstalledTab" xml:space="preserve">
     <value>Installed</value>
+    <comment>"已安装"选项卡</comment>
   </data>
   <data name="ReloadFromCache" xml:space="preserve">
     <value>Reload plugin sources from cache</value>
+    <comment>菜单项：从缓存重载插件源</comment>
   </data>
   <data name="ManagePluginSourcesMenu" xml:space="preserve">
     <value>Manage plugin sources…</value>
+    <comment>菜单项：管理插件源…</comment>
   </data>
   <data name="PluginUpdateSettingsMenu" xml:space="preserve">
     <value>Plugin update settings…</value>
+    <comment>菜单项：插件更新设置…</comment>
   </data>
   <data name="InstallFromLocal" xml:space="preserve">
     <value>Install from local file…</value>
+    <comment>菜单项：从本地安装…</comment>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
+    <comment>"刷新"按钮</comment>
   </data>
   <data name="DownloadsToolTip" xml:space="preserve">
     <value>Downloads</value>
+    <comment>市场卡片-下载量图标工具提示</comment>
   </data>
   <data name="PendingRemoveToolTip" xml:space="preserve">
     <value>This plugin will be removed after a restart.</value>
+    <comment>市场卡片状态图标工具提示：待移除</comment>
   </data>
   <data name="RestartRequiredToolTip" xml:space="preserve">
     <value>The plugin needs a restart to apply changes.</value>
+    <comment>市场卡片状态图标工具提示：需要重启</comment>
   </data>
   <data name="LoadErrorToolTip" xml:space="preserve">
     <value>An error occurred while loading this plugin.</value>
+    <comment>市场卡片状态图标工具提示：加载错误</comment>
   </data>
   <data name="ShowDiagnosticToolTip" xml:space="preserve">
     <value>Show diagnostic info</value>
+    <comment>市场卡片状态图标工具提示：显示诊断信息</comment>
   </data>
   <data name="UpdateAvailableToolTip" xml:space="preserve">
     <value>Update available.</value>
+    <comment>市场卡片状态图标工具提示：更新可用</comment>
   </data>
   <data name="AlreadyInstalledToolTip" xml:space="preserve">
     <value>This plugin is already installed.</value>
+    <comment>市场卡片状态图标工具提示：已安装</comment>
   </data>
   <data name="EnablePluginToolTip" xml:space="preserve">
     <value>Enable plugin</value>
+    <comment>市场卡片操作按钮工具提示：启用插件</comment>
   </data>
   <data name="PluginsHeader" xml:space="preserve">
     <value>Plugins</value>
+    <comment>插件页欢迎屏标题</comment>
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>Welcome to plugins! Plugins can extend ClassFabric, for example by adding a widget or integrating with other apps, and more.</value>
+    <comment>插件页欢迎屏-欢迎语</comment>
   </data>
   <data name="MarketWarningText" xml:space="preserve">
     <value>Keep in mind that plugins can use system resources and request arbitrary permissions as ClassFabric, and can freely access all files on the device. Do not install plugins from unknown sources, and the developers cannot guarantee that all plugins offered in the market are absolutely safe. The ClassFabric development team is not liable for any consequences caused by using plugins.</value>
+    <comment>插件页欢迎屏-安全提示</comment>
   </data>
   <data name="AgreeAndStart" xml:space="preserve">
     <value>Agree and start using plugins</value>
+    <comment>"同意并开始使用插件"按钮</comment>
   </data>
   <data name="ParsingText" xml:space="preserve">
     <value>Parsing...</value>
+    <comment>解析插件包时进度文本（保留半角三点）</comment>
   </data>
   <data name="DragFilesPrefix" xml:space="preserve">
     <value>In total </value>
+    <comment>拖拽解析结果-数量前段（末尾含空格）</comment>
   </data>
   <data name="DragFilesMiddle" xml:space="preserve">
     <value> file(s), </value>
+    <comment>拖拽解析结果-数量中段（两端含空格）</comment>
   </data>
   <data name="DragFilesSuffix" xml:space="preserve">
     <value> plugin package(s) recognized</value>
+    <comment>拖拽解析结果-数量后段（开头含空格）</comment>
   </data>
   <data name="ReadmeLoadFailed" xml:space="preserve">
     <value>> Failed to load document: {0}</value>
+    <comment>README 加载失败的 Markdown 占位文本，{0}=异常消息（开头的"&gt; "为 Markdown 引用语法）</comment>
   </data>
   <data name="CannotOpenPackageFile" xml:space="preserve">
     <value>Unable to open the selected plugin package.</value>
+    <comment>异常消息：无法打开所选插件包文件</comment>
   </data>
   <data name="PackPluginFailed" xml:space="preserve">
     <value>Unable to pack plugin {0}</value>
+    <comment>吐司：打包插件失败，{0}=插件 ID</comment>
   </data>
   <data name="NoValidPackagesToast" xml:space="preserve">
     <value>No installable plugin packages could be parsed from the selected files.</value>
+    <comment>吐司：未解析出可安装的插件包</comment>
   </data>
   <data name="InstallConfirmTitle" xml:space="preserve">
     <value>Confirm installation?</value>
+    <comment>对话框标题：确认安装（保留半角问号）</comment>
   </data>
   <data name="CannotReopenPackageFile" xml:space="preserve">
     <value>Unable to reopen the selected plugin package.</value>
+    <comment>异常消息：无法重新打开所选插件包</comment>
   </data>
   <data name="InstallPluginFailedToast" xml:space="preserve">
     <value>Unable to install plugin {0}</value>
+    <comment>吐司：安装插件失败，{0}=文件路径</comment>
   </data>
   <data name="InstallSuccessToast" xml:space="preserve">
     <value>Successfully installed {0} plugin(s).</value>
+    <comment>吐司：安装成功，{0}=数量</comment>
   </data>
   <data name="InstallFailedToast" xml:space="preserve">
     <value>Installation failed for {0} plugin(s).</value>
+    <comment>吐司：安装失败，{0}=数量</comment>
   </data>
   <data name="InstallFromLocalDialogTitle" xml:space="preserve">
     <value>Install plugin from local file</value>
+    <comment>文件选择对话框标题：从本地安装插件</comment>
   </data>
   <data name="UnsupportedOSDialogTitle" xml:space="preserve">
     <value>Operating system not supported by this plugin</value>
+    <comment>对话框标题：操作系统不受该插件支持</comment>
   </data>
   <data name="UnsupportedOSContent" xml:space="preserve">
     <value>The operating systems declared as supported by this plugin do not include the one you are currently running.
 If you continue installing, the plugin may not work properly. Do you want to continue?</value>
+    <comment>对话框内容：操作系统不兼容确认（值内换行为真实换行符）</comment>
   </data>
   <data name="MissingDependenciesTitle" xml:space="preserve">
     <value>Missing dependencies</value>
+    <comment>对话框标题：缺少依赖项</comment>
   </data>
   <data name="MissingDependenciesContent" xml:space="preserve">
     <value>Some required dependencies of this plugin are not installed and cannot be fetched from the market. If you continue installing, the plugin may not work. Do you want to continue?
@@ -355,48 +432,63 @@ If you continue installing, the plugin may not work properly. Do you want to con
 
 Required dependencies not found:
 {0}</value>
+    <comment>对话框内容：缺少依赖项确认，{0}=依赖项清单（值内换行为真实换行符）</comment>
   </data>
   <data name="DialogContinue" xml:space="preserve">
     <value>Continue</value>
+    <comment>对话框"继续"按钮</comment>
   </data>
   <data name="DiagnosticDefaultMessage" xml:space="preserve">
     <value>This plugin failed to load. Please check that the plugin is compatible with the current ClassFabric version, or contact the plugin author.</value>
+    <comment>插件诊断对话框-默认用户消息</comment>
   </data>
   <data name="NoTechnicalDetails" xml:space="preserve">
     <value>No technical details recorded.</value>
+    <comment>插件诊断对话框-无技术详情占位</comment>
   </data>
   <data name="PluginDiagnosticTitle" xml:space="preserve">
     <value>Plugin loading diagnostics</value>
+    <comment>插件诊断对话框标题</comment>
   </data>
   <data name="CopyDiagnosticInfo" xml:space="preserve">
     <value>Copy diagnostic info</value>
+    <comment>对话框"复制诊断信息"按钮</comment>
   </data>
   <data name="CopyFailedToast" xml:space="preserve">
     <value>Copy failed. Select all diagnostic text and copy it manually.</value>
+    <comment>吐司：复制诊断信息失败</comment>
   </data>
   <data name="DiagnosticCopiedToast" xml:space="preserve">
     <value>Diagnostic info copied to clipboard</value>
+    <comment>吐司：诊断信息复制成功</comment>
   </data>
   <data name="LoadPluginSourceFailedToast" xml:space="preserve">
     <value>Unable to load plugin source</value>
+    <comment>吐司：无法加载插件源</comment>
   </data>
   <data name="DragInvalidHint" xml:space="preserve">
     <value>Only {0} plugin packages are supported</value>
+    <comment>拖拽提示：格式不支持，{0}=扩展名</comment>
   </data>
   <data name="DragInvalidSubHint" xml:space="preserve">
     <value>Please drop a plugin package file</value>
+    <comment>拖拽提示：请拖入插件包文件</comment>
   </data>
   <data name="DragInstallHintOne" xml:space="preserve">
     <value>Drop to install 1 plugin</value>
+    <comment>拖拽提示：松开以安装 1 个插件</comment>
   </data>
   <data name="DragInstallHintMany" xml:space="preserve">
     <value>Drop to install {0} plugins</value>
+    <comment>拖拽提示：松开以安装多个插件，{0}=数量</comment>
   </data>
   <data name="DragIgnoreFiles" xml:space="preserve">
     <value>{0} unsupported file(s) will be ignored</value>
+    <comment>拖拽提示：忽略不受支持的文件，{0}=数量</comment>
   </data>
   <data name="DragMultiSelectHint" xml:space="preserve">
     <value>Multi-select supported ({0})</value>
+    <comment>拖拽提示：支持多选，{0}=扩展名</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>

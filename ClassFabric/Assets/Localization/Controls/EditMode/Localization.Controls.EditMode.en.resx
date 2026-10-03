@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BasicSection" xml:space="preserve">
+    <value>Basic</value>
+  </data>
+  <data name="UiScale" xml:space="preserve">
+    <value>Interface Zoom</value>
+  </data>
+  <data name="UiScaleDescription" xml:space="preserve">
+    <value>Zoom in on the main interface.</value>
+  </data>
+  <data name="BackgroundColor" xml:space="preserve">
+    <value>Background color</value>
+  </data>
+  <data name="BackgroundColorDescription" xml:space="preserve">
+    <value>Main screen background color. When disabled, the color will be automatically selected according to the theme of the application.</value>
+  </data>
+  <data name="BackgroundOpacity" xml:space="preserve">
+    <value>Background opacity</value>
+  </data>
+  <data name="BackgroundOpacityDescription" xml:space="preserve">
+    <value>The opacity of the background of the main interface.</value>
+  </data>
+  <data name="CornerRadius" xml:space="preserve">
+    <value>Corner radius</value>
+  </data>
+  <data name="CornerRadiusDescription" xml:space="preserve">
+    <value>The main interface corner radius with a half-round to the edge of the maximal value.</value>
+  </data>
+  <data name="LineSpacing" xml:space="preserve">
+    <value>Line interval</value>
+  </data>
+  <data name="LineSpacingDescription" xml:space="preserve">
+    <value>Interline interval between main interface.</value>
+  </data>
+  <data name="SeparateMainWindow" xml:space="preserve">
+    <value>Split Main Interface</value>
+  </data>
+  <data name="SeparateMainWindowMainDescription" xml:space="preserve">
+    <value>When enabled, components will be separated.</value>
+  </data>
+  <data name="SeparateMainWindowLineDescription" xml:space="preserve">
+    <value>When enabled, the home screen will be separated.</value>
+  </data>
+  <data name="MoreAppearanceSettings" xml:space="preserve">
+    <value>More look settings</value>
+  </data>
+  <data name="DragToAddHint" xml:space="preserve">
+    <value>Add components by dragging the component to the main screen.</value>
+  </data>
+  <data name="SelectOrDragToAddHint" xml:space="preserve">
+    <value>Select the component to add, or drag the component onto the main screen to add the component.</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ComponentSettingsTab" xml:space="preserve">
+    <value>Component Settings</value>
+  </data>
+  <data name="AdvancedSettingsTab" xml:space="preserve">
+    <value>Advanced Settings</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit…</value>
+  </data>
+  <data name="EditRulesetTip" xml:space="preserve">
+    <value>Edit Rules Set…</value>
+  </data>
+  <data name="HideOnRule" xml:space="preserve">
+    <value>Hide by rule</value>
+  </data>
+  <data name="MainWindowLineSettings" xml:space="preserve">
+    <value>Main GUI Line Settings</value>
+  </data>
+  <data name="Inherit" xml:space="preserve">
+    <value>Inherit</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Opacity</value>
+  </data>
+  <data name="OpacityLineDescription" xml:space="preserve">
+    <value>Overall opacity of the main interface.</value>
+  </data>
+  <data name="CustomBackgroundEffect" xml:space="preserve">
+    <value>Custom Background Effect</value>
+  </data>
+  <data name="CustomBackgroundEffectDescription" xml:space="preserve">
+    <value>Customize the background effects of the main interface, available only on newer versions of Windows and may result in extra performance charges.</value>
+  </data>
+  <data name="MaterialType" xml:space="preserve">
+    <value>Material Type</value>
+  </data>
+  <data name="MaterialAcrylic" xml:space="preserve">
+    <value>Subsection</value>
+  </data>
+  <data name="MaterialLiquidGlass" xml:space="preserve">
+    <value>Liquid Stained Glass</value>
+  </data>
+  <data name="MaterialMica" xml:space="preserve">
+    <value>Cloud Mother</value>
+  </data>
+  <data name="CustomBackgroundColor" xml:space="preserve">
+    <value>Custom background color</value>
+  </data>
+  <data name="CustomBackgroundColorDescription" xml:space="preserve">
+    <value>The background color of the current main interface, the parent default value will be used when disabled.</value>
+  </data>
+  <data name="CustomBackgroundOpacity" xml:space="preserve">
+    <value>Custom background opacity</value>
+  </data>
+  <data name="CustomBackgroundOpacityDescription" xml:space="preserve">
+    <value>The background of the current main interface line is opaque and disabling will use the parent default value.</value>
+  </data>
+  <data name="CustomBackgroundCornerRadius" xml:space="preserve">
+    <value>Custom background corner radius</value>
+  </data>
+  <data name="CustomBackgroundCornerRadiusDescription" xml:space="preserve">
+    <value>The current main GUI circle radius with a half-round to the edge of the left and right when called to the maximum value.</value>
+  </data>
+  <data name="FontSection" xml:space="preserve">
+    <value>Font</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>Font size</value>
+  </data>
+  <data name="FontSizeDescription" xml:space="preserve">
+    <value>Adjust the size of the font type on the component and overwrite the font size set in the Lookup Settings and Main UI.</value>
+  </data>
+  <data name="SecondaryFontSizeName" xml:space="preserve">
+    <value>Subfont size</value>
+  </data>
+  <data name="SecondaryFontSizeDescription" xml:space="preserve">
+    <value>Time point additional information, etc.</value>
+  </data>
+  <data name="BodyFontSizeName" xml:space="preserve">
+    <value>Text Size</value>
+  </data>
+  <data name="BodyFontSizeDescription" xml:space="preserve">
+    <value>Default font size for home screen</value>
+  </data>
+  <data name="EmphasizedFontSizeName" xml:space="preserve">
+    <value>Stress font size</value>
+  </data>
+  <data name="EmphasizedFontSizeDescription" xml:space="preserve">
+    <value>Courses, Clocks, Alarm Titles, Weather Forecasts, etc.</value>
+  </data>
+  <data name="LargeFontSizeName" xml:space="preserve">
+    <value>Large font size</value>
+  </data>
+  <data name="LargeFontSizeDescription" xml:space="preserve">
+    <value>Course Forecasts, etc.</value>
+  </data>
+  <data name="FontColor" xml:space="preserve">
+    <value>Font color</value>
+  </data>
+  <data name="FontColorDescription" xml:space="preserve">
+    <value>Adjust the font color, which will override the value set in the Lookup Settings and Main UI.</value>
+  </data>
+  <data name="SelectProfileToEnable" xml:space="preserve">
+    <value>Select component configuration to enable</value>
+  </data>
+  <data name="RefreshTip" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="NewTip" xml:space="preserve">
+    <value>New…</value>
+  </data>
+  <data name="OpenConfigFolderTip" xml:space="preserve">
+    <value>Open configuration folder…</value>
+  </data>
+  <data name="DuplicateTip" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="ComponentsLibrary" xml:space="preserve">
+    <value>Component library</value>
+  </data>
+  <data name="EditRuleset" xml:space="preserve">
+    <value>Edit Rules Set</value>
+  </data>
+  <data name="CreateProfileTitle" xml:space="preserve">
+    <value>Create Component Configuration</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ProfileNameLabel" xml:space="preserve">
+    <value>Component name</value>
+  </data>
+  <data name="CannotDeleteLoadedProfileToast" xml:space="preserve">
+    <value>Unable to delete the component configuration that has been loaded or will be loaded.</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Delete Component Configuration</value>
+  </data>
+  <data name="DeleteProfileConfirmFmt" xml:space="preserve">
+    <value>Are you sure you want to delete component configuration {0} ? This cannot be undone. Component information will be deleted!</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="RenameProfileTitle" xml:space="preserve">
+    <value>Rename component profile</value>
+  </data>
+  <data name="ProfileSchemeNameLabel" xml:space="preserve">
+    <value>Component Profile Name</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="RenameConflictToast" xml:space="preserve">
+    <value>Component configuration could not be renamed, as a component configuration with the same name already exists.</value>
+  </data>
+  <data name="ViewChildComponentsTip" xml:space="preserve">
+    <value>View Subcomponents</value>
+  </data>
+  <data name="MoreOptionsTip" xml:space="preserve">
+    <value>More options…</value>
+  </data>
+  <data name="WrapToNewContainer" xml:space="preserve">
+    <value>Package to new container</value>
+  </data>
+  <data name="CreateDuplicateTip" xml:space="preserve">
+    <value>Create a copy</value>
+  </data>
+  <data name="ContainerCannotContainSelfToast" xml:space="preserve">
+    <value>Container component cannot contain itself.</value>
+  </data>
+</root>

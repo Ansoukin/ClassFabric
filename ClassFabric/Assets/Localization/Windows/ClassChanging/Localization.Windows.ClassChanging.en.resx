@@ -117,48 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClockHeader" xml:space="preserve">
-    <value>Clock</value>
-    <comment>设置-时钟-"时钟"分区标题</comment>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>Change Lesson</value>
   </data>
-  <data name="UseExactTime" xml:space="preserve">
-    <value>Use exact time</value>
-    <comment>设置-时钟-"使用精确时间"</comment>
+  <data name="Replace" xml:space="preserve">
+    <value>Replace</value>
   </data>
-  <data name="UseExactTimeDescription" xml:space="preserve">
-    <value>When enabled, the application uses exact time synchronized from a specified server instead of the system time.</value>
-    <comment>使用精确时间-描述</comment>
+  <data name="Swap" xml:space="preserve">
+    <value>Swap</value>
   </data>
-  <data name="TimeServer" xml:space="preserve">
-    <value>Time server</value>
-    <comment>使用精确时间-"时间服务器"</comment>
+  <data name="ChangeToLabel" xml:space="preserve">
+    <value>Exchange to…</value>
   </data>
-  <data name="SyncNow" xml:space="preserve">
-    <value>Sync now</value>
-    <comment>使用精确时间-"立即同步"按钮</comment>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="TimeOffset" xml:space="preserve">
-    <value>Time offset</value>
-    <comment>设置-时钟-"时间偏移"</comment>
+  <data name="CancelToolTip" xml:space="preserve">
+    <value>Cancel course replacement.</value>
   </data>
-  <data name="TimeOffsetDescription" xml:space="preserve">
-    <value>Set the offset between class time and actual time. Increase the offset to compensate for early bells, decrease it to compensate for late bells.</value>
-    <comment>时间偏移-描述</comment>
+  <data name="PreviousStep" xml:space="preserve">
+    <value>Previous step</value>
   </data>
-  <data name="SecondUnit" xml:space="preserve">
-    <value>s</value>
-    <comment>时间偏移-秒（单位后缀）</comment>
+  <data name="PreviousStepToolTip" xml:space="preserve">
+    <value>Go back to previous step.</value>
   </data>
-  <data name="AutoTimeOffset" xml:space="preserve">
-    <value>Automatic time offset</value>
-    <comment>时间偏移-"自动时间偏移"</comment>
+  <data name="AdvancedClassChanging" xml:space="preserve">
+    <value>Advanced course...</value>
   </data>
-  <data name="AutoTimeOffsetDescription" xml:space="preserve">
-    <value>If enabled, the time offset is adjusted automatically every day by the configured increment.</value>
-    <comment>自动时间偏移-描述</comment>
+  <data name="AdvancedClassChangingToolTip" xml:space="preserve">
+    <value>Open the Tall Interface to support cross-day options and more complex moderation programs.</value>
   </data>
-  <data name="AlignBell" xml:space="preserve">
-    <value>Align bells</value>
-    <comment>时间偏移-"对齐铃声"按钮</comment>
+  <data name="NextStep" xml:space="preserve">
+    <value>Next step</value>
+  </data>
+  <data name="NextStepToolTip" xml:space="preserve">
+    <value>Go to the next step.</value>
+  </data>
+  <data name="PermanentChange" xml:space="preserve">
+    <value>Change Lesson permanently</value>
+  </data>
+  <data name="PermanentChangeToolTip" xml:space="preserve">
+    <value>If selected, temporary layer tables will not be created during the shift and will be applied directly to the original course.</value>
+  </data>
+  <data name="ConfirmChange" xml:space="preserve">
+    <value>Confirm Course Exchange</value>
+  </data>
+  <data name="ConfirmChangeToolTip" xml:space="preserve">
+    <value>Confirm and apply for tutorials.</value>
+  </data>
+  <data name="TemporaryClassPlanToolTip" xml:space="preserve">
+    <value>Table of lessons to change</value>
+  </data>
+  <data name="StepSelectSource" xml:space="preserve">
+    <value>Select courses to replace.</value>
+  </data>
+  <data name="StepSelectTarget" xml:space="preserve">
+    <value>Select a course to switch to a newly selected course. Click the checkbox to switch the transfer mode.</value>
+  </data>
+  <data name="InvalidSelectedClass" xml:space="preserve">
+    <value>The selected course is invalid.</value>
+  </data>
+  <data name="OverwriteTempLayerTitle" xml:space="preserve">
+    <value>Overwrite current temporary layer</value>
+  </data>
+  <data name="OverwriteTempLayerContent" xml:space="preserve">
+    <value>There is a temporary layer table that will be overwritten if you continue to change lessons. Continue?</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
   </data>
 </root>

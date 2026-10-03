@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="UseRealTime" xml:space="preserve">
+    <value>Use actual time</value>
+  </data>
+  <data name="UseRealTimeDescription" xml:space="preserve">
+    <value>Show system time without time offset.</value>
+  </data>
+  <data name="ShowSeconds" xml:space="preserve">
+    <value>Show seconds</value>
+  </data>
+  <data name="ShowSecondsDescription" xml:space="preserve">
+    <value>When enabled, the clock will show the time that is accurate to seconds.</value>
+  </data>
+  <data name="FlashTimeSeparator" xml:space="preserve">
+    <value>Flash Time Separator</value>
+  </data>
+  <data name="FlashTimeSeparatorDescription" xml:space="preserve">
+    <value>Simulates the separator flash effect of the electronic clock.</value>
+  </data>
+  <data name="TextContent" xml:space="preserve">
+    <value>Text content</value>
+  </data>
+  <data name="TextContentDescription" xml:space="preserve">
+    <value>Text to display.</value>
+  </data>
+  <data name="CustomFontColor" xml:space="preserve">
+    <value>Custom font color</value>
+  </data>
+  <data name="CustomFontColorDescription" xml:space="preserve">
+    <value>Select the color of the text to show.</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>Font size</value>
+  </data>
+  <data name="TextFontSizeDescription" xml:space="preserve">
+    <value>Change the size of the text to display.</value>
+  </data>
+  <data name="WeatherSettingsInfoBarMessage" xml:space="preserve">
+    <value>This page only contains component settings. To adjust the cities where the weather is shown, go to the Weather Tab</value>
+  </data>
+  <data name="ShowWeatherInfo" xml:space="preserve">
+    <value>Show weather information</value>
+  </data>
+  <data name="ShowWeatherInfoDescription" xml:space="preserve">
+    <value>Show summary of current weather information.</value>
+  </data>
+  <data name="WeatherTypeTemperature" xml:space="preserve">
+    <value>Weather type/temperature</value>
+  </data>
+  <data name="Humidity" xml:space="preserve">
+    <value>Humidity</value>
+  </data>
+  <data name="WindPower" xml:space="preserve">
+    <value>Wind</value>
+  </data>
+  <data name="AirPressure" xml:space="preserve">
+    <value>Pressure</value>
+  </data>
+  <data name="FeelsLikeTemperature" xml:space="preserve">
+    <value>Body Temperature</value>
+  </data>
+  <data name="ShowAlerts" xml:space="preserve">
+    <value>Show early warning signals</value>
+  </data>
+  <data name="ShowAlertsDescription" xml:space="preserve">
+    <value>When enabled, early warning will be displayed on the weather component in icon form.</value>
+  </data>
+  <data name="ShowAlertType" xml:space="preserve">
+    <value>Show Early Warning Type</value>
+  </data>
+  <data name="ShowAlertTypeDescription" xml:space="preserve">
+    <value>Set where to display warning types.</value>
+  </data>
+  <data name="DoNotShow" xml:space="preserve">
+    <value>Don't show</value>
+  </data>
+  <data name="OnlyWhenIconMissing" xml:space="preserve">
+    <value>Only when there is no corresponding icon</value>
+  </data>
+  <data name="AlwaysShow" xml:space="preserve">
+    <value>Always show</value>
+  </data>
+  <data name="ShowRainTip" xml:space="preserve">
+    <value>Show precipitation tips</value>
+  </data>
+  <data name="ShowRainTipDescription" xml:space="preserve">
+    <value>When enabled, the impending time of precipitation and the rest of precipitation. Positive numbers represent the impending time of precipitation, negative numbers represent the remaining time.</value>
+  </data>
+  <data name="FuzzyLongRainCountdownPrecision" xml:space="preserve">
+    <value>Blur countdown time for long rainfall</value>
+  </data>
+  <data name="FuzzyLongRainCountdownPrecisionDescription" xml:space="preserve">
+    <value>When enabled, rainfall time greater than 60min will be blurred in 0.5h and off will always be displayed in exact minutes.</value>
+  </data>
+  <data name="RollingWidthWarningMessage" xml:space="preserve">
+    <value>Scroll components will only begin to scroll if their content exceeds the width of the scrolling. You may need to set a 'max-width' or 'fixed width' for this component in the 'Advanced Settings' to limit the width of the component, so that the content will not start scrolling if the component content exceeds the limited width.</value>
+  </data>
+  <data name="ScrollSpeed" xml:space="preserve">
+    <value>Scroll speed</value>
+  </data>
+  <data name="ScrollSpeedDescription" xml:space="preserve">
+    <value>Scroll speed of component content</value>
+  </data>
+  <data name="SpeedUnitPixelsPerSecond" xml:space="preserve">
+    <value>px/s</value>
+  </data>
+  <data name="TimedPause" xml:space="preserve">
+    <value>Time paused</value>
+  </data>
+  <data name="TimedPauseDescription" xml:space="preserve">
+    <value>When enabled, the scroll will be suspended for a period of time after scrolling to the specified location</value>
+  </data>
+  <data name="PauseDuration" xml:space="preserve">
+    <value>Pause duration</value>
+  </data>
+  <data name="PauseDurationDescription" xml:space="preserve">
+    <value>Time spent on each pause</value>
+  </data>
+  <data name="SecondsUnit" xml:space="preserve">
+    <value>Seconds</value>
+  </data>
+  <data name="PausePosition" xml:space="preserve">
+    <value>Pause location</value>
+  </data>
+  <data name="PausePositionDescription" xml:space="preserve">
+    <value>Suspend Scroll Offset</value>
+  </data>
+  <data name="StopWhenRuleMet" xml:space="preserve">
+    <value>Stop on rules</value>
+  </data>
+  <data name="RollingStopWhenRuleMetDescription" xml:space="preserve">
+    <value>Stop scrolling when specified rules are satisfied. Stop scrolling and return to initial location when stopped.</value>
+  </data>
+  <data name="EditRuleset" xml:space="preserve">
+    <value>Edit Rules Set…</value>
+  </data>
+  <data name="RotationInterval" xml:space="preserve">
+    <value>Rotation Interval</value>
+  </data>
+  <data name="RotationIntervalDescription" xml:space="preserve">
+    <value>Interval between automatic rotation of components</value>
+  </data>
+  <data name="RotationMode" xml:space="preserve">
+    <value>Rotation mode</value>
+  </data>
+  <data name="RotationModeDescription" xml:space="preserve">
+    <value>Set rotation component behavior</value>
+  </data>
+  <data name="LoopMode" xml:space="preserve">
+    <value>Loop</value>
+  </data>
+  <data name="RandomMode" xml:space="preserve">
+    <value>Random</value>
+  </data>
+  <data name="PingPongMode" xml:space="preserve">
+    <value>Rehabilitation</value>
+  </data>
+  <data name="PauseWhenRuleMet" xml:space="preserve">
+    <value>Pause when rules are satisfied</value>
+  </data>
+  <data name="PauseWhenRuleMetDescription" xml:space="preserve">
+    <value>Pause the rotation when the specified rule is satisfied.</value>
+  </data>
+  <data name="SlideStopWhenRuleMetDescription" xml:space="preserve">
+    <value>Stop playing when specified rules are satisfied. Stop playing and return to the first component. If the rules and suspension rules are met at the same time, stop playing instead of pausing them.</value>
+  </data>
+  <data name="EnableAnimation" xml:space="preserve">
+    <value>Enable animation</value>
+  </data>
+  <data name="EnableAnimationDescription" xml:space="preserve">
+    <value>When enabled, transition animations will be played when switching components.</value>
+  </data>
+  <data name="AttachedSettingsOverrideMessage" xml:space="preserve">
+    <value>This setting can be overridden by attached settings in the profile settings.</value>
+  </data>
+  <data name="ViewAttachedSettings" xml:space="preserve">
+    <value>View…</value>
+  </data>
+  <data name="ShowExtraInfoOnTimePoint" xml:space="preserve">
+    <value>Show Time Point Additional Information</value>
+  </data>
+  <data name="ShowExtraInfoOnTimePointDescription" xml:space="preserve">
+    <value>Show additional information on the current time point at the current time point.</value>
+  </data>
+  <data name="ExtraInfoToDisplay" xml:space="preserve">
+    <value>Additional information to display</value>
+  </data>
+  <data name="ExtraInfoTimePointDuration" xml:space="preserve">
+    <value>Time point duration</value>
+  </data>
+  <data name="ExtraInfoElapsedTimeOverDuration" xml:space="preserve">
+    <value>Time expired/duration</value>
+  </data>
+  <data name="ExtraInfoRemainingOverDuration" xml:space="preserve">
+    <value>Remaining time/duration</value>
+  </data>
+  <data name="ExtraInfoElapsedTimePercentage" xml:space="preserve">
+    <value>Percentage over time</value>
+  </data>
+  <data name="ExtraInfoRemainingTime" xml:space="preserve">
+    <value>Remaining time</value>
+  </data>
+  <data name="ExtraInfoCountdown" xml:space="preserve">
+    <value>Countdown</value>
+  </data>
+  <data name="ShowExactCountdown" xml:space="preserve">
+    <value>Show exact countdown</value>
+  </data>
+  <data name="WhenRemainingLessThan" xml:space="preserve">
+    <value>When not enough time left</value>
+  </data>
+  <data name="TimePointEndCountdown" xml:space="preserve">
+    <value>Time point ends in countdown</value>
+  </data>
+  <data name="TimePointEndCountdownDescription" xml:space="preserve">
+    <value>Show countdown time when the current point is coming to an end.</value>
+  </data>
+  <data name="TimePointEndCountdownDuration" xml:space="preserve">
+    <value>End countdown duration</value>
+  </data>
+  <data name="UseFuzzyCountdown" xml:space="preserve">
+    <value>Use blur countdown</value>
+  </data>
+  <data name="ShowCurrentLessonOnly" xml:space="preserve">
+    <value>Show the current course only during class</value>
+  </data>
+  <data name="ShowCurrentLessonOnlyDescription" xml:space="preserve">
+    <value>Only show the current point when in class type of time.</value>
+  </data>
+  <data name="HideFinishedLessons" xml:space="preserve">
+    <value>Do not show finished courses</value>
+  </data>
+  <data name="HideFinishedLessonsDescription" xml:space="preserve">
+    <value>Hide finished courses, show only current courses and those that are not started.</value>
+  </data>
+  <data name="FadeCompletedLessons" xml:space="preserve">
+    <value>Destroy lessons taken</value>
+  </data>
+  <data name="FadeCompletedLessonsDescription" xml:space="preserve">
+    <value>Courses that have already been taken will be downloaded.</value>
+  </data>
+  <data name="HighlightClassChanges" xml:space="preserve">
+    <value>Flag for Course</value>
+  </data>
+  <data name="HighlightClassChangesDescription" xml:space="preserve">
+    <value>Highlight courses in the temporary class with a colour-coded tag. Only courses with "Easy course" modifications are supported.</value>
+  </data>
+  <data name="ScheduleTextSpacing" xml:space="preserve">
+    <value>Course Table Text Space</value>
+  </data>
+  <data name="ScheduleTextSpacingDescription" xml:space="preserve">
+    <value>Make the class plan display more compact or roomier.</value>
+  </data>
+  <data name="ShowPlaceholderOnEmptyPlan" xml:space="preserve">
+    <value>Show placeholder when no course is available</value>
+  </data>
+  <data name="ShowPlaceholderOnEmptyPlanDescription" xml:space="preserve">
+    <value>Displays the specified placeholder when there is currently no payroll, or when all courses have finished on the same day and do not display the second day course.</value>
+  </data>
+  <data name="NoClassPlaceholderContent" xml:space="preserve">
+    <value>There is no placeholder content for the course on the day</value>
+  </data>
+  <data name="AllEndedPlaceholderContent" xml:space="preserve">
+    <value>Placeholder content at the end of the day</value>
+  </data>
+  <data name="ShowTomorrowSchedule" xml:space="preserve">
+    <value>Show Tomorrow Table</value>
+  </data>
+  <data name="ShowTomorrowScheduleDescription" xml:space="preserve">
+    <value>Set when to display tomorrow's course.</value>
+  </data>
+  <data name="ShowAfterSchool" xml:space="preserve">
+    <value>Show after school</value>
+  </data>
+  <data name="ShowWhenNoDisplayedLesson" xml:space="preserve">
+    <value>Display when no display course is available</value>
+  </data>
+  <data name="CountdownName" xml:space="preserve">
+    <value>Countdown name</value>
+  </data>
+  <data name="CountdownNameDescription" xml:space="preserve">
+    <value>Will be displayed as a date event name.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="TimeDescription" xml:space="preserve">
+    <value>Countdown start and end time.</value>
+  </data>
+  <data name="FixedTime" xml:space="preserve">
+    <value>Fixed time</value>
+  </data>
+  <data name="Cycle" xml:space="preserve">
+    <value>Periodicity</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>This Week</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="StartDateDescription" xml:space="preserve">
+    <value>Countdown start date.</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="EndDateDescription" xml:space="preserve">
+    <value>Countdown date is 0 days.</value>
+  </data>
+  <data name="AdvancedTiming" xml:space="preserve">
+    <value>Advanced Timer</value>
+  </data>
+  <data name="CycleBeforeDurationLabel" xml:space="preserve">
+    <value>Time before cycle</value>
+  </data>
+  <data name="CycleBeforeDurationHint" xml:space="preserve">
+    <value>Interval time before start of cycle</value>
+  </data>
+  <data name="CycleTimingDurationLabel" xml:space="preserve">
+    <value>Cycle timeout</value>
+  </data>
+  <data name="CycleTimingDurationHint" xml:space="preserve">
+    <value>Period to show countdown duration</value>
+  </data>
+  <data name="CycleAfterDurationLabel" xml:space="preserve">
+    <value>Duration after cycle</value>
+  </data>
+  <data name="CycleAfterDurationHint" xml:space="preserve">
+    <value>Interval between end of current cycle and start of next cycle</value>
+  </data>
+  <data name="CycleDurationLabel" xml:space="preserve">
+    <value>Cycle duration</value>
+  </data>
+  <data name="CycleStartTimeLabel" xml:space="preserve">
+    <value>Cycle Start Time</value>
+  </data>
+  <data name="CycleStartTimeLabelDescription" xml:space="preserve">
+    <value>The start time of the entire cycle, starting from the pre-cycle stage.</value>
+  </data>
+  <data name="LimitCycleLoops" xml:space="preserve">
+    <value>Limit Cycle Count</value>
+  </data>
+  <data name="LimitCycleLoopsDescription" xml:space="preserve">
+    <value>When enabled, the maximum number of loops in the countdown cycle will be limited.</value>
+  </data>
+  <data name="TimeMode" xml:space="preserve">
+    <value>Time mode</value>
+  </data>
+  <data name="TimeModeDailyDescription" xml:space="preserve">
+    <value>By default the countdown time will be obtained from the day course and the start time of the first class or break point of the day will be the start time, the end of the last class or break of the course will be the end time. If the day course is not available, the natural time between the morning and the early morning of the next day will be used. When the time mode is specified in the box on the right, if the selected time mode is not available, no countdown will be made.</value>
+  </data>
+  <data name="TimeModeWeeklyDescription" xml:space="preserve">
+    <value>Countdown time will be obtained from this week's course by default from the start time of the first class or break point of the week and the end time of the last class or course break point will be the end time. If this week's course is not available, the natural time will be used from the early morning of the first morning of this week to the morning of the last day of the week. When the time mode is specified on the right side, no countdown will be made if the chosen time mode is not available.</value>
+  </data>
+  <data name="TimeModeDefault" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="ForceNaturalTime" xml:space="preserve">
+    <value>Force Natural Time</value>
+  </data>
+  <data name="ForceClassTime" xml:space="preserve">
+    <value>Mandatory Course Time</value>
+  </data>
+  <data name="CustomWeekStartDay" xml:space="preserve">
+    <value>Custom First Day of the Week</value>
+  </data>
+  <data name="CustomWeekStartDayDescription" xml:space="preserve">
+    <value>By default, you will use the week set in the [Basic] start time as the first day of each week. When enabled, you will use the week specified here.</value>
+  </data>
+  <data name="WeekdaySunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="WeekdayMonday" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="WeekdayTuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="WeekdayWednesday" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="WeekdayThursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="WeekdayFriday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="WeekdaySaturday" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="DisplayContent" xml:space="preserve">
+    <value>Show content</value>
+  </data>
+  <data name="DisplayContentDescription" xml:space="preserve">
+    <value>Information to display on component</value>
+  </data>
+  <data name="ProgressBar" xml:space="preserve">
+    <value>Progress bar</value>
+  </data>
+  <data name="ProgressRing" xml:space="preserve">
+    <value>Progress Ring</value>
+  </data>
+  <data name="CountdownConnector" xml:space="preserve">
+    <value>Countdown connection word</value>
+  </data>
+  <data name="Countdown" xml:space="preserve">
+    <value>Countdown</value>
+  </data>
+  <data name="FormatVariablesHelp" xml:space="preserve">
+    <value>Format Variable Description</value>
+  </data>
+  <data name="FormatTotalHours" xml:space="preserve">
+    <value>%H - Total Hours</value>
+  </data>
+  <data name="FormatTotalMinutes" xml:space="preserve">
+    <value>%M - total minutes</value>
+  </data>
+  <data name="FormatRoundUpNote" xml:space="preserve">
+    <value>The above values are rounded up.</value>
+  </data>
+  <data name="FormatRemainingPercent" xml:space="preserve">
+    <value>%L - remaining percentage</value>
+  </data>
+  <data name="FormatRoundingNote" xml:space="preserve">
+    <value>The above values are rounded to the nearest whole number.</value>
+  </data>
+  <data name="FormatHours" xml:space="preserve">
+    <value>%h - Hours</value>
+  </data>
+  <data name="FormatMinutes" xml:space="preserve">
+    <value>%m - minutes</value>
+  </data>
+  <data name="FormatSeconds" xml:space="preserve">
+    <value>%s - Second</value>
+  </data>
+  <data name="FormatElementValueNote" xml:space="preserve">
+    <value>The above value takes the corresponding element.</value>
+  </data>
+  <data name="AccentColor" xml:space="preserve">
+    <value>Highlight color</value>
+  </data>
+  <data name="AccentColorDescription" xml:space="preserve">
+    <value>The name of the event and the font color of the countdown.</value>
+  </data>
+  <data name="ProgressBarUseAccent" xml:space="preserve">
+    <value>Use highlighted color for progress bar</value>
+  </data>
+  <data name="ProgressBarUseAccentDescription" xml:space="preserve">
+    <value>When enabled, the progress bar will use the selected theme color as the theme instead of using the theme color of the application.</value>
+  </data>
+  <data name="ConnectorUseAccent" xml:space="preserve">
+    <value>Use color for countdown connection words</value>
+  </data>
+  <data name="ConnectorUseAccentDescription" xml:space="preserve">
+    <value>When enabled, the countdown connection word color matches the font color, otherwise the default color.</value>
+  </data>
+  <data name="CountdownFontSizeDescription" xml:space="preserve">
+    <value>Event name and countdown font size.</value>
+  </data>
+  <data name="CountdownDistancePrefix" xml:space="preserve">
+    <value>Distance</value>
+  </data>
+  <data name="TomorrowLabel" xml:space="preserve">
+    <value>Tomorrow</value>
+  </data>
+</root>

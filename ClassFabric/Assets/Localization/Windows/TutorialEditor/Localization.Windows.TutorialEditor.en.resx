@@ -117,48 +117,172 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClockHeader" xml:space="preserve">
-    <value>Clock</value>
-    <comment>设置-时钟-"时钟"分区标题</comment>
+  <data name="EditorTitle" xml:space="preserve">
+    <value>Tutorial Editor</value>
   </data>
-  <data name="UseExactTime" xml:space="preserve">
-    <value>Use exact time</value>
-    <comment>设置-时钟-"使用精确时间"</comment>
+  <data name="TutorialGroup" xml:space="preserve">
+    <value>Tutorial Group</value>
   </data>
-  <data name="UseExactTimeDescription" xml:space="preserve">
-    <value>When enabled, the application uses exact time synchronized from a specified server instead of the system time.</value>
-    <comment>使用精确时间-描述</comment>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
   </data>
-  <data name="TimeServer" xml:space="preserve">
-    <value>Time server</value>
-    <comment>使用精确时间-"时间服务器"</comment>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
-  <data name="SyncNow" xml:space="preserve">
-    <value>Sync now</value>
-    <comment>使用精确时间-"立即同步"按钮</comment>
+  <data name="Tutorial" xml:space="preserve">
+    <value>Tutorial</value>
   </data>
-  <data name="TimeOffset" xml:space="preserve">
-    <value>Time offset</value>
-    <comment>设置-时钟-"时间偏移"</comment>
+  <data name="WatermarkDefault" xml:space="preserve">
+    <value>(Default)</value>
   </data>
-  <data name="TimeOffsetDescription" xml:space="preserve">
-    <value>Set the offset between class time and actual time. Increase the offset to compensate for early bells, decrease it to compensate for late bells.</value>
-    <comment>时间偏移-描述</comment>
+  <data name="BasicTab" xml:space="preserve">
+    <value>Basic</value>
   </data>
-  <data name="SecondUnit" xml:space="preserve">
-    <value>s</value>
-    <comment>时间偏移-秒（单位后缀）</comment>
+  <data name="Paragraph" xml:space="preserve">
+    <value>Paragraph</value>
   </data>
-  <data name="AutoTimeOffset" xml:space="preserve">
-    <value>Automatic time offset</value>
-    <comment>时间偏移-"自动时间偏移"</comment>
+  <data name="TopLevelClassName" xml:space="preserve">
+    <value>TopLevel Class Name</value>
   </data>
-  <data name="AutoTimeOffsetDescription" xml:space="preserve">
-    <value>If enabled, the time offset is adjusted automatically every day by the configured increment.</value>
-    <comment>自动时间偏移-描述</comment>
+  <data name="EnableBarrier" xml:space="preserve">
+    <value>Enable Barrier</value>
   </data>
-  <data name="AlignBell" xml:space="preserve">
-    <value>Align bells</value>
-    <comment>时间偏移-"对齐铃声"按钮</comment>
+  <data name="EnterEventTab" xml:space="preserve">
+    <value>Enter Event</value>
+  </data>
+  <data name="Sentence" xml:space="preserve">
+    <value>Statement</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="HeroImage" xml:space="preserve">
+    <value>Header Graph</value>
+  </data>
+  <data name="WatermarkDisabled" xml:space="preserve">
+    <value>(Disabled)</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>Icons</value>
+  </data>
+  <data name="TargetSelectorLabel" xml:space="preserve">
+    <value>Destination Control Selector</value>
+  </data>
+  <data name="TeachingTipPlacement" xml:space="preserve">
+    <value>Tutorial Flow Mode</value>
+  </data>
+  <data name="PointToTarget" xml:space="preserve">
+    <value>Targeting Target</value>
+  </data>
+  <data name="HighlightTarget" xml:space="preserve">
+    <value>Highlight target</value>
+  </data>
+  <data name="ModalTarget" xml:space="preserve">
+    <value>Makes the goal mockwise</value>
+  </data>
+  <data name="WaitForNextCommand" xml:space="preserve">
+    <value>Waiting for external push</value>
+  </data>
+  <data name="UseLightDismiss" xml:space="preserve">
+    <value>Use LightDismiss instead of right buttons</value>
+  </data>
+  <data name="RightButton" xml:space="preserve">
+    <value>Right Button</value>
+  </data>
+  <data name="LeftButton" xml:space="preserve">
+    <value>Left Button</value>
+  </data>
+  <data name="LeftButtonEventTab" xml:space="preserve">
+    <value>Left Button Event</value>
+  </data>
+  <data name="RightButtonEventTab" xml:space="preserve">
+    <value>Right Button Event</value>
+  </data>
+  <data name="ScriptTab" xml:space="preserve">
+    <value>Script</value>
+  </data>
+  <data name="TutorialScript" xml:space="preserve">
+    <value>Tutorial Script</value>
+  </data>
+  <data name="EnableScript" xml:space="preserve">
+    <value>Enable Script</value>
+  </data>
+  <data name="EditScriptHint" xml:space="preserve">
+    <value>Edit the Lua script for this statement using a separate editor.</value>
+  </data>
+  <data name="EditScript" xml:space="preserve">
+    <value>Edit Script…</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open…</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save…</value>
+  </data>
+  <data name="SaveAs" xml:space="preserve">
+    <value>Save as…</value>
+  </data>
+  <data name="ChapterInfo" xml:space="preserve">
+    <value>Book section information…</value>
+  </data>
+  <data name="RunMenu" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="RunCurrent" xml:space="preserve">
+    <value>Run the current tutorial</value>
+  </data>
+  <data name="RunFromParagraph" xml:space="preserve">
+    <value>Run from current paragraph</value>
+  </data>
+  <data name="StopRunning" xml:space="preserve">
+    <value>Stop running</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="TargetSelector" xml:space="preserve">
+    <value>Target Selector</value>
+  </data>
+  <data name="NewTutorial" xml:space="preserve">
+    <value>New Tutorial</value>
+  </data>
+  <data name="NewParagraph" xml:space="preserve">
+    <value>New paragraph</value>
+  </data>
+  <data name="ErrorCannotOpenTutorialFile" xml:space="preserve">
+    <value>Unable to open selected tutorial file.</value>
+  </data>
+  <data name="OpenedToast" xml:space="preserve">
+    <value>On {0}</value>
+  </data>
+  <data name="ErrorOpenTutorialFile" xml:space="preserve">
+    <value>Unable to open tutorial file</value>
+  </data>
+  <data name="SavedToast" xml:space="preserve">
+    <value>Saved {0}</value>
+  </data>
+  <data name="ErrorSaveTutorialFile" xml:space="preserve">
+    <value>Unable to save tutorial file</value>
+  </data>
+  <data name="UnsavedChangesTitle" xml:space="preserve">
+    <value>Changes have not been saved</value>
+  </data>
+  <data name="UnsavedChangesContent" xml:space="preserve">
+    <value>Changes have not been saved. Do you want to save changes before exit?</value>
+  </data>
+  <data name="DontSave" xml:space="preserve">
+    <value>Do not save</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
 </root>

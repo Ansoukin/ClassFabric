@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,6 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <!-- ========== 分区标题 ========== -->
   <data name="SectionBasic" xml:space="preserve">
     <value>Basic</value>
     <comment>外观设置-"基本"分区标题</comment>
@@ -129,6 +130,7 @@
     <value>Font</value>
     <comment>外观设置-"字体"分区标题</comment>
   </data>
+  <!-- ========== 界面缩放/背景/圆角/行间隔/分体主界面 ========== -->
   <data name="ScaleHeader" xml:space="preserve">
     <value>Interface scale</value>
     <comment>外观-"界面缩放"</comment>
@@ -177,6 +179,7 @@
     <value>When enabled, components will be separated.</value>
     <comment>分体主界面-描述</comment>
   </data>
+  <!-- ========== 应用主题与主题色来源 ========== -->
   <data name="AppThemeHeader" xml:space="preserve">
     <value>App theme</value>
     <comment>外观-"应用主题"</comment>
@@ -229,6 +232,7 @@
     <value>The color used when the app displays emphasized elements.</value>
     <comment>强调色-描述</comment>
   </data>
+  <!-- ========== 字体 ========== -->
   <data name="CustomFontHeader" xml:space="preserve">
     <value>Custom font</value>
     <comment>外观-"自定义字体"</comment>
@@ -239,7 +243,7 @@
   </data>
   <data name="DefaultFontOption" xml:space="preserve">
     <value>HarmonyOS Sans SC (default)</value>
-    <comment>字体下拉框默认字体项（含"(default)"后缀，字体名保留原文）</comment>
+    <comment>字体下拉框默认字体项（含"（默认）"后缀，字体名保留原文）</comment>
   </data>
   <data name="CustomFontWeightHeader" xml:space="preserve">
     <value>Custom font weight</value>
@@ -297,13 +301,14 @@
     <value>Adjust the font color. This overrides the theme default.</value>
     <comment>字体颜色-描述</comment>
   </data>
+  <!-- ========== 字体预览 ========== -->
   <data name="FontPreviewTab" xml:space="preserve">
     <value>Font preview</value>
     <comment>字体预览-"字体预览"标签页</comment>
   </data>
   <data name="FontPreviewSample" xml:space="preserve">
-    <value>当有一天你不再纠结于答案 当我们又重逢于天涯或沧海
-语文 数学 英语 历史 物理 政治 化学 生物 地理
+    <value>When one day you don't fix the answer again we come back to the skyscrab or the sea
+English Language English History Political chemistry Geography
 the quick brown fox jumps over a lazy dog
 THE QUICK BROWN FOX JUMPS OVER A LAZY DOG
 8:00-12:00 1234567890 +-*/</value>

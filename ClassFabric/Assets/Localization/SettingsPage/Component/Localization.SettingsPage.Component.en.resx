@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,79 +26,78 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
+    value   : The object must be serialized into a byte array form of the .NET Framework object
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,6 +116,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <!-- ========== 组件右键菜单 ========== -->
   <data name="MoveUpMenu" xml:space="preserve">
     <value>Move up one line</value>
     <comment>组件右键菜单-"向上移动一行"</comment>
@@ -141,6 +141,7 @@
     <value>Duplicate</value>
     <comment>组件右键菜单-"创建副本"</comment>
   </data>
+  <!-- ========== 组件条目按钮提示 ========== -->
   <data name="MoreOptionsToolTip" xml:space="preserve">
     <value>More options...</value>
     <comment>组件条目"更多选项"按钮提示</comment>
@@ -153,6 +154,7 @@
     <value>Delete</value>
     <comment>组件/主界面行"删除"按钮提示</comment>
   </data>
+  <!-- ========== 页面顶部：组件方案管理 ========== -->
   <data name="PageIntroText" xml:space="preserve">
     <value>The components below will be shown on the main window. Drag components from the component library to add them.</value>
     <comment>组件设置页顶部说明</comment>
@@ -173,6 +175,7 @@
     <value>Open config folder...</value>
     <comment>组件设置页"打开配置文件夹"按钮提示</comment>
   </data>
+  <!-- ========== 主界面行操作 ========== -->
   <data name="IsMainLineToolTip" xml:space="preserve">
     <value>This line is the main line</value>
     <comment>主界面行"主要行"开关提示</comment>
@@ -185,6 +188,7 @@
     <value>Insert a line below</value>
     <comment>主界面行"插入行"按钮提示</comment>
   </data>
+  <!-- ========== 子组件视图 ========== -->
   <data name="NavigateBackToolTip" xml:space="preserve">
     <value>Go back to the parent level</value>
     <comment>子组件视图"返回上一层级"按钮提示</comment>
@@ -197,6 +201,7 @@
     <value>Close</value>
     <comment>子组件视图"关闭"按钮提示</comment>
   </data>
+  <!-- ========== 底部标签页 ========== -->
   <data name="TabComponentLibrary" xml:space="preserve">
     <value>Component library</value>
     <comment>组件设置页标签页-"组件库"</comment>
@@ -213,6 +218,7 @@
     <value>Line settings</value>
     <comment>组件设置页标签页-"行设置"</comment>
   </data>
+  <!-- ========== 行设置：按规则隐藏/分体主界面 ========== -->
   <data name="HideOnRuleHeader" xml:space="preserve">
     <value>Hide by rule</value>
     <comment>行设置-"按规则隐藏"（也用于组件设置的"按规则隐藏"复选框）</comment>
@@ -245,6 +251,7 @@
     <value>Enabled</value>
     <comment>分体主界面/自定义背景效果-"启用"选项</comment>
   </data>
+  <!-- ========== 行设置：外观 ========== -->
   <data name="SectionAppearance" xml:space="preserve">
     <value>Appearance</value>
     <comment>行设置-"外观"分区标题</comment>
@@ -305,6 +312,7 @@
     <value>The background corner radius of the current main window line. At the maximum value, the left and right edges become semicircles.</value>
     <comment>自定义背景圆角半径-描述</comment>
   </data>
+  <!-- ========== 行设置：字体 ========== -->
   <data name="SectionFont" xml:space="preserve">
     <value>Font</value>
     <comment>行设置-"字体"分区标题</comment>
@@ -357,6 +365,7 @@
     <value>Adjust the font color. This overrides the values set in the [Appearance] settings and in the main window line settings.</value>
     <comment>字体颜色-描述</comment>
   </data>
+  <!-- ========== 组件设置页：编辑规则与编辑模式提示 ========== -->
   <data name="EditEllipsisText" xml:space="preserve">
     <value>Edit...</value>
     <comment>组件设置页"编辑规则"按钮文本</comment>
@@ -369,6 +378,7 @@
     <value>Enter edit mode</value>
     <comment>提示横幅-"进入编辑模式"按钮</comment>
   </data>
+  <!-- ========== 创建组件配置对话框（.axaml.cs） ========== -->
   <data name="CreateConfigDialogTitle" xml:space="preserve">
     <value>Create component config</value>
     <comment>创建组件配置对话框标题</comment>
@@ -385,6 +395,7 @@
     <value>Component name</value>
     <comment>创建组件配置对话框"组件名"标签</comment>
   </data>
+  <!-- ========== 吐司与警告（.axaml.cs） ========== -->
   <data name="AtLeastOneLineWarning" xml:space="preserve">
     <value>At least 1 main window line is required.</value>
     <comment>警告吐司：主界面行数量下限（同文已于 Main 组 AtLeastOneLineWarning 出现）</comment>
