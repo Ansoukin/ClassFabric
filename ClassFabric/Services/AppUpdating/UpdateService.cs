@@ -45,6 +45,7 @@ using Sentry;
 using Tmds.DBus.Protocol;
 using DownloadProgressChangedEventArgs = Downloader.DownloadProgressChangedEventArgs;
 using File = System.IO.File;
+using ClassFabric.Assets.Localization.Services.Update;
 
 namespace ClassIsland.Services.AppUpdating;
 
@@ -217,8 +218,8 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         if (Settings.LastUpdateStatus == UpdateStatus.UpdateDeployed)
         {
             CleanupPrevDeployments();
-            await PlatformServices.DesktopToastService.ShowToastAsync("更新成功",
-                $"应用已更新到 {AppBase.AppVersion}，点击以查看详细信息。", UpdateNotificationClickedCallback);
+            await PlatformServices.DesktopToastService.ShowToastAsync(Localization.UpdateSuccessTitle,
+                string.Format(Localization.UpdateSuccessBodyFmt, AppBase.AppVersion), UpdateNotificationClickedCallback);
             Settings.LastUpdateStatus = UpdateStatus.UpToDate;
         }
         
@@ -277,7 +278,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
                 AppBase.Current.PackagingType);
             Settings.LastUpdateStatus = UpdateStatus.UpToDate;
             NetworkErrorException = new InvalidOperationException(
-                "当前安装方式不支持应用内自动更新。请前往项目主页手动下载并安装最新版本。");
+                Localization.InstallMethodNotSupportedMessage);
             Settings.LastCheckUpdateTime = DateTime.Now;
             UpdateInfoUpdated?.Invoke(this, EventArgs.Empty);
             return;
@@ -309,9 +310,9 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             PersistUpdateCache(UpdateDistributionInfoPath, DistributionInfo);
             await SavePendingUpdateAsync(latest.Source, release, subChannel);
             Settings.LastUpdateStatus = UpdateStatus.UpdateAvailable;
-            await PlatformServices.DesktopToastService.ShowToastAsync("发现新版本",
+            await PlatformServices.DesktopToastService.ShowToastAsync(Localization.NewVersionFoundTitle,
                 $"{AppBase.AppVersion} -> {release.FriendlyVersion}" + Environment.NewLine +
-                "点击以查看详细信息。", UpdateNotificationClickedCallback);
+                Localization.NewVersionFoundFooter, UpdateNotificationClickedCallback);
             spanGetDetail.Finish(SpanStatus.Ok);
             transaction.Finish(SpanStatus.Ok);
         }
@@ -387,7 +388,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             }
         }
 
-        throw primaryError ?? new InvalidOperationException("没有可用的应用更新源，请检查更新源设置。");
+        throw primaryError ?? new InvalidOperationException(Localization.NoAvailableUpdateSourceMessage);
     }
 
     /// <summary>
@@ -405,7 +406,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         }
 
         throw new InvalidOperationException(
-            $"更新源 {source.DisplayName} 上的最新版本 {release.FriendlyVersion} 没有提供与当前安装方式匹配的更新包，请稍后重试或前往项目主页手动下载。");
+            string.Format(Localization.UpdatePackageMissingOnSourceFmt, source.DisplayName, release.FriendlyVersion));
     }
 
     private GitHubUpdateSource GetGitHubUpdateSource()
@@ -580,7 +581,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     private static Version ParseVersionOrThrow(string version) =>
         Version.TryParse(version, out var parsed)
             ? parsed
-            : throw new InvalidOperationException($"更新源返回了无法识别的版本号：{version}");
+            : throw new InvalidOperationException(string.Format(Localization.UnrecognizedVersionFromSourceFmt, version));
 
     private bool IsNewerVersion(bool isForce, bool isCancel, Version verCode)
     {
@@ -658,13 +659,13 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
                 Encoding.UTF8.GetBytes(DistributionInfo.FileMapSignature), publicKey);
             if (!valid)
             {
-                throw new InvalidOperationException("文件图签名校验不通过");
+                throw new InvalidOperationException(Localization.ManifestSignatureVerificationFailed);
             }
 
             var fileMap = JsonSerializer.Deserialize<FileMap>(DistributionInfo.FileMapJson);
             if (fileMap == null)
             {
-                throw new InvalidOperationException("文件图解析失败");
+                throw new InvalidOperationException(Localization.ManifestParseFailed);
             }
 
             CurrentWorkingStatus = UpdateWorkingStatus.DownloadingUpdates;
@@ -739,7 +740,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
                         VariableStringHelpers.ExpandString(component.Root, vars)));
                     if (!PathHelpers.IsSafePath(root, prevCompRoot))
                     {
-                        throw new InvalidOperationException("文件图组件根目录无效");
+                        throw new InvalidOperationException(Localization.ManifestRootInvalid);
                     }
                     deploymentLock.ComponentRoots[id] = prevCompRoot;
                 }
@@ -989,11 +990,11 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             var deploymentLock = ConfigureFileHelper.LoadConfigUnWrapped<DeploymentLock>(Path.Combine(UpdateTempPath, "Deployment.lock"), false);
             if (!deploymentLock.FileMapSha512.SequenceEqual(SHA512.HashData(Encoding.UTF8.GetBytes(fileMapJson))))
             {
-                throw new InvalidOperationException("文件图哈希与下载时不符合，可能已经损坏");
+                throw new InvalidOperationException(Localization.FileHashMismatch);
             }
             if (deploymentLock.SubChannel != GetCurrentSubChannel())
             {
-                throw new InvalidOperationException("下载的更新不适用于当前子频道的 ClassFabric");
+                throw new InvalidOperationException(Localization.UpdateNotForChannel);
             }
             var publicKey =
                 AppBase.Current.IsDevelopmentBuild && !string.IsNullOrWhiteSpace(Settings.DebugPublicKeyOverride)
@@ -1003,13 +1004,13 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
                 Encoding.UTF8.GetBytes(fileMapSig), publicKey);
             if (!valid)
             {
-                throw new InvalidOperationException("文件图签名校验不通过");
+                throw new InvalidOperationException(Localization.ManifestSignatureVerificationFailed);
             }
 
             var fileMap = JsonSerializer.Deserialize<FileMap>(fileMapJson);
             if (fileMap == null)
             {
-                throw new InvalidOperationException("文件图解析失败");
+                throw new InvalidOperationException(Localization.ManifestParseFailed);
             }
 
             Logger.LogInformation("正在解压并检验文件完整性");
@@ -1051,7 +1052,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
                         var hash = await SHA512.HashDataAsync(file);
                         if (!hash.SequenceEqual(fileInfo.FileSha512))
                         {
-                            throw new InvalidOperationException($"文件 {id}/{path} 的 SHA512 校验失败 ");
+                            throw new InvalidOperationException(string.Format(Localization.FileSha512MismatchFmt, id, path));
                         }
                     }
                 }
@@ -1077,7 +1078,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
                     component.Files.Any(x => 
                         !PathHelpers.IsSafePath(compRoot, x.Key)))
                 {
-                    throw new InvalidOperationException("文件图发现非法文件路径");
+                    throw new InvalidOperationException(Localization.InvalidFilePathInManifest);
                 }
 
                 var existedFiles = deploymentLock.ExistedFiles.GetValueOrDefault(id, []);
@@ -1110,7 +1111,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
                         continue;
                     }
 
-                    throw new InvalidOperationException($"文件 {id}/{path} 未找到部署源");
+                    throw new InvalidOperationException(string.Format(Localization.DeploymentSourceNotFoundFmt, id, path));
                 }
             }
             Logger.LogInformation("Variables: {}", JsonSerializer.Serialize(fileMap.Variables));
@@ -1255,7 +1256,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         if (string.IsNullOrWhiteSpace(descriptor.AssetName) ||
             !Uri.TryCreate(descriptor.AssetDownloadUrl, UriKind.Absolute, out var downloadUri))
         {
-            throw new InvalidOperationException("待处理更新缺少更新包下载信息，请重新检查更新。");
+            throw new InvalidOperationException(Localization.PendingUpdateMissingPackageInfo);
         }
 
         var dlRoot = Path.Combine(UpdateTempPath, GitHubPackageDirectoryName);
@@ -1333,7 +1334,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         var packagePath = Path.Combine(UpdateTempPath, GitHubPackageDirectoryName, descriptor.AssetName ?? "");
         if (!File.Exists(packagePath))
         {
-            throw new InvalidOperationException("未找到已下载的更新包，请重新下载更新。");
+            throw new InvalidOperationException(Localization.DownloadedUpdatePackageNotFound);
         }
 
         if (descriptor.PackagingType == "installer")
@@ -1352,7 +1353,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
                 StringComparison.OrdinalIgnoreCase))
         {
             throw new InvalidOperationException(
-                "未检测到独立的程序包目录，当前安装形态无法就地部署更新，请手动下载安装包进行更新。");
+                Localization.NoDeploymentDirectoryMessage);
         }
 
         var stagingPath = Path.Combine(UpdateTempPath, "extracted");
@@ -1369,7 +1370,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             .FirstOrDefault(x => Path.GetFileName(x).StartsWith("app", StringComparison.Ordinal));
         if (deploymentDirectory == null)
         {
-            throw new InvalidOperationException("更新包结构无效：未找到应用部署目录。");
+            throw new InvalidOperationException(Localization.UpdatePackageStructureInvalid);
         }
 
         var deploymentName = Path.GetFileName(deploymentDirectory);

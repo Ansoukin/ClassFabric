@@ -228,3 +228,37 @@ files:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
+
+
+  - source: /ClassFabric/Assets/Localization/Services/Update/Localization.Services.Update.resx
+    translation: /ClassFabric/Assets/Localization/Services/Update/Localization.Services.Update.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant
+  - source: /ClassFabric/Assets/Localization/Services/ProfileTransfer/Localization.Services.ProfileTransfer.resx
+    translation: /ClassFabric/Assets/Localization/Services/ProfileTransfer/Localization.Services.ProfileTransfer.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant
+  - source: /ClassFabric/Assets/Localization/Services/Plugins/Localization.Services.Plugins.resx
+    translation: /ClassFabric/Assets/Localization/Services/Plugins/Localization.Services.Plugins.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant
+  - source: /ClassFabric/Assets/Localization/Windows/SettingsWindow/Localization.Windows.SettingsWindow.resx
+    translation: /ClassFabric/Assets/Localization/Windows/SettingsWindow/Localization.Windows.SettingsWindow.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant

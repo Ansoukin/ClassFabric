@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EmptyScheduleFile"
+    xml:space="preserve">
+    <value>Class Widgets 2 课表文件内容为空。</value>
+  </data>
+  <data name="MissingMetaInfo"
+    xml:space="preserve">
+    <value>课表文件缺少 meta 信息。</value>
+  </data>
+  <data name="UnsupportedVersionFmt"
+    xml:space="preserve">
+    <value>不支持 Class Widgets 2 课表版本 {0}，当前仅支持版本 {1}。</value>
+  </data>
+  <data name="MaxWeekCycleInvalid"
+    xml:space="preserve">
+    <value>meta.maxWeekCycle 必须大于 0。</value>
+  </data>
+  <data name="InvalidStartDate"
+    xml:space="preserve">
+    <value>meta.startDate 不是有效的 yyyy-MM-dd 日期。</value>
+  </data>
+  <data name="WeekCycleTruncationWarningFmt"
+    xml:space="preserve">
+    <value>课表使用 {0} 周轮换，超过 ClassFabric 支持的 {1} 周；将仅保留每周课表、非周期覆盖项和指定日期课表</value>
+  </data>
+  <data name="WarningInvalidSubject"
+    xml:space="preserve">
+    <value>缺少 ID 或名称的科目将被跳过</value>
+  </data>
+  <data name="WarningDuplicateSubject"
+    xml:space="preserve">
+    <value>ID 重复的科目将保留第一个，其余将被跳过</value>
+  </data>
+  <data name="WarningUnsupportedSubjectFields"
+    xml:space="preserve">
+    <value>科目的图标、颜色或地点字段不受支持，将被忽略</value>
+  </data>
+  <data name="WarningInvalidTimeline"
+    xml:space="preserve">
+    <value>缺少 ID 的时间线将被跳过</value>
+  </data>
+  <data name="WarningDuplicateTimeline"
+    xml:space="preserve">
+    <value>ID 重复的时间线将保留第一个，其余将被跳过</value>
+  </data>
+  <data name="EntityTimeline"
+    xml:space="preserve">
+    <value>时间线</value>
+  </data>
+  <data name="WarningInvalidDate"
+    xml:space="preserve">
+    <value>无效的指定日期将被忽略；若时间线没有有效星期信息，整条时间线也会被跳过</value>
+  </data>
+  <data name="WarningTimelineWithoutDay"
+    xml:space="preserve">
+    <value>没有有效星期或指定日期的时间线将被跳过</value>
+  </data>
+  <data name="WarningOversizedCycleTimeline"
+    xml:space="preserve">
+    <value>超长轮换中的周期限定时间线将被跳过</value>
+  </data>
+  <data name="WarningInvalidEntry"
+    xml:space="preserve">
+    <value>缺少 ID 的课表条目将被跳过</value>
+  </data>
+  <data name="WarningDuplicateEntry"
+    xml:space="preserve">
+    <value>ID 重复的课表条目将保留第一个，其余将被跳过</value>
+  </data>
+  <data name="WarningUnknownEntryType"
+    xml:space="preserve">
+    <value>类型未知的课表条目将被跳过</value>
+  </data>
+  <data name="WarningInvalidEntryTime"
+    xml:space="preserve">
+    <value>起止时间无效的课表条目将被跳过</value>
+  </data>
+  <data name="WarningUnknownEntrySubject"
+    xml:space="preserve">
+    <value>课表条目引用了不存在的科目，该科目引用将被忽略</value>
+  </data>
+  <data name="WarningInvalidOverrideId"
+    xml:space="preserve">
+    <value>缺少 ID 或 ID 重复的覆盖项将被跳过</value>
+  </data>
+  <data name="WarningUnknownOverrideEntry"
+    xml:space="preserve">
+    <value>引用不存在课表条目的覆盖项将被跳过</value>
+  </data>
+  <data name="EntityOverride"
+    xml:space="preserve">
+    <value>覆盖项</value>
+  </data>
+  <data name="WarningOversizedCycleOverride"
+    xml:space="preserve">
+    <value>超长轮换中的周期限定覆盖项将被跳过</value>
+  </data>
+  <data name="WarningUnknownOverrideSubject"
+    xml:space="preserve">
+    <value>覆盖项引用了不存在的科目，该科目修改将被忽略</value>
+  </data>
+  <data name="WarningInvalidOverrideTime"
+    xml:space="preserve">
+    <value>覆盖项中的无效起止时间将被忽略</value>
+  </data>
+  <data name="WarningDuplicateDateTimeline"
+    xml:space="preserve">
+    <value>同一指定日期的多条时间线将只保留第一条</value>
+  </data>
+  <data name="NamedDateSuffix"
+    xml:space="preserve">
+    <value>（指定日期）</value>
+  </data>
+  <data name="WarningInvalidDayFmt"
+    xml:space="preserve">
+    <value>{0}中的无效星期值将被忽略</value>
+  </data>
+  <data name="WarningUnknownWeeksFmt"
+    xml:space="preserve">
+    <value>{0}中的未知周轮换值将导致该元素被跳过</value>
+  </data>
+  <data name="WarningOutOfRangeWeeksFmt"
+    xml:space="preserve">
+    <value>{0}中的越界周轮换值将被忽略</value>
+  </data>
+  <data name="DayMonday"
+    xml:space="preserve">
+    <value>周一</value>
+  </data>
+  <data name="DayTuesday"
+    xml:space="preserve">
+    <value>周二</value>
+  </data>
+  <data name="DayWednesday"
+    xml:space="preserve">
+    <value>周三</value>
+  </data>
+  <data name="DayThursday"
+    xml:space="preserve">
+    <value>周四</value>
+  </data>
+  <data name="DayFriday"
+    xml:space="preserve">
+    <value>周五</value>
+  </data>
+  <data name="DaySaturday"
+    xml:space="preserve">
+    <value>周六</value>
+  </data>
+  <data name="DaySunday"
+    xml:space="preserve">
+    <value>周日</value>
+  </data>
+  <data name="DayUnknown"
+    xml:space="preserve">
+    <value>未知星期</value>
+  </data>
+  <data name="OddWeekLabel"
+    xml:space="preserve">
+    <value>单周</value>
+  </data>
+  <data name="EvenWeekLabel"
+    xml:space="preserve">
+    <value>双周</value>
+  </data>
+  <data name="OddEvenWeekSuffixFmt"
+    xml:space="preserve">
+    <value>（{0}）</value>
+  </data>
+  <data name="WeekCycleSuffixFmt"
+    xml:space="preserve">
+    <value>（第 {0}/{1} 周）</value>
+  </data>
+  <data name="WarningCountSuffixFmt"
+    xml:space="preserve">
+    <value>（{0} 项）</value>
+  </data>
+  <data name="WarningInvalidResolvedTime"
+    xml:space="preserve">
+    <value>应用覆盖项后起止时间无效的课表条目将被跳过</value>
+  </data>
+</root>

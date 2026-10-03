@@ -114,6 +114,10 @@
         <Folder Include="Assets\Localization\Controls\SpeechProviderSettingsControls\" />
         <Folder Include="Assets\Localization\Controls\EditMode\" />
         <Folder Include="Assets\Localization\Windows\ProfileSettings\" />
+        <Folder Include="Assets\Localization\Services\Update\" />
+        <Folder Include="Assets\Localization\Services\ProfileTransfer\" />
+        <Folder Include="Assets\Localization\Services\Plugins\" />
+        <Folder Include="Assets\Localization\Windows\SettingsWindow\" />
         <Folder Include="Models\Logging\" />
         <Folder Include="Models\Native\" />
         <Folder Include="Models\TimeRules\" />
@@ -153,6 +157,10 @@
         <AvaloniaResource Remove="Assets\Localization\Controls\SpeechProviderSettingsControls\Localization.Controls.SpeechProviderSettingsControls.resx" />
         <AvaloniaResource Remove="Assets\Localization\Controls\EditMode\Localization.Controls.EditMode.resx" />
         <AvaloniaResource Remove="Assets\Localization\Windows\ProfileSettings\Localization.Windows.ProfileSettings.resx" />
+        <AvaloniaResource Remove="Assets\Localization\Services\Update\Localization.Services.Update.resx" />
+        <AvaloniaResource Remove="Assets\Localization\Services\ProfileTransfer\Localization.Services.ProfileTransfer.resx" />
+        <AvaloniaResource Remove="Assets\Localization\Services\Plugins\Localization.Services.Plugins.resx" />
+        <AvaloniaResource Remove="Assets\Localization\Windows\SettingsWindow\Localization.Windows.SettingsWindow.resx" />
         <None Include="Assets\AppLogo.png" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" PublishFolderType="Resource" />
     </ItemGroup>
     <ItemGroup Condition="'$(ClassFabricBundleAssetsInAssembly)' == 'true'">
@@ -198,6 +206,10 @@
         <None Include="Assets\Localization\Controls\SpeechProviderSettingsControls\Localization.Controls.SpeechProviderSettingsControls.resx" />
         <None Include="Assets\Localization\Controls\EditMode\Localization.Controls.EditMode.resx" />
         <None Include="Assets\Localization\Windows\ProfileSettings\Localization.Windows.ProfileSettings.resx" />
+        <None Include="Assets\Localization\Services\Update\Localization.Services.Update.resx" />
+        <None Include="Assets\Localization\Services\ProfileTransfer\Localization.Services.ProfileTransfer.resx" />
+        <None Include="Assets\Localization\Services\Plugins\Localization.Services.Plugins.resx" />
+        <None Include="Assets\Localization\Windows\SettingsWindow\Localization.Windows.SettingsWindow.resx" />
     </ItemGroup>
     <ItemGroup Condition="'$(TrimAssets)'=='true'">
         <Resource Remove="Assets\Fonts\*.ttf" />

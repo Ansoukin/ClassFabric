@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="UpdateSuccessTitle"
+    xml:space="preserve">
+    <value>更新成功</value>
+  </data>
+  <data name="UpdateSuccessBodyFmt"
+    xml:space="preserve">
+    <value>应用已更新到 {0}，点击以查看详细信息。</value>
+  </data>
+  <data name="InstallMethodNotSupportedMessage"
+    xml:space="preserve">
+    <value>当前安装方式不支持应用内自动更新。请前往项目主页手动下载并安装最新版本。</value>
+  </data>
+  <data name="NewVersionFoundTitle"
+    xml:space="preserve">
+    <value>发现新版本</value>
+  </data>
+  <data name="NewVersionFoundFooter"
+    xml:space="preserve">
+    <value>点击以查看详细信息。</value>
+  </data>
+  <data name="NoAvailableUpdateSourceMessage"
+    xml:space="preserve">
+    <value>没有可用的应用更新源，请检查更新源设置。</value>
+  </data>
+  <data name="UpdatePackageMissingOnSourceFmt"
+    xml:space="preserve">
+    <value>更新源 {0} 上的最新版本 {1} 没有提供与当前安装方式匹配的更新包，请稍后重试或前往项目主页手动下载。</value>
+  </data>
+  <data name="UnrecognizedVersionFromSourceFmt"
+    xml:space="preserve">
+    <value>更新源返回了无法识别的版本号：{0}</value>
+  </data>
+  <data name="ManifestSignatureVerificationFailed"
+    xml:space="preserve">
+    <value>文件图签名校验不通过</value>
+  </data>
+  <data name="ManifestParseFailed"
+    xml:space="preserve">
+    <value>文件图解析失败</value>
+  </data>
+  <data name="ManifestRootInvalid"
+    xml:space="preserve">
+    <value>文件图组件根目录无效</value>
+  </data>
+  <data name="FileHashMismatch"
+    xml:space="preserve">
+    <value>文件图哈希与下载时不符合，可能已经损坏</value>
+  </data>
+  <data name="UpdateNotForChannel"
+    xml:space="preserve">
+    <value>下载的更新不适用于当前子频道的 ClassFabric</value>
+  </data>
+  <data name="FileSha512MismatchFmt"
+    xml:space="preserve">
+    <value>文件 {0}/{1} 的 SHA512 校验失败 </value>
+  </data>
+  <data name="InvalidFilePathInManifest"
+    xml:space="preserve">
+    <value>文件图发现非法文件路径</value>
+  </data>
+  <data name="DeploymentSourceNotFoundFmt"
+    xml:space="preserve">
+    <value>文件 {0}/{1} 未找到部署源</value>
+  </data>
+  <data name="PendingUpdateMissingPackageInfo"
+    xml:space="preserve">
+    <value>待处理更新缺少更新包下载信息，请重新检查更新。</value>
+  </data>
+  <data name="DownloadedUpdatePackageNotFound"
+    xml:space="preserve">
+    <value>未找到已下载的更新包，请重新下载更新。</value>
+  </data>
+  <data name="NoDeploymentDirectoryMessage"
+    xml:space="preserve">
+    <value>未检测到独立的程序包目录，当前安装形态无法就地部署更新，请手动下载安装包进行更新。</value>
+  </data>
+  <data name="UpdatePackageStructureInvalid"
+    xml:space="preserve">
+    <value>更新包结构无效：未找到应用部署目录。</value>
+  </data>
+</root>

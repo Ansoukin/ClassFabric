@@ -55,6 +55,7 @@ using WindowsShortcutFactory;
 using Control = Avalonia.Controls.Control;
 using FATaskDialog = FluentAvalonia.UI.Controls.FATaskDialog;
 using FATaskDialogButton = FluentAvalonia.UI.Controls.FATaskDialogButton;
+using ClassFabric.Assets.Localization.Windows.SettingsWindow;
 
 namespace ClassIsland.Views;
 
@@ -573,10 +574,10 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
             IsShowingRestartDialog = true;
             var r = await new FAContentDialog()
             {
-                Title = "需要重启",
-                Content = "部分设置需要重启以应用更改。",
-                PrimaryButtonText = "重启",
-                CloseButtonText = "取消",
+                Title = Localization.RestartRequiredTitle,
+                Content = Localization.RestartRequiredContent,
+                PrimaryButtonText = Localization.RestartButton,
+                CloseButtonText = Localization.CancelLabel,
                 DefaultButton = FAContentDialogButton.Primary,
             }.ShowAsyncAuto(TopLevel.GetTopLevel(this));
             IsShowingRestartDialog = false;
@@ -618,7 +619,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         catch (Exception ex)
         {
             Logger.LogError(ex, "无法退出管理。");
-            _ = CommonTaskDialogs.ShowDialog("无法退出管理", $"无法退出管理：{ex.Message}", this);
+            _ = CommonTaskDialogs.ShowDialog(Localization.ExitManagementFailedTitle, string.Format(Localization.ExitManagementFailedMessageFmt, ex.Message), this);
         }
     }
 
@@ -631,7 +632,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
     {
         var message = new ToastMessage()
         {
-            Message = "正在导出诊断信息…",
+            Message = Localization.ExportingDiagnosticsMessage,
             CanUserClose = false,
             AutoClose = false,
         };
@@ -639,13 +640,13 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         {
             var r = await new FATaskDialog()
             {
-                Header = "导出诊断信息",
-                Content = "您正在导出应用的诊断数据。导出的诊断数据将包含应用 30 天内产生的日志、系统及环境信息、应用设置、当前加载的档案、所使用的插件（如有）和集控设置（如有），可能包含敏感信息，请在导出后注意检查。",
+                Header = Localization.ExportDiagnosticsHeader,
+                Content = Localization.ExportDiagnosticsContent,
                 XamlRoot = this,
                 Buttons =
                 {
-                    new FATaskDialogButton("取消", false),
-                    new FATaskDialogButton("继续", true)
+                    new FATaskDialogButton(Localization.CancelLabel, false),
+                    new FATaskDialogButton(Localization.ContinueButton, true)
                     {
                         IsDefault = true
                     }
@@ -659,13 +660,13 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
             PopupHelper.DisableAllPopups();
             var file = await PlatformServices.FilePickerService.SaveFilePickerAsync(new FilePickerSaveOptions()
             {
-                Title = "导出诊断数据",
+                Title = Localization.ExportDiagnosticsPickerTitle,
                 SuggestedStartLocation =
                     await TopLevel.GetTopLevel(this)!.StorageProvider.TryGetFolderFromPathAsync(
                         Environment.GetFolderPath(Environment.SpecialFolder.Desktop)),
                 FileTypeChoices =
                 [
-                    new FilePickerFileType("压缩文件")
+                    new FilePickerFileType(Localization.ArchiveFileType)
                     {
                         Patterns = ["*.zip"]
                     }
@@ -679,7 +680,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
 
             var topLevel = TopLevel.GetTopLevel(this)!;
             using var storageFile = await PlatformServices.FilePickerService.GetFileAsync(file, topLevel)
-                                    ?? throw new FileNotFoundException("无法打开所选诊断数据文件。", file);
+                                    ?? throw new FileNotFoundException(Localization.CannotOpenDiagnosticsFile, file);
             await using var outputStream = await storageFile.OpenWriteAsync();
             if (outputStream.CanSeek)
             {
@@ -687,11 +688,11 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
                 outputStream.Position = 0;
             }
             await DiagnosticService.ExportDiagnosticData(outputStream);
-            this.ShowSuccessToast($"已导出诊断信息到 {file}。");
+            this.ShowSuccessToast(string.Format(Localization.DiagnosticsExportedToPathFmt, file));
         }
         catch (Exception exception)
         {
-            this.ShowErrorToast("无法导出诊断信息", exception);
+            this.ShowErrorToast(Localization.DiagnosticsExportFailed, exception);
         }
         finally
         {
@@ -724,11 +725,11 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         try
         {
             await ShortcutHelpers.CreateDesktopShortcutAsync();
-            this.ShowSuccessToast("已创建桌面快捷方式。");
+            this.ShowSuccessToast(Localization.DesktopShortcutCreated);
         }
         catch (Exception exception)
         {
-            this.ShowErrorToast("无法创建桌面快捷方式", exception);
+            this.ShowErrorToast(Localization.DesktopShortcutFailed, exception);
         }
     }
 
@@ -737,11 +738,11 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         try
         {
             await ShortcutHelpers.CreateStartMenuShortcutAsync();
-            this.ShowSuccessToast("已创建开始菜单快捷方式。");
+            this.ShowSuccessToast(Localization.StartMenuShortcutCreated);
         }
         catch (Exception exception)
         {
-            this.ShowErrorToast("无法创建开始菜单快捷方式", exception);
+            this.ShowErrorToast(Localization.StartMenuShortcutFailed, exception);
         }
     }
 
@@ -751,13 +752,13 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         {
             var urlDialogResult = await new FATaskDialog()
             {
-                Header = "创建快捷换课快捷方式",
-                Content = "快捷换课快捷方式需要启用【注册 Url 协议】选项才能工作。您要启用它吗？",
+                Header = Localization.QuickClassChangeShortcutHeader,
+                Content = Localization.QuickClassChangeNeedsUrlProtocolContent,
                 XamlRoot = this,
                 Buttons =
                 {
-                    new FATaskDialogButton("取消", false),
-                    new FATaskDialogButton("启用", true)
+                    new FATaskDialogButton(Localization.CancelLabel, false),
+                    new FATaskDialogButton(Localization.EnableButton, true)
                     {
                         IsDefault = true
                     }
@@ -773,12 +774,12 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         PopupHelper.DisableAllPopups();
         var file = await PlatformServices.FilePickerService.SaveFilePickerAsync(new FilePickerSaveOptions()
         {
-            SuggestedFileName = "快捷换课.url",
+            SuggestedFileName = Localization.QuickClassChangeSuggestedFileName,
             SuggestedStartLocation =
                 await TopLevel.GetTopLevel(this)!.StorageProvider.TryGetFolderFromPathAsync(
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop)),
             FileTypeChoices = [
-                new FilePickerFileType("快捷方式")
+                new FilePickerFileType(Localization.ShortcutFileType)
                 {
                     Patterns = ["*.url"]
                 }
@@ -794,7 +795,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         {
             var topLevel = TopLevel.GetTopLevel(this)!;
             using var storageFile = await PlatformServices.FilePickerService.GetFileAsync(file, topLevel)
-                                    ?? throw new FileNotFoundException("无法打开所选快捷方式文件。", file);
+                                    ?? throw new FileNotFoundException(Localization.CannotOpenShortcutFile, file);
             await using var outputStream = await storageFile.OpenWriteAsync();
             if (outputStream.CanSeek)
             {
@@ -802,11 +803,11 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
                 outputStream.Position = 0;
             }
             await ShortcutHelpers.CreateClassSwapShortcutAsync(outputStream);
-            this.ShowSuccessToast($"已创建快捷换课图标到 {file}。");
+            this.ShowSuccessToast(string.Format(Localization.QuickClassChangeExportedToPathFmt, file));
         }
         catch (Exception exception)
         {
-            this.ShowErrorToast("无法创建快捷换课图标", exception);
+            this.ShowErrorToast(Localization.QuickClassChangeExportFailed, exception);
         }
         
     }

@@ -10,6 +10,7 @@ using ClassIsland.Models.External.ClassWidgets;
 using ClassIsland.Services;
 using ClassIsland.Shared.Helpers;
 using ClassIsland.Shared.Models.Profile;
+using ClassFabric.Assets.Localization.Services.ProfileTransfer;
 
 namespace ClassIsland.Helpers.ProfileTransferHelpers;
 
@@ -21,7 +22,7 @@ internal static class ClassWidgets2ProfileTransferHelper
     internal static Cw2ImportAnalysis Analyze(Stream stream)
     {
         var source = ConfigureFileHelper.LoadConfigUnWrapped<Cw2Profile>(stream)
-                     ?? throw new InvalidDataException("Class Widgets 2 课表文件内容为空。");
+                     ?? throw new InvalidDataException(Localization.EmptyScheduleFile);
         return Analyze(source);
     }
 
@@ -144,20 +145,20 @@ internal static class ClassWidgets2ProfileTransferHelper
     {
         if (source.Meta == null)
         {
-            throw new InvalidDataException("课表文件缺少 meta 信息。");
+            throw new InvalidDataException(Localization.MissingMetaInfo);
         }
         if (source.Meta.Version != SupportedSchemaVersion)
         {
-            throw new InvalidDataException($"不支持 Class Widgets 2 课表版本 {source.Meta.Version}，当前仅支持版本 {SupportedSchemaVersion}。");
+            throw new InvalidDataException(string.Format(Localization.UnsupportedVersionFmt, source.Meta.Version, SupportedSchemaVersion));
         }
         if (source.Meta.MaxWeekCycle <= 0)
         {
-            throw new InvalidDataException("meta.maxWeekCycle 必须大于 0。");
+            throw new InvalidDataException(Localization.MaxWeekCycleInvalid);
         }
         if (!DateOnly.TryParseExact(source.Meta.StartDate, "yyyy-MM-dd", CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out var startDate))
         {
-            throw new InvalidDataException("meta.startDate 不是有效的 yyyy-MM-dd 日期。");
+            throw new InvalidDataException(Localization.InvalidStartDate);
         }
 
         var warnings = new WarningCollector();
@@ -165,7 +166,7 @@ internal static class ClassWidgets2ProfileTransferHelper
         if (oversizedCycle)
         {
             warnings.Add("oversized-cycle",
-                $"课表使用 {source.Meta.MaxWeekCycle} 周轮换，超过 ClassFabric 支持的 {MaxSupportedWeekCycle} 周；将仅保留每周课表、非周期覆盖项和指定日期课表");
+                string.Format(Localization.WeekCycleTruncationWarningFmt, source.Meta.MaxWeekCycle, MaxSupportedWeekCycle));
         }
 
         var subjects = NormalizeSubjects(source.Subjects ?? [], warnings);
@@ -190,12 +191,12 @@ internal static class ClassWidgets2ProfileTransferHelper
         {
             if (string.IsNullOrWhiteSpace(item.Id) || string.IsNullOrWhiteSpace(item.Name))
             {
-                warnings.Add("invalid-subject", "缺少 ID 或名称的科目将被跳过");
+                warnings.Add("invalid-subject", Localization.WarningInvalidSubject);
                 continue;
             }
             if (!ids.Add(item.Id))
             {
-                warnings.Add("duplicate-subject", "ID 重复的科目将保留第一个，其余将被跳过");
+                warnings.Add("duplicate-subject", Localization.WarningDuplicateSubject);
                 continue;
             }
 
@@ -205,7 +206,7 @@ internal static class ClassWidgets2ProfileTransferHelper
             if (!string.IsNullOrWhiteSpace(item.Location)) unsupportedFields++;
             if (unsupportedFields > 0)
             {
-                warnings.Add("unsupported-subject-fields", "科目的图标、颜色或地点字段不受支持，将被忽略", unsupportedFields);
+                warnings.Add("unsupported-subject-fields", Localization.WarningUnsupportedSubjectFields, unsupportedFields);
             }
 
             results.Add(new Cw2NormalizedSubject(item.Id, item.Name, item.SimplifiedName, item.Teacher,
@@ -228,12 +229,12 @@ internal static class ClassWidgets2ProfileTransferHelper
             index++;
             if (string.IsNullOrWhiteSpace(item.Id))
             {
-                warnings.Add("invalid-timeline", "缺少 ID 的时间线将被跳过");
+                warnings.Add("invalid-timeline", Localization.WarningInvalidTimeline);
                 continue;
             }
             if (!timelineIds.Add(item.Id))
             {
-                warnings.Add("duplicate-timeline", "ID 重复的时间线将保留第一个，其余将被跳过");
+                warnings.Add("duplicate-timeline", Localization.WarningDuplicateTimeline);
                 continue;
             }
 
@@ -247,25 +248,25 @@ internal static class ClassWidgets2ProfileTransferHelper
                 }
                 else
                 {
-                    warnings.Add("invalid-date", "无效的指定日期将被忽略；若时间线没有有效星期信息，整条时间线也会被跳过");
+                    warnings.Add("invalid-date", Localization.WarningInvalidDate);
                 }
             }
 
-            var days = ParseDays(item.DayOfWeek, false, warnings, "时间线");
+            var days = ParseDays(item.DayOfWeek, false, warnings, Localization.EntityTimeline);
             if (date == null && days == null)
             {
-                warnings.Add("timeline-without-day", "没有有效星期或指定日期的时间线将被跳过");
+                warnings.Add("timeline-without-day", Localization.WarningTimelineWithoutDay);
                 continue;
             }
 
-            var weeks = ParseWeeks(item.Weeks, maxWeekCycle, false, warnings, "时间线");
+            var weeks = ParseWeeks(item.Weeks, maxWeekCycle, false, warnings, Localization.EntityTimeline);
             if (weeks == null)
             {
                 continue;
             }
             if (date == null && oversizedCycle && !weeks.IsAll)
             {
-                warnings.Add("oversized-cycle-timeline", "超长轮换中的周期限定时间线将被跳过");
+                warnings.Add("oversized-cycle-timeline", Localization.WarningOversizedCycleTimeline);
                 continue;
             }
 
@@ -276,29 +277,29 @@ internal static class ClassWidgets2ProfileTransferHelper
                 entryIndex++;
                 if (string.IsNullOrWhiteSpace(entry.Id))
                 {
-                    warnings.Add("invalid-entry", "缺少 ID 的课表条目将被跳过");
+                    warnings.Add("invalid-entry", Localization.WarningInvalidEntry);
                     continue;
                 }
                 if (!seenEntryIds.Add(entry.Id))
                 {
-                    warnings.Add("duplicate-entry", "ID 重复的课表条目将保留第一个，其余将被跳过");
+                    warnings.Add("duplicate-entry", Localization.WarningDuplicateEntry);
                     continue;
                 }
                 if (!TryParseEntryType(entry.Type, out var type))
                 {
-                    warnings.Add("unknown-entry-type", "类型未知的课表条目将被跳过");
+                    warnings.Add("unknown-entry-type", Localization.WarningUnknownEntryType);
                     continue;
                 }
                 if (!TryParseTime(entry.StartTime, out var start) || !TryParseTime(entry.EndTime, out var end) || end <= start)
                 {
-                    warnings.Add("invalid-entry-time", "起止时间无效的课表条目将被跳过");
+                    warnings.Add("invalid-entry-time", Localization.WarningInvalidEntryTime);
                     continue;
                 }
 
                 var subjectId = entry.SubjectId;
                 if (!string.IsNullOrWhiteSpace(subjectId) && !subjectIds.Contains(subjectId))
                 {
-                    warnings.Add("unknown-entry-subject", "课表条目引用了不存在的科目，该科目引用将被忽略");
+                    warnings.Add("unknown-entry-subject", Localization.WarningUnknownEntrySubject);
                     subjectId = null;
                 }
                 entryIds.Add(entry.Id);
@@ -323,35 +324,35 @@ internal static class ClassWidgets2ProfileTransferHelper
             index++;
             if (string.IsNullOrWhiteSpace(item.Id) || !ids.Add(item.Id))
             {
-                warnings.Add("invalid-override-id", "缺少 ID 或 ID 重复的覆盖项将被跳过");
+                warnings.Add("invalid-override-id", Localization.WarningInvalidOverrideId);
                 continue;
             }
             if (string.IsNullOrWhiteSpace(item.EntryId) || !entryIds.Contains(item.EntryId))
             {
-                warnings.Add("unknown-override-entry", "引用不存在课表条目的覆盖项将被跳过");
+                warnings.Add("unknown-override-entry", Localization.WarningUnknownOverrideEntry);
                 continue;
             }
 
-            var days = ParseDays(item.DayOfWeek, true, warnings, "覆盖项");
+            var days = ParseDays(item.DayOfWeek, true, warnings, Localization.EntityOverride);
             if (days == null)
             {
                 continue;
             }
-            var weeks = ParseWeeks(item.Weeks, maxWeekCycle, true, warnings, "覆盖项");
+            var weeks = ParseWeeks(item.Weeks, maxWeekCycle, true, warnings, Localization.EntityOverride);
             if (weeks == null)
             {
                 continue;
             }
             if (oversizedCycle && !weeks.IsAll)
             {
-                warnings.Add("oversized-cycle-override", "超长轮换中的周期限定覆盖项将被跳过");
+                warnings.Add("oversized-cycle-override", Localization.WarningOversizedCycleOverride);
                 continue;
             }
 
             var subjectId = NullIfWhiteSpace(item.SubjectId);
             if (subjectId != null && !subjectIds.Contains(subjectId))
             {
-                warnings.Add("unknown-override-subject", "覆盖项引用了不存在的科目，该科目修改将被忽略");
+                warnings.Add("unknown-override-subject", Localization.WarningUnknownOverrideSubject);
                 subjectId = null;
             }
 
@@ -359,13 +360,13 @@ internal static class ClassWidgets2ProfileTransferHelper
             if (!string.IsNullOrWhiteSpace(item.StartTime))
             {
                 if (TryParseTime(item.StartTime, out var parsed)) start = parsed;
-                else warnings.Add("invalid-override-time", "覆盖项中的无效起止时间将被忽略");
+                else warnings.Add("invalid-override-time", Localization.WarningInvalidOverrideTime);
             }
             TimeSpan? end = null;
             if (!string.IsNullOrWhiteSpace(item.EndTime))
             {
                 if (TryParseTime(item.EndTime, out var parsed)) end = parsed;
-                else warnings.Add("invalid-override-time", "覆盖项中的无效起止时间将被忽略");
+                else warnings.Add("invalid-override-time", Localization.WarningInvalidOverrideTime);
             }
 
             var title = NullIfWhiteSpace(item.Title);
@@ -389,7 +390,7 @@ internal static class ClassWidgets2ProfileTransferHelper
             var date = timeline.Date!.Value;
             if (!dateTimelines.Add(date))
             {
-                warnings.Add("duplicate-date-timeline", "同一指定日期的多条时间线将只保留第一条");
+                warnings.Add("duplicate-date-timeline", Localization.WarningDuplicateDateTimeline);
                 continue;
             }
             var day = (int)date.DayOfWeek;
@@ -398,7 +399,7 @@ internal static class ClassWidgets2ProfileTransferHelper
             var entries = ResolveEntries(timeline, overrides, day, cycle, warnings);
             if (entries.Count > 0)
             {
-                results.Add(new Cw2ResolvedSchedule($"{date:yyyy-MM-dd}（指定日期）", day, 0, date, entries));
+                results.Add(new Cw2ResolvedSchedule($"{date:yyyy-MM-dd}" + Localization.NamedDateSuffix, day, 0, date, entries));
             }
         }
 
@@ -461,7 +462,7 @@ internal static class ClassWidgets2ProfileTransferHelper
             }
             if (end <= start)
             {
-                warnings.Add("invalid-resolved-time", "应用覆盖项后起止时间无效的课表条目将被跳过");
+                warnings.Add("invalid-resolved-time", Localization.WarningInvalidResolvedTime);
                 continue;
             }
             results.Add(new Cw2ResolvedEntry(sourceEntry.Type, start, end, subjectId, title, sourceEntry.SourceIndex));
@@ -499,7 +500,7 @@ internal static class ClassWidgets2ProfileTransferHelper
         invalid += values.RemoveAll(x => x is < 1 or > 7);
         if (invalid > 0)
         {
-            warnings.Add("invalid-day", $"{owner}中的无效星期值将被忽略", invalid);
+            warnings.Add("invalid-day", string.Format(Localization.WarningInvalidDayFmt, owner), invalid);
         }
         if (values.Count == 0)
         {
@@ -523,7 +524,7 @@ internal static class ClassWidgets2ProfileTransferHelper
             {
                 return WeekFilter.All;
             }
-            warnings.Add("invalid-weeks", $"{owner}中的未知周轮换值将导致该元素被跳过");
+            warnings.Add("invalid-weeks", string.Format(Localization.WarningUnknownWeeksFmt, owner));
             return null;
         }
 
@@ -549,7 +550,7 @@ internal static class ClassWidgets2ProfileTransferHelper
         invalid += values.RemoveAll(x => x < 1 || x > maxWeekCycle);
         if (invalid > 0)
         {
-            warnings.Add("invalid-weeks", $"{owner}中的越界周轮换值将被忽略", invalid);
+            warnings.Add("invalid-weeks", string.Format(Localization.WarningOutOfRangeWeeksFmt, owner), invalid);
         }
         if (values.Count == 0)
         {
@@ -587,19 +588,19 @@ internal static class ClassWidgets2ProfileTransferHelper
 
     private static string GetDayName(int day) => day switch
     {
-        1 => "周一",
-        2 => "周二",
-        3 => "周三",
-        4 => "周四",
-        5 => "周五",
-        6 => "周六",
-        7 => "周日",
-        _ => "未知星期"
+        1 => Localization.DayMonday,
+        2 => Localization.DayTuesday,
+        3 => Localization.DayWednesday,
+        4 => Localization.DayThursday,
+        5 => Localization.DayFriday,
+        6 => Localization.DaySaturday,
+        7 => Localization.DaySunday,
+        _ => Localization.DayUnknown
     };
 
     private static string GetCycleScheduleName(int day, int cycle, int total) => total == 2
-        ? $"{GetDayName(day)}（{(cycle == 1 ? "单周" : "双周")}）"
-        : $"{GetDayName(day)}（第 {cycle}/{total} 周）";
+        ? $"{GetDayName(day)}{string.Format(Localization.OddEvenWeekSuffixFmt, cycle == 1 ? Localization.OddWeekLabel : Localization.EvenWeekLabel)}"
+        : $"{GetDayName(day)}{string.Format(Localization.WeekCycleSuffixFmt, cycle, total)}";
 
     private static bool EntriesEqual(IReadOnlyList<Cw2ResolvedEntry> left, IReadOnlyList<Cw2ResolvedEntry> right)
     {
@@ -697,7 +698,7 @@ internal sealed record Cw2ImportAnalysis(DateOnly StartDate, int MaxWeekCycle, b
             foreach (var warning in Warnings)
             {
                 builder.Append("• ").Append(warning.Message);
-                if (warning.Count > 1) builder.Append("（").Append(warning.Count).Append(" 项）");
+                if (warning.Count > 1) builder.Append(string.Format(Localization.WarningCountSuffixFmt, warning.Count));
                 builder.AppendLine();
             }
             return builder.ToString().TrimEnd();

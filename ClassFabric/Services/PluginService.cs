@@ -24,6 +24,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using ClassFabric.Assets.Localization.Services.Plugins;
 
 namespace ClassIsland.Services;
 
@@ -179,7 +180,7 @@ public class PluginService : IPluginService
             if (info.IsEnabled && Version.TryParse(info.Manifest.ApiVersion, out var apiVersion) && apiVersion < new Version(2, 0, 0, 0))
             {
                 info.LoadStatus = PluginLoadStatus.Error;
-                info.Exception = new InvalidOperationException($"不兼容的 API 版本 {apiVersion}。插件的 API 版本需要至少为 2.0.0.0 才能被当前版本的 ClassFabric 加载。");
+                info.Exception = new InvalidOperationException(string.Format(Localization.IncompatibleApiVersionFmt, apiVersion));
                 PluginLoadedStatus.Add(info);
             }
         }
@@ -203,7 +204,7 @@ public class PluginService : IPluginService
                 if (compatCheck.Status == PluginCompatibilityDiagnosticService.CompatibilityStatus.Incompatible)
                 {
                     PluginDiagnostics[info.Manifest.Id] = (
-                        compatCheck.UserFacingMessage ?? "插件不兼容",
+                        compatCheck.UserFacingMessage ?? Localization.PluginIncompatibleDefault,
                         GenerateTechnicalDiagnosticDetails(manifest, compatCheck.TechnicalDetails ?? ""));
                     info.LoadStatus = PluginLoadStatus.Error;
                     PluginLoadedStatus.Add(info);
@@ -309,7 +310,7 @@ public class PluginService : IPluginService
     {
         if (IPluginService.LoadedPlugins.All(x => x.Manifest.Id != id))
         {
-            throw new ArgumentException($"找不到插件 {id}。", nameof(id));
+            throw new ArgumentException(string.Format(Localization.PluginNotFoundFmt, id), nameof(id));
         }
         await using var outputStream = File.Create(outputPath);
         await PackagePluginAsync(id, outputStream);
@@ -323,7 +324,7 @@ public class PluginService : IPluginService
         var plugin = IPluginService.LoadedPlugins.FirstOrDefault(x => x.Manifest.Id == id);
         if (plugin == null)
         {
-            throw new ArgumentException($"找不到插件 {id}。", nameof(id));
+            throw new ArgumentException(string.Format(Localization.PluginNotFoundFmt, id), nameof(id));
         }
 
         await Task.Run(() =>
@@ -360,7 +361,7 @@ public class PluginService : IPluginService
         if (walkingNodes.Contains(node))
         {
             throw new InvalidOperationException(
-                $"检测到循环依赖：{string.Join(" -> ", walkingNodes.Select(x => x.Plugin.Manifest.Id))}");
+                string.Format(Localization.CircularDependencyDetectedFmt, string.Join(" -> ", walkingNodes.Select(x => x.Plugin.Manifest.Id))));
         }
 
         node.IsDiscovered = true;
@@ -372,7 +373,7 @@ public class PluginService : IPluginService
                 if (i.IsRequired)
                 {
                     node.Plugin.LoadStatus = PluginLoadStatus.Error;
-                    node.Plugin.Exception = new InvalidOperationException($"插件 {node.Plugin.Manifest.Id} 依赖的必选插件 {i.Id} 不存在或处于无法加载状态。");
+                    node.Plugin.Exception = new InvalidOperationException(string.Format(Localization.MissingDependencyFmt, node.Plugin.Manifest.Id, i.Id));
                     return;
                 }
                 continue;
@@ -393,21 +394,21 @@ public class PluginService : IPluginService
         // Try to detect Avalonia version mismatch from exception
         if (ex.Message.Contains("Avalonia") || ex.Message.Contains("FluentAvalonia"))
         {
-            return "该插件可能基于不兼容的 UI 框架版本构建。请确认插件与当前 ClassFabric 版本兼容，或联系插件作者更新。";
+            return Localization.IncompatibleUiFrameworkMessage;
         }
 
         if (ex is MissingMethodException)
         {
-            return "该插件缺少必要的方法引用，可能是版本不兼容导致的。请联系插件作者进行更新。";
+            return Localization.MissingMethodMessage;
         }
 
         if (ex is FileNotFoundException && ex.Message.Contains("dll"))
         {
-            return "该插件缺少依赖的程序集。请确认插件完整性，或联系插件作者。";
+            return Localization.MissingAssemblyMessage;
         }
 
         // Generic fallback message
-        return "该插件加载失败。请确认插件版本与当前 ClassFabric 版本兼容，或联系插件作者。";
+        return Localization.LoadFailedMessage;
     }
 
     /// <summary>
@@ -417,12 +418,12 @@ public class PluginService : IPluginService
     {
         return string.Join(Environment.NewLine,
         [
-            "=== 插件清单 ===",
-            $"插件 ID: {manifest.Id}",
-            $"插件名称: {manifest.Name}",
-            $"插件版本: {manifest.Version}",
-            $"API 版本: {manifest.ApiVersion}",
-            $"入口程序集: {manifest.EntranceAssembly}",
+            Localization.DiagnosticsManifestHeader,
+            string.Format(Localization.DiagnosticsPluginIdFmt, manifest.Id),
+            string.Format(Localization.DiagnosticsPluginNameFmt, manifest.Name),
+            string.Format(Localization.DiagnosticsPluginVersionFmt, manifest.Version),
+            string.Format(Localization.DiagnosticsApiVersionFmt, manifest.ApiVersion),
+            string.Format(Localization.DiagnosticsEntranceAssemblyFmt, manifest.EntranceAssembly),
             "",
             compatibilityDetails
         ]);
@@ -435,34 +436,34 @@ public class PluginService : IPluginService
     {
         var details = new System.Text.StringBuilder();
 
-        details.AppendLine("=== 插件加载失败诊断信息 ===");
-        details.AppendLine($"插件 ID: {manifest.Id}");
-        details.AppendLine($"插件名称: {manifest.Name}");
-        details.AppendLine($"插件版本: {manifest.Version}");
-        details.AppendLine($"API 版本: {manifest.ApiVersion}");
-        details.AppendLine($"入口程序集: {manifest.EntranceAssembly}");
+        details.AppendLine(Localization.DiagnosticsFailureHeader);
+        details.AppendLine(string.Format(Localization.DiagnosticsPluginIdFmt, manifest.Id));
+        details.AppendLine(string.Format(Localization.DiagnosticsPluginNameFmt, manifest.Name));
+        details.AppendLine(string.Format(Localization.DiagnosticsPluginVersionFmt, manifest.Version));
+        details.AppendLine(string.Format(Localization.DiagnosticsApiVersionFmt, manifest.ApiVersion));
+        details.AppendLine(string.Format(Localization.DiagnosticsEntranceAssemblyFmt, manifest.EntranceAssembly));
         details.AppendLine();
-        details.AppendLine("=== 运行时环境 ===");
-        details.AppendLine($"ClassFabric 版本: {typeof(PluginService).Assembly.GetName().Version}");
-        details.AppendLine($"Avalonia 版本: {GetAssemblyVersion("Avalonia.Base")}");
-        details.AppendLine($"FluentAvalonia 版本: {GetAssemblyVersion("FluentAvalonia")}");
+        details.AppendLine(Localization.DiagnosticsRuntimeHeader);
+        details.AppendLine(string.Format(Localization.DiagnosticsClassFabricVersionFmt, typeof(PluginService).Assembly.GetName().Version));
+        details.AppendLine(string.Format(Localization.DiagnosticsAvaloniaVersionFmt, GetAssemblyVersion("Avalonia.Base")));
+        details.AppendLine(string.Format(Localization.DiagnosticsFluentAvaloniaVersionFmt, GetAssemblyVersion("FluentAvalonia")));
         details.AppendLine();
-        details.AppendLine("=== 异常信息 ===");
-        details.AppendLine($"异常类型: {ex.GetType().FullName}");
-        details.AppendLine($"异常消息: {ex.Message}");
+        details.AppendLine(Localization.DiagnosticsExceptionHeader);
+        details.AppendLine(string.Format(Localization.DiagnosticsExceptionTypeFmt, ex.GetType().FullName));
+        details.AppendLine(string.Format(Localization.DiagnosticsExceptionMessageFmt, ex.Message));
         if (!string.IsNullOrEmpty(ex.StackTrace))
         {
             details.AppendLine();
-            details.AppendLine("=== 堆栈跟踪 ===");
+            details.AppendLine(Localization.DiagnosticsStackTraceHeader);
             details.AppendLine(ex.StackTrace);
         }
 
         if (ex.InnerException != null)
         {
             details.AppendLine();
-            details.AppendLine("=== 内部异常 ===");
-            details.AppendLine($"类型: {ex.InnerException.GetType().FullName}");
-            details.AppendLine($"消息: {ex.InnerException.Message}");
+            details.AppendLine(Localization.DiagnosticsInnerExceptionHeader);
+            details.AppendLine(string.Format(Localization.DiagnosticsInnerTypeFmt, ex.InnerException.GetType().FullName));
+            details.AppendLine(string.Format(Localization.DiagnosticsInnerMessageFmt, ex.InnerException.Message));
         }
 
         return details.ToString();
@@ -477,11 +478,11 @@ public class PluginService : IPluginService
         {
             var asm = AppDomain.CurrentDomain.GetAssemblies()
                 .FirstOrDefault(a => a.GetName().Name == assemblyName);
-            return asm?.GetName().Version?.ToString() ?? "未加载";
+            return asm?.GetName().Version?.ToString() ?? Localization.NotLoadedLabel;
         }
         catch
         {
-            return "未知";
+            return Localization.UnknownLabel;
         }
     }
 
