@@ -10,28 +10,29 @@
                         xmlns:ci="http://classfabric.tech/schemas/xaml/core"
                         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                         xmlns:controls1="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+                        xmlns:locComp="clr-namespace:ClassFabric.Assets.Localization.Controls.Components"
                         mc:Ignorable="d" 
                         d:DesignHeight="450" d:DesignWidth="800">
     <ScrollViewer VerticalScrollBarVisibility="Auto" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:WeatherComponentSettingsControl}}">
         <StackPanel Classes="component-settings-container animated-intro" Margin="0">
-                <controls1:FAInfoBar Message="本页面仅包含组件设置，要调整显示天气的城市，请转到【天气】选项卡"
+                <controls1:FAInfoBar Message="{x:Static locComp:Localization.WeatherSettingsInfoBarMessage}"
                                    IsOpen="True" IsClosable="False"/>
                 
                 <controls1:FASettingsExpander IconSource="{ci:FluentIconSource &#xEFD7;}"
-                                            Header="显示天气信息"
-                                            Description="显示当前天气信息摘要。">
+                                            Header="{x:Static locComp:Localization.ShowWeatherInfo}"
+                                            Description="{x:Static locComp:Localization.ShowWeatherInfoDescription}">
                     <controls1:FASettingsExpander.Footer>
                         <StackPanel Orientation="Horizontal" Spacing="4"
                                     Classes="items-valign-center">
                             <ComboBox SelectedIndex="{Binding Settings.MainWeatherInfoKind}"
                                       IsVisible="{Binding Settings.ShowMainWeatherInfo}"
                                       MinWidth="110">
-                                <ComboBoxItem>天气类型/气温</ComboBoxItem>
-                                <ComboBoxItem>湿度</ComboBoxItem>
-                                <ComboBoxItem>风力</ComboBoxItem>
+                                <ComboBoxItem Content="{x:Static locComp:Localization.WeatherTypeTemperature}"/>
+                                <ComboBoxItem Content="{x:Static locComp:Localization.Humidity}"/>
+                                <ComboBoxItem Content="{x:Static locComp:Localization.WindPower}"/>
                                 <ComboBoxItem>AQI</ComboBoxItem>
-                                <ComboBoxItem>气压</ComboBoxItem>
-                                <ComboBoxItem>体感温度</ComboBoxItem>
+                                <ComboBoxItem Content="{x:Static locComp:Localization.AirPressure}"/>
+                                <ComboBoxItem Content="{x:Static locComp:Localization.FeelsLikeTemperature}"/>
                             </ComboBox>
                             <ToggleSwitch IsChecked="{Binding Settings.ShowMainWeatherInfo}"/>
                         </StackPanel>
@@ -39,34 +40,34 @@
                 </controls1:FASettingsExpander>
                 
                 <controls1:FASettingsExpander IconSource="{ci:FluentIconSource &#xF431;}"
-                                            Header="显示预警信号"
-                                            Description="启用后，预警将以图标形式显示在天气组件上。"
+                                            Header="{x:Static locComp:Localization.ShowAlerts}"
+                                            Description="{x:Static locComp:Localization.ShowAlertsDescription}"
                                             IsExpanded="{Binding Settings.ShowAlerts, Mode=OneWay}">
                     <controls1:FASettingsExpander.Footer>
                         <ToggleSwitch IsChecked="{Binding Settings.ShowAlerts, Mode=TwoWay}"/>
                     </controls1:FASettingsExpander.Footer>
-                    <controls1:FASettingsExpanderItem Content="显示预警类型"
+                    <controls1:FASettingsExpanderItem Content="{x:Static locComp:Localization.ShowAlertType}"
                                                     IconSource="{ci:FluentIconSource &#xF21A;}"
-                                                    Description="设置何种情况下显示预警类型。">
+                                                    Description="{x:Static locComp:Localization.ShowAlertTypeDescription}">
                         <controls1:FASettingsExpanderItem.Footer>
                             <ComboBox SelectedIndex="{Binding Settings.AlertsTitleShowMode}">
-                                <ComboBoxItem>不显示</ComboBoxItem>
-                                <ComboBoxItem>仅当没有对应图标时</ComboBoxItem>
-                                <ComboBoxItem>总是显示</ComboBoxItem>
+                                <ComboBoxItem Content="{x:Static locComp:Localization.DoNotShow}"/>
+                                <ComboBoxItem Content="{x:Static locComp:Localization.OnlyWhenIconMissing}"/>
+                                <ComboBoxItem Content="{x:Static locComp:Localization.AlwaysShow}"/>
                             </ComboBox>
                         </controls1:FASettingsExpanderItem.Footer>
                     </controls1:FASettingsExpanderItem>
                 </controls1:FASettingsExpander>
                
                 <controls1:FASettingsExpander IconSource="{ci:FluentIconSource &#xF453;}"
-                                            Header="显示降水提示"
-                                            Description="启用后，将显示降水即将到来的时间和降水剩余时间。正数代表降水即将到来的时间，负数代表剩余时间。"
+                                            Header="{x:Static locComp:Localization.ShowRainTip}"
+                                            Description="{x:Static locComp:Localization.ShowRainTipDescription}"
                                             IsExpanded="{Binding Settings.ShowRainTime, Mode=OneWay}">
                     <controls1:FASettingsExpander.Footer>
                         <ToggleSwitch IsChecked="{Binding Settings.ShowRainTime, Mode=TwoWay}"/>
                     </controls1:FASettingsExpander.Footer>
-                    <controls1:FASettingsExpanderItem Content="模糊长时间降雨倒计时时间显示精度"
-                                                    Description="开启后，大于 60min 的降雨时间将会以 0.5h 为单位模糊显示，关闭则总是以精确分钟显示。">
+                    <controls1:FASettingsExpanderItem Content="{x:Static locComp:Localization.FuzzyLongRainCountdownPrecision}"
+                                                    Description="{x:Static locComp:Localization.FuzzyLongRainCountdownPrecisionDescription}">
                         <controls1:FASettingsExpanderItem.IsVisible>
                             <Binding Path="Settings.ShowRainTime"/>
                         </controls1:FASettingsExpanderItem.IsVisible>

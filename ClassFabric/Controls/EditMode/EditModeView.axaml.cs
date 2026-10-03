@@ -29,6 +29,7 @@ using ClassIsland.ViewModels.EditMode;
 using CommunityToolkit.Mvvm.Input;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
+using ClassFabric.Assets.Localization.Controls.EditMode;
 
 namespace ClassIsland.Controls.EditMode;
 
@@ -129,7 +130,7 @@ public partial class EditModeView : UserControl
 
     public void OpenComponentsLibDrawer(IList<ComponentSettings>? target = null)
     {
-        OpenDrawer("ComponentsDrawer", "组件库");
+        OpenDrawer("ComponentsDrawer", Localization.ComponentsLibrary);
         ViewModel.TargetComponentsList = target;
         // 重载组件库列表项目，修复切换视图后无法拖拽的问题。
         ViewModel.ComponentGroups = [];
@@ -139,7 +140,7 @@ public partial class EditModeView : UserControl
     
     public void OpenAppearanceSettingsDrawer()
     {
-        OpenDrawer("AppearanceSettingsDrawer", "外观");
+        OpenDrawer("AppearanceSettingsDrawer", Localization.Appearance);
     }
 
     private void InstanceOnDragEnded()
@@ -224,7 +225,7 @@ public partial class EditModeView : UserControl
         control.Ruleset = ViewModel.MainViewModel.SelectedComponentSettings.HidingRules;
         SettingsPageBase.OpenDrawerCommand.Execute(control);
         ViewModel.SecondaryDrawerContent = control;
-        ViewModel.SecondaryDrawerTitle = "编辑规则集";
+        ViewModel.SecondaryDrawerTitle = Localization.EditRuleset;
         ViewModel.SecondaryDrawerState = VerticalDrawerOpenState.Opened;
     }
     private void ButtonOpenRulesetForMainWindowLine_OnClick(object? sender, RoutedEventArgs e)
@@ -235,7 +236,7 @@ public partial class EditModeView : UserControl
         control.Ruleset = ViewModel.SelectedMainWindowLineSettings.HidingRules;
         SettingsPageBase.OpenDrawerCommand.Execute(control);
         ViewModel.SecondaryDrawerContent = control;
-        ViewModel.SecondaryDrawerTitle = "编辑规则集";
+        ViewModel.SecondaryDrawerTitle = Localization.EditRuleset;
         ViewModel.SecondaryDrawerState = VerticalDrawerOpenState.Opened;
     }
 
@@ -278,14 +279,14 @@ public partial class EditModeView : UserControl
         };
         var dialogResult = await new FAContentDialog()
         {
-            Title = "创建组件配置",
+            Title = Localization.CreateProfileTitle,
             DefaultButton = FAContentDialogButton.Primary,
-            PrimaryButtonText = "创建",
-            SecondaryButtonText = "取消",
+            PrimaryButtonText = Localization.Create,
+            SecondaryButtonText = Localization.Cancel,
             Content = new Field()
             {
                 Content = textBox,
-                Label = "组件名",
+                Label = Localization.ProfileNameLabel,
                 Suffix = ".json"
             }
         }.ShowAsyncAuto();
@@ -321,7 +322,7 @@ public partial class EditModeView : UserControl
         var path = Path.Combine(Services.ComponentsService.ComponentSettingsPath, $"{name}.json");
         if (name == ViewModel.SettingsService.Settings.CurrentComponentConfig)
         {
-            this.ShowToast(new ToastMessage("无法删除已加载或将要加载的组件配置。")
+            this.ShowToast(new ToastMessage(Localization.CannotDeleteLoadedProfileToast)
             {
                 Severity = FAInfoBarSeverity.Warning
             });
@@ -331,11 +332,11 @@ public partial class EditModeView : UserControl
         var textBox = new TextBox();
         var r = await new FAContentDialog()
         {
-            Title = "删除组件配置",
-            Content = $"您确定要删除组件配置 {name} 吗？此操作无法撤销，组件配置内的组件信息都将被删除！",
+            Title = Localization.DeleteProfileTitle,
+            Content = string.Format(Localization.DeleteProfileConfirmFmt, name),
             DefaultButton = FAContentDialogButton.Primary,
-            PrimaryButtonText = "删除",
-            SecondaryButtonText = "取消"
+            PrimaryButtonText = Localization.Delete,
+            SecondaryButtonText = Localization.Cancel
         }.ShowAsyncAuto();
 
         if (r == FAContentDialogResult.Primary)
@@ -355,16 +356,16 @@ public partial class EditModeView : UserControl
         };
         var r = await new FAContentDialog()
         {
-            Title = "重命名组件配置方案",
+            Title = Localization.RenameProfileTitle,
             Content = new Field()
             {
                 Content = textBox,
-                Label = "组件配置方案名称",
+                Label = Localization.ProfileSchemeNameLabel,
                 Suffix = ".json"
             },
             DefaultButton = FAContentDialogButton.Primary,
-            PrimaryButtonText = "重命名",
-            SecondaryButtonText = "取消"
+            PrimaryButtonText = Localization.Rename,
+            SecondaryButtonText = Localization.Cancel
         }.ShowAsyncAuto();
 
         var raw = Path.Combine(Services.ComponentsService.ComponentSettingsPath, $"{name}.json");
@@ -378,7 +379,7 @@ public partial class EditModeView : UserControl
         {
             this.ShowToast(new ToastMessage()
             {
-                Message = "无法重命名组件配置，因为已存在一个相同名称的组件配置。",
+                Message = Localization.RenameConflictToast,
                 Severity = FAInfoBarSeverity.Warning
             });
             return;

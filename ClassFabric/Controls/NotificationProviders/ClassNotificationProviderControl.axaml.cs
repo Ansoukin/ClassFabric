@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using ClassIsland.Core.Abstractions.Services;
+using ClassFabric.Assets.Localization.Controls.NotificationProviders;
 
 namespace ClassIsland.Controls.NotificationProviders;
 
@@ -136,17 +137,17 @@ public partial class ClassNotificationProviderControl : UserControl, INotifyProp
 
     public static string FormatTimeSpan(TimeSpan span)
     {
-        if (span.TotalSeconds <= 0) return "0 分钟";
+        if (span.TotalSeconds <= 0) return string.Format(Localization.DurationMinutesFmt, 0);
 
         var parts = new List<string>(3);
         
-        if (span.Hours > 0) parts.Add($"{span.Hours} 小时");
+        if (span.Hours > 0) parts.Add(string.Format(Localization.DurationHoursFmt, span.Hours));
         if (span.Minutes > 0)
         {
-            if (span.Seconds > 0) parts.Add($"{span.Minutes} 分");
-            else parts.Add($"{span.Minutes} 分钟");
+            if (span.Seconds > 0) parts.Add(string.Format(Localization.DurationShortMinutesFmt, span.Minutes));
+            else parts.Add(string.Format(Localization.DurationMinutesFmt, span.Minutes));
         }
-        if (span.Seconds > 0) parts.Add($"{span.Seconds} 秒");
+        if (span.Seconds > 0) parts.Add(string.Format(Localization.DurationSecondsFmt, span.Seconds));
     
         return string.Join(" ", parts);
     }

@@ -7,14 +7,15 @@
              xmlns:ci="http://classfabric.tech/schemas/xaml/core"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:locSp="clr-namespace:ClassFabric.Assets.Localization.Controls.SpeechProviderSettingsControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:EdgeTtsSpeechServiceSettingsControl}}"
                 Spacing="1">
         <controls:FASettingsExpanderItem CornerRadius="0"
                                        Classes="no-radius"
-                                       Description="注意：EdgeTTS需要联网工作，并且可能存在一定延迟。">
-            <ci:Field Label="EdgeTTS说话人">
+                                       Description="{x:Static locSp:Localization.EdgeTtsNetworkNote}">
+            <ci:Field Label="{x:Static locSp:Localization.EdgeTtsSpeaker}">
                 <ComboBox SelectedValueBinding="{Binding ShortName}"
                           SelectedValue="{Binding SettingsService.Settings.EdgeTtsVoiceName}"
                           ItemsSource="{Binding EdgeVoices}">

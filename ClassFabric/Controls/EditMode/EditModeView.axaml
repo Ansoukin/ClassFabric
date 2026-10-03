@@ -11,6 +11,7 @@
              xmlns:icons="clr-namespace:ClassIsland.Core.Icons;assembly=ClassFabric.Core"
              xmlns:attributes="clr-namespace:ClassIsland.Core.Attributes;assembly=ClassFabric.Core"
              xmlns:input="clr-namespace:Avalonia.Labs.Input;assembly=Avalonia.Labs.CommandManager"
+             xmlns:locEm="clr-namespace:ClassFabric.Assets.Localization.Controls.EditMode"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ClassIsland.Controls.EditMode.EditModeView"
              d:DataContext="{d:DesignInstance editMode:EditModeView}"
@@ -42,11 +43,11 @@
         </DataTemplate>
         <ScrollViewer x:Key="AppearanceSettingsDrawer">
             <StackPanel Classes="settings-container animated-intro">
-                <ci:IconText Glyph="&#xEF27;" Text="基本" Margin="0 0 0 4" />
+                <ci:IconText Glyph="&#xEF27;" Text="{x:Static locEm:Localization.BasicSection}" Margin="0 0 0 4" />
                 <!-- 界面缩放 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xF4D1;}"
-                                           Header="界面缩放"
-                                           Description="主界面的缩放大小。">
+                                           Header="{x:Static locEm:Localization.UiScale}"
+                                           Description="{x:Static locEm:Localization.UiScaleDescription}">
                     <controls:FASettingsExpander.Footer>
                         <Slider Width="180" Minimum="0.75" Maximum="2.5"
                                 VerticalAlignment="Center"
@@ -61,8 +62,8 @@
 
                 <!--背景颜色-->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE523;}"
-                                           Header="背景颜色"
-                                           Description="主界面背景颜色，禁用时将根据应用主题自动选择颜色。">
+                                           Header="{x:Static locEm:Localization.BackgroundColor}"
+                                           Description="{x:Static locEm:Localization.BackgroundColorDescription}">
                     <controls:FASettingsExpander.Footer>
                         <StackPanel Orientation="Horizontal">
 
@@ -79,8 +80,8 @@
 
                 <!-- 背景不透明度 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xF37D;}"
-                                           Header="背景不透明度"
-                                           Description="主界面背景的不透明度。">
+                                           Header="{x:Static locEm:Localization.BackgroundOpacity}"
+                                           Description="{x:Static locEm:Localization.BackgroundOpacityDescription}">
                     <controls:FASettingsExpander.Footer>
                         <Slider Width="180" Minimum="0" Maximum="1"
                                 Classes="auto-tooltip"
@@ -93,8 +94,8 @@
 
                 <!-- 圆角半径 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xF031;}"
-                                           Header="圆角半径"
-                                           Description="主界面圆角半径，调至最大数值时左右边缘为半圆。">
+                                           Header="{x:Static locEm:Localization.CornerRadius}"
+                                           Description="{x:Static locEm:Localization.CornerRadiusDescription}">
                     <controls:FASettingsExpander.Footer>
                         <Slider Grid.Row="0" Width="180" Minimum="0" Maximum="20"
                                 Value="{Binding ViewModel.SettingsService.Settings.RadiusX}"
@@ -108,8 +109,8 @@
 
                 <!-- 行间隔 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE6EF;}"
-                                           Header="行间隔"
-                                           Description="主界面行间间隔。">
+                                           Header="{x:Static locEm:Localization.LineSpacing}"
+                                           Description="{x:Static locEm:Localization.LineSpacingDescription}">
                     <controls:FASettingsExpander.Footer>
                         <StackPanel Orientation="Horizontal">
                             <Slider Width="130" Minimum="0" Maximum="150"
@@ -130,15 +131,15 @@
 
                 <!-- 分体主界面 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xf023;}"
-                                           Header="分体主界面"
-                                           Description="启用后组件会分开。">
+                                           Header="{x:Static locEm:Localization.SeparateMainWindow}"
+                                           Description="{x:Static locEm:Localization.SeparateMainWindowMainDescription}">
                     <controls:FASettingsExpander.Footer>
                         <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.IsIslandSeperated}" />
                     </controls:FASettingsExpander.Footer>
                 </controls:FASettingsExpander>
                 
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE51E;}"
-                                           Header="更多外观设置"
+                                           Header="{x:Static locEm:Localization.MoreAppearanceSettings}"
                                            ActionIconSource="{ci:FluentIconSource &#xE44E;}"
                                            IsClickEnabled="True"
                                            Click="SettingsExpanderNavigateAppearance_OnClick"/>
@@ -225,16 +226,16 @@
             </ScrollViewer>
             <Separator Grid.Row="1" Margin="0 4" />
             <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"
-                       Text="将组件拖动到主界面上即可添加组件。" Classes="l-instructive"
+                       Text="{x:Static locEm:Localization.DragToAddHint}" Classes="l-instructive"
                        TextWrapping="Wrap"
                        Margin="0 8"
                        IsVisible="{Binding ViewModel.TargetComponentsList, Converter={x:Static ObjectConverters.IsNull}}"/>
             <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center"
-                       Text="选择要添加的组件，或将组件拖动到主界面上即可添加组件。" Classes="l-instructive"
+                       Text="{x:Static locEm:Localization.SelectOrDragToAddHint}" Classes="l-instructive"
                        TextWrapping="Wrap"
                        Margin="0 8"
                        IsVisible="{Binding ViewModel.TargetComponentsList, Converter={x:Static ObjectConverters.IsNotNull}}"/>
-            <Button Grid.Row="2" Content="添加" Margin="0 4 0 8"
+            <Button Grid.Row="2" Content="{x:Static locEm:Localization.Add}" Margin="0 4 0 8"
                     HorizontalAlignment="Right"
                     Padding="16 6"
                     Classes="accent" Click="ButtonAddComponentToTargetList_OnClick"
@@ -262,8 +263,8 @@
                             </Binding.ConverterParameter>
                         </Binding>
                     </TabStrip.IsVisible>
-                    <TabStripItem Content="组件设置" IsVisible="{Binding ViewModel.MainViewModel.SelectedComponentSettings.AssociatedComponentInfo.SettingsType, TargetNullValue={x:Null}, Converter={x:Static ObjectConverters.IsNotNull}}"/>
-                    <TabStripItem Content="高级设置"/>
+                    <TabStripItem Content="{x:Static locEm:Localization.ComponentSettingsTab}" IsVisible="{Binding ViewModel.MainViewModel.SelectedComponentSettings.AssociatedComponentInfo.SettingsType, TargetNullValue={x:Null}, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                    <TabStripItem Content="{x:Static locEm:Localization.AdvancedSettingsTab}"/>
                 </TabStrip>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right"
@@ -276,10 +277,10 @@
                     Classes.fade="{Binding !ViewModel.MainViewModel.SelectedComponentSettings.HideOnRule}"
                     IsKeepingExpanded="{Binding ViewModel.MainViewModel.SelectedComponentSettings.HideOnRule}"
                     Glyph="&#xF17E;"
-                    Text="编辑…"
+                    Text="{x:Static locEm:Localization.Edit}"
                     Click="ButtonOpenRulesetForComponent_OnClick"
-                    ToolTip.Tip="编辑规则集…"/>
-                <CheckBox IsChecked="{Binding ViewModel.MainViewModel.SelectedComponentSettings.HideOnRule}">按规则隐藏</CheckBox>
+                    ToolTip.Tip="{x:Static locEm:Localization.EditRulesetTip}"/>
+                <CheckBox IsChecked="{Binding ViewModel.MainViewModel.SelectedComponentSettings.HideOnRule}" Content="{x:Static locEm:Localization.HideOnRule}"/>
             </StackPanel>
         </Grid>
         
@@ -297,7 +298,7 @@
             </TabControl>
         </Panel>
         <Grid x:Key="MainWindowLineSettingsDrawerTitle" ColumnDefinitions="Auto *">
-            <TextBlock Grid.Column="0" Text="主界面行设置" VerticalAlignment="Center" Margin="0 1 0 0"/>
+            <TextBlock Grid.Column="0" Text="{x:Static locEm:Localization.MainWindowLineSettings}" VerticalAlignment="Center" Margin="0 1 0 0"/>
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right"
                         Margin="0 0 4 0">
                 <ci:AnimatedIconButton
@@ -306,10 +307,10 @@
                     Classes.fade="{Binding !ViewModel.SelectedMainWindowLineSettings.HideOnRule}"
                     IsKeepingExpanded="{Binding ViewModel.SelectedMainWindowLineSettings.HideOnRule}"
                     Glyph="&#xF17E;"
-                    Text="编辑…"
+                    Text="{x:Static locEm:Localization.Edit}"
                     Click="ButtonOpenRulesetForMainWindowLine_OnClick"
-                    ToolTip.Tip="编辑规则集…"/>
-                <CheckBox IsChecked="{Binding ViewModel.SelectedMainWindowLineSettings.HideOnRule}">按规则隐藏</CheckBox>
+                    ToolTip.Tip="{x:Static locEm:Localization.EditRulesetTip}"/>
+                <CheckBox IsChecked="{Binding ViewModel.SelectedMainWindowLineSettings.HideOnRule}" Content="{x:Static locEm:Localization.HideOnRule}"/>
             </StackPanel>
         </Grid>
         <ScrollViewer HorizontalAlignment="Stretch" 
@@ -318,24 +319,24 @@
             <StackPanel Classes="settings-container animated-intro" >
                 <!-- 不透明度 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xf023;}"
-                                           Header="分体主界面"
-                                           Description="启用后主界面会分开。">
+                                           Header="{x:Static locEm:Localization.SeparateMainWindow}"
+                                           Description="{x:Static locEm:Localization.SeparateMainWindowLineDescription}">
                     <controls:FASettingsExpander.Footer>
                         <ComboBox SelectedIndex="{Binding IslandSeparationMode}">
-                            <ComboBoxItem>继承</ComboBoxItem>
-                            <ComboBoxItem>禁用</ComboBoxItem>
-                            <ComboBoxItem>启用</ComboBoxItem>
+                            <ComboBoxItem Content="{x:Static locEm:Localization.Inherit}"/>
+                            <ComboBoxItem Content="{x:Static locEm:Localization.Disabled}"/>
+                            <ComboBoxItem Content="{x:Static locEm:Localization.Enabled}"/>
                         </ComboBox>
                     </controls:FASettingsExpander.Footer>
                 </controls:FASettingsExpander>
                 
                 <Separator Margin="0 12 0 4" />
-                <ci:IconText Glyph="&#xec4a;" Text="外观" Margin="0 0 0 4" />
+                <ci:IconText Glyph="&#xec4a;" Text="{x:Static locEm:Localization.Appearance}" Margin="0 0 0 4" />
                 
                 <!-- 不透明度 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xF37D;}"
-                                           Header="不透明度"
-                                           Description="主界面行整体的不透明度。">
+                                           Header="{x:Static locEm:Localization.Opacity}"
+                                           Description="{x:Static locEm:Localization.OpacityLineDescription}">
                     <controls:FASettingsExpander.Footer>
                         <StackPanel Orientation="Horizontal">
                             <Slider Width="180" Minimum="0.1" Maximum="1"
@@ -348,8 +349,8 @@
                     </controls:FASettingsExpander.Footer>
                 </controls:FASettingsExpander>
 
-                <controls:FASettingsExpander Header="自定义背景效果"
-                                             Description="自定义主界面的背景效果，仅在较新版本的 Windows 上可用，可能会产生额外性能开销。">
+                <controls:FASettingsExpander Header="{x:Static locEm:Localization.CustomBackgroundEffect}"
+                                             Description="{x:Static locEm:Localization.CustomBackgroundEffectDescription}">
                     <controls:FASettingsExpander.IconSource>
                         <ci:FluentIconSource Glyph="{x:Static icons:FluentIcons.BlurRegular}" />
                     </controls:FASettingsExpander.IconSource>
@@ -360,17 +361,17 @@
                     </controls:FASettingsExpander.IsVisible>
                     <controls:FASettingsExpander.Footer>
                         <ComboBox SelectedIndex="{Binding BackgroundMaterialOverrideMode}">
-                            <ComboBoxItem>继承</ComboBoxItem>
-                            <ComboBoxItem>禁用</ComboBoxItem>
-                            <ComboBoxItem>启用</ComboBoxItem>
+                            <ComboBoxItem Content="{x:Static locEm:Localization.Inherit}"/>
+                            <ComboBoxItem Content="{x:Static locEm:Localization.Disabled}"/>
+                            <ComboBoxItem Content="{x:Static locEm:Localization.Enabled}"/>
                         </ComboBox>
                     </controls:FASettingsExpander.Footer>
-                    <controls:FASettingsExpanderItem Content="材质类型">
+                    <controls:FASettingsExpanderItem Content="{x:Static locEm:Localization.MaterialType}">
                         <controls:FASettingsExpanderItem.Footer>
                             <ComboBox SelectedIndex="{Binding BackgroundMaterialType, Mode=TwoWay, Converter={x:Static ci:EnumToIntConverter.Instance}}">
-                                <ComboBoxItem>亚克力</ComboBoxItem>
-                                <ComboBoxItem>类液态玻璃</ComboBoxItem>
-                                <ComboBoxItem>云母</ComboBoxItem>
+                                <ComboBoxItem Content="{x:Static locEm:Localization.MaterialAcrylic}"/>
+                                <ComboBoxItem Content="{x:Static locEm:Localization.MaterialLiquidGlass}"/>
+                                <ComboBoxItem Content="{x:Static locEm:Localization.MaterialMica}"/>
                             </ComboBox>
                         </controls:FASettingsExpanderItem.Footer>
                     </controls:FASettingsExpanderItem>
@@ -378,8 +379,8 @@
                 
                 <!--自定义背景颜色-->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE523;}"
-                                           Header="自定义背景颜色"
-                                           Description="当前主界面行背景颜色，禁用时将使用上级默认值。">
+                                           Header="{x:Static locEm:Localization.CustomBackgroundColor}"
+                                           Description="{x:Static locEm:Localization.CustomBackgroundColorDescription}">
                     <controls:FASettingsExpander.Footer>
                         <StackPanel Orientation="Horizontal">
                         
@@ -396,8 +397,8 @@
                 
                 <!-- 自定义背景不透明度 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xF37D;}"
-                                           Header="自定义背景不透明度"
-                                           Description="当前主界面行的背景的不透明度，禁用将使用上级默认值。">
+                                           Header="{x:Static locEm:Localization.CustomBackgroundOpacity}"
+                                           Description="{x:Static locEm:Localization.CustomBackgroundOpacityDescription}">
                     <controls:FASettingsExpander.Footer>
                         <StackPanel Orientation="Horizontal">
                             <Slider Width="180" Minimum="0" Maximum="1"
@@ -415,8 +416,8 @@
                 
                 <!-- 自定义背景圆角半径 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xF031;}"
-                                           Header="自定义背景圆角半径"
-                                           Description="当前主界面行背景圆角半径，调至最大数值时左右边缘为半圆。">
+                                           Header="{x:Static locEm:Localization.CustomBackgroundCornerRadius}"
+                                           Description="{x:Static locEm:Localization.CustomBackgroundCornerRadiusDescription}">
                     <controls:FASettingsExpander.Footer>
                         <StackPanel Orientation="Horizontal">
                             <Slider Grid.Row="0" Width="180" Minimum="0" Maximum="20"
@@ -434,11 +435,11 @@
                 </controls:FASettingsExpander>
 
                 <Separator Margin="0 12 0 4" />
-                <ci:IconText Glyph="&#xF26F;" Text="字体" Margin="0 0 0 4" />
+                <ci:IconText Glyph="&#xF26F;" Text="{x:Static locEm:Localization.FontSection}" Margin="0 0 0 4" />
                 <!-- 字体大小 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xF273;}"
-                                            Header="字体大小"
-                                            Description="调整组件上各类字体的大小，将覆盖【外观】设置和主界面行中设置的字体大小。"
+                                            Header="{x:Static locEm:Localization.FontSize}"
+                                            Description="{x:Static locEm:Localization.FontSizeDescription}"
                                             IsExpanded="{Binding IsResourceOverridingEnabled, Mode=OneWay}">
                     <controls:FASettingsExpander.Footer>
                         <ToggleSwitch IsChecked="{Binding IsResourceOverridingEnabled}"/>
@@ -455,8 +456,8 @@
                             </Style>
                         </Style>
                     </controls:FASettingsExpander.Styles>
-                    <controls:FASettingsExpanderItem Content="次级字体大小"
-                                                    Description="时间点附加信息等">
+                    <controls:FASettingsExpanderItem Content="{x:Static locEm:Localization.SecondaryFontSizeName}"
+                                                    Description="{x:Static locEm:Localization.SecondaryFontSizeDescription}">
 
                         <controls:FASettingsExpanderItem.Footer>
                             <ci:Field>
@@ -465,8 +466,8 @@
                             </ci:Field>
                         </controls:FASettingsExpanderItem.Footer>
                     </controls:FASettingsExpanderItem>
-                    <controls:FASettingsExpanderItem Content="正文字体大小"
-                                                    Description="主界面默认字体大小">
+                    <controls:FASettingsExpanderItem Content="{x:Static locEm:Localization.BodyFontSizeName}"
+                                                    Description="{x:Static locEm:Localization.BodyFontSizeDescription}">
 
                         <controls:FASettingsExpanderItem.Footer>
                             <ci:Field>
@@ -475,8 +476,8 @@
                             </ci:Field>
                         </controls:FASettingsExpanderItem.Footer>
                     </controls:FASettingsExpanderItem>
-                    <controls:FASettingsExpanderItem Content="强调字体大小"
-                                                    Description="课程表、时钟、提醒标题、天气预报等内容">
+                    <controls:FASettingsExpanderItem Content="{x:Static locEm:Localization.EmphasizedFontSizeName}"
+                                                    Description="{x:Static locEm:Localization.EmphasizedFontSizeDescription}">
 
                         <controls:FASettingsExpanderItem.Footer>
                             <ci:Field>
@@ -485,8 +486,8 @@
                             </ci:Field>
                         </controls:FASettingsExpanderItem.Footer>
                     </controls:FASettingsExpanderItem>
-                    <controls:FASettingsExpanderItem Content="大号字体大小"
-                                                    Description="课程预报等内容">
+                    <controls:FASettingsExpanderItem Content="{x:Static locEm:Localization.LargeFontSizeName}"
+                                                    Description="{x:Static locEm:Localization.LargeFontSizeDescription}">
 
                         <controls:FASettingsExpanderItem.Footer>
                             <ci:Field>
@@ -498,8 +499,8 @@
                 </controls:FASettingsExpander>
                 <!-- 字体颜色 -->
                 <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xF22A;}"
-                                            Header="字体颜色"
-                                            Description="调整字体颜色，将覆盖【外观】设置和主界面行中设置的值。">
+                                            Header="{x:Static locEm:Localization.FontColor}"
+                                            Description="{x:Static locEm:Localization.FontColorDescription}">
                     <controls:FASettingsExpander.Footer>
                         <StackPanel Orientation="Horizontal">
                             <ColorPicker
@@ -519,7 +520,7 @@
             <StackPanel
                 Grid.Column="0"
                 Orientation="Horizontal" Spacing="8" Classes="items-valign-center">
-                <TextBlock Text="选择要启用的组件配置"
+                <TextBlock Text="{x:Static locEm:Localization.SelectProfileToEnable}"
                            VerticalAlignment="Center" Margin="0 1 0 0"/>
             </StackPanel>
             <!-- <TextBox Grid.Column="1" Margin="4 0" -->
@@ -527,17 +528,17 @@
             <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right"
                         Margin="0 0 4 0">
                 <Button Content="{ci:FluentIcon &#xE0B5;}"
-                        ToolTip.Tip="刷新"
+                        ToolTip.Tip="{x:Static locEm:Localization.RefreshTip}"
                         VerticalAlignment="Center"
                         Click="ButtonRefreshComponentLayouts_OnClick"
                         Theme="{StaticResource TransparentButton}"/>
                 <Button Content="{ci:FluentIcon &#xE00D;}"
-                        ToolTip.Tip="新建…"
+                        ToolTip.Tip="{x:Static locEm:Localization.NewTip}"
                         VerticalAlignment="Center"
                         Click="ButtonCreateComponentLayout_OnClick"
                         Theme="{StaticResource TransparentButton}"/>
                 <Button Content="{ci:FluentIcon &#xE88D;}"
-                        ToolTip.Tip="打开配置文件夹…"
+                        ToolTip.Tip="{x:Static locEm:Localization.OpenConfigFolderTip}"
                         VerticalAlignment="Center"
                         Click="ButtonOpenComponentLayoutsFolder_OnClick"
                         Theme="{StaticResource TransparentButton}"/>
@@ -586,7 +587,7 @@
                                         <Binding Path="$parent[ListBoxItem].IsPointerOver"/>
                                     </MultiBinding>
                                 </StackPanel.IsVisible>
-                                <Button Content="{ci:FluentIcon &#xEE7D;}" ToolTip.Tip="重命名" Theme="{StaticResource TransparentButton}"
+                                <Button Content="{ci:FluentIcon &#xEE7D;}" ToolTip.Tip="{x:Static locEm:Localization.Rename}" Theme="{StaticResource TransparentButton}"
                                         Command="{Binding $parent[editMode:EditModeView].RenameComponentLayoutCommand}"
                                         CommandParameter="{Binding}">
                                     <Button.IsEnabled>
@@ -600,10 +601,10 @@
                                         </MultiBinding>
                                     </Button.IsEnabled>
                                 </Button>
-                                <Button Content="{ci:FluentIcon &#xE58B;}" ToolTip.Tip="复制" Theme="{StaticResource TransparentButton}"
+                                <Button Content="{ci:FluentIcon &#xE58B;}" ToolTip.Tip="{x:Static locEm:Localization.DuplicateTip}" Theme="{StaticResource TransparentButton}"
                                         Command="{Binding $parent[editMode:EditModeView].DuplicateComponentLayoutCommand}"
                                         CommandParameter="{Binding}"/>
-                                <Button Content="{ci:FluentIcon &#xE61D;}" ToolTip.Tip="删除" Theme="{StaticResource TransparentButton}"
+                                <Button Content="{ci:FluentIcon &#xE61D;}" ToolTip.Tip="{x:Static locEm:Localization.Delete}" Theme="{StaticResource TransparentButton}"
                                         Command="{Binding $parent[editMode:EditModeView].DeleteComponentLayoutCommand}"
                                         CommandParameter="{Binding}"
                                         Foreground="IndianRed">

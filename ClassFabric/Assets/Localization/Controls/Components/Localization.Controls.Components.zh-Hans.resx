@@ -1,0 +1,764 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="UseRealTime"
+    xml:space="preserve">
+    <value>使用实际时间</value>
+  </data>
+  <data name="UseRealTimeDescription"
+    xml:space="preserve">
+    <value>显示不经过时间偏移的系统时间。</value>
+  </data>
+  <data name="ShowSeconds"
+    xml:space="preserve">
+    <value>显示秒数</value>
+  </data>
+  <data name="ShowSecondsDescription"
+    xml:space="preserve">
+    <value>启用后，时钟将显示精准到秒的时间。</value>
+  </data>
+  <data name="FlashTimeSeparator"
+    xml:space="preserve">
+    <value>闪动时间分隔符</value>
+  </data>
+  <data name="FlashTimeSeparatorDescription"
+    xml:space="preserve">
+    <value>模拟电子时钟的分隔符闪动效果。</value>
+  </data>
+  <data name="TextContent"
+    xml:space="preserve">
+    <value>文本内容</value>
+  </data>
+  <data name="TextContentDescription"
+    xml:space="preserve">
+    <value>要显示的文本。</value>
+  </data>
+  <data name="CustomFontColor"
+    xml:space="preserve">
+    <value>自定义字体颜色</value>
+  </data>
+  <data name="CustomFontColorDescription"
+    xml:space="preserve">
+    <value>选择要显示文本的颜色。</value>
+  </data>
+  <data name="FontSize"
+    xml:space="preserve">
+    <value>字体大小</value>
+  </data>
+  <data name="TextFontSizeDescription"
+    xml:space="preserve">
+    <value>修改要显示的文本的大小。</value>
+  </data>
+  <data name="WeatherSettingsInfoBarMessage"
+    xml:space="preserve">
+    <value>本页面仅包含组件设置，要调整显示天气的城市，请转到【天气】选项卡</value>
+  </data>
+  <data name="ShowWeatherInfo"
+    xml:space="preserve">
+    <value>显示天气信息</value>
+  </data>
+  <data name="ShowWeatherInfoDescription"
+    xml:space="preserve">
+    <value>显示当前天气信息摘要。</value>
+  </data>
+  <data name="WeatherTypeTemperature"
+    xml:space="preserve">
+    <value>天气类型/气温</value>
+  </data>
+  <data name="Humidity"
+    xml:space="preserve">
+    <value>湿度</value>
+  </data>
+  <data name="WindPower"
+    xml:space="preserve">
+    <value>风力</value>
+  </data>
+  <data name="AirPressure"
+    xml:space="preserve">
+    <value>气压</value>
+  </data>
+  <data name="FeelsLikeTemperature"
+    xml:space="preserve">
+    <value>体感温度</value>
+  </data>
+  <data name="ShowAlerts"
+    xml:space="preserve">
+    <value>显示预警信号</value>
+  </data>
+  <data name="ShowAlertsDescription"
+    xml:space="preserve">
+    <value>启用后，预警将以图标形式显示在天气组件上。</value>
+  </data>
+  <data name="ShowAlertType"
+    xml:space="preserve">
+    <value>显示预警类型</value>
+  </data>
+  <data name="ShowAlertTypeDescription"
+    xml:space="preserve">
+    <value>设置何种情况下显示预警类型。</value>
+  </data>
+  <data name="DoNotShow"
+    xml:space="preserve">
+    <value>不显示</value>
+  </data>
+  <data name="OnlyWhenIconMissing"
+    xml:space="preserve">
+    <value>仅当没有对应图标时</value>
+  </data>
+  <data name="AlwaysShow"
+    xml:space="preserve">
+    <value>总是显示</value>
+  </data>
+  <data name="ShowRainTip"
+    xml:space="preserve">
+    <value>显示降水提示</value>
+  </data>
+  <data name="ShowRainTipDescription"
+    xml:space="preserve">
+    <value>启用后，将显示降水即将到来的时间和降水剩余时间。正数代表降水即将到来的时间，负数代表剩余时间。</value>
+  </data>
+  <data name="FuzzyLongRainCountdownPrecision"
+    xml:space="preserve">
+    <value>模糊长时间降雨倒计时时间显示精度</value>
+  </data>
+  <data name="FuzzyLongRainCountdownPrecisionDescription"
+    xml:space="preserve">
+    <value>开启后，大于 60min 的降雨时间将会以 0.5h 为单位模糊显示，关闭则总是以精确分钟显示。</value>
+  </data>
+  <data name="RollingWidthWarningMessage"
+    xml:space="preserve">
+    <value>滚动组件仅在组件内容超出滚动组件宽度时才会开始滚动。您可能需要在【高级设置】中为本组件设置【最大宽度】或【固定宽度】以限制组件的宽度，这样在组件内容超出限制的宽度时内容才会开始滚动。</value>
+  </data>
+  <data name="ScrollSpeed"
+    xml:space="preserve">
+    <value>滚动速度</value>
+  </data>
+  <data name="ScrollSpeedDescription"
+    xml:space="preserve">
+    <value>组件内容的滚动速度</value>
+  </data>
+  <data name="SpeedUnitPixelsPerSecond"
+    xml:space="preserve">
+    <value>px/秒</value>
+  </data>
+  <data name="TimedPause"
+    xml:space="preserve">
+    <value>定时暂停</value>
+  </data>
+  <data name="TimedPauseDescription"
+    xml:space="preserve">
+    <value>启用后，将在滚动到指定位置后暂停滚动一段时间</value>
+  </data>
+  <data name="PauseDuration"
+    xml:space="preserve">
+    <value>暂停时长</value>
+  </data>
+  <data name="PauseDurationDescription"
+    xml:space="preserve">
+    <value>每次暂停时停留的时长</value>
+  </data>
+  <data name="SecondsUnit"
+    xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="PausePosition"
+    xml:space="preserve">
+    <value>暂停位置</value>
+  </data>
+  <data name="PausePositionDescription"
+    xml:space="preserve">
+    <value>暂停时的滚动偏移值</value>
+  </data>
+  <data name="StopWhenRuleMet"
+    xml:space="preserve">
+    <value>满足规则时停止</value>
+  </data>
+  <data name="RollingStopWhenRuleMetDescription"
+    xml:space="preserve">
+    <value>在指定规则满足时停止滚动。停止时会停止滚动，并回到初始位置。</value>
+  </data>
+  <data name="EditRuleset"
+    xml:space="preserve">
+    <value>编辑规则集…</value>
+  </data>
+  <data name="RotationInterval"
+    xml:space="preserve">
+    <value>轮换间隔</value>
+  </data>
+  <data name="RotationIntervalDescription"
+    xml:space="preserve">
+    <value>组件自动轮换的间隔时间</value>
+  </data>
+  <data name="RotationMode"
+    xml:space="preserve">
+    <value>轮换模式</value>
+  </data>
+  <data name="RotationModeDescription"
+    xml:space="preserve">
+    <value>设定轮换组件的行为</value>
+  </data>
+  <data name="LoopMode"
+    xml:space="preserve">
+    <value>循环</value>
+  </data>
+  <data name="RandomMode"
+    xml:space="preserve">
+    <value>随机</value>
+  </data>
+  <data name="PingPongMode"
+    xml:space="preserve">
+    <value>往复</value>
+  </data>
+  <data name="PauseWhenRuleMet"
+    xml:space="preserve">
+    <value>满足规则时暂停</value>
+  </data>
+  <data name="PauseWhenRuleMetDescription"
+    xml:space="preserve">
+    <value>在指定规则满足时暂停轮播。</value>
+  </data>
+  <data name="SlideStopWhenRuleMetDescription"
+    xml:space="preserve">
+    <value>在指定规则满足时停止轮播。停止时会停止轮播，并回到第一个组件。如果此处的规则和暂停规则同时满足，会停止轮播而不是暂停。</value>
+  </data>
+  <data name="EnableAnimation"
+    xml:space="preserve">
+    <value>启用动画</value>
+  </data>
+  <data name="EnableAnimationDescription"
+    xml:space="preserve">
+    <value>启用后，将在切换组件时播放过渡动画。</value>
+  </data>
+  <data name="AttachedSettingsOverrideMessage"
+    xml:space="preserve">
+    <value>此处的设置可以在档案设置中被附加设置覆盖。</value>
+  </data>
+  <data name="ViewAttachedSettings"
+    xml:space="preserve">
+    <value>查看…</value>
+  </data>
+  <data name="ShowExtraInfoOnTimePoint"
+    xml:space="preserve">
+    <value>显示时间点附加信息</value>
+  </data>
+  <data name="ShowExtraInfoOnTimePointDescription"
+    xml:space="preserve">
+    <value>在当前的时间点上显示当前时间点的附加信息。</value>
+  </data>
+  <data name="ExtraInfoToDisplay"
+    xml:space="preserve">
+    <value>要显示的附加信息</value>
+  </data>
+  <data name="ExtraInfoTimePointDuration"
+    xml:space="preserve">
+    <value>时间点持续时间</value>
+  </data>
+  <data name="ExtraInfoElapsedTimeOverDuration"
+    xml:space="preserve">
+    <value>已过时间/持续时间</value>
+  </data>
+  <data name="ExtraInfoRemainingOverDuration"
+    xml:space="preserve">
+    <value>剩余时间/持续时间</value>
+  </data>
+  <data name="ExtraInfoElapsedTimePercentage"
+    xml:space="preserve">
+    <value>已过时间百分比</value>
+  </data>
+  <data name="ExtraInfoRemainingTime"
+    xml:space="preserve">
+    <value>剩余时间</value>
+  </data>
+  <data name="ExtraInfoCountdown"
+    xml:space="preserve">
+    <value>倒计时</value>
+  </data>
+  <data name="ShowExactCountdown"
+    xml:space="preserve">
+    <value>显示精确倒计时</value>
+  </data>
+  <data name="WhenRemainingLessThan"
+    xml:space="preserve">
+    <value>当剩余时间不足</value>
+  </data>
+  <data name="TimePointEndCountdown"
+    xml:space="preserve">
+    <value>时间点结束倒计时</value>
+  </data>
+  <data name="TimePointEndCountdownDescription"
+    xml:space="preserve">
+    <value>在当前时间点将要结束时显示倒计时。</value>
+  </data>
+  <data name="TimePointEndCountdownDuration"
+    xml:space="preserve">
+    <value>时间点结束倒计时时长</value>
+  </data>
+  <data name="UseFuzzyCountdown"
+    xml:space="preserve">
+    <value>使用模糊倒计时</value>
+  </data>
+  <data name="ShowCurrentLessonOnly"
+    xml:space="preserve">
+    <value>上课时仅显示当前课程</value>
+  </data>
+  <data name="ShowCurrentLessonOnlyDescription"
+    xml:space="preserve">
+    <value>在处于上课类型的时间点时，只显示当前时间点。</value>
+  </data>
+  <data name="HideFinishedLessons"
+    xml:space="preserve">
+    <value>不显示已结束的课程</value>
+  </data>
+  <data name="HideFinishedLessonsDescription"
+    xml:space="preserve">
+    <value>隐藏已结束的课程，只显示当前课程与暂未开始的课程。</value>
+  </data>
+  <data name="FadeCompletedLessons"
+    xml:space="preserve">
+    <value>淡化上过的课程</value>
+  </data>
+  <data name="FadeCompletedLessonsDescription"
+    xml:space="preserve">
+    <value>已经上过的课程将被淡化显示。</value>
+  </data>
+  <data name="HighlightClassChanges"
+    xml:space="preserve">
+    <value>标记换课课程</value>
+  </data>
+  <data name="HighlightClassChangesDescription"
+    xml:space="preserve">
+    <value>将临时层中的换课课程以高亮色标记，仅支持使用“换课”修改的课程。</value>
+  </data>
+  <data name="ScheduleTextSpacing"
+    xml:space="preserve">
+    <value>课程表文本间距</value>
+  </data>
+  <data name="ScheduleTextSpacingDescription"
+    xml:space="preserve">
+    <value>使课程表显示更紧凑或宽松。</value>
+  </data>
+  <data name="ShowPlaceholderOnEmptyPlan"
+    xml:space="preserve">
+    <value>无课程时显示占位符</value>
+  </data>
+  <data name="ShowPlaceholderOnEmptyPlanDescription"
+    xml:space="preserve">
+    <value>当当前没有加载课表或当日所有课程都已结束且不显示第二日课程时，显示指定的占位符。</value>
+  </data>
+  <data name="NoClassPlaceholderContent"
+    xml:space="preserve">
+    <value>当日没有课程的占位符内容</value>
+  </data>
+  <data name="AllEndedPlaceholderContent"
+    xml:space="preserve">
+    <value>当日课程结束的占位符内容</value>
+  </data>
+  <data name="ShowTomorrowSchedule"
+    xml:space="preserve">
+    <value>显示明天课表</value>
+  </data>
+  <data name="ShowTomorrowScheduleDescription"
+    xml:space="preserve">
+    <value>设置什么时候显示明天课表。</value>
+  </data>
+  <data name="ShowAfterSchool"
+    xml:space="preserve">
+    <value>放学后显示</value>
+  </data>
+  <data name="ShowWhenNoDisplayedLesson"
+    xml:space="preserve">
+    <value>无展示课程时显示</value>
+  </data>
+  <data name="CountdownName"
+    xml:space="preserve">
+    <value>倒计时名称</value>
+  </data>
+  <data name="CountdownNameDescription"
+    xml:space="preserve">
+    <value>会作为设定日期事件名称显示。</value>
+  </data>
+  <data name="Time"
+    xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="TimeDescription"
+    xml:space="preserve">
+    <value>倒计时的开始和结束时间。</value>
+  </data>
+  <data name="FixedTime"
+    xml:space="preserve">
+    <value>固定时间</value>
+  </data>
+  <data name="Cycle"
+    xml:space="preserve">
+    <value>周期</value>
+  </data>
+  <data name="Today"
+    xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="ThisWeek"
+    xml:space="preserve">
+    <value>本周</value>
+  </data>
+  <data name="StartDate"
+    xml:space="preserve">
+    <value>开始日期</value>
+  </data>
+  <data name="StartDateDescription"
+    xml:space="preserve">
+    <value>倒计时开始的日期。</value>
+  </data>
+  <data name="EndDate"
+    xml:space="preserve">
+    <value>结束日期</value>
+  </data>
+  <data name="EndDateDescription"
+    xml:space="preserve">
+    <value>倒计时为 0 天时的日期。</value>
+  </data>
+  <data name="AdvancedTiming"
+    xml:space="preserve">
+    <value>高级计时</value>
+  </data>
+  <data name="CycleBeforeDurationLabel"
+    xml:space="preserve">
+    <value>周期前时长</value>
+  </data>
+  <data name="CycleBeforeDurationHint"
+    xml:space="preserve">
+    <value>在本周期开始计时前的间隔时长</value>
+  </data>
+  <data name="CycleTimingDurationLabel"
+    xml:space="preserve">
+    <value>周期计时时长</value>
+  </data>
+  <data name="CycleTimingDurationHint"
+    xml:space="preserve">
+    <value>周期要显示倒计时的时长</value>
+  </data>
+  <data name="CycleAfterDurationLabel"
+    xml:space="preserve">
+    <value>周期后时长</value>
+  </data>
+  <data name="CycleAfterDurationHint"
+    xml:space="preserve">
+    <value>从本周期计时结束，到下个周期开始的间隔时长</value>
+  </data>
+  <data name="CycleDurationLabel"
+    xml:space="preserve">
+    <value>周期持续时间</value>
+  </data>
+  <data name="CycleStartTimeLabel"
+    xml:space="preserve">
+    <value>周期开始时间</value>
+  </data>
+  <data name="CycleStartTimeLabelDescription"
+    xml:space="preserve">
+    <value>整个周期的开始时间，从周期前阶段开始计时。</value>
+  </data>
+  <data name="LimitCycleLoops"
+    xml:space="preserve">
+    <value>限制周期循环次数</value>
+  </data>
+  <data name="LimitCycleLoopsDescription"
+    xml:space="preserve">
+    <value>启用后，将限制倒计时周期的最大循环次数。</value>
+  </data>
+  <data name="TimeMode"
+    xml:space="preserve">
+    <value>时间模式</value>
+  </data>
+  <data name="TimeModeDailyDescription"
+    xml:space="preserve">
+    <value>默认情况下将从当日课程安排获取倒计时时间，以当天的第一个上课或课间休息时间点的开始时间为开始时间，最后一个上课或课间休息时间点的结束时间为结束时间。如果当日课程不可用，将使用从当日凌晨至次日凌晨的自然时间。当在右侧复选框指定了时间模式后，如果选择的时间模式不可用，将不会进行倒计时。</value>
+  </data>
+  <data name="TimeModeWeeklyDescription"
+    xml:space="preserve">
+    <value>默认情况下将从本周课程安排获取倒计时时间，以本周的第一个上课或课间休息时间点的开始时间为开始时间，最后一个上课或课间休息时间点的结束时间为结束时间。如果本周课程不可用，将使用从本周第一天凌晨至本周最后一天次日凌晨的自然时间。当在右侧复选框指定了时间模式后，如果选择的时间模式不可用，将不会进行倒计时。</value>
+  </data>
+  <data name="TimeModeDefault"
+    xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="ForceNaturalTime"
+    xml:space="preserve">
+    <value>强制自然时间</value>
+  </data>
+  <data name="ForceClassTime"
+    xml:space="preserve">
+    <value>强制课程时间</value>
+  </data>
+  <data name="CustomWeekStartDay"
+    xml:space="preserve">
+    <value>自定义每周的第一天</value>
+  </data>
+  <data name="CustomWeekStartDayDescription"
+    xml:space="preserve">
+    <value>默认情况下将使用在【基本】中设置的学期开始时间的星期作为每周的第一天，启用后将使用此处指定的星期。</value>
+  </data>
+  <data name="WeekdaySunday"
+    xml:space="preserve">
+    <value>星期日</value>
+  </data>
+  <data name="WeekdayMonday"
+    xml:space="preserve">
+    <value>星期一</value>
+  </data>
+  <data name="WeekdayTuesday"
+    xml:space="preserve">
+    <value>星期二</value>
+  </data>
+  <data name="WeekdayWednesday"
+    xml:space="preserve">
+    <value>星期三</value>
+  </data>
+  <data name="WeekdayThursday"
+    xml:space="preserve">
+    <value>星期四</value>
+  </data>
+  <data name="WeekdayFriday"
+    xml:space="preserve">
+    <value>星期五</value>
+  </data>
+  <data name="WeekdaySaturday"
+    xml:space="preserve">
+    <value>星期六</value>
+  </data>
+  <data name="DisplayContent"
+    xml:space="preserve">
+    <value>显示内容</value>
+  </data>
+  <data name="DisplayContentDescription"
+    xml:space="preserve">
+    <value>要在组件上显示的信息</value>
+  </data>
+  <data name="ProgressBar"
+    xml:space="preserve">
+    <value>进度条</value>
+  </data>
+  <data name="ProgressRing"
+    xml:space="preserve">
+    <value>进度环</value>
+  </data>
+  <data name="CountdownConnector"
+    xml:space="preserve">
+    <value>倒计时连接词</value>
+  </data>
+  <data name="Countdown"
+    xml:space="preserve">
+    <value>倒计时</value>
+  </data>
+  <data name="FormatVariablesHelp"
+    xml:space="preserve">
+    <value>格式化变量说明</value>
+  </data>
+  <data name="FormatTotalDays"
+    xml:space="preserve">
+    <value>%D - 总天数</value>
+  </data>
+  <data name="FormatTotalHours"
+    xml:space="preserve">
+    <value>%H - 总小时数</value>
+  </data>
+  <data name="FormatTotalMinutes"
+    xml:space="preserve">
+    <value>%M - 总分钟数</value>
+  </data>
+  <data name="FormatTotalSeconds"
+    xml:space="preserve">
+    <value>%S - 总秒数</value>
+  </data>
+  <data name="FormatTotalMilliseconds"
+    xml:space="preserve">
+    <value>%X - 总毫秒数</value>
+  </data>
+  <data name="FormatRoundUpNote"
+    xml:space="preserve">
+    <value>以上数值向上取整。</value>
+  </data>
+  <data name="FormatRemainingPercent"
+    xml:space="preserve">
+    <value>%L - 剩余百分比</value>
+  </data>
+  <data name="FormatElapsedPercent"
+    xml:space="preserve">
+    <value>%P - 已过百分比</value>
+  </data>
+  <data name="FormatElapsedPercent2Decimals"
+    xml:space="preserve">
+    <value>%p - 已过百分比(两位小数)</value>
+  </data>
+  <data name="FormatRoundingNote"
+    xml:space="preserve">
+    <value>以上数值四舍五入取整。</value>
+  </data>
+  <data name="FormatDays"
+    xml:space="preserve">
+    <value>%d - 天</value>
+  </data>
+  <data name="FormatHours"
+    xml:space="preserve">
+    <value>%h - 小时</value>
+  </data>
+  <data name="FormatMinutes"
+    xml:space="preserve">
+    <value>%m - 分钟</value>
+  </data>
+  <data name="FormatSeconds"
+    xml:space="preserve">
+    <value>%s - 秒</value>
+  </data>
+  <data name="FormatMilliseconds"
+    xml:space="preserve">
+    <value>%x - 毫秒</value>
+  </data>
+  <data name="FormatElementValueNote"
+    xml:space="preserve">
+    <value>以上数值取对应元素的值。</value>
+  </data>
+  <data name="AccentColor"
+    xml:space="preserve">
+    <value>强调色</value>
+  </data>
+  <data name="AccentColorDescription"
+    xml:space="preserve">
+    <value>事件名称和倒计时的字体颜色。</value>
+  </data>
+  <data name="ProgressBarUseAccent"
+    xml:space="preserve">
+    <value>进度条使用强调色</value>
+  </data>
+  <data name="ProgressBarUseAccentDescription"
+    xml:space="preserve">
+    <value>启用后，进度条将使用选定的主题色作为主题色，而不是使用应用的主题色。</value>
+  </data>
+  <data name="ConnectorUseAccent"
+    xml:space="preserve">
+    <value>倒计时连接词使用强调颜色</value>
+  </data>
+  <data name="ConnectorUseAccentDescription"
+    xml:space="preserve">
+    <value>启用后，倒计时连接词颜色与字体颜色一致，否则为默认颜色。</value>
+  </data>
+  <data name="CountdownFontSizeDescription"
+    xml:space="preserve">
+    <value>事件名称和倒计时的字体大小。</value>
+  </data>
+</root>

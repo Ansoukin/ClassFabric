@@ -187,3 +187,36 @@ files:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/Controls/Components/Localization.Controls.Components.resx
+    translation: /ClassFabric/Assets/Localization/Controls/Components/Localization.Controls.Components.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant
+  - source: /ClassFabric/Assets/Localization/Controls/NotificationProviders/Localization.Controls.NotificationProviders.resx
+    translation: /ClassFabric/Assets/Localization/Controls/NotificationProviders/Localization.Controls.NotificationProviders.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant
+  - source: /ClassFabric/Assets/Localization/Controls/SpeechProviderSettingsControls/Localization.Controls.SpeechProviderSettingsControls.resx
+    translation: /ClassFabric/Assets/Localization/Controls/SpeechProviderSettingsControls/Localization.Controls.SpeechProviderSettingsControls.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant
+  - source: /ClassFabric/Assets/Localization/Controls/EditMode/Localization.Controls.EditMode.resx
+    translation: /ClassFabric/Assets/Localization/Controls/EditMode/Localization.Controls.EditMode.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant

@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:ClassIsland.Controls.NotificationProviders"
              xmlns:controls="clr-namespace:ClassIsland.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:locNp="clr-namespace:ClassFabric.Assets.Localization.Controls.NotificationProviders"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:WeatherHourlyForecastNotificationProvider}}">
@@ -16,7 +17,7 @@
             <ci:LucideIcon Glyph="&#xe0ff;" VerticalAlignment="Center"
                            FontSize="20" FontWeight="Medium"
                            Height="20" Width="20"/>
-            <TextBlock Text="天气预报" FontSize="{DynamicResource MainWindowEmphasizedFontSize}" Margin="8 0" FontWeight="Bold"/>
+            <TextBlock Text="{x:Static locNp:Localization.WeatherForecastTitle}" FontSize="{DynamicResource MainWindowEmphasizedFontSize}" Margin="8 0" FontWeight="Bold"/>
             <controls:WeatherPackIconControl Code="{Binding Info.ForecastDaily.Weather.Value[0].To}" VerticalAlignment="Center"
                                              Height="22" AllowColor="False" />
         </StackPanel>
