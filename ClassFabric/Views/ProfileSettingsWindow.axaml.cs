@@ -49,6 +49,7 @@ using ReactiveUI;
 using ClassIsland.Helpers;
 using ClassIsland.Platforms.Abstraction;
 using Sentry;
+using ClassFabric.Assets.Localization.Windows.ProfileSettings;
 
 namespace ClassIsland.Views;
 
@@ -71,9 +72,9 @@ public partial class ProfileSettingsWindow : ViewBase
     public static readonly FuncValueConverter<ProfileTransferProviderType, string>
         ProfileTransferProviderTypeToImportButtonTextConverter = new(x => x switch
         {
-            ProfileTransferProviderType.Import => "导入",
-            ProfileTransferProviderType.Export => "导出",
-            _ => "执行"
+            ProfileTransferProviderType.Import => Localization.TransferImportLabel,
+            ProfileTransferProviderType.Export => Localization.TransferExportLabel,
+            _ => Localization.TransferExecuteLabel
         });
 
     public ProfileSettingsViewModel ViewModel { get; } = IAppHost.GetService<ProfileSettingsViewModel>();
@@ -454,11 +455,11 @@ public partial class ProfileSettingsWindow : ViewBase
     {
         var result = await new FAContentDialog()
         {
-            Title = "不信任的档案",
-            Content = "当前档案不受信任，部分功能（如行动时间点等）将禁用。如果您信任此档案并希望启用这些受限的功能，请将此档案设置为信任。",
+            Title = Localization.UntrustedProfileTitle,
+            Content = Localization.UntrustedProfileDialogContent,
             DefaultButton = FAContentDialogButton.Primary,
-            PrimaryButtonText = "信任此档案",
-            SecondaryButtonText = "取消"
+            PrimaryButtonText = Localization.TrustProfileButton,
+            SecondaryButtonText = Localization.CancelLabel
         }.ShowAsyncAuto();
 
         if (result == FAContentDialogResult.Primary)
@@ -472,7 +473,7 @@ public partial class ProfileSettingsWindow : ViewBase
         try
         {
             ViewModel.ProfileService.SaveProfile();
-            this.ShowToast(new ToastMessage($"已保存到 {ViewModel.ProfileService.CurrentProfilePath}。")
+            this.ShowToast(new ToastMessage(string.Format(Localization.ProfileSavedToPathFmt, ViewModel.ProfileService.CurrentProfilePath))
             {
                 Severity = FAInfoBarSeverity.Success
             });
@@ -480,7 +481,7 @@ public partial class ProfileSettingsWindow : ViewBase
         catch (Exception exception)
         {
             Logger.LogError(exception, "无法保存档案");
-            this.ShowErrorToast("无法保存档案", exception);
+            this.ShowErrorToast(Localization.SaveProfileFailedToast, exception);
         }
     }
 
@@ -491,16 +492,16 @@ public partial class ProfileSettingsWindow : ViewBase
         var textBox = new TextBox();
         var r = await new FAContentDialog()
         {
-            Title = "新建档案",
+            Title = Localization.CreateProfileLabel,
             Content = new Field()
             {
                 Content = textBox,
-                Label = "档案名称",
+                Label = Localization.ProfileNameLabel,
                 Suffix = ".json"
             },
             DefaultButton = FAContentDialogButton.Primary,
-            PrimaryButtonText = "新建",
-            SecondaryButtonText = "取消"
+            PrimaryButtonText = Localization.NewLabel,
+            SecondaryButtonText = Localization.CancelLabel
         }.ShowAsyncAuto();
 
         var path = Path.Combine(Services.ProfileService.ProfilePath, $"{textBox.Text}.json");
@@ -537,16 +538,16 @@ public partial class ProfileSettingsWindow : ViewBase
         };
         var r = await new FAContentDialog()
         {
-            Title = "重命名档案",
+            Title = Localization.RenameProfileTitle,
             Content = new Field()
             {
                 Content = textBox,
-                Label = "档案名称",
+                Label = Localization.ProfileNameLabel,
                 Suffix = ".json"
             },
             DefaultButton = FAContentDialogButton.Primary,
-            PrimaryButtonText = "重命名",
-            SecondaryButtonText = "取消"
+            PrimaryButtonText = Localization.RenameLabel,
+            SecondaryButtonText = Localization.CancelLabel
         }.ShowAsyncAuto();
 
         var raw = Path.Combine(Services.ProfileService.ProfilePath, $"{ViewModel.SelectedProfile}");
@@ -560,7 +561,7 @@ public partial class ProfileSettingsWindow : ViewBase
         {
             this.ShowToast(new ToastMessage()
             {
-                Message = "无法重命名档案，因为已存在一个相同名称的档案。",
+                Message = Localization.RenameProfileConflictToast,
                 Severity = FAInfoBarSeverity.Warning
             });
             return;
@@ -589,7 +590,7 @@ public partial class ProfileSettingsWindow : ViewBase
                     new KeyValuePair<string, object>("IsSuccess", "false" ) 
                 ]
                 );
-            this.ShowToast(new ToastMessage("无法删除已加载或将要加载的档案。")
+            this.ShowToast(new ToastMessage(Localization.CannotDeleteLoadedProfileToast)
             {
                 Severity = FAInfoBarSeverity.Warning
             });
@@ -599,11 +600,11 @@ public partial class ProfileSettingsWindow : ViewBase
         var textBox = new TextBox();
         var r = await new FAContentDialog()
         {
-            Title = "删除档案",
-            Content = $"您确定要删除档案 {ViewModel.ProfileService.CurrentProfilePath} 吗？此操作无法撤销，档案内的课表、时间表、科目等信息都将被删除！",
+            Title = Localization.DeleteProfileTitle,
+            Content = string.Format(Localization.DeleteProfileConfirmFmt, ViewModel.ProfileService.CurrentProfilePath),
             DefaultButton = FAContentDialogButton.Primary,
-            PrimaryButtonText = "删除",
-            SecondaryButtonText = "取消"
+            PrimaryButtonText = Localization.DeleteLabel,
+            SecondaryButtonText = Localization.CancelLabel
         }.ShowAsyncAuto();
 
         if (r == FAContentDialogResult.Primary)
@@ -649,13 +650,13 @@ public partial class ProfileSettingsWindow : ViewBase
         ViewModel.SettingsService.Settings.SelectedProfile = name;
         var action = new Button()
         {
-            Content = "立即重启"
+            Content = Localization.RestartNowButton
         };
         action.Click += (sender, args) => AppBase.Current.Restart();
         this.ShowToast(new ToastMessage()
         {
-            Title = "需要重启",
-            Message = "切换档案需要重启应用以生效。",
+            Title = Localization.RestartRequiredTitle,
+            Message = Localization.SwitchProfileRestartMessage,
             AutoClose = false,
             ActionContent = action
         });
@@ -760,7 +761,7 @@ public partial class ProfileSettingsWindow : ViewBase
         }
         else
         {
-            this.ShowToast(new ToastMessage("在这一天已存在一个临时层课表，无法创建新的临时层课表。")
+            this.ShowToast(new ToastMessage(Localization.OverlayAlreadyExistsToast)
             {
                 Severity = FAInfoBarSeverity.Warning,
                 Duration = TimeSpan.FromSeconds(5)
@@ -870,7 +871,7 @@ public partial class ProfileSettingsWindow : ViewBase
             {
                 if (targetDate.DayOfWeek < ViewModel.ScheduleCalendarSelectedDate.DayOfWeek)
                 {
-                    this.ShowSuccessToast("已完成本周课表的录入。");
+                    this.ShowSuccessToast(Localization.WeeklyEntryCompletedToast);
                     return;
                 }
                 if (ViewModel.LessonsService.GetClassPlanByDate(targetDate) != null)
@@ -878,7 +879,7 @@ public partial class ProfileSettingsWindow : ViewBase
                     ViewModel.ScheduleCalendarSelectedDate = targetDate;
                     ViewModel.SelectedClassIndex = 0;
                     ScheduleDataGrid.ScrollIntoCurrentView();
-                    this.ShowToast("已跳转到次日课表。");
+                    this.ShowToast(Localization.JumpedToNextDayToast);
                     return;
                 }
             }
@@ -888,12 +889,12 @@ public partial class ProfileSettingsWindow : ViewBase
             }
             var actionButton = new Button()
             {
-                Content = "新建课表"
+                Content = Localization.NewClassPlanButton
             };
             ViewModel.CurrentClassPlanEditDoneToast = new ToastMessage()
             {
                 Severity = FAInfoBarSeverity.Success,
-                Message = "已完成此课表的课程录入。",
+                Message = Localization.ClassPlanEntryCompletedToast,
                 ActionContent = actionButton,
                 AutoClose = false
             };
@@ -1000,7 +1001,7 @@ public partial class ProfileSettingsWindow : ViewBase
         const string eventName = "views.ProfileSettingsWindow.timeLayout.remove";
         if (c)
         {
-            this.ShowWarningToast("仍有课表在使用该时间表。删除时间表前需要删除所有使用该时间表的课表。");
+            this.ShowWarningToast(Localization.TimeLayoutInUseToast);
             SentrySdk.Metrics.EmitCounter(eventName, 1,
             [
                 new KeyValuePair<string, object>("IsSuccess", "false"),
@@ -1017,11 +1018,11 @@ public partial class ProfileSettingsWindow : ViewBase
             );
         var result = await new FAContentDialog()
         {
-            Title = "删除时间表",
-            Content = $"要删除时间表“{ViewModel.SelectedTimeLayout.Name}”吗？此操作无法撤销。",
+            Title = Localization.DeleteTimeLayoutLabel,
+            Content = string.Format(Localization.DeleteTimeLayoutConfirmFmt, ViewModel.SelectedTimeLayout.Name),
             DefaultButton = FAContentDialogButton.Primary,
-            PrimaryButtonText = "删除",
-            CloseButtonText = "取消"
+            PrimaryButtonText = Localization.DeleteLabel,
+            CloseButtonText = Localization.CancelLabel
         }.ShowAsyncAuto();
 
         if (result != FAContentDialogResult.Primary)
@@ -1035,7 +1036,7 @@ public partial class ProfileSettingsWindow : ViewBase
     private void PushAddUndo(TimeLayoutItem item, TimeLayout layout)
     {
         var index = layout.Layouts.IndexOf(item);
-        var desc = $"添加{item}";
+        var desc = string.Format(Localization.AddUndoDescriptionFmt, item);
         _undoStack.Push(new UndoEntry(IsAdd: true, item, layout, index, desc));
         ViewModel.UndoDescriptions.Insert(0, desc);
         _redoStack.Clear();
@@ -1046,7 +1047,7 @@ public partial class ProfileSettingsWindow : ViewBase
 
     private void PushDeleteUndo(TimeLayoutItem item, TimeLayout layout, int index)
     {
-        var desc = $"删除{item}";
+        var desc = string.Format(Localization.DeleteUndoDescriptionFmt, item);
         _undoStack.Push(new UndoEntry(IsAdd: false, item, layout, index, desc));
         ViewModel.UndoDescriptions.Insert(0, desc);
         _redoStack.Clear();
@@ -1204,15 +1205,15 @@ public partial class ProfileSettingsWindow : ViewBase
                     {
                         if (index != 0)
                         {
-                            this.ShowWarningToast("没有合适的位置来插入新的时间点。");
+                            this.ShowWarningToast(Localization.NoRoomToInsertTimePointToast);
                             return;
                         }
                         baseSec = selected.StartTime - lastTime; // 向前插入时间点的简易实现，未考虑分割线
-                        this.ShowToast("已向前插入了新的时间点。");
+                        this.ShowToast(Localization.InsertedBeforeToast);
                     }
                     if (next.StartTime < baseSec + lastTime)
                     {
-                        this.ShowToast("没有足够的空间完全插入该时间点，已缩短时间点长度。");
+                        this.ShowToast(Localization.InsertShrunkToast);
                         lastTime = next.StartTime - baseSec;
                     }
                 }
@@ -1223,7 +1224,7 @@ public partial class ProfileSettingsWindow : ViewBase
                 baseSec = selected.EndTime;
                 if ((from i in timeLayout.Layouts where i.TimeType == 2 select i.StartTime).ToList().Contains(baseSec))
                 {
-                    this.ShowWarningToast("这里已经存在一条分割线。");
+                    this.ShowWarningToast(Localization.SeparatorExistsToast);
                     return;
                 }
             }
@@ -1233,7 +1234,7 @@ public partial class ProfileSettingsWindow : ViewBase
                 baseSec = selected.EndTime;
                 if ((from i in timeLayout.Layouts where i.TimeType == 3 select i.StartTime).ToList().Contains(baseSec))
                 {
-                    this.ShowWarningToast("这里已经存在一个行动。");
+                    this.ShowWarningToast(Localization.ActionExistsToast);
                     return;
                 }
             }
@@ -1313,7 +1314,7 @@ public partial class ProfileSettingsWindow : ViewBase
         var maxTime = new TimeSpan(23, 59, 59);
         if (baseSec >= maxTime)
         {
-            this.ShowWarningToast("没有足够的空间来复制时间点。");
+            this.ShowWarningToast(Localization.NoRoomToDuplicateTimePointToast);
             return;
         }
 
@@ -1335,18 +1336,18 @@ public partial class ProfileSettingsWindow : ViewBase
                     {
                         if (index != 0)
                         {
-                            this.ShowWarningToast("没有合适的位置来复制时间点。");
+                            this.ShowWarningToast(Localization.NoRoomBeforeToDuplicateTimePointToast);
                             return;
                         }
 
                         baseSec = item.StartTime - copyDuration;
                         copyEndTime = item.StartTime;
-                        this.ShowToast("已向前插入了新的时间点。");
+                        this.ShowToast(Localization.InsertedBeforeToast);
                     }
 
                     if (next.StartTime < copyEndTime)
                     {
-                        this.ShowToast("没有足够的空间完全复制该时间点，已缩短时间点长度。");
+                        this.ShowToast(Localization.DuplicateShrunkToast);
                         copyEndTime = next.StartTime;
                     }
                 }
@@ -1357,7 +1358,7 @@ public partial class ProfileSettingsWindow : ViewBase
             if ((from i in timeLayout.Layouts where i.TimeType == 2 select i.StartTime).ToList()
                 .Contains(baseSec))
             {
-                this.ShowWarningToast("这里已经存在一条分割线。");
+                this.ShowWarningToast(Localization.SeparatorExistsToast);
                 return;
             }
         }
@@ -1366,7 +1367,7 @@ public partial class ProfileSettingsWindow : ViewBase
             if ((from i in timeLayout.Layouts where i.TimeType == 3 select i.StartTime).ToList()
                 .Contains(baseSec))
             {
-                this.ShowWarningToast("这里已经存在一个行动。");
+                this.ShowWarningToast(Localization.ActionExistsToast);
                 return;
             }
         }
@@ -1376,7 +1377,7 @@ public partial class ProfileSettingsWindow : ViewBase
 
         if (copyEndTime <= baseSec && item.TimeType is 0 or 1)
         {
-            this.ShowWarningToast("没有足够的空间来复制时间点。");
+            this.ShowWarningToast(Localization.NoRoomToDuplicateTimePointToast);
             return;
         }
 
@@ -1387,7 +1388,7 @@ public partial class ProfileSettingsWindow : ViewBase
         AddTimePoint(copy);
         ViewModel.SelectedTimePoint = copy;
         
-        this.ShowToast(new ToastMessage("已创建时间点副本。")
+        this.ShowToast(new ToastMessage(Localization.TimePointDuplicatedToast)
         {
             Severity = FAInfoBarSeverity.Success
         });
@@ -1504,7 +1505,7 @@ public partial class ProfileSettingsWindow : ViewBase
     {
         if (!CanEditScheduleItems()) return;
         if (!ViewModel.ApplyScheduleWeekEdit(e))
-            ToastsHelper.ShowToast(this, new ToastMessage("无法移动到该日期或时间，请在右侧检查课程的时间和启用范围。"));
+            ToastsHelper.ShowToast(this, new ToastMessage(Localization.CannotMoveScheduleItemToast));
         e.Handled = true;
     }
 
@@ -1625,9 +1626,9 @@ public partial class ProfileSettingsWindow : ViewBase
 
             var revertButton = new Button
             {
-                Content = "撤销"
+                Content = Localization.UndoButton
             };
-            var toastMessage = new ToastMessage($"已删除 {removedScheduleItems.Count} 个课程。")
+            var toastMessage = new ToastMessage(string.Format(Localization.DeletedClassItemsFmt, removedScheduleItems.Count))
             {
                 ActionContent = revertButton,
                 Duration = TimeSpan.FromSeconds(10)
@@ -1743,9 +1744,9 @@ public partial class ProfileSettingsWindow : ViewBase
 
         var revertButton = new Button()
         {
-            Content = "撤销"
+            Content = Localization.UndoButton
         };
-        var toastMessage = new ToastMessage($"已删除 {removedSubjects.Count} 个科目。")
+        var toastMessage = new ToastMessage(string.Format(Localization.DeletedSubjectsFmt, removedSubjects.Count))
         {
             ActionContent = revertButton,
             Duration = TimeSpan.FromSeconds(10)
@@ -1794,7 +1795,7 @@ public partial class ProfileSettingsWindow : ViewBase
         var index = ViewModel.SelectedClassIndex2;
         if (ViewModel.SelectedClassInfo == null || ViewModel.SelectedClassInfo.IsEmpty)
         {
-            this.ShowWarningToast("选择课程区域无效。");
+            this.ShowWarningToast(Localization.InvalidClassSelectionToast);
             return;
         }
         ViewModel.ClassSwapStartPosition = new ScheduleClassPosition(date, index);
@@ -1808,7 +1809,7 @@ public partial class ProfileSettingsWindow : ViewBase
         var index = ViewModel.SelectedClassIndex2;
         if (ViewModel.SelectedClassInfo == null || ViewModel.SelectedClassInfo.IsEmpty)
         {
-            this.ShowWarningToast("选择课程区域无效。");
+            this.ShowWarningToast(Localization.InvalidClassSelectionToast);
             return;
         }
         ViewModel.ClassSwapEndPosition = new ScheduleClassPosition(date, index);
@@ -1873,7 +1874,7 @@ public partial class ProfileSettingsWindow : ViewBase
         var index = ViewModel.SelectedClassIndex2;
         if (ViewModel.SelectedClassInfo == null || ViewModel.SelectedClassInfo.IsEmpty)
         {
-            this.ShowWarningToast("选择课程区域无效。");
+            this.ShowWarningToast(Localization.InvalidClassSelectionToast);
             return;
         }
         if (sender is FACommandBarButton button1 && this.FindResource("ChangeClassFlyout") is Flyout flyout)
@@ -2004,15 +2005,15 @@ public partial class ProfileSettingsWindow : ViewBase
 
         var operationText = ViewModel.SelectedTransferInfo.Type switch
         {
-            ProfileTransferProviderType.Import => "导入",
-            ProfileTransferProviderType.Export => "导出",
-            _ => "迁移"
+            ProfileTransferProviderType.Import => Localization.TransferImportLabel,
+            ProfileTransferProviderType.Export => Localization.TransferExportLabel,
+            _ => Localization.TransferMigrateLabel
         };
 
         if (ViewModel.SelectedTransferInfo.Type == ProfileTransferProviderType.Import && ViewModel.IsProfileTransferInvoked)
         {
-            var t = await ContentDialogHelper.ShowConfirmationDialog($"要继续{operationText}吗",
-                $"您先前已经成功地{operationText}了档案，您还要继续{operationText}吗？", positiveText: "继续");
+            var t = await ContentDialogHelper.ShowConfirmationDialog(string.Format(Localization.ContinueTransferConfirmTitleFmt, operationText),
+                string.Format(Localization.ContinueTransferConfirmMessageFmt, operationText), positiveText: Localization.ContinueLabel);
             if (!t)
             {
                 return;

@@ -19,9 +19,10 @@
         xmlns:scheduleDataGrid="clr-namespace:ClassIsland.Controls.ScheduleDataGrid"
         xmlns:scheduleWeek="clr-namespace:ClassIsland.Controls.ScheduleWeekEdit"
         xmlns:profile2="clr-namespace:ClassIsland.Models.Profile"
+        xmlns:locPw="clr-namespace:ClassFabric.Assets.Localization.Windows.ProfileSettings"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ClassIsland.Views.ProfileSettingsWindow"
-        Header="档案编辑"
+        Header="{x:Static locPw:Localization.ProfileEditorHeader}"
         d:DataContext="{d:DesignInstance views:ProfileSettingsWindow}"
         Icon="/Assets/AppLogo.ico"
         MinWidth="750"
@@ -62,12 +63,12 @@
             <StackPanel DataContext="{Binding ViewModel.SelectedClassPlan}"
                         Spacing="8"
                         Margin="16">
-                <TextBlock Text="课程表信息" Theme="{StaticResource SubtitleTextBlockStyle}" />
-                <controls:FAInfoBar Message="这是一个临时层课表，将在使用过后自动删除。" IsVisible="{Binding IsOverlay}"/>
-                <ci:Field Label="名称">
+                <TextBlock Text="{x:Static locPw:Localization.ClassPlanInfoHeader}" Theme="{StaticResource SubtitleTextBlockStyle}" />
+                <controls:FAInfoBar Message="{x:Static locPw:Localization.ClassPlanOverlayInfoBarMessage}" IsVisible="{Binding IsOverlay}"/>
+                <ci:Field Label="{x:Static locPw:Localization.NameLabel}">
                     <TextBox Text="{Binding Name}"/>
                 </ci:Field>
-                <ci:Field Label="时间表">
+                <ci:Field Label="{x:Static locPw:Localization.TimeLayoutLabel}">
                     <ComboBox SelectedValue="{Binding TimeLayoutId}"
                               SelectedValueBinding="{Binding Key}"
                               ItemsSource="{Binding $parent[views:ProfileSettingsWindow].ViewModel.TimeLayouts.List}"
@@ -80,7 +81,7 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </ci:Field>
-                <ci:Field Label="课表群">
+                <ci:Field Label="{x:Static locPw:Localization.ClassPlanGroupLabel}">
                     <ComboBox SelectedValue="{Binding AssociatedGroup, Mode=TwoWay}"
                               SelectedValueBinding="{Binding Key}"
                               ItemsSource="{Binding $parent[views:ProfileSettingsWindow].ViewModel.ClassPlanGroups.List}"
@@ -93,11 +94,11 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </ci:Field>
-                <CheckBox IsEnabled="{Binding IsOverlay, Converter={StaticResource InvertBooleanConverter}}" Margin="0 8 0 0" Content="自动启用" IsChecked="{Binding IsEnabled}"/>
-                <TextBlock Text="临时层课表将忽略触发规则强制启用。" 
+                <CheckBox IsEnabled="{Binding IsOverlay, Converter={StaticResource InvertBooleanConverter}}" Margin="0 8 0 0" Content="{x:Static locPw:Localization.AutoEnable}" IsChecked="{Binding IsEnabled}"/>
+                <TextBlock Text="{x:Static locPw:Localization.OverlayIgnoresTriggerRulesDescription}" 
                            Margin="0 0 0 4"
                            IsVisible="{Binding IsOverlay}" TextWrapping="Wrap"/>
-                <TextBlock Text="将会根据触发规则自动启用该课表。" 
+                <TextBlock Text="{x:Static locPw:Localization.AutoEnableByTriggerRulesDescription}" 
                            Classes="l-instructive"
                            TextWrapping="Wrap">
                     <TextBlock.IsVisible>
@@ -107,7 +108,7 @@
                         </MultiBinding>
                     </TextBlock.IsVisible>
                 </TextBlock>
-                <TextBlock Text="该课表不会自动启用，只能通过临时课表或临时层手动启用该课表。" 
+                <TextBlock Text="{x:Static locPw:Localization.ManualEnableOnlyDescription}" 
                            Classes="l-instructive"
                            TextWrapping="Wrap">
                     <TextBlock.IsVisible>
@@ -125,7 +126,7 @@
                 </StackPanel>
                 <!-- 附加属性 -->
                 <Separator Margin="0 16 0 8"/>
-                <ci:IconText Glyph="&#xef2b;" Text="更多选项" Margin="0 0 0 8"/>
+                <ci:IconText Glyph="&#xef2b;" Text="{x:Static locPw:Localization.MoreOptionsLabel}" Margin="0 0 0 8"/>
                 <ItemsControl ItemsSource="{x:Static services:IAttachedSettingsHostService.ClassPlanSettingsAttachedSettingsControls}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -148,28 +149,28 @@
         
         <Grid x:Key="ProfileManager" Margin="16" Width="300" RowDefinitions="Auto,*">
             <StackPanel Grid.Row="0" >
-                <TextBlock Text="管理档案" Theme="{StaticResource SubtitleTextBlockStyle}"/>
-                <TextBlock Text="管理与切换保存的档案。切换档案需要重新启动应用。" TextWrapping="Wrap"
+                <TextBlock Text="{x:Static locPw:Localization.ManageProfilesHeader}" Theme="{StaticResource SubtitleTextBlockStyle}"/>
+                <TextBlock Text="{x:Static locPw:Localization.ManageProfilesDescription}" TextWrapping="Wrap"
                            Margin="0 6 0 0"/>
                 <ci:Field Label="(test) ScheduleType">
                     <ComboBox SelectedIndex="{Binding ViewModel.ProfileService.Profile.ScheduleType, Converter={x:Static ci:EnumToIntConverter.Instance}}">
-                        <ComboBoxItem Content="经典"/>
-                        <ComboBoxItem Content="exp_日程"/>
+                        <ComboBoxItem Content="{x:Static locPw:Localization.ScheduleTypeClassic}"/>
+                        <ComboBoxItem Content="{x:Static locPw:Localization.ScheduleTypeExperimental}"/>
                     </ComboBox>
                 </ci:Field>
                 <!--<TextBlock Text="{Binding MainViewModel.Settings.SelectedProfile, Mode=OneWay}"/>-->
                 <WrapPanel Margin="0 6 0 0" Classes="animated-resize">
-                    <Button ToolTip.Tip="新建档案。" Click="ButtonCreateProfile_OnClick"
+                    <Button ToolTip.Tip="{x:Static locPw:Localization.CreateProfileTip}" Click="ButtonCreateProfile_OnClick"
                             Theme="{StaticResource TransparentButton}">
-                        <ci:IconText Glyph="&#xE689;" Text="新建档案"/>
+                        <ci:IconText Glyph="&#xE689;" Text="{x:Static locPw:Localization.CreateProfileLabel}"/>
                     </Button>
-                    <Button ToolTip.Tip="打开档案文件夹。" Click="ButtonOpenProfileFolder_OnClick"
+                    <Button ToolTip.Tip="{x:Static locPw:Localization.OpenProfileFolderTip}" Click="ButtonOpenProfileFolder_OnClick"
                             Theme="{StaticResource TransparentButton}">
-                        <ci:IconText Glyph="&#xE88D;" Text="打开文件夹"/>
+                        <ci:IconText Glyph="&#xE88D;" Text="{x:Static locPw:Localization.OpenFolderLabel}"/>
                     </Button>
-                    <Button ToolTip.Tip="重新加载档案列表。" Click="ButtonRefreshProfiles_OnClick"
+                    <Button ToolTip.Tip="{x:Static locPw:Localization.RefreshProfilesTip}" Click="ButtonRefreshProfiles_OnClick"
                             Theme="{StaticResource TransparentButton}">
-                        <ci:IconText Glyph="&#xE0B5;" Text="刷新"/>
+                        <ci:IconText Glyph="&#xE0B5;" Text="{x:Static locPw:Localization.RefreshLabel}"/>
                     </Button>
                 </WrapPanel>
             </StackPanel>
@@ -181,10 +182,10 @@
                     <Style Selector="ListBoxItem">
                         <Setter Property="ContextFlyout">
                             <MenuFlyout>
-                                <MenuItem Icon="{ci:FluentIcon &#xEE7D;}" Header="重命名" Click="MenuItemRenameProfile_OnClick"/>
-                                <MenuItem Icon="{ci:FluentIcon &#xE58B;}" Header="复制" Click="MenuItemProfileDuplicate_OnClick"/>
+                                <MenuItem Icon="{ci:FluentIcon &#xEE7D;}" Header="{x:Static locPw:Localization.RenameLabel}" Click="MenuItemRenameProfile_OnClick"/>
+                                <MenuItem Icon="{ci:FluentIcon &#xE58B;}" Header="{x:Static locPw:Localization.DuplicateLabel}" Click="MenuItemProfileDuplicate_OnClick"/>
                                 <!--<MenuItem Icon="{materialDesign:PackIcon FileExportOutline}" Header="导出"/>-->
-                                <MenuItem Icon="{ci:FluentIcon &#xE61D;}" Header="删除" Click="MenuItemDeleteProfile_OnClick"/>
+                                <MenuItem Icon="{ci:FluentIcon &#xE61D;}" Header="{x:Static locPw:Localization.DeleteLabel}" Click="MenuItemDeleteProfile_OnClick"/>
                             </MenuFlyout>
                         </Setter>
                     </Style>
@@ -218,14 +219,14 @@
             <StackPanel Margin="16"  
                         Spacing="8"
                         DataContext="{Binding ViewModel.SelectedTimeLayout}">
-                <TextBlock Text="时间表信息" Theme="{StaticResource SubtitleTextBlockStyle}"/>
-                <ci:Field Label="名称">
+                <TextBlock Text="{x:Static locPw:Localization.TimeLayoutInfoHeader}" Theme="{StaticResource SubtitleTextBlockStyle}"/>
+                <ci:Field Label="{x:Static locPw:Localization.NameLabel}">
                     <TextBox Margin="0 4 0 0"
                              Text="{Binding Name}"/>
                 </ci:Field>
                 <!-- 附加属性 -->
                 <Separator Margin="0 8 0 0"/>
-                <ci:IconText Glyph="&#xef2b;" Text="更多选项"/>
+                <ci:IconText Glyph="&#xef2b;" Text="{x:Static locPw:Localization.MoreOptionsLabel}"/>
                 <ItemsControl ItemsSource="{x:Static services:IAttachedSettingsHostService.TimeLayoutSettingsAttachedSettingsControls}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -250,40 +251,40 @@
         <Grid  Margin="16" Width="300" x:Key="TemporaryClassPlan">
             <Grid RowDefinitions="Auto,*,Auto">
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="当前启用的课表" Theme="{StaticResource SubtitleTextBlockStyle}"/>
+                    <TextBlock Text="{x:Static locPw:Localization.CurrentClassPlanHeader}" Theme="{StaticResource SubtitleTextBlockStyle}"/>
                     <StackPanel Orientation="Horizontal" Margin="0 8 0 0">
                         <ToggleSwitch VerticalAlignment="Center" Margin="0 -6"
-                                      OnContent="加载课表" OffContent="加载课表"
+                                      OnContent="{x:Static locPw:Localization.LoadClassPlanToggle}" OffContent="{x:Static locPw:Localization.LoadClassPlanToggle}"
                                       IsChecked="{Binding ViewModel.LessonsService.IsClassPlanEnabled}"/>
                     </StackPanel>
 
                     <StackPanel IsVisible="{Binding ViewModel.ProfileService.Profile.OverlayClassPlanId, Converter={x:Static ObjectConverters.IsNotNull}}">
                         <Separator Margin="0 16 0 4"/>
-                        <ci:IconText Glyph="&#xEA2F;" Text="临时层" Margin="0 0 0 8"/>
-                        <TextBlock Text="临时层课表将优先于临时课表应用。临时层课表将在该课表过期后自动清除。"
+                        <ci:IconText Glyph="&#xEA2F;" Text="{x:Static locPw:Localization.OverlayLabel}" Margin="0 0 0 8"/>
+                        <TextBlock Text="{x:Static locPw:Localization.OverlayPriorityDescription}"
                                    Classes="l-instructive"
                                    TextWrapping="Wrap"
                                    Margin="0 0 0 4"/>
                         <StackPanel Orientation="Horizontal">
                             <ToggleSwitch VerticalAlignment="Center" Margin="0 -6"
-                                          OnContent="启用临时层" OffContent="启用临时层"
+                                          OnContent="{x:Static locPw:Localization.EnableOverlayToggle}" OffContent="{x:Static locPw:Localization.EnableOverlayToggle}"
                                           IsChecked="{Binding ViewModel.ProfileService.Profile.IsOverlayClassPlanEnabled}"/>
                         </StackPanel>
                         <Button Theme="{StaticResource TransparentButton}" Margin="0 4 0 0"
                                 HorizontalAlignment="Left"
                                 Click="ButtonClearTempOverlay_OnClick"
-                                ToolTip.Tip="清除临时层课表。">
-                            <ci:IconText Glyph="&#xE1BC;" Text="清除临时层"/>
+                                ToolTip.Tip="{x:Static locPw:Localization.ClearOverlayTip}">
+                            <ci:IconText Glyph="&#xE1BC;" Text="{x:Static locPw:Localization.ClearOverlayLabel}"/>
                         </Button>
                     </StackPanel>
 
                     <Separator Margin="0 16 0 4"/>
-                    <ci:IconText Glyph="&#xE6B1;" Text="临时课表" Margin="0 0 0 8"/>
-                    <TextBlock Text="若当天授课计划有变，可临时选择某一课表作为当天的课表。该设置仅在当天有效。" TextWrapping="Wrap"
+                    <ci:IconText Glyph="&#xE6B1;" Text="{x:Static locPw:Localization.TempClassPlanLabel}" Margin="0 0 0 8"/>
+                    <TextBlock Text="{x:Static locPw:Localization.TempClassPlanDescription}" TextWrapping="Wrap"
                                Classes="l-instructive"/>
                     <Button Theme="{StaticResource TransparentButton}" 
                             HorizontalAlignment="Left"
-                            ToolTip.Tip="清除选择的临时课表，并恢复至正常课表安排。"
+                            ToolTip.Tip="{x:Static locPw:Localization.ClearTempClassPlanTip}"
                             Margin="0 6 0 0"
                             Click="ButtonClearTemporaryClassPlan_OnClick">
                         <Button.IsVisible>
@@ -293,9 +294,9 @@
                                 <Binding Path="!ViewModel.ProfileService.Profile.HasOverlayClassPlan"/>
                             </MultiBinding>
                         </Button.IsVisible>
-                        <ci:IconText Glyph="&#xE1BC;" Text="清除临时课表"/>
+                        <ci:IconText Glyph="&#xE1BC;" Text="{x:Static locPw:Localization.ClearTempClassPlanLabel}"/>
                     </Button>
-                    <TextBlock Text="临时课表被临时层课表覆盖。要使用临时课表，请暂时禁用或清除临时层课表。"
+                    <TextBlock Text="{x:Static locPw:Localization.TempClassPlanCoveredByOverlayDescription}"
                                TextWrapping="Wrap"
                                Margin="0 4 0 0">
                         <TextBlock.IsVisible>
@@ -335,7 +336,7 @@
                 </ListBox>
                 <StackPanel Grid.Row="2">
                     <Separator Margin="0 16 0 4" />
-                    <ci:IconText Glyph="&#xE304;" Text="多周轮换偏移" Margin="0 0 0 8" />
+                    <ci:IconText Glyph="&#xE304;" Text="{x:Static locPw:Localization.WeekOffsetHeader}" Margin="0 0 0 8" />
                     <Button Theme="{StaticResource TransparentButton}"
                             HorizontalAlignment="Left">
                         <Button.Flyout>
@@ -346,7 +347,7 @@
                                 </Border>
                             </Flyout>
                         </Button.Flyout>
-                        <ci:IconText Glyph="&#xE324;" Text="调整多周轮换偏移…"/>
+                        <ci:IconText Glyph="&#xE324;" Text="{x:Static locPw:Localization.AdjustWeekOffsetLabel}"/>
                     </Button>
                 </StackPanel>
             </Grid>
@@ -357,22 +358,22 @@
         <Grid  Margin="16" Width="300" x:Key="ClassPlanGroups">
             <Grid RowDefinitions="Auto,*">
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="课表群" Theme="{StaticResource SubtitleTextBlockStyle}"/>
+                    <TextBlock Text="{x:Static locPw:Localization.ClassPlanGroupLabel}" Theme="{StaticResource SubtitleTextBlockStyle}"/>
                     <TextBlock TextWrapping="Wrap" Margin="0 6 0 0">
-                        您可以通过课表群对课表进行分组，并灵活地启用一批课表。<ci:NavHyperlink NavTarget="https://docs.classisland.tech/app/profile/classplan#%E8%AF%BE%E8%A1%A8%E7%BE%A4">了解更多…</ci:NavHyperlink>
+                        <Run Text="{x:Static locPw:Localization.ClassPlanGroupsIntroPrefix}" /><ci:NavHyperlink NavTarget="https://docs.classisland.tech/app/profile/classplan#%E8%AF%BE%E8%A1%A8%E7%BE%A4" Content="{x:Static locPw:Localization.LearnMoreLabel}" />
                     </TextBlock>
                     <StackPanel IsVisible="{Binding ViewModel.ProfileService.Profile.TempClassPlanGroupId, Converter={x:Static ObjectConverters.IsNotNull}}">
                         <Separator Margin="0 12 0 4" />
-                        <ci:IconText Glyph="&#xE92F;" Text="临时课表群" Margin="0 0 0 4" />
+                        <ci:IconText Glyph="&#xE92F;" Text="{x:Static locPw:Localization.TempClassPlanGroupLabel}" Margin="0 0 0 4" />
                         <Border DataContext="{Binding ViewModel.ProfileService.Profile.TempClassPlanGroupId, Converter={StaticResource ClassPlanGroupIdToClassPlanGroupConverter}}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="当前：" VerticalAlignment="Center" />
+                                <TextBlock Text="{x:Static locPw:Localization.CurrentPrefixLabel}" VerticalAlignment="Center" />
                                 <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis"
                                            VerticalAlignment="Center" />
                                 <Button Theme="{StaticResource TransparentButton}"
                                         VerticalAlignment="Center"
                                         Click="ButtonClearTempClassPlanGroup_OnClick">
-                                    <ci:IconText Glyph="&#xE1BC;" Text="清除" />
+                                    <ci:IconText Glyph="&#xE1BC;" Text="{x:Static locPw:Localization.ClearLabel}" />
                                 </Button>
                             </StackPanel>
                         </Border>
@@ -381,26 +382,26 @@
                                           Margin="0 -8"
                                           OnContent="" OffContent=""
                                           IsChecked="{Binding ViewModel.ProfileService.Profile.IsTempClassPlanGroupEnabled}" />
-                            <ci:Field Grid.Column="2" Label="失效日期">
+                            <ci:Field Grid.Column="2" Label="{x:Static locPw:Localization.ExpireDateLabel}">
                                 <CalendarDatePicker VerticalAlignment="Center"
                                                     SelectedDate="{Binding ViewModel.ProfileService.Profile.TempClassPlanGroupExpireTime}" />
                                 </ci:Field>
-                            <ci:Field Grid.Column="3" Label="覆盖模式" Margin="2 0 0 0">
+                            <ci:Field Grid.Column="3" Label="{x:Static locPw:Localization.OverrideModeLabel}" Margin="2 0 0 0">
                                 <ComboBox SelectedIndex="{Binding ViewModel.ProfileService.Profile.TempClassPlanGroupType, Converter={StaticResource TempClassPlanGroupTypeToIntConverter}}"
                                           VerticalAlignment="Center">
-                                    <ComboBoxItem>覆盖</ComboBoxItem>
-                                    <ComboBoxItem>继承</ComboBoxItem>
+                                    <ComboBoxItem Content="{x:Static locPw:Localization.OverrideLabel}" />
+                                    <ComboBoxItem Content="{x:Static locPw:Localization.InheritLabel}" />
                                 </ComboBox>
                             </ci:Field>
                         </Grid>
                     </StackPanel>
                     <Separator Margin="0 12 0 4" />
-                    <ci:IconText Glyph="&#xE92F;" Text="管理课表群" Margin="0 0 0 4"/>
+                    <ci:IconText Glyph="&#xE92F;" Text="{x:Static locPw:Localization.ManageClassPlanGroupsLabel}" Margin="0 0 0 4"/>
                     
                     <WrapPanel Orientation="Horizontal" Classes="animated-resize">
                         <Button Theme="{StaticResource TransparentButton}" 
                                 HorizontalAlignment="Left"
-                                ToolTip.Tip="创建一个新的课表群。"
+                                ToolTip.Tip="{x:Static locPw:Localization.CreateClassPlanGroupTip}"
                                 Margin="2"
                                 Click="ButtonNewClassPlanGroups_OnClick">
                             <Button.IsEnabled>
@@ -409,7 +410,7 @@
                                     <Binding Path="ViewModel.ManagementService.Policy.DisableProfileEditing" Mode="OneWay" Converter="{StaticResource InvertBooleanConverter}"/>
                                 </MultiBinding>
                             </Button.IsEnabled>
-                            <ci:IconText Glyph="&#xE00D;" Text="新建课表群"/>
+                            <ci:IconText Glyph="&#xE00D;" Text="{x:Static locPw:Localization.CreateClassPlanGroupLabel}"/>
                         </Button>
                     </WrapPanel>
                 </StackPanel>
@@ -429,10 +430,10 @@
         
         <Flyout x:Key="ChangeClassFlyout">
             <StackPanel Width="250">
-                <TextBlock Text="修改课程"
+                <TextBlock Text="{x:Static locPw:Localization.ChangeClassHeader}"
                            Theme="{StaticResource SubtitleTextBlockStyle}"
                            Margin="0 0 0 8" />
-                <ci:Field Label="换课成…">
+                <ci:Field Label="{x:Static locPw:Localization.ChangeClassToSelectorLabel}">
                     <ComboBox HorizontalAlignment="Stretch"
                               Margin="0 0 0 8"
                               ItemsSource="{Binding ViewModel.Subjects.List, UpdateSourceTrigger=PropertyChanged}"
@@ -448,22 +449,21 @@
                 <CheckBox
                     IsEnabled="{Binding !ViewModel.ManagementService.Policy.DisableProfileClassPlanEditing}"
                     IsChecked="{Binding ViewModel.IsTempSwapMode, Converter={StaticResource InvertBooleanConverter}}"
-                    Margin="0 0 0 8">
-                    永久换课
-                </CheckBox>
+                    Margin="0 0 0 8"
+                    Content="{x:Static locPw:Localization.TempSwapModeLabel}" />
                 <Button Click="ButtonEditClassInfoTempConfirm_OnClick"
                         HorizontalAlignment="Left"
                         Classes="accent"
                         IsEnabled="{Binding ViewModel.TargetSubjectIndex, Converter={x:Static ObjectConverters.NotEqual}, ConverterParameter={x:Static system:Guid.Empty}}">
-                    <ci:IconText Glyph="&#xE424;" Text="确定" />
+                    <ci:IconText Glyph="&#xE424;" Text="{x:Static locPw:Localization.OKLabel}" />
                 </Button>
             </StackPanel>
         </Flyout>
         
         <Flyout x:Key="CreateOverlayFlyout">
             <StackPanel Spacing="12" Width="250">
-                <TextBlock Text="创建临时层" FontWeight="Bold" />
-                <ci:Field Label="时间表">
+                <TextBlock Text="{x:Static locPw:Localization.CreateOverlayHeader}" FontWeight="Bold" />
+                <ci:Field Label="{x:Static locPw:Localization.TimeLayoutLabel}">
                     <ComboBox
                         HorizontalAlignment="Stretch"
                         ItemsSource="{Binding ViewModel.TimeLayouts.List}"
@@ -476,17 +476,17 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </ci:Field>
-                <ci:Field Label="启用日期">
+                <ci:Field Label="{x:Static locPw:Localization.EnableDateLabel}">
                     <CalendarDatePicker
                         HorizontalAlignment="Stretch"
                         SelectedDate="{Binding ViewModel.OverlayEnableDateTime}" />
                 </ci:Field>
                 <CheckBox IsChecked="{Binding ViewModel.TempOverlayCreateTimeLayout}"
-                          Content="同时创建临时时间表" />
+                          Content="{x:Static locPw:Localization.AlsoCreateTempTimeLayout}" />
                 <Button HorizontalAlignment="Right"
                         Click="ButtonCreateTempOverlayClassPlan_OnClick"
                         Classes="accent">
-                    <ci:IconText Glyph="&#xE424;" Text="创建" />
+                    <ci:IconText Glyph="&#xE424;" Text="{x:Static locPw:Localization.CreateLabel}" />
                 </Button>
             </StackPanel>
         </Flyout>
@@ -494,37 +494,37 @@
         <Flyout x:Key="DeleteClassPlanConfirmFlyout">
             <StackPanel Spacing="8">
                 <TextBlock FontWeight="Bold">
-                    <Run Text="要删除课表" />
+                    <Run Text="{x:Static locPw:Localization.DeleteClassPlanConfirmPrefix}" />
                     <Run
                         Text="{Binding ViewModel.SelectedClassPlan.Name}" />
-                    <Run Text="吗？" />
+                    <Run Text="{x:Static locPw:Localization.DeleteClassPlanConfirmSuffix}" />
                 </TextBlock>
-                <TextBlock Text="此操作无法撤销。" />
-                <Button Content="删除" Classes="accent"
+                <TextBlock Text="{x:Static locPw:Localization.CannotBeUndoneDescription}" />
+                <Button Content="{x:Static locPw:Localization.DeleteLabel}" Classes="accent"
                         Click="ButtonDeleteSelectedClassPlan_OnClick" />
             </StackPanel>
         </Flyout>
 
         <Grid x:Key="ProfileMigrationsDebugDrawer"
               Width="600" Margin="16" RowDefinitions="Auto,Auto,*,Auto" RowSpacing="12">
-            <TextBlock Text="迁移信息（调试）" Theme="{StaticResource SubtitleTextBlockStyle}" />
-            <TextBlock Grid.Row="1" Text="直接编辑当前档案的迁移记录，保存方式与其他档案修改相同。"
+            <TextBlock Text="{x:Static locPw:Localization.ProfileMigrationsDebugHeader}" Theme="{StaticResource SubtitleTextBlockStyle}" />
+            <TextBlock Grid.Row="1" Text="{x:Static locPw:Localization.ProfileMigrationsDebugDescription}"
                        TextWrapping="Wrap" />
             <DataGrid Grid.Row="2" x:Name="ProfileMigrationsDataGrid"
                       ItemsSource="{Binding ViewModel.ProfileService.Profile.Migrations}"
                       AutoGenerateColumns="False" IsReadOnly="False" SelectionMode="Single">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="迁移 ID" Width="*"
+                    <DataGridTextColumn Header="{x:Static locPw:Localization.MigrationIdColumnHeader}" Width="*"
                                         Binding="{Binding Id, Mode=TwoWay}" />
-                    <DataGridCheckBoxColumn Header="允许降级"
+                    <DataGridCheckBoxColumn Header="{x:Static locPw:Localization.AllowDowngradeColumnHeader}"
                                             Binding="{Binding AllowDowngrade, Mode=TwoWay}" />
-                    <DataGridCheckBoxColumn Header="降级时移除"
+                    <DataGridCheckBoxColumn Header="{x:Static locPw:Localization.RemoveOnDowngradeColumnHeader}"
                                             Binding="{Binding RemoveOnDowngrade, Mode=TwoWay}" />
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="8">
-                <Button Content="新增" Command="{Binding ViewModel.AddProfileMigrationCommand}" />
-                <Button Content="删除选中项" Command="{Binding ViewModel.RemoveProfileMigrationCommand}"
+                <Button Content="{x:Static locPw:Localization.AddNewLabel}" Command="{Binding ViewModel.AddProfileMigrationCommand}" />
+                <Button Content="{x:Static locPw:Localization.DeleteSelectedItemLabel}" Command="{Binding ViewModel.RemoveProfileMigrationCommand}"
                         CommandParameter="{Binding #ProfileMigrationsDataGrid.SelectedItem}" />
             </StackPanel>
         </Grid>
@@ -594,12 +594,12 @@
                         <Setter Property="HorizontalAlignment" Value="Left"/>
                     </Style>
                 </ci:ReusableTabControl.Styles>
-                <TabItem Header="课表" Classes="tag-ClassPlans"
+                <TabItem Header="{x:Static locPw:Localization.ClassPlansTabHeader}" Classes="tag-ClassPlans"
                          IsVisible="{Binding !ViewModel.ManagementService.Policy.DisableProfileEditing}">
                     <ci:Lazy>
                         <ci:ReusableTabControl TabStripPlacement="Bottom" Classes="compact barrier" Padding="0"
                                                SelectedIndex="{Binding ViewModel.SettingsService.Settings.ClassPlanEditModeIndex}">
-                            <TabItem Header="{ci:FluentIcon &#xE075;}" ToolTip.Tip="列表视图">
+                            <TabItem Header="{ci:FluentIcon &#xE075;}" ToolTip.Tip="{x:Static locPw:Localization.ListViewToolTip}">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*" MinWidth="300" MaxWidth="500" />
@@ -614,11 +614,11 @@
                                                                  IsEnabled="{Binding !ViewModel.ManagementService.Policy.DisableProfileClassPlanEditing}">
                                                 <controls:FACommandBar.PrimaryCommands>
                                                     <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xe00d;}"
-                                                                               Label="添加" ToolTip.Tip="新建一个课表。"
+                                                                               Label="{x:Static locPw:Localization.AddLabel}" ToolTip.Tip="{x:Static locPw:Localization.CreateClassPlanTip}"
                                                                                Click="ButtonAddClassPlan_OnClick" />
                                                     <controls:FACommandBarSeparator />
                                                     <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xe58d;}"
-                                                                               Label="复制" ToolTip.Tip="复制一个当前选中的课表的副本。"
+                                                                               Label="{x:Static locPw:Localization.DuplicateLabel}" ToolTip.Tip="{x:Static locPw:Localization.DuplicateClassPlanTip}"
                                                                                Click="ButtonDuplicateClassPlan_OnClick" />
                                                 </controls:FACommandBar.PrimaryCommands>
                                             </controls:FACommandBar>
@@ -746,7 +746,7 @@
                                                             <Border MinWidth="20" Height="24" CornerRadius="12"
                                                                     Margin="4 0 2 0" Padding="8 0"
                                                                     VerticalAlignment="Center"
-                                                                    ToolTip.Tip="触发规则"
+                                                                    ToolTip.Tip="{x:Static locPw:Localization.TriggerRuleToolTip}"
                                                                     IsVisible="{Binding !IsGroup}"
                                                                     Classes="ClassPlanTag l-secondary"
                                                                     Classes.IsTagActivated="{Binding ClassPlan.IsActivated}">
@@ -853,7 +853,7 @@
                                                                         <Run Text="/" />
                                                                         <Run
                                                                             Text="{Binding ClassPlan.TimeRule.WeekCountDivTotal}" />
-                                                                        <Run Text="周" />
+                                                                        <Run Text="{x:Static locPw:Localization.WeekUnitSuffix}" />
                                                                     </TextBlock>
                                                                     
                                                                     <TextBlock Margin="2 0 0 0"
@@ -912,11 +912,11 @@
                                                                         <Run Text="/" />
                                                                         <Run
                                                                             Text="{Binding ClassPlan.TimeRule.LoopCycleDays}" />
-                                                                        <Run Text="天"/>
+                                                                        <Run Text="{x:Static locPw:Localization.DayUnitSuffix}" />
                                                                     </TextBlock>
 
                                                                     <TextBlock Margin="2 0 0 0" Padding="0 0 4 0"
-                                                                               Text="临时层"
+                                                                               Text="{x:Static locPw:Localization.OverlayLabel}"
                                                                                IsVisible="{Binding ClassPlan.IsOverlay}"
                                                                                FontWeight="Bold" FontStyle="Italic" />
                                                                 </StackPanel>
@@ -926,7 +926,7 @@
                                                             <Border MinWidth="20" Height="24" CornerRadius="12"
                                                                     Margin="2 0" Padding="8 0"
                                                                     VerticalAlignment="Center"
-                                                                    ToolTip.Tip="时间表"
+                                                                    ToolTip.Tip="{x:Static locPw:Localization.TimeLayoutLabel}"
                                                                     IsVisible="{Binding !IsGroup}"
                                                                     Classes="ClassPlanTag l-secondary"
                                                                     Classes.IsWrong="{Binding ClassPlan.TimeLayoutId, Converter={x:Static ObjectConverters.Equal}, ConverterParameter={x:Static system:Guid.Empty}}">
@@ -971,25 +971,25 @@
                                                     <controls:FACommandBar.PrimaryCommands>
                                                         <controls:FACommandBarButton
                                                             IconSource="{ci:FluentIconSource &#xe9e4;}"
-                                                            Label="详细信息"
+                                                            Label="{x:Static locPw:Localization.DetailsLabel}"
                                                             Click="ButtonOpenClassPlanDetails_OnClick"
-                                                            ToolTip.Tip="查看并编辑课表的基本信息。" />
+                                                            ToolTip.Tip="{x:Static locPw:Localization.ViewClassPlanDetailsTip}" />
                                                         <controls:FACommandBarButton
                                                             IconSource="{ci:FluentIconSource &#xe077;}"
-                                                            Label="详细看板"
-                                                            ToolTip.Tip="查看课表的所有时间点的附加设置继承情况。"
+                                                            Label="{x:Static locPw:Localization.DetailsDashboardLabel}"
+                                                            ToolTip.Tip="{x:Static locPw:Localization.DetailsDashboardTip}"
                                                             Click="ButtonOpenClassPlanDetailsWindow_OnClick" />
                                                         <controls:FACommandBarButton
                                                             IconSource="{ci:FluentIconSource &#xea2f;}"
-                                                            Label="创建临时层"
-                                                            ToolTip.Tip="创建临时课表层。"
+                                                            Label="{x:Static locPw:Localization.CreateOverlayHeader}"
+                                                            ToolTip.Tip="{x:Static locPw:Localization.CreateOverlayTip}"
                                                             Click="ButtonOpenCreateOverlayClassPlanFlyout_OnClick"
                                                             IsEnabled="{Binding ViewModel.SelectedClassPlan.IsOverlay, Converter={StaticResource BooleanToBooleanReConverter}}"
                                                             Flyout="{StaticResource CreateOverlayFlyout}" />
                                                         <controls:FACommandBarButton
                                                             IconSource="{ci:FluentIconSource &#xe61d;}"
-                                                            Label="删除"
-                                                            ToolTip.Tip="删除该课表。"
+                                                            Label="{x:Static locPw:Localization.DeleteLabel}"
+                                                            ToolTip.Tip="{x:Static locPw:Localization.DeleteClassPlanTip}"
                                                             Flyout="{StaticResource DeleteClassPlanConfirmFlyout}" />
                                                     </controls:FACommandBar.PrimaryCommands>
 
@@ -1042,24 +1042,24 @@
                                                             <RemoveClassAction ClassName="no-timeLayouts" />
                                                         </DataTriggerBehavior>
                                                     </Interaction.Behaviors>
-                                                    <controls:FAInfoBar Message="在设置课表之前，您需要在【时间表】页面中根据学校的作息安排编排时间表。"
+                                                    <controls:FAInfoBar Message="{x:Static locPw:Localization.NoTimeLayoutWarningMessage}"
                                                                       Severity="Warning"
                                                                       IsOpen="True"
                                                                       IsClosable="False"
                                                                       x:Name="InfoBarNoTimeLayoutWarning">
                                                         <controls:FAInfoBar.ActionButton>
-                                                            <Button Content="前往编排时间表"
+                                                            <Button Content="{x:Static locPw:Localization.GoToTimeLayoutsButton}"
                                                                     Click="ButtonGoToTimeLayoutsPage_OnClick" />
                                                         </controls:FAInfoBar.ActionButton>
                                                     </controls:FAInfoBar>
                                                     <controls:FAInfoBar
-                                                        Message="您还没有为此课表设置时间表。在编排课程之前，您需要在【详细信息】中为本课表设置一个时间表。"
+                                                        Message="{x:Static locPw:Localization.EmptyTimeLayoutWarningMessage}"
                                                         Severity="Warning"
                                                         IsOpen="True"
                                                         IsClosable="False"
                                                         x:Name="InfoBarEmptyTimeLayoutIdWarning">
                                                         <controls:FAInfoBar.ActionButton>
-                                                            <Button Content="前往设置时间表"
+                                                            <Button Content="{x:Static locPw:Localization.GoToSetTimeLayoutButton}"
                                                                     Click="ButtonOpenClassPlanDetails_OnClick" />
                                                         </controls:FAInfoBar.ActionButton>
                                                     </controls:FAInfoBar>
@@ -1076,9 +1076,9 @@
                                                           SelectedIndex="{Binding ViewModel.SelectedClassIndex, RelativeSource={RelativeSource FindAncestor, AncestorType=views:ProfileSettingsWindow}, Mode=TwoWay}"
                                                           SelectedItem="{Binding ViewModel.SelectedClassInfo, RelativeSource={RelativeSource FindAncestor, AncestorType=views:ProfileSettingsWindow}}">
                                                     <DataGrid.Columns>
-                                                        <DataGridCheckBoxColumn Header="启用"
+                                                        <DataGridCheckBoxColumn Header="{x:Static locPw:Localization.EnabledColumnHeader}"
                                                                                 Binding="{Binding IsEnabled}" />
-                                                        <DataGridTemplateColumn Header="时间" IsReadOnly="True">
+                                                        <DataGridTemplateColumn Header="{x:Static locPw:Localization.TimeColumnHeader}" IsReadOnly="True">
                                                             <DataGridTemplateColumn.CellTemplate>
                                                                 <DataTemplate>
                                                                     <TextBlock VerticalAlignment="Center"
@@ -1093,7 +1093,7 @@
                                                                 </DataTemplate>
                                                             </DataGridTemplateColumn.CellTemplate>
                                                         </DataGridTemplateColumn>
-                                                        <DataGridTemplateColumn Header="科目">
+                                                        <DataGridTemplateColumn Header="{x:Static locPw:Localization.SubjectLabel}">
                                                             <DataGridTemplateColumn.CellTemplate>
                                                                 <DataTemplate>
                                                                     <Grid>
@@ -1135,7 +1135,7 @@
                                                 <ci:ReusableTabControl Grid.Row="0" Grid.Column="2" Classes="compact"
                                                             Grid.RowSpan="2"
                                                             Padding="0">
-                                                    <TabItem Header="编辑科目">
+                                                    <TabItem Header="{x:Static locPw:Localization.EditSubjectTabHeader}">
                                                         <Grid RowDefinitions="*, Auto">
                                                             <ListBox
                                                                 Grid.Row="0"
@@ -1170,7 +1170,7 @@
                                                             </ListBox>
                                                             <CheckBox Margin="8" Grid.Row="1"
                                                                       IsChecked="{Binding ViewModel.SettingsService.Settings.IsProfileEditorClassInfoSubjectAutoMoveNextEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=views:ProfileSettingsWindow}}"
-                                                                      Content="选完科目自动移动到下一个课程" />
+                                                                      Content="{x:Static locPw:Localization.AutoMoveNextAfterSubjectSelected}" />
                                                         </Grid>
                                                     </TabItem>
                                                 </ci:ReusableTabControl>
@@ -1179,7 +1179,7 @@
                                     </ci:Emptiable>
                                 </Grid>
                             </TabItem>
-                            <TabItem Header="{ci:FluentIcon &#xF0EB;}" ToolTip.Tip="周视图">
+                            <TabItem Header="{ci:FluentIcon &#xF0EB;}" ToolTip.Tip="{x:Static locPw:Localization.WeekViewToolTip}">
                                 <Grid RowDefinitions="Auto *">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -1195,9 +1195,9 @@
                                                                Classes="hide-popup-indicator">
                                             <controls:FACommandBar.PrimaryCommands>
                                                 <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xE0B5;}"
-                                                                             Label="刷新"
+                                                                             Label="{x:Static locPw:Localization.RefreshLabel}"
                                                                              Click="ButtonRefreshScheduleDataGrid_OnClick"
-                                                                             ToolTip.Tip="刷新当前视图。" />
+                                                                             ToolTip.Tip="{x:Static locPw:Localization.RefreshCurrentViewTip}" />
                                                 <controls:FACommandBarSeparator />
                                                 <controls:FACommandBarElementContainer
                                                     IsVisible="{Binding ViewModel.SelectedClassPlan, Converter={x:Static ObjectConverters.IsNotNull}}">
@@ -1219,29 +1219,29 @@
                                                                 Opacity="0.8"
                                                                 Spacing="6">
                                                         <TextBlock FontSize="13"
-                                                                   Text="未选择课表" />
+                                                                   Text="{x:Static locPw:Localization.NoClassPlanSelected}" />
                                                     </StackPanel>
                                                 </controls:FACommandBarElementContainer>
                                                 <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xe9e4;}"
-                                                                             Label="详细信息"
+                                                                             Label="{x:Static locPw:Localization.DetailsLabel}"
                                                                              Click="ButtonOpenClassPlanDetails_OnClick"
                                                                              IsVisible="{Binding ViewModel.SelectedClassPlan, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                                                             ToolTip.Tip="查看并编辑课表的基本信息。" />
+                                                                             ToolTip.Tip="{x:Static locPw:Localization.ViewClassPlanDetailsTip}" />
                                                 <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xe077;}"
-                                                                             Label="详细看板"
-                                                                             ToolTip.Tip="查看课表的所有时间点的附加设置继承情况。"
+                                                                             Label="{x:Static locPw:Localization.DetailsDashboardLabel}"
+                                                                             ToolTip.Tip="{x:Static locPw:Localization.DetailsDashboardTip}"
                                                                              Click="ButtonOpenClassPlanDetailsWindow_OnClick"
                                                                              IsVisible="{Binding ViewModel.SelectedClassPlan, Converter={x:Static ObjectConverters.IsNotNull}}" />
                                                 <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xea2f;}"
-                                                                             Label="创建临时层"
-                                                                             ToolTip.Tip="创建临时课表层。"
+                                                                             Label="{x:Static locPw:Localization.CreateOverlayHeader}"
+                                                                             ToolTip.Tip="{x:Static locPw:Localization.CreateOverlayTip}"
                                                                              Click="ButtonOpenCreateOverlayClassPlanFlyout_OnClick"
                                                                              IsVisible="{Binding ViewModel.SelectedClassPlan, Converter={x:Static ObjectConverters.IsNotNull}}"
                                                                              IsEnabled="{Binding ViewModel.SelectedClassPlan.IsOverlay, Converter={StaticResource BooleanToBooleanReConverter}, FallbackValue={x:False}}"
                                                                              Flyout="{StaticResource CreateOverlayFlyout}" />
                                                 <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xe61d;}"
-                                                                             Label="删除"
-                                                                             ToolTip.Tip="删除该课表。"
+                                                                             Label="{x:Static locPw:Localization.DeleteLabel}"
+                                                                             ToolTip.Tip="{x:Static locPw:Localization.DeleteClassPlanTip}"
                                                                              Flyout="{StaticResource DeleteClassPlanConfirmFlyout}"
                                                                              IsVisible="{Binding ViewModel.SelectedClassPlan, Converter={x:Static ObjectConverters.IsNotNull}}" />
                                             </controls:FACommandBar.PrimaryCommands>
@@ -1266,7 +1266,7 @@
                                     <ci:ReusableTabControl Grid.Row="1" Grid.Column="2" Classes="compact tag-SubjectsInput"
                                                 IsEnabled="{Binding !ViewModel.ManagementService.Policy.DisableProfileClassPlanEditing}"
                                                 Padding="0">
-                                        <TabItem Header="编辑科目">
+                                        <TabItem Header="{x:Static locPw:Localization.EditSubjectTabHeader}">
                                             <Grid RowDefinitions="*, Auto">
                                                 <ListBox
                                                     Grid.Row="0"
@@ -1302,13 +1302,13 @@
                                                 </ListBox>
                                                 <CheckBox Margin="8" Grid.Row="1"
                                                           IsChecked="{Binding ViewModel.SettingsService.Settings.IsProfileEditorClassInfoSubjectAutoMoveNextEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=views:ProfileSettingsWindow}}"
-                                                          Content="选完科目自动移动到下一个课程" />
+                                                          Content="{x:Static locPw:Localization.AutoMoveNextAfterSubjectSelected}" />
                                             </Grid>
                                         </TabItem>
                                     </ci:ReusableTabControl>
                                 </Grid>
                             </TabItem>
-                            <TabItem Header="{ci:FluentIcon &#xE304;}" ToolTip.Tip="月视图">
+                            <TabItem Header="{ci:FluentIcon &#xE304;}" ToolTip.Tip="{x:Static locPw:Localization.MonthViewToolTip}">
                                 <Grid RowDefinitions="Auto *">
                                     <ci:TutorialBarrier>
                                         <controls:FACommandBar Grid.Column="0"
@@ -1318,9 +1318,9 @@
                                                                Classes="hide-popup-indicator">
                                             <controls:FACommandBar.PrimaryCommands>
                                                 <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xE0B5;}"
-                                                                           Label="刷新"
+                                                                           Label="{x:Static locPw:Localization.RefreshLabel}"
                                                                            Click="ButtonRefreshScheduleDataGrid_OnClick"
-                                                                           ToolTip.Tip="刷新当前视图。" />
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.RefreshCurrentViewTip}" />
                                             </controls:FACommandBar.PrimaryCommands>
 
                                         </controls:FACommandBar>
@@ -1335,7 +1335,7 @@
                     </ci:Lazy>
                     
                 </TabItem>
-                <TabItem Header="时间表" Classes="tag-TimeLayouts"
+                <TabItem Header="{x:Static locPw:Localization.TimeLayoutLabel}" Classes="tag-TimeLayouts"
                          IsVisible="{Binding !ViewModel.ManagementService.Policy.DisableProfileEditing}">
                     <ci:Lazy>
                         <Grid>
@@ -1352,14 +1352,14 @@
                                                          DefaultLabelPosition="Right"
                                                          IsEnabled="{Binding ViewModel.ManagementService.Policy.DisableProfileTimeLayoutEditing, Converter={StaticResource InvertBooleanConverter}}">
                                         <controls:FACommandBar.PrimaryCommands>
-                                            <controls:FACommandBarButton Click="ButtonAddTimeLayout_OnClick" ToolTip.Tip="新建一个时间表。"
+                                            <controls:FACommandBarButton Click="ButtonAddTimeLayout_OnClick" ToolTip.Tip="{x:Static locPw:Localization.CreateTimeLayoutTip}"
                                                                        IconSource="{ci:FluentIconSource &#xE00D;}"
-                                                                       Label="添加"/>
+                                                                       Label="{x:Static locPw:Localization.AddLabel}"/>
                                             <controls:FACommandBarSeparator />
-                                            <controls:FACommandBarButton Click="ButtonDuplicateTimeLayout_OnClick" ToolTip.Tip="复制选中的时间表。"
+                                            <controls:FACommandBarButton Click="ButtonDuplicateTimeLayout_OnClick" ToolTip.Tip="{x:Static locPw:Localization.DuplicateTimeLayoutTip}"
                                                                        IconSource="{ci:FluentIconSource &#xE58D;}"
                                                                        IsEnabled="{Binding ViewModel.SelectedTimeLayout, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                                                       Label="复制"/>
+                                                                       Label="{x:Static locPw:Localization.DuplicateLabel}"/>
                                         </controls:FACommandBar.PrimaryCommands>
                                     </controls:FACommandBar>
                                 </ci:TutorialBarrier>
@@ -1393,7 +1393,7 @@
                                                                HorizontalAlignment="Left" />
                                                     <ci:FluentIcon Glyph="&#xE4D2;" HorizontalAlignment="Right"
                                                                    Grid.Column="2"
-                                                                   ToolTip.Tip="此时间表正在活动。"
+                                                                   ToolTip.Tip="{x:Static locPw:Localization.TimeLayoutActiveTip}"
                                                                    IsVisible="{Binding Value.IsActivated, Mode=OneWay}" />
                                                 </Grid>
                                             </DataTemplate>
@@ -1406,16 +1406,16 @@
                                           VerticalAlignment="Center"
                                           Padding="12 10 12 10"
                                           Grid.Row="2"
-                                          ExpandDirection="Up" Header="时间点时长"
+                                          ExpandDirection="Up" Header="{x:Static locPw:Localization.TimePointDurationHeader}"
                                           IsEnabled="{Binding ViewModel.ManagementService.Policy.DisableProfileTimeLayoutEditing, Converter={StaticResource InvertBooleanConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=views:ProfileSettingsWindow}}">
                                     <StackPanel Spacing="4">
-                                        <ci:Field Label="默认上课时间点时长" Suffix="分钟">
+                                        <ci:Field Label="{x:Static locPw:Localization.DefaultOnClassDurationLabel}" Suffix="{x:Static locPw:Localization.MinutesSuffix}">
                                             <controls:FANumberBox
                                                 Maximum="36000" Minimum="0" HorizontalAlignment="Stretch"
                                                 Foreground="{DynamicResource MaterialDesignBody}"
                                                 Value="{Binding ViewModel.SettingsService.Settings.DefaultOnClassTimePointMinutes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={x:Static ci:NotNaNConverter.Instance}}" />
                                         </ci:Field>
-                                        <ci:Field Label="默认课间时间点时长" Suffix="分钟">
+                                        <ci:Field Label="{x:Static locPw:Localization.DefaultBreakDurationLabel}" Suffix="{x:Static locPw:Localization.MinutesSuffix}">
                                             <controls:FANumberBox
                                                 Maximum="36000" Minimum="0" HorizontalAlignment="Stretch"
                                                 Foreground="{DynamicResource MaterialDesignBody}"
@@ -1445,39 +1445,39 @@
                                             <controls:FACommandBar.PrimaryCommands>
                                                 <controls:FACommandBarButton Click="ButtonAddClassTime_OnClick" 
                                                                            IconSource="{ci:FluentIconSource &#xE47A;}"
-                                                                           ToolTip.Tip="添加上课时间点。"
-                                                                           Label="上课"/>
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.AddOnClassTimePointTip}"
+                                                                           Label="{x:Static locPw:Localization.OnClassLabel}"/>
                                                 <controls:FACommandBarButton Click="ButtonAddBreakTime_OnClick" 
                                                                            IconSource="{ci:FluentIconSource &#xE4C4;}"
-                                                                           ToolTip.Tip="添加课间休息时间点。"
-                                                                           Label="课间"/>
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.AddBreakTimePointTip}"
+                                                                           Label="{x:Static locPw:Localization.BreakLabel}"/>
                                                 <controls:FACommandBarButton Click="ButtonAddSeparator_OnClick" 
                                                                            IconSource="{ci:FluentIconSource &#xF021;}"
-                                                                           ToolTip.Tip="添加分割线。"
-                                                                           Label="分割线"/>
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.AddSeparatorTip}"
+                                                                           Label="{x:Static locPw:Localization.SeparatorLabel}"/>
                                                 <controls:FACommandBarButton Click="ButtonAddActionTimePoint_OnClick" 
                                                                            IconSource="{ci:FluentIconSource &#xE01F;}"
-                                                                           ToolTip.Tip="添加行动时间点。"
-                                                                           Label="行动" />
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.AddActionTimePointTip}"
+                                                                           Label="{x:Static locPw:Localization.ActionLabel}" />
                                                 <controls:FACommandBarSeparator />
                                                 <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xE58B;}"
                                                                            Command="{Binding $parent[views:ProfileSettingsWindow].DuplicateTimePointCommand}"
                                                                            CommandParameter="{Binding $parent[views:ProfileSettingsWindow].ViewModel.SelectedTimePoint}"
-                                                                           ToolTip.Tip="创建选中时间点的副本。"
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.DuplicateTimePointTip}"
                                                                            IsEnabled="{Binding $parent[views:ProfileSettingsWindow].ViewModel.SelectedTimePoint, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                                                           Label="创建副本" />
+                                                                           Label="{x:Static locPw:Localization.CreateDuplicateLabel}" />
                                                 <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xE195;}"
-                                                                           ToolTip.Tip="撤销 (Ctrl+Z 单步)"
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.UndoStepToolTip}"
                                                                            IsEnabled="{Binding $parent[views:ProfileSettingsWindow].ViewModel.CanUndo}">
                                                     <controls:FACommandBarButton.Flyout>
                                                         <Flyout Placement="BottomEdgeAlignedLeft">
                                                             <StackPanel Spacing="4" MinWidth="180">
-                                                                <Button Content="撤销上一步 (Ctrl+Z)"
+                                                                <Button Content="{x:Static locPw:Localization.UndoLastStepButton}"
                                                                         Click="ButtonUndoAdd_OnClick"
                                                                         HorizontalAlignment="Stretch"
                                                                         HorizontalContentAlignment="Left" />
                                                                 <Separator />
-                                                                <TextBlock Text="撤销历史" Opacity="0.6" FontSize="11" />
+                                                                <TextBlock Text="{x:Static locPw:Localization.UndoHistoryLabel}" Opacity="0.6" FontSize="11" />
                                                                 <ScrollViewer MaxHeight="200">
                                                                     <ListBox ItemsSource="{Binding $parent[views:ProfileSettingsWindow].ViewModel.UndoDescriptions}"
                                                                              SelectionChanged="UndoHistoryList_OnSelectionChanged" />
@@ -1487,17 +1487,17 @@
                                                     </controls:FACommandBarButton.Flyout>
                                                 </controls:FACommandBarButton>
                                                 <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xE121;}"
-                                                                           ToolTip.Tip="重做 (Ctrl+Y 单步)"
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.RedoStepToolTip}"
                                                                            IsEnabled="{Binding $parent[views:ProfileSettingsWindow].ViewModel.CanRedo}">
                                                     <controls:FACommandBarButton.Flyout>
                                                         <Flyout Placement="BottomEdgeAlignedLeft">
                                                             <StackPanel Spacing="4" MinWidth="180">
-                                                                <Button Content="重做上一步 (Ctrl+Y)"
+                                                                <Button Content="{x:Static locPw:Localization.RedoLastStepButton}"
                                                                         Click="ButtonRedoAdd_OnClick"
                                                                         HorizontalAlignment="Stretch"
                                                                         HorizontalContentAlignment="Left" />
                                                                 <Separator />
-                                                                <TextBlock Text="重做历史" Opacity="0.6" FontSize="11" />
+                                                                <TextBlock Text="{x:Static locPw:Localization.RedoHistoryLabel}" Opacity="0.6" FontSize="11" />
                                                                 <ScrollViewer MaxHeight="200">
                                                                     <ListBox ItemsSource="{Binding $parent[views:ProfileSettingsWindow].ViewModel.RedoDescriptions}"
                                                                              SelectionChanged="RedoHistoryList_OnSelectionChanged" />
@@ -1508,27 +1508,27 @@
                                                 </controls:FACommandBarButton>
                                                 <controls:FACommandBarSeparator />
                                                 <controls:FACommandBarButton Click="ButtonRemoveTimePoint_OnClick"
-                                                                           ToolTip.Tip="删除选中的时间点。"
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.DeleteTimePointTip}"
                                                                            IsEnabled="{Binding $parent[views:ProfileSettingsWindow].ViewModel.SelectedTimePoint, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                                                           Label="删除">
+                                                                           Label="{x:Static locPw:Localization.DeleteLabel}">
                                                     <controls:FACommandBarButton.IconSource>
                                                         <controls:FASymbolIconSource Symbol="Remove"/>
                                                     </controls:FACommandBarButton.IconSource>
                                                 </controls:FACommandBarButton>
                                                 <controls:FACommandBarButton Click="ButtonRefreshTimeLayout_OnClick" 
                                                                            IconSource="{ci:FluentIconSource &#xE0B5;}"
-                                                                           ToolTip.Tip="重新排序该时间表中的时间点。"
-                                                                           Label="刷新"/>
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.ResortTimePointsTip}"
+                                                                           Label="{x:Static locPw:Localization.RefreshLabel}"/>
                                                 <controls:FACommandBarSeparator />
                                                 <controls:FACommandBarButton Click="ButtonEditTimeLayoutInfo_OnClick" 
                                                                            IconSource="{ci:FluentIconSource &#xE9E4;}"
-                                                                           ToolTip.Tip="查看并编辑时间表的基本信息。"
-                                                                           Label="时间表信息"/>
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.ViewTimeLayoutDetailsTip}"
+                                                                           Label="{x:Static locPw:Localization.TimeLayoutInfoHeader}"/>
                                                 <controls:FACommandBarButton Click="ButtonDeleteTimeLayout_OnClick"
                                                                            IconSource="{ci:FluentIconSource &#xE61D;}"
-                                                                           ToolTip.Tip="删除该时间表。"
+                                                                           ToolTip.Tip="{x:Static locPw:Localization.DeleteTimeLayoutTip}"
                                                                            IsEnabled="{Binding $parent[views:ProfileSettingsWindow].ViewModel.SelectedTimeLayout, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                                                           Label="删除时间表"/>
+                                                                           Label="{x:Static locPw:Localization.DeleteTimeLayoutLabel}"/>
                                             </controls:FACommandBar.PrimaryCommands>
                                         </controls:FACommandBar>
                                     </ci:TutorialBarrier>
@@ -1580,7 +1580,7 @@
                                                 VerticalAlignment="Bottom">
                                         <ToggleButton Theme="{StaticResource TransparentToggleButton}"
                                                 Content="{ci:FluentIcon &#xE095;}"
-                                                ToolTip.Tip="时间点吸附"
+                                                ToolTip.Tip="{x:Static locPw:Localization.TimePointSnapTip}"
                                                 IsChecked="{Binding $parent[views:ProfileSettingsWindow].ViewModel.IsTimeLineSticky}">
                                             <ToggleButton.IsVisible>
                                                 <Binding Path="$parent[views:ProfileSettingsWindow].ViewModel.SettingsService.Settings.TimeLayoutEditorIndex"
@@ -1593,7 +1593,7 @@
                                         </ToggleButton>
                                         <Button Theme="{StaticResource TransparentButton}"
                                                 Content="{ci:FluentIcon &#xf4d3;}"
-                                                ToolTip.Tip="缩小"
+                                                ToolTip.Tip="{x:Static locPw:Localization.ZoomOutTip}"
                                                 Click="ButtonZoomOut_OnClick">
                                             <ToggleButton.IsVisible>
                                                 <Binding Path="$parent[views:ProfileSettingsWindow].ViewModel.SettingsService.Settings.TimeLayoutEditorIndex"
@@ -1617,7 +1617,7 @@
                                         </TextBlock>
                                         <Button Theme="{StaticResource TransparentButton}"
                                                 Content="{ci:FluentIcon &#xf4d1;}"
-                                                ToolTip.Tip="放大"
+                                                ToolTip.Tip="{x:Static locPw:Localization.ZoomInTip}"
                                                 Click="ButtonZoomIn_OnClick">
                                             <ToggleButton.IsVisible>
                                                 <Binding Path="$parent[views:ProfileSettingsWindow].ViewModel.SettingsService.Settings.TimeLayoutEditorIndex"
@@ -1630,7 +1630,7 @@
                                         </Button>
                                         <Button Theme="{StaticResource TransparentButton}"
                                                 Content="{ci:FluentIcon &#xEBD2;}"
-                                                ToolTip.Tip="定位到选择的时间点"
+                                                ToolTip.Tip="{x:Static locPw:Localization.LocateSelectedTimePointTip}"
                                                 Click="ButtonTimeLayoutItemScrollIntoItem"/>
                                     </StackPanel>
                                     <GridSplitter Grid.Row="2" Grid.Column="1" Margin="2 0"/>
@@ -1708,47 +1708,47 @@
                                                     </DataTriggerBehavior>
                                                 </Interaction.Behaviors>
                                                 <StackPanel Spacing="8" Classes="tag-TimePointEditing">
-                                                    <TextBlock Text="编辑时间点"
+                                                    <TextBlock Text="{x:Static locPw:Localization.EditTimePointHeader}"
                                                                Theme="{StaticResource SubtitleTextBlockStyle}" />
                                                     <!--<TextBlock Text="{Binding}"/>-->
-                                                    <ci:Field Label="开始时间">
+                                                    <ci:Field Label="{x:Static locPw:Localization.StartTimeLabel}">
                                                         <TimePicker
                                                             SelectedTime="{Binding ViewModel.SelectedTimePoint.StartTime}"
                                                             UseSeconds="True" />
                                                     </ci:Field>
-                                                    <ci:Field Label="结束时间" x:Name="FieldEndTime">
+                                                    <ci:Field Label="{x:Static locPw:Localization.EndTimeLabel}" x:Name="FieldEndTime">
                                                         <TimePicker
                                                             SelectedTime="{Binding ViewModel.SelectedTimePoint.EndTime}"
                                                             UseSeconds="True">
                                                         </TimePicker>
                                                     </ci:Field>
-                                                    <ci:Field Label="类型" x:Name="FieldTimeLayoutType">
+                                                    <ci:Field Label="{x:Static locPw:Localization.TypeLabel}" x:Name="FieldTimeLayoutType">
                                                         <ListBox
                                                             Theme="{StaticResource ChipListBoxTheme}"
                                                             SelectedIndex="{Binding ViewModel.SelectedTimePoint.TimeType}">
                                                             <ListBoxItem>
-                                                                <ci:IconText Glyph="&#xE47A;" Text="上课" />
+                                                                <ci:IconText Glyph="&#xE47A;" Text="{x:Static locPw:Localization.OnClassLabel}" />
                                                             </ListBoxItem>
                                                             <ListBoxItem>
-                                                                <ci:IconText Glyph="&#xE4C4;" Text="课间休息" />
+                                                                <ci:IconText Glyph="&#xE4C4;" Text="{x:Static locPw:Localization.BreakRestLabel}" />
                                                             </ListBoxItem>
                                                             <ListBoxItem IsVisible="False">
-                                                                <ci:IconText Glyph="&#xF021;" Text="分割线" />
+                                                                <ci:IconText Glyph="&#xF021;" Text="{x:Static locPw:Localization.SeparatorLabel}" />
                                                             </ListBoxItem>
                                                             <ListBoxItem IsVisible="False">
-                                                                <ci:IconText Glyph="&#xE01F;" Text="行动" />
+                                                                <ci:IconText Glyph="&#xE01F;" Text="{x:Static locPw:Localization.ActionLabel}" />
                                                             </ListBoxItem>
                                                         </ListBox>
                                                     </ci:Field>
                                                 </StackPanel>
                                                 <StackPanel x:Name="StackPanelClassTimePointSettings" Spacing="8">
-                                                    <CheckBox Content="默认隐藏"
+                                                    <CheckBox Content="{x:Static locPw:Localization.HideByDefault}"
                                                               IsChecked="{Binding ViewModel.SelectedTimePoint.IsHideDefault}" />
-                                                    <TextBlock Text="若默认隐藏一个时间点，那么只有在处于此时间点时，此时间点才会显示。" TextWrapping="Wrap" 
+                                                    <TextBlock Text="{x:Static locPw:Localization.HideByDefaultDescription}" TextWrapping="Wrap" 
                                                                Classes="l-instructive"/>
 
                                                     <Separator Margin="0 4 0 0" />
-                                                    <ci:IconText Glyph="&#xE47A;" Text="默认课程"  />
+                                                    <ci:IconText Glyph="&#xE47A;" Text="{x:Static locPw:Localization.DefaultClassLabel}"  />
                                                     <ComboBox
                                                         HorizontalAlignment="Stretch"
                                                         ItemsSource="{Binding ViewModel.Subjects.List, UpdateSourceTrigger=PropertyChanged}"
@@ -1764,12 +1764,12 @@
                                                         <Button Theme="{StaticResource TransparentButton}"
                                                                 Click="ButtonOverwriteClasses_OnClick"
                                                                 IsEnabled="{Binding ViewModel.ManagementService.Policy.DisableProfileClassPlanEditing, Converter={StaticResource InvertBooleanConverter}}">
-                                                            <ci:IconText Glyph="&#xE1A1;" Text="覆盖现有课程" />
+                                                            <ci:IconText Glyph="&#xE1A1;" Text="{x:Static locPw:Localization.OverwriteExistingClasses}" />
                                                         </Button>
                                                     </WrapPanel>
                                                 </StackPanel>
                                                 <StackPanel x:Name="StackPanelBreakingTimePointSettings">
-                                                    <ci:Field Label="课间名称">
+                                                    <ci:Field Label="{x:Static locPw:Localization.BreakNameLabel}">
                                                         <AutoCompleteBox
                                                             ItemsSource="{Binding $parent[views:ProfileSettingsWindow].ViewModel.CurrentProfileBreakNames}"
                                                             Text="{Binding ViewModel.SelectedTimePoint.BreakName}"
@@ -1778,7 +1778,7 @@
                                                 </StackPanel>
                                                 <Separator Margin="0 4 0 8" />
                                                 <StackPanel x:Name="StackPanelTimePointAttachedSettings">
-                                                    <ci:IconText Glyph="&#xEF2B;" Text="更多选项" Margin="0 0 0 8" />
+                                                    <ci:IconText Glyph="&#xEF2B;" Text="{x:Static locPw:Localization.MoreOptionsLabel}" Margin="0 0 0 8" />
                                                     <ItemsControl
                                                         ItemsSource="{x:Static services:IAttachedSettingsHostService.TimePointSettingsAttachedSettingsControls}">
                                                         <ItemsControl.ItemTemplate>
@@ -1805,14 +1805,14 @@
                                                 </StackPanel>
                                                 <StackPanel x:Name="StackPanelActionTimePointSettings"
                                                             IsVisible="{Binding ViewModel.SelectedTimePoint.ActionSet, Converter={x:Static ObjectConverters.IsNotNull}}">
-                                                    <ci:IconText Glyph="&#xE01F;" Text="行动" Margin="0 0 0 8" />
+                                                    <ci:IconText Glyph="&#xE01F;" Text="{x:Static locPw:Localization.ActionLabel}" Margin="0 0 0 8" />
                                                     <controls:FAInfoBar
                                                         IsClosable="False"
                                                         IsOpen="True"
                                                         IsVisible="{Binding !ViewModel.ProfileService.IsCurrentProfileTrusted, RelativeSource={RelativeSource AncestorType=views:ProfileSettingsWindow}}"
                                                         Severity="Warning"
-                                                        Title="不信任的档案"
-                                                        Message="当前档案不受信任，行动时间点不会自动运行。"
+                                                        Title="{x:Static locPw:Localization.UntrustedProfileTitle}"
+                                                        Message="{x:Static locPw:Localization.UntrustedProfileInfoBarMessage}"
                                                         Margin="0 4"/>
                                                     <automation:ActionSetRunningControl ActionSet="{Binding ViewModel.SelectedTimePoint.ActionSet}"
                                                             Margin="0 0 0 6"
@@ -1829,7 +1829,7 @@
                         </Grid>
                     </ci:Lazy>
                 </TabItem>
-                <TabItem Header="课程" Classes="tag-Schedules"
+                <TabItem Header="{x:Static locPw:Localization.SchedulesTabHeader}" Classes="tag-Schedules"
                          IsVisible="{Binding !ViewModel.ManagementService.Policy.DisableProfileEditing}">
                     <ci:Lazy>
                         <Grid RowDefinitions="Auto,Auto,*">
@@ -1840,7 +1840,7 @@
                             </Grid.ColumnDefinitions>
 
                             <controls:FAInfoBar Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
-                                                Severity="Warning" Message="实验性功能，正在开发中，不保证数据完全向后兼容，请以最终版本为准。"
+                                                Severity="Warning" Message="{x:Static locPw:Localization.ExperimentalFeatureWarning}"
                                                 IsOpen="True"
                                                 IsClosable="False"/>
 
@@ -1857,24 +1857,24 @@
                                 </controls:FACommandBar.IsEnabled>
                                 <controls:FACommandBar.PrimaryCommands>
                                     <controls:FACommandBarButton Click="ButtonAddScheduleItem_OnClick"
-                                                               ToolTip.Tip="新建一个课程。" Label="添加">
+                                                               ToolTip.Tip="{x:Static locPw:Localization.CreateScheduleTip}" Label="{x:Static locPw:Localization.AddLabel}">
                                         <controls:FACommandBarButton.IconSource>
                                             <ci:FluentIconSource Glyph="{ci:FI AddRegular}"/>
                                         </controls:FACommandBarButton.IconSource>
                                     </controls:FACommandBarButton>
                                     <controls:FACommandBarSeparator/>
                                     <controls:FACommandBarButton Click="ButtonDuplicateScheduleItem_OnClick"
-                                                               ToolTip.Tip="复制选中的课程。"
+                                                               ToolTip.Tip="{x:Static locPw:Localization.DuplicateScheduleTip}"
                                                                IsEnabled="{Binding ViewModel.SelectedScheduleItemKvp, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                                               Label="复制">
+                                                               Label="{x:Static locPw:Localization.DuplicateLabel}">
                                         <controls:FACommandBarButton.IconSource>
                                             <ci:FluentIconSource Glyph="{ci:FI CopyRegular}"/>
                                         </controls:FACommandBarButton.IconSource>
                                     </controls:FACommandBarButton>
                                     <controls:FACommandBarButton Click="ButtonDeleteScheduleItem_OnClick"
-                                                               ToolTip.Tip="删除选中的课程。"
+                                                               ToolTip.Tip="{x:Static locPw:Localization.DeleteScheduleTip}"
                                                                IsEnabled="{Binding ViewModel.SelectedScheduleItemKvp, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                                               Label="删除">
+                                                               Label="{x:Static locPw:Localization.DeleteLabel}">
                                         <controls:FACommandBarButton.IconSource>
                                             <ci:FluentIconSource Glyph="{ci:FI DeleteRegular}"/>
                                         </controls:FACommandBarButton.IconSource>
@@ -1890,7 +1890,7 @@
                                             <Setter Property="ClipToBounds" Value="False"/>
                                         </Style>
                                     </ci:ReusableTabControl.Styles>
-                                    <TabItem ToolTip.Tip="列表视图">
+                                    <TabItem ToolTip.Tip="{x:Static locPw:Localization.ListViewToolTip}">
                                         <TabItem.Header><ci:FluentIcon Glyph="{ci:FI TextBulletListLtrRegular}"/></TabItem.Header>
                                 <DataGrid Grid.Row="0"
                                           x:Name="DataGridScheduleItems"
@@ -1972,12 +1972,12 @@
                                                                            VerticalAlignment="Stretch" Height="32" Opacity="0"/>
                                                         <ci:FluentIcon Glyph="{ci:FI BookClockRegular}"
                                                                        Classes="l-instructive"
-                                                                       ToolTip.Tip="拖拽调整课程顺序"/>
+                                                                       ToolTip.Tip="{x:Static locPw:Localization.DragToReorderTip}"/>
                                                     </Grid>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="科目" Width="*" MinWidth="140">
+                                        <DataGridTemplateColumn Header="{x:Static locPw:Localization.SubjectLabel}" Width="*" MinWidth="140">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <ContentControl
@@ -2007,7 +2007,7 @@
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellEditingTemplate>
                                         </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="开始时间" Width="180" MinWidth="180">
+                                        <DataGridTemplateColumn Header="{x:Static locPw:Localization.StartTimeLabel}" Width="180" MinWidth="180">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Value.StartTime, StringFormat='{}{0:hh\\:mm\\:ss}'}"
@@ -2022,7 +2022,7 @@
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellEditingTemplate>
                                         </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="结束时间" Width="180" MinWidth="180">
+                                        <DataGridTemplateColumn Header="{x:Static locPw:Localization.EndTimeLabel}" Width="180" MinWidth="180">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Value.EndTime, StringFormat='{}{0:hh\\:mm\\:ss}'}"
@@ -2040,21 +2040,21 @@
                                     </DataGrid.Columns>
                                 </DataGrid>
                                     </TabItem>
-                                    <TabItem ToolTip.Tip="日程视图">
+                                    <TabItem ToolTip.Tip="{x:Static locPw:Localization.ScheduleViewToolTip}">
                                         <TabItem.Header><ci:FluentIcon Glyph="{ci:FI CalendarWeekStartRegular}"/></TabItem.Header>
                                         <Grid RowDefinitions="Auto,*">
                                             <WrapPanel Orientation="Horizontal" Margin="0,0,0,6">
                                                 <CalendarDatePicker Width="150" Margin="0,0,4,0"
                                                     SelectedDate="{Binding ViewModel.ScheduleWeekNavigationDate, Mode=TwoWay}"
                                                     DisplayDateEnd="{Binding ViewModel.ScheduleWeekNavigationMaxDate}"
-                                                    ToolTip.Tip="选择日期以跳转到所在周"/>
-                                                <Button Click="ScheduleWeekPrevious_OnClick" ToolTip.Tip="上一周" Margin="0,0,4,0"
+                                                    ToolTip.Tip="{x:Static locPw:Localization.PickDateToJumpWeekTip}"/>
+                                                <Button Click="ScheduleWeekPrevious_OnClick" ToolTip.Tip="{x:Static locPw:Localization.PreviousWeekTip}" Margin="0,0,4,0"
                                                         Theme="{StaticResource TransparentButton}">
                                                     <ci:FluentIcon Glyph="{ci:FI ChevronLeftRegular}"/>
                                                 </Button>
-                                                <Button Click="ScheduleWeekToday_OnClick" Content="本周" Margin="0,0,4,0"
+                                                <Button Click="ScheduleWeekToday_OnClick" Content="{x:Static locPw:Localization.ThisWeekLabel}" Margin="0,0,4,0"
                                                         Theme="{StaticResource TransparentButton}"/>
-                                                <Button Click="ScheduleWeekNext_OnClick" ToolTip.Tip="下一周" Margin="0,0,4,0"
+                                                <Button Click="ScheduleWeekNext_OnClick" ToolTip.Tip="{x:Static locPw:Localization.NextWeekTip}" Margin="0,0,4,0"
                                                         Theme="{StaticResource TransparentButton}">
                                                     <ci:FluentIcon Glyph="{ci:FI ChevronRightRegular}"/>
                                                 </Button>
@@ -2109,9 +2109,9 @@
                                                              Converter="{StaticResource InvertBooleanConverter}"/>
                                                 </MultiBinding>
                                             </StackPanel.IsEnabled>
-                                            <TextBlock Text="编辑课程信息"
+                                            <TextBlock Text="{x:Static locPw:Localization.EditClassInfoHeader}"
                                                        Theme="{StaticResource SubtitleTextBlockStyle}"/>
-                                            <ci:Field Label="科目">
+                                            <ci:Field Label="{x:Static locPw:Localization.SubjectLabel}">
                                                 <ComboBox ItemsSource="{Binding $parent[views:ProfileSettingsWindow].ViewModel.ScheduleItemSubjects.List}"
                                                           SelectedValue="{Binding SubjectId, Mode=TwoWay}"
                                                           SelectedValueBinding="{Binding Key}"
@@ -2123,12 +2123,12 @@
                                                     </ComboBox.ItemTemplate>
                                                 </ComboBox>
                                             </ci:Field>
-                                            <ci:Field Label="开始时间">
+                                            <ci:Field Label="{x:Static locPw:Localization.StartTimeLabel}">
                                                 <TimePicker SelectedTime="{Binding StartTime, Mode=TwoWay}"
                                                             UseSeconds="True" MinWidth="0"
                                                             HorizontalAlignment="Stretch"/>
                                             </ci:Field>
-                                            <ci:Field Label="结束时间">
+                                            <ci:Field Label="{x:Static locPw:Localization.EndTimeLabel}">
                                                 <TimePicker SelectedTime="{Binding EndTime, Mode=TwoWay}"
                                                             UseSeconds="True" MinWidth="0"
                                                             HorizontalAlignment="Stretch"/>
@@ -2142,7 +2142,7 @@
                         </Grid>
                     </ci:Lazy>
                 </TabItem>
-                <TabItem Header="科目" Classes="tag-Subjects"
+                <TabItem Header="{x:Static locPw:Localization.SubjectLabel}" Classes="tag-Subjects"
                          IsVisible="{Binding !ViewModel.ManagementService.Policy.DisableProfileEditing}">
                     <ci:Lazy>
                         <Grid RowDefinitions="Auto,*">
@@ -2156,15 +2156,15 @@
                                      Grid.Row="0" DefaultLabelPosition="Right"
                                      IsEnabled="{Binding ViewModel.ManagementService.Policy.DisableProfileSubjectsEditing, Converter={StaticResource BooleanToBooleanReConverter}}">
                                 <controls:FACommandBar.PrimaryCommands>
-                                    <controls:FACommandBarButton Click="ButtonAddSubject_OnClick" ToolTip.Tip="新建一个科目。"
-                                                               IconSource="{ci:FluentIconSource &#xE00D;}" Label="添加"/>
+                                    <controls:FACommandBarButton Click="ButtonAddSubject_OnClick" ToolTip.Tip="{x:Static locPw:Localization.CreateSubjectTip}"
+                                                               IconSource="{ci:FluentIconSource &#xE00D;}" Label="{x:Static locPw:Localization.AddLabel}"/>
                                     <controls:FACommandBarSeparator/>
-                                    <controls:FACommandBarButton Click="ButtonDuplicateSubject_OnClick" ToolTip.Tip="复制选中的科目。"
+                                    <controls:FACommandBarButton Click="ButtonDuplicateSubject_OnClick" ToolTip.Tip="{x:Static locPw:Localization.DuplicateSubjectTip}"
                                                                IsEnabled="{Binding ViewModel.SelectedSubjectKvp, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                                               IconSource="{ci:FluentIconSource &#xE58D;}" Label="复制"/>
-                                    <controls:FACommandBarButton Click="ButtonDeleteSubject_OnClick" ToolTip.Tip="删除选中的科目。"
+                                                               IconSource="{ci:FluentIconSource &#xE58D;}" Label="{x:Static locPw:Localization.DuplicateLabel}"/>
+                                    <controls:FACommandBarButton Click="ButtonDeleteSubject_OnClick" ToolTip.Tip="{x:Static locPw:Localization.DeleteSubjectTip}"
                                                                IsEnabled="{Binding ViewModel.SelectedSubjectKvp, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                                               IconSource="{ci:FluentIconSource &#xE61D;}" Label="删除"/>
+                                                               IconSource="{ci:FluentIconSource &#xE61D;}" Label="{x:Static locPw:Localization.DeleteLabel}"/>
                                 </controls:FACommandBar.PrimaryCommands>
                             </controls:FACommandBar>
                             <!-- 科目选择 -->
@@ -2226,7 +2226,7 @@
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="图标" Width="72">
+                                        <DataGridTemplateColumn Header="{x:Static locPw:Localization.IconLabel}" Width="72">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <controls:FAIconSourceElement IconSource="{Binding Value.Icon, Converter={StaticResource SubjectIconSourceConverter}}"
@@ -2243,7 +2243,7 @@
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellEditingTemplate>
                                         </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="主题色" Width="72">
+                                        <DataGridTemplateColumn Header="{x:Static locPw:Localization.ThemeColorLabel}" Width="72">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <Border Width="24" Height="24" CornerRadius="4"
@@ -2262,15 +2262,15 @@
                                             </DataGridTemplateColumn.CellEditingTemplate>
                                         </DataGridTemplateColumn>
                                         <DataGridTextColumn Binding="{Binding Value.Name, Mode=TwoWay}"
-                                                            Header="科目名"/>
+                                                            Header="{x:Static locPw:Localization.SubjectNameLabel}"/>
                                         <DataGridTextColumn Binding="{Binding Value.Initial, Mode=TwoWay}"
-                                                                Header="简称"/>
+                                                                Header="{x:Static locPw:Localization.ShortNameLabel}"/>
                                         <DataGridCheckBoxColumn Binding="{Binding Value.IsOutDoor, Mode=TwoWay}"
-                                                                    Header="户外课程？"/>
+                                                                    Header="{x:Static locPw:Localization.IsOutdoorColumnHeader}"/>
                                         <DataGridTextColumn Binding="{Binding Value.TeacherName, Mode=TwoWay}"
-                                                                Header="科任老师"/>
+                                                                Header="{x:Static locPw:Localization.TeacherLabel}"/>
                                         <DataGridTextColumn Binding="{Binding Value.Location, Mode=TwoWay}"
-                                                            Header="地点"/>
+                                                            Header="{x:Static locPw:Localization.LocationLabel}"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -2291,44 +2291,44 @@
                                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                                         <StackPanel Spacing="6" Margin="8"
                                                     IsEnabled="{Binding ViewModel.ManagementService.Policy.DisableProfileSubjectsEditing, Converter={StaticResource InvertBooleanConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=views:ProfileSettingsWindow}}">
-                                            <TextBlock Text="编辑科目信息"
+                                            <TextBlock Text="{x:Static locPw:Localization.EditSubjectInfoHeader}"
                                                        Theme="{StaticResource SubtitleTextBlockStyle}"/>
                                             <!-- 科目名 & 简称 -->
                                             <Grid ColumnDefinitions="Auto,*,*,Auto" ColumnSpacing="4">
                                                 <!-- 图标 -->
-                                                <ci:Field Grid.Column="0" Label="图标">
+                                                <ci:Field Grid.Column="0" Label="{x:Static locPw:Localization.IconLabel}">
                                                     <ci:IconExpressionEditor IconExpression="{Binding Icon}"/>
                                                 </ci:Field>
                                                 <!-- 科目名 -->
-                                                <ci:Field Grid.Column="1" Label="科目名">
+                                                <ci:Field Grid.Column="1" Label="{x:Static locPw:Localization.SubjectNameLabel}">
                                                     <TextBox x:Name="TextBoxSubjectName"
                                                              Text="{Binding Name}" />
                                                 </ci:Field>
                                                 <!-- 简称 -->
-                                                <ci:Field Grid.Column="2" Label="简称">
+                                                <ci:Field Grid.Column="2" Label="{x:Static locPw:Localization.ShortNameLabel}">
                                                     <TextBox Text="{Binding Initial}" />
                                                 </ci:Field>
                                                 <!-- 主题色 -->
-                                                <ci:Field Grid.Column="3" Label="主题色">
+                                                <ci:Field Grid.Column="3" Label="{x:Static locPw:Localization.ThemeColorLabel}">
                                                     <ColorPicker Color="{Binding ColorHex, Mode=TwoWay, Converter={StaticResource StringToColorConverter}}"/>
                                                 </ci:Field>
                                             </Grid>
                                             <!-- 科任老师 -->
-                                            <ci:Field Label="科任老师">
+                                            <ci:Field Label="{x:Static locPw:Localization.TeacherLabel}">
                                                 <TextBox Text="{Binding TeacherName}" />
                                             </ci:Field>
                                             <!-- 地点 -->
-                                            <ci:Field Label="地点">
+                                            <ci:Field Label="{x:Static locPw:Localization.LocationLabel}">
                                                 <TextBox Text="{Binding Location}" />
                                             </ci:Field>
                                             <!-- 户外课程 -->
                                             <CheckBox Margin="0 6 0 0"
                                                       IsChecked="{Binding IsOutDoor}"
-                                                      Content="该科目是户外课程" />
+                                                      Content="{x:Static locPw:Localization.IsOutdoorSubject}" />
 
                                             <!-- 附加属性 -->
                                             <Separator Margin="0 20 0 8" />
-                                            <ci:IconText Glyph="&#xEF2B;" Text="更多选项" Margin="0 0 0 8" />
+                                            <ci:IconText Glyph="&#xEF2B;" Text="{x:Static locPw:Localization.MoreOptionsLabel}" Margin="0 0 0 8" />
                                             <ItemsControl
                                                 ItemsSource="{x:Static services:IAttachedSettingsHostService.SubjectSettingsAttachedSettingsControls}">
                                                 <ItemsControl.ItemTemplate>
@@ -2351,12 +2351,12 @@
                         </Grid>
                     </ci:Lazy>
                 </TabItem>
-                <TabItem Header="已禁止" Classes="tag-Forbidden"
+                <TabItem Header="{x:Static locPw:Localization.ForbiddenTabHeader}" Classes="tag-Forbidden"
                          IsVisible="{Binding ViewModel.ManagementService.Policy.DisableProfileEditing}">
-                    <ci:Empty Text="您的组织已禁用档案编辑功能。"
+                    <ci:Empty Text="{x:Static locPw:Localization.ProfileEditingDisabledByPolicy}"
                               Icon="{ci:FluentIconSource &#xee0f;, FontSize=48}"/>
                 </TabItem>
-                <TabItem Header="调课" Classes="tag-Adjustment">
+                <TabItem Header="{x:Static locPw:Localization.AdjustmentTabHeader}" Classes="tag-Adjustment">
                     <ci:Lazy>
                         <Grid RowDefinitions="Auto,*,Auto">
                             <Grid.ColumnDefinitions>
@@ -2370,7 +2370,7 @@
                                 <controls:FACommandBar.PrimaryCommands>
                                     <controls:FACommandBarButton Click="ButtonRefreshScheduleAdjustmentView_OnClick" 
                                                                IconSource="{ci:FluentIconSource &#xE0B5;}"
-                                                               Label="刷新"
+                                                               Label="{x:Static locPw:Localization.RefreshLabel}"
                                                                IsEnabled="{Binding ViewModel.IsInScheduleSwappingMode, Converter={StaticResource InvertBooleanConverter}}"/>
                                     <controls:FACommandBarSeparator>
                                         <controls:FACommandBarSeparator.IsVisible>
@@ -2384,7 +2384,7 @@
                                     </controls:FACommandBarSeparator>
                                     <controls:FACommandBarButton Click="ButtonEditClassInfoTemp_OnClick"
                                                                IconSource="{ci:FluentIconSource &#xE7C9;}"
-                                                               Label="修改课程"
+                                                               Label="{x:Static locPw:Localization.ChangeClassHeader}"
                                                                IsEnabled="{Binding ViewModel.IsInScheduleSwappingMode, Converter={StaticResource InvertBooleanConverter}}">
                                         <controls:FACommandBarButton.IsVisible>
                                             <Binding Path="#ScheduleAdjustmentTabControl.SelectedIndex"
@@ -2397,7 +2397,7 @@
                                     </controls:FACommandBarButton>
                                     <controls:FACommandBarButton Click="ButtonSwapSchedule_OnClick" 
                                                                IconSource="{ci:FluentIconSource &#xE15F;}"
-                                                               Label="交换课程"
+                                                               Label="{x:Static locPw:Localization.SwapClassesLabel}"
                                                                IsEnabled="{Binding ViewModel.IsInScheduleSwappingMode, Converter={StaticResource InvertBooleanConverter}}">
                                         <controls:FACommandBarButton.IsVisible>
                                             <Binding Path="#ScheduleAdjustmentTabControl.SelectedIndex"
@@ -2410,7 +2410,7 @@
                                     </controls:FACommandBarButton>
                                     <controls:FACommandBarButton Click="ButtonCancelClassSwap_OnClick" 
                                                                IconSource="{ci:FluentIconSource &#xE671;}"
-                                                               Label="取消"
+                                                               Label="{x:Static locPw:Localization.CancelLabel}"
                                                                IsEnabled="{Binding !ViewModel.IsInScheduleSwappingMode, Converter={StaticResource InvertBooleanConverter}}">
                                         <controls:FACommandBarButton.IsVisible>
                                             <MultiBinding Converter="{x:Static BoolConverters.And}">
@@ -2426,7 +2426,7 @@
                                     </controls:FACommandBarButton>
                                     <controls:FACommandBarButton Click="ButtonSwapScheduleComplete_OnClick" 
                                                                IconSource="{ci:FluentIconSource &#xE424;}"
-                                                               Label="完成交换"
+                                                               Label="{x:Static locPw:Localization.CompleteSwapLabel}"
                                                                IsEnabled="{Binding !ViewModel.IsInScheduleSwappingMode, Converter={StaticResource InvertBooleanConverter}}">
                                         <controls:FACommandBarButton.IsVisible>
                                             <MultiBinding Converter="{x:Static BoolConverters.And}">
@@ -2454,9 +2454,8 @@
                                         </controls:FACommandBarElementContainer.IsVisible>
                                         <CheckBox
                                             IsEnabled="{Binding !ViewModel.ManagementService.Policy.DisableProfileClassPlanEditing}"
-                                            IsChecked="{Binding ViewModel.IsTempSwapMode, Converter={StaticResource InvertBooleanConverter}}">
-                                            永久换课
-                                        </CheckBox>
+                                            IsChecked="{Binding ViewModel.IsTempSwapMode, Converter={StaticResource InvertBooleanConverter}}"
+                                            Content="{x:Static locPw:Localization.TempSwapModeLabel}" />
                                     </controls:FACommandBarElementContainer>
                                 </controls:FACommandBar.PrimaryCommands>
                             </controls:FACommandBar>
@@ -2500,9 +2499,9 @@
                                                     <TextBlock TextWrapping="Wrap"
                                                                VerticalAlignment="Center"
                                                                Margin="4 0 0 0" >
-                                                        <Run Text="正在交换课程。选择要与"/>
+                                                        <Run Text="{x:Static locPw:Localization.SwapClassesIntroPrefix}" />
                                                         <Run Text="{Binding ViewModel.ClassSwapStartPosition, Mode=OneWay}"/>
-                                                        <Run Text="交换的课程，然后点击【完成交换】。"/>
+                                                        <Run Text="{x:Static locPw:Localization.SwapClassesIntroSuffix}" />
                                                     </TextBlock>
                                                 </DockPanel>
                                             </Grid>
@@ -2539,30 +2538,30 @@
                     <controls:FACommandBar.PrimaryCommands>
                         <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xe699;}"
                                                    Label="{Binding ViewModel.ProfileService.CurrentProfilePath}"
-                                                   ToolTip.Tip="当前启用的档案"
+                                                   ToolTip.Tip="{x:Static locPw:Localization.CurrentProfileTip}"
                                                    Click="ButtonOpenProfileManager_OnClick"/>
                         <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xe6b1;}"
                                                    Click="ButtonOpenTempClassPlans_OnClick"
-                                                   Label="{Binding ViewModel.LessonsService.CurrentClassPlan.Name, FallbackValue='（无）'}"
-                                                   ToolTip.Tip="启用临时课表"/>
+                                                   Label="{Binding ViewModel.LessonsService.CurrentClassPlan.Name, FallbackValue={x:Static locPw:Localization.CurrentProfileNoneLabel}}"
+                                                   ToolTip.Tip="{x:Static locPw:Localization.EnableTempClassPlanTip}"/>
                         <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xe92f;}"
                                                    Click="ButtonClassPlansGroup_OnClick"
-                                                   ToolTip.Tip="管理课表群"
+                                                   ToolTip.Tip="{x:Static locPw:Localization.ManageClassPlanGroupsLabel}"
                                                    Label="{Binding Data.Name, Source={StaticResource ClassPlanGroupBindingProxy}, Mode=OneWay}"/>
                         <controls:FACommandBarSeparator/>
                         <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xf431;}"
-                                                   Label="不信任"
+                                                   Label="{x:Static locPw:Localization.UntrustedLabel}"
                                                    Click="ButtonTrustProfile_OnClick"
-                                                   ToolTip.Tip="当前档案不受信任，部分功能受限。"
+                                                   ToolTip.Tip="{x:Static locPw:Localization.UntrustedProfileTip}"
                                                    IsVisible="{Binding ViewModel.ProfileService.IsCurrentProfileTrusted, Converter={StaticResource InvertBooleanConverter}}" />
                         <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xeeb5;}"
-                                                   Label="保存"
+                                                   Label="{x:Static locPw:Localization.SaveLabel}"
                                                    Click="ButtonSaveProfile_OnClick"
-                                                   ToolTip.Tip="保存当前档案文件。"/>
+                                                   ToolTip.Tip="{x:Static locPw:Localization.SaveProfileTip}"/>
                         <controls:FACommandBarButton x:Name="ProfileTransferButton"
                                                    IconSource="{ci:FluentIconSource &#xe68f;}"
-                                                   Label="导入/导出"
-                                                   ToolTip.Tip="导入外部的课程信息，或导出当前的档案信息。">
+                                                   Label="{x:Static locPw:Localization.ImportExportLabel}"
+                                                   ToolTip.Tip="{x:Static locPw:Localization.ImportExportTip}">
                             <controls:FACommandBarButton.IsVisible>
                                 <MultiBinding Converter="{x:Static BoolConverters.And}">
                                     <Binding Path="!ViewModel.ManagementService.Policy.DisableProfileEditing"/>
@@ -2576,10 +2575,10 @@
                             </controls:FACommandBarButton.Flyout>
                         </controls:FACommandBarButton>
                         <controls:FACommandBarButton IconSource="{ci:FluentIconSource &#xee2f;}"
-                                                   Label="帮助"
+                                                   Label="{x:Static locPw:Localization.HelpLabel}"
                                                    Click="ButtonHelp_OnClick"
                                                    CommandParameter="https://docs.classisland.tech/app/profile/"
-                                                   ToolTip.Tip="查看档案编辑器帮助"/>
+                                                   ToolTip.Tip="{x:Static locPw:Localization.ViewHelpTip}"/>
                     </controls:FACommandBar.PrimaryCommands>
                 </controls:FACommandBar>
             </ci:TutorialBarrier>   

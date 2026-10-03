@@ -5,6 +5,7 @@
         xmlns:components="clr-namespace:ClassIsland.Core.Models.Components;assembly=ClassFabric.Core"
         xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
         xmlns:behaviors="using:ClassIsland.Behaviors"
+        xmlns:locEm="clr-namespace:ClassFabric.Assets.Localization.Controls.EditMode"
         xmlns:controls2="using:ClassIsland.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -121,21 +122,21 @@
                                                             Command="{Binding Data.ShowComponentSettingsCommand, Source={StaticResource ParentBindingProxy}}"
                                                             CommandParameter="{Binding}"
                                                             x:Name="ButtonComponentSettings"
-                                                            ToolTip.Tip="组件设置" />
+                                                            ToolTip.Tip="{x:Static locEm:Localization.ComponentSettingsTab}" />
                                                     <Button Theme="{StaticResource TransparentButton}"
                                                             IsVisible="{Binding AssociatedComponentInfo.IsComponentContainer}"
                                                             Content="{ci:FluentIcon &#xEC30;}"
                                                             Command="{Binding Data.OpenChildComponentsCommand, Source={StaticResource ParentBindingProxy}}"
                                                             CommandParameter="{Binding}"
                                                             x:Name="ButtonChildren"
-                                                            ToolTip.Tip="查看子组件" />
+                                                            ToolTip.Tip="{x:Static locEm:Localization.ViewChildComponentsTip}" />
                                                     <Button Theme="{StaticResource TransparentButton}"
                                                             Content="{ci:FluentIcon &#xE61D;}"
                                                             Foreground="IndianRed"
                                                             Command="{Binding Data.DeleteComponentCommand, Source={StaticResource ParentBindingProxy}}"
                                                             CommandParameter="{Binding}"
                                                             x:Name="ButtonDeleteComponent"
-                                                            ToolTip.Tip="删除" />
+                                                            ToolTip.Tip="{x:Static locEm:Localization.Delete}" />
                                                     <Line VerticalAlignment="Center"
                                                           Stroke="{DynamicResource DividerStrokeColorDefaultBrush}"
                                                           StrokeThickness="1"
@@ -143,10 +144,10 @@
                                                     </Line>
                                                     <Button Theme="{StaticResource TransparentButton}"
                                                             Content="{ci:FluentIcon &#xEBAC;}"
-                                                            ToolTip.Tip="更多选项…">
+                                                            ToolTip.Tip="{x:Static locEm:Localization.MoreOptionsTip}">
                                                         <Button.Flyout>
                                                             <MenuFlyout>
-                                                                <MenuItem Header="包裹到新容器"
+                                                                <MenuItem Header="{x:Static locEm:Localization.WrapToNewContainer}"
                                                                           Icon="{ci:FluentIcon &#xe27e;}"
                                                                           ItemsSource="{Binding Data.ContainerComponents, Source={StaticResource ParentBindingProxy}}">
                                                                     <MenuItem.ItemContainerTheme>
@@ -174,7 +175,7 @@
                                                                         </ControlTheme>
                                                                     </MenuItem.ItemContainerTheme>
                                                                 </MenuItem>
-                                                                <MenuItem Header="创建副本" Icon="{ci:FluentIcon &#xeeb9;}"
+                                                                <MenuItem Header="{x:Static locEm:Localization.CreateDuplicateTip}" Icon="{ci:FluentIcon &#xeeb9;}"
                                                                           CommandParameter="{Binding}"
                                                                           Command="{Binding Data.DuplicateComponentCommand, Source={StaticResource ParentBindingProxy}}" />
                                                             </MenuFlyout>

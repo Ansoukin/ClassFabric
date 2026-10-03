@@ -1,0 +1,801 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ProfileEditorHeader" xml:space="preserve">
+    <value>档案编辑</value>
+  </data>
+  <data name="ClassPlansTabHeader" xml:space="preserve">
+    <value>课表</value>
+  </data>
+  <data name="SchedulesTabHeader" xml:space="preserve">
+    <value>课程</value>
+  </data>
+  <data name="ForbiddenTabHeader" xml:space="preserve">
+    <value>已禁止</value>
+  </data>
+  <data name="AdjustmentTabHeader" xml:space="preserve">
+    <value>调课</value>
+  </data>
+  <data name="ClassPlanInfoHeader" xml:space="preserve">
+    <value>课程表信息</value>
+  </data>
+  <data name="TimeLayoutInfoHeader" xml:space="preserve">
+    <value>时间表信息</value>
+  </data>
+  <data name="ManageProfilesHeader" xml:space="preserve">
+    <value>管理档案</value>
+  </data>
+  <data name="ManageProfilesDescription" xml:space="preserve">
+    <value>管理与切换保存的档案。切换档案需要重新启动应用。</value>
+  </data>
+  <data name="CurrentClassPlanHeader" xml:space="preserve">
+    <value>当前启用的课表</value>
+  </data>
+  <data name="WeekOffsetHeader" xml:space="preserve">
+    <value>多周轮换偏移</value>
+  </data>
+  <data name="EditTimePointHeader" xml:space="preserve">
+    <value>编辑时间点</value>
+  </data>
+  <data name="EditClassInfoHeader" xml:space="preserve">
+    <value>编辑课程信息</value>
+  </data>
+  <data name="EditSubjectInfoHeader" xml:space="preserve">
+    <value>编辑科目信息</value>
+  </data>
+  <data name="ClassPlanGroupLabel" xml:space="preserve">
+    <value>课表群</value>
+  </data>
+  <data name="TempClassPlanGroupLabel" xml:space="preserve">
+    <value>临时课表群</value>
+  </data>
+  <data name="TempClassPlanLabel" xml:space="preserve">
+    <value>临时课表</value>
+  </data>
+  <data name="OverlayLabel" xml:space="preserve">
+    <value>临时层</value>
+  </data>
+  <data name="ProfileMigrationsDebugHeader" xml:space="preserve">
+    <value>迁移信息（调试）</value>
+  </data>
+  <data name="ProfileMigrationsDebugDescription" xml:space="preserve">
+    <value>直接编辑当前档案的迁移记录，保存方式与其他档案修改相同。</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="TimeLayoutLabel" xml:space="preserve">
+    <value>时间表</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>科目</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="MoreOptionsLabel" xml:space="preserve">
+    <value>更多选项</value>
+  </data>
+  <data name="RefreshLabel" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="AddLabel" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="AddNewLabel" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="DuplicateLabel" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="CreateLabel" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="CreateDuplicateLabel" xml:space="preserve">
+    <value>创建副本</value>
+  </data>
+  <data name="NewLabel" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="DeleteLabel" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteSelectedItemLabel" xml:space="preserve">
+    <value>删除选中项</value>
+  </data>
+  <data name="RenameLabel" xml:space="preserve">
+    <value>重命名</value>
+  </data>
+  <data name="CancelLabel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="OKLabel" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="SaveLabel" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="HelpLabel" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="UntrustedLabel" xml:space="preserve">
+    <value>不信任</value>
+  </data>
+  <data name="ImportExportLabel" xml:space="preserve">
+    <value>导入/导出</value>
+  </data>
+  <data name="ClearLabel" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="ClearOverlayLabel" xml:space="preserve">
+    <value>清除临时层</value>
+  </data>
+  <data name="ClearTempClassPlanLabel" xml:space="preserve">
+    <value>清除临时课表</value>
+  </data>
+  <data name="CreateProfileLabel" xml:space="preserve">
+    <value>新建档案</value>
+  </data>
+  <data name="OpenFolderLabel" xml:space="preserve">
+    <value>打开文件夹</value>
+  </data>
+  <data name="DetailsLabel" xml:space="preserve">
+    <value>详细信息</value>
+  </data>
+  <data name="DetailsDashboardLabel" xml:space="preserve">
+    <value>详细看板</value>
+  </data>
+  <data name="CreateOverlayHeader" xml:space="preserve">
+    <value>创建临时层</value>
+  </data>
+  <data name="ChangeClassHeader" xml:space="preserve">
+    <value>修改课程</value>
+  </data>
+  <data name="SwapClassesLabel" xml:space="preserve">
+    <value>交换课程</value>
+  </data>
+  <data name="CompleteSwapLabel" xml:space="preserve">
+    <value>完成交换</value>
+  </data>
+  <data name="TempSwapModeLabel" xml:space="preserve">
+    <value>永久换课</value>
+  </data>
+  <data name="ThisWeekLabel" xml:space="preserve">
+    <value>本周</value>
+  </data>
+  <data name="UndoButton" xml:space="preserve">
+    <value>撤销</value>
+  </data>
+  <data name="UndoLastStepButton" xml:space="preserve">
+    <value>撤销上一步 (Ctrl+Z)</value>
+  </data>
+  <data name="RedoLastStepButton" xml:space="preserve">
+    <value>重做上一步 (Ctrl+Y)</value>
+  </data>
+  <data name="UndoHistoryLabel" xml:space="preserve">
+    <value>撤销历史</value>
+  </data>
+  <data name="RedoHistoryLabel" xml:space="preserve">
+    <value>重做历史</value>
+  </data>
+  <data name="GoToTimeLayoutsButton" xml:space="preserve">
+    <value>前往编排时间表</value>
+  </data>
+  <data name="GoToSetTimeLayoutButton" xml:space="preserve">
+    <value>前往设置时间表</value>
+  </data>
+  <data name="RestartNowButton" xml:space="preserve">
+    <value>立即重启</value>
+  </data>
+  <data name="NewClassPlanButton" xml:space="preserve">
+    <value>新建课表</value>
+  </data>
+  <data name="TrustProfileButton" xml:space="preserve">
+    <value>信任此档案</value>
+  </data>
+  <data name="ContinueLabel" xml:space="preserve">
+    <value>继续</value>
+  </data>
+  <data name="DeleteTimeLayoutLabel" xml:space="preserve">
+    <value>删除时间表</value>
+  </data>
+  <data name="CurrentPrefixLabel" xml:space="preserve">
+    <value>当前：</value>
+  </data>
+  <data name="MinutesSuffix" xml:space="preserve">
+    <value>分钟</value>
+  </data>
+  <data name="WeekUnitSuffix" xml:space="preserve">
+    <value>周</value>
+  </data>
+  <data name="DayUnitSuffix" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="CurrentProfileNoneLabel" xml:space="preserve">
+    <value>（无）</value>
+  </data>
+  <data name="LearnMoreLabel" xml:space="preserve">
+    <value>了解更多…</value>
+  </data>
+  <data name="AdjustWeekOffsetLabel" xml:space="preserve">
+    <value>调整多周轮换偏移…</value>
+  </data>
+  <data name="OverrideLabel" xml:space="preserve">
+    <value>覆盖</value>
+  </data>
+  <data name="InheritLabel" xml:space="preserve">
+    <value>继承</value>
+  </data>
+  <data name="ScheduleTypeClassic" xml:space="preserve">
+    <value>经典</value>
+  </data>
+  <data name="ScheduleTypeExperimental" xml:space="preserve">
+    <value>exp_日程</value>
+  </data>
+  <data name="NoClassPlanSelected" xml:space="preserve">
+    <value>未选择课表</value>
+  </data>
+  <data name="ListViewToolTip" xml:space="preserve">
+    <value>列表视图</value>
+  </data>
+  <data name="WeekViewToolTip" xml:space="preserve">
+    <value>周视图</value>
+  </data>
+  <data name="MonthViewToolTip" xml:space="preserve">
+    <value>月视图</value>
+  </data>
+  <data name="ScheduleViewToolTip" xml:space="preserve">
+    <value>日程视图</value>
+  </data>
+  <data name="TriggerRuleToolTip" xml:space="preserve">
+    <value>触发规则</value>
+  </data>
+  <data name="CreateProfileTip" xml:space="preserve">
+    <value>新建档案。</value>
+  </data>
+  <data name="OpenProfileFolderTip" xml:space="preserve">
+    <value>打开档案文件夹。</value>
+  </data>
+  <data name="RefreshProfilesTip" xml:space="preserve">
+    <value>重新加载档案列表。</value>
+  </data>
+  <data name="CreateClassPlanGroupTip" xml:space="preserve">
+    <value>创建一个新的课表群。</value>
+  </data>
+  <data name="CreateClassPlanTip" xml:space="preserve">
+    <value>新建一个课表。</value>
+  </data>
+  <data name="DuplicateClassPlanTip" xml:space="preserve">
+    <value>复制一个当前选中的课表的副本。</value>
+  </data>
+  <data name="DeleteClassPlanTip" xml:space="preserve">
+    <value>删除该课表。</value>
+  </data>
+  <data name="ViewClassPlanDetailsTip" xml:space="preserve">
+    <value>查看并编辑课表的基本信息。</value>
+  </data>
+  <data name="DetailsDashboardTip" xml:space="preserve">
+    <value>查看课表的所有时间点的附加设置继承情况。</value>
+  </data>
+  <data name="CreateOverlayTip" xml:space="preserve">
+    <value>创建临时课表层。</value>
+  </data>
+  <data name="ClearOverlayTip" xml:space="preserve">
+    <value>清除临时层课表。</value>
+  </data>
+  <data name="ClearTempClassPlanTip" xml:space="preserve">
+    <value>清除选择的临时课表，并恢复至正常课表安排。</value>
+  </data>
+  <data name="CreateTimeLayoutTip" xml:space="preserve">
+    <value>新建一个时间表。</value>
+  </data>
+  <data name="DuplicateTimeLayoutTip" xml:space="preserve">
+    <value>复制选中的时间表。</value>
+  </data>
+  <data name="TimeLayoutActiveTip" xml:space="preserve">
+    <value>此时间表正在活动。</value>
+  </data>
+  <data name="AddOnClassTimePointTip" xml:space="preserve">
+    <value>添加上课时间点。</value>
+  </data>
+  <data name="AddBreakTimePointTip" xml:space="preserve">
+    <value>添加课间休息时间点。</value>
+  </data>
+  <data name="AddSeparatorTip" xml:space="preserve">
+    <value>添加分割线。</value>
+  </data>
+  <data name="AddActionTimePointTip" xml:space="preserve">
+    <value>添加行动时间点。</value>
+  </data>
+  <data name="DuplicateTimePointTip" xml:space="preserve">
+    <value>创建选中时间点的副本。</value>
+  </data>
+  <data name="UndoStepToolTip" xml:space="preserve">
+    <value>撤销 (Ctrl+Z 单步)</value>
+  </data>
+  <data name="RedoStepToolTip" xml:space="preserve">
+    <value>重做 (Ctrl+Y 单步)</value>
+  </data>
+  <data name="DeleteTimePointTip" xml:space="preserve">
+    <value>删除选中的时间点。</value>
+  </data>
+  <data name="ResortTimePointsTip" xml:space="preserve">
+    <value>重新排序该时间表中的时间点。</value>
+  </data>
+  <data name="ViewTimeLayoutDetailsTip" xml:space="preserve">
+    <value>查看并编辑时间表的基本信息。</value>
+  </data>
+  <data name="DeleteTimeLayoutTip" xml:space="preserve">
+    <value>删除该时间表。</value>
+  </data>
+  <data name="TimePointSnapTip" xml:space="preserve">
+    <value>时间点吸附</value>
+  </data>
+  <data name="ZoomOutTip" xml:space="preserve">
+    <value>缩小</value>
+  </data>
+  <data name="ZoomInTip" xml:space="preserve">
+    <value>放大</value>
+  </data>
+  <data name="LocateSelectedTimePointTip" xml:space="preserve">
+    <value>定位到选择的时间点</value>
+  </data>
+  <data name="CreateScheduleTip" xml:space="preserve">
+    <value>新建一个课程。</value>
+  </data>
+  <data name="DuplicateScheduleTip" xml:space="preserve">
+    <value>复制选中的课程。</value>
+  </data>
+  <data name="DeleteScheduleTip" xml:space="preserve">
+    <value>删除选中的课程。</value>
+  </data>
+  <data name="DragToReorderTip" xml:space="preserve">
+    <value>拖拽调整课程顺序</value>
+  </data>
+  <data name="PickDateToJumpWeekTip" xml:space="preserve">
+    <value>选择日期以跳转到所在周</value>
+  </data>
+  <data name="PreviousWeekTip" xml:space="preserve">
+    <value>上一周</value>
+  </data>
+  <data name="NextWeekTip" xml:space="preserve">
+    <value>下一周</value>
+  </data>
+  <data name="CreateSubjectTip" xml:space="preserve">
+    <value>新建一个科目。</value>
+  </data>
+  <data name="DuplicateSubjectTip" xml:space="preserve">
+    <value>复制选中的科目。</value>
+  </data>
+  <data name="DeleteSubjectTip" xml:space="preserve">
+    <value>删除选中的科目。</value>
+  </data>
+  <data name="CurrentProfileTip" xml:space="preserve">
+    <value>当前启用的档案</value>
+  </data>
+  <data name="EnableTempClassPlanTip" xml:space="preserve">
+    <value>启用临时课表</value>
+  </data>
+  <data name="SaveProfileTip" xml:space="preserve">
+    <value>保存当前档案文件。</value>
+  </data>
+  <data name="ImportExportTip" xml:space="preserve">
+    <value>导入外部的课程信息，或导出当前的档案信息。</value>
+  </data>
+  <data name="ViewHelpTip" xml:space="preserve">
+    <value>查看档案编辑器帮助</value>
+  </data>
+  <data name="UntrustedProfileTip" xml:space="preserve">
+    <value>当前档案不受信任，部分功能受限。</value>
+  </data>
+  <data name="ChangeClassToSelectorLabel" xml:space="preserve">
+    <value>换课成…</value>
+  </data>
+  <data name="ExpireDateLabel" xml:space="preserve">
+    <value>失效日期</value>
+  </data>
+  <data name="OverrideModeLabel" xml:space="preserve">
+    <value>覆盖模式</value>
+  </data>
+  <data name="EnableDateLabel" xml:space="preserve">
+    <value>启用日期</value>
+  </data>
+  <data name="ManageClassPlanGroupsLabel" xml:space="preserve">
+    <value>管理课表群</value>
+  </data>
+  <data name="CreateClassPlanGroupLabel" xml:space="preserve">
+    <value>新建课表群</value>
+  </data>
+  <data name="TimePointDurationHeader" xml:space="preserve">
+    <value>时间点时长</value>
+  </data>
+  <data name="DefaultOnClassDurationLabel" xml:space="preserve">
+    <value>默认上课时间点时长</value>
+  </data>
+  <data name="DefaultBreakDurationLabel" xml:space="preserve">
+    <value>默认课间时间点时长</value>
+  </data>
+  <data name="StartTimeLabel" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
+  <data name="EndTimeLabel" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="HideByDefault" xml:space="preserve">
+    <value>默认隐藏</value>
+  </data>
+  <data name="OverwriteExistingClasses" xml:space="preserve">
+    <value>覆盖现有课程</value>
+  </data>
+  <data name="IsOutdoorSubject" xml:space="preserve">
+    <value>该科目是户外课程</value>
+  </data>
+  <data name="AlsoCreateTempTimeLayout" xml:space="preserve">
+    <value>同时创建临时时间表</value>
+  </data>
+  <data name="AutoEnable" xml:space="preserve">
+    <value>自动启用</value>
+  </data>
+  <data name="AutoMoveNextAfterSubjectSelected" xml:space="preserve">
+    <value>选完科目自动移动到下一个课程</value>
+  </data>
+  <data name="BreakNameLabel" xml:space="preserve">
+    <value>课间名称</value>
+  </data>
+  <data name="OnClassLabel" xml:space="preserve">
+    <value>上课</value>
+  </data>
+  <data name="BreakLabel" xml:space="preserve">
+    <value>课间</value>
+  </data>
+  <data name="BreakRestLabel" xml:space="preserve">
+    <value>课间休息</value>
+  </data>
+  <data name="SeparatorLabel" xml:space="preserve">
+    <value>分割线</value>
+  </data>
+  <data name="ActionLabel" xml:space="preserve">
+    <value>行动</value>
+  </data>
+  <data name="DefaultClassLabel" xml:space="preserve">
+    <value>默认课程</value>
+  </data>
+  <data name="IconLabel" xml:space="preserve">
+    <value>图标</value>
+  </data>
+  <data name="SubjectNameLabel" xml:space="preserve">
+    <value>科目名</value>
+  </data>
+  <data name="ShortNameLabel" xml:space="preserve">
+    <value>简称</value>
+  </data>
+  <data name="ThemeColorLabel" xml:space="preserve">
+    <value>主题色</value>
+  </data>
+  <data name="TeacherLabel" xml:space="preserve">
+    <value>科任老师</value>
+  </data>
+  <data name="LocationLabel" xml:space="preserve">
+    <value>地点</value>
+  </data>
+  <data name="EnabledColumnHeader" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="TimeColumnHeader" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="IsOutdoorColumnHeader" xml:space="preserve">
+    <value>户外课程？</value>
+  </data>
+  <data name="MigrationIdColumnHeader" xml:space="preserve">
+    <value>迁移 ID</value>
+  </data>
+  <data name="AllowDowngradeColumnHeader" xml:space="preserve">
+    <value>允许降级</value>
+  </data>
+  <data name="RemoveOnDowngradeColumnHeader" xml:space="preserve">
+    <value>降级时移除</value>
+  </data>
+  <data name="ClassPlanOverlayInfoBarMessage" xml:space="preserve">
+    <value>这是一个临时层课表，将在使用过后自动删除。</value>
+  </data>
+  <data name="OverlayIgnoresTriggerRulesDescription" xml:space="preserve">
+    <value>临时层课表将忽略触发规则强制启用。</value>
+  </data>
+  <data name="AutoEnableByTriggerRulesDescription" xml:space="preserve">
+    <value>将会根据触发规则自动启用该课表。</value>
+  </data>
+  <data name="ManualEnableOnlyDescription" xml:space="preserve">
+    <value>该课表不会自动启用，只能通过临时课表或临时层手动启用该课表。</value>
+  </data>
+  <data name="OverlayPriorityDescription" xml:space="preserve">
+    <value>临时层课表将优先于临时课表应用。临时层课表将在该课表过期后自动清除。</value>
+  </data>
+  <data name="TempClassPlanDescription" xml:space="preserve">
+    <value>若当天授课计划有变，可临时选择某一课表作为当天的课表。该设置仅在当天有效。</value>
+  </data>
+  <data name="TempClassPlanCoveredByOverlayDescription" xml:space="preserve">
+    <value>临时课表被临时层课表覆盖。要使用临时课表，请暂时禁用或清除临时层课表。</value>
+  </data>
+  <data name="ClassPlanGroupsIntroPrefix" xml:space="preserve">
+    <value>您可以通过课表群对课表进行分组，并灵活地启用一批课表。</value>
+  </data>
+  <data name="NoTimeLayoutWarningMessage" xml:space="preserve">
+    <value>在设置课表之前，您需要在【时间表】页面中根据学校的作息安排编排时间表。</value>
+  </data>
+  <data name="EmptyTimeLayoutWarningMessage" xml:space="preserve">
+    <value>您还没有为此课表设置时间表。在编排课程之前，您需要在【详细信息】中为本课表设置一个时间表。</value>
+  </data>
+  <data name="CannotBeUndoneDescription" xml:space="preserve">
+    <value>此操作无法撤销。</value>
+  </data>
+  <data name="DeleteClassPlanConfirmPrefix" xml:space="preserve">
+    <value>要删除课表</value>
+  </data>
+  <data name="DeleteClassPlanConfirmSuffix" xml:space="preserve">
+    <value>吗？</value>
+  </data>
+  <data name="SwapClassesIntroPrefix" xml:space="preserve">
+    <value>正在交换课程。选择要与</value>
+  </data>
+  <data name="SwapClassesIntroSuffix" xml:space="preserve">
+    <value>交换的课程，然后点击【完成交换】。</value>
+  </data>
+  <data name="HideByDefaultDescription" xml:space="preserve">
+    <value>若默认隐藏一个时间点，那么只有在处于此时间点时，此时间点才会显示。</value>
+  </data>
+  <data name="UntrustedProfileTitle" xml:space="preserve">
+    <value>不信任的档案</value>
+  </data>
+  <data name="UntrustedProfileInfoBarMessage" xml:space="preserve">
+    <value>当前档案不受信任，行动时间点不会自动运行。</value>
+  </data>
+  <data name="ProfileEditingDisabledByPolicy" xml:space="preserve">
+    <value>您的组织已禁用档案编辑功能。</value>
+  </data>
+  <data name="ExperimentalFeatureWarning" xml:space="preserve">
+    <value>实验性功能，正在开发中，不保证数据完全向后兼容，请以最终版本为准。</value>
+  </data>
+  <data name="TransferImportLabel" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="TransferExportLabel" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="TransferExecuteLabel" xml:space="preserve">
+    <value>执行</value>
+  </data>
+  <data name="TransferMigrateLabel" xml:space="preserve">
+    <value>迁移</value>
+  </data>
+  <data name="UntrustedProfileDialogContent" xml:space="preserve">
+    <value>当前档案不受信任，部分功能（如行动时间点等）将禁用。如果您信任此档案并希望启用这些受限的功能，请将此档案设置为信任。</value>
+  </data>
+  <data name="ProfileSavedToPathFmt" xml:space="preserve">
+    <value>已保存到 {0}。</value>
+  </data>
+  <data name="SaveProfileFailedToast" xml:space="preserve">
+    <value>无法保存档案</value>
+  </data>
+  <data name="ProfileNameLabel" xml:space="preserve">
+    <value>档案名称</value>
+  </data>
+  <data name="RenameProfileConflictToast" xml:space="preserve">
+    <value>无法重命名档案，因为已存在一个相同名称的档案。</value>
+  </data>
+  <data name="RenameProfileTitle" xml:space="preserve">
+    <value>重命名档案</value>
+  </data>
+  <data name="CannotDeleteLoadedProfileToast" xml:space="preserve">
+    <value>无法删除已加载或将要加载的档案。</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>删除档案</value>
+  </data>
+  <data name="DeleteProfileConfirmFmt" xml:space="preserve">
+    <value>您确定要删除档案 {0} 吗？此操作无法撤销，档案内的课表、时间表、科目等信息都将被删除！</value>
+  </data>
+  <data name="RestartRequiredTitle" xml:space="preserve">
+    <value>需要重启</value>
+  </data>
+  <data name="SwitchProfileRestartMessage" xml:space="preserve">
+    <value>切换档案需要重启应用以生效。</value>
+  </data>
+  <data name="OverlayAlreadyExistsToast" xml:space="preserve">
+    <value>在这一天已存在一个临时层课表，无法创建新的临时层课表。</value>
+  </data>
+  <data name="WeeklyEntryCompletedToast" xml:space="preserve">
+    <value>已完成本周课表的录入。</value>
+  </data>
+  <data name="JumpedToNextDayToast" xml:space="preserve">
+    <value>已跳转到次日课表。</value>
+  </data>
+  <data name="ClassPlanEntryCompletedToast" xml:space="preserve">
+    <value>已完成此课表的课程录入。</value>
+  </data>
+  <data name="TimeLayoutInUseToast" xml:space="preserve">
+    <value>仍有课表在使用该时间表。删除时间表前需要删除所有使用该时间表的课表。</value>
+  </data>
+  <data name="DeleteTimeLayoutConfirmFmt" xml:space="preserve">
+    <value>要删除时间表“{0}”吗？此操作无法撤销。</value>
+  </data>
+  <data name="AddUndoDescriptionFmt" xml:space="preserve">
+    <value>添加{0}</value>
+  </data>
+  <data name="DeleteUndoDescriptionFmt" xml:space="preserve">
+    <value>删除{0}</value>
+  </data>
+  <data name="NoRoomToInsertTimePointToast" xml:space="preserve">
+    <value>没有合适的位置来插入新的时间点。</value>
+  </data>
+  <data name="InsertedBeforeToast" xml:space="preserve">
+    <value>已向前插入了新的时间点。</value>
+  </data>
+  <data name="InsertShrunkToast" xml:space="preserve">
+    <value>没有足够的空间完全插入该时间点，已缩短时间点长度。</value>
+  </data>
+  <data name="SeparatorExistsToast" xml:space="preserve">
+    <value>这里已经存在一条分割线。</value>
+  </data>
+  <data name="ActionExistsToast" xml:space="preserve">
+    <value>这里已经存在一个行动。</value>
+  </data>
+  <data name="NoRoomToDuplicateTimePointToast" xml:space="preserve">
+    <value>没有足够的空间来复制时间点。</value>
+  </data>
+  <data name="NoRoomBeforeToDuplicateTimePointToast" xml:space="preserve">
+    <value>没有合适的位置来复制时间点。</value>
+  </data>
+  <data name="DuplicateShrunkToast" xml:space="preserve">
+    <value>没有足够的空间完全复制该时间点，已缩短时间点长度。</value>
+  </data>
+  <data name="TimePointDuplicatedToast" xml:space="preserve">
+    <value>已创建时间点副本。</value>
+  </data>
+  <data name="CannotMoveScheduleItemToast" xml:space="preserve">
+    <value>无法移动到该日期或时间，请在右侧检查课程的时间和启用范围。</value>
+  </data>
+  <data name="DeletedClassItemsFmt" xml:space="preserve">
+    <value>已删除 {0} 个课程。</value>
+  </data>
+  <data name="DeletedSubjectsFmt" xml:space="preserve">
+    <value>已删除 {0} 个科目。</value>
+  </data>
+  <data name="InvalidClassSelectionToast" xml:space="preserve">
+    <value>选择课程区域无效。</value>
+  </data>
+  <data name="ContinueTransferConfirmTitleFmt" xml:space="preserve">
+    <value>要继续{0}吗</value>
+  </data>
+  <data name="ContinueTransferConfirmMessageFmt" xml:space="preserve">
+    <value>您先前已经成功地{0}了档案，您还要继续{0}吗？</value>
+  </data>
+  <data name="LoadClassPlanToggle" xml:space="preserve">
+    <value>加载课表</value>
+  </data>
+  <data name="EnableOverlayToggle" xml:space="preserve">
+    <value>启用临时层</value>
+  </data>
+  <data name="RefreshCurrentViewTip" xml:space="preserve">
+    <value>刷新当前视图。</value>
+  </data>
+  <data name="EditSubjectTabHeader" xml:space="preserve">
+    <value>编辑科目</value>
+  </data>
+</root>

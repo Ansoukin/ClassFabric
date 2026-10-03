@@ -220,3 +220,11 @@ files:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
+  - source: /ClassFabric/Assets/Localization/Windows/ProfileSettings/Localization.Windows.ProfileSettings.resx
+    translation: /ClassFabric/Assets/Localization/Windows/ProfileSettings/Localization.Windows.ProfileSettings.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant

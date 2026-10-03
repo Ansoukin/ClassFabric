@@ -725,5 +725,50 @@ namespace ClassFabric.Assets.Localization.Controls.EditMode {
                 return ResourceManager.GetString("RenameConflictToast", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   查找类似 查看子组件 的本地化字符串。
+        /// </summary>
+        public static string ViewChildComponentsTip {
+            get {
+                return ResourceManager.GetString("ViewChildComponentsTip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 更多选项… 的本地化字符串。
+        /// </summary>
+        public static string MoreOptionsTip {
+            get {
+                return ResourceManager.GetString("MoreOptionsTip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 包裹到新容器 的本地化字符串。
+        /// </summary>
+        public static string WrapToNewContainer {
+            get {
+                return ResourceManager.GetString("WrapToNewContainer", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 创建副本 的本地化字符串。
+        /// </summary>
+        public static string CreateDuplicateTip {
+            get {
+                return ResourceManager.GetString("CreateDuplicateTip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 容器组件不能包含自己。 的本地化字符串。
+        /// </summary>
+        public static string ContainerCannotContainSelfToast {
+            get {
+                return ResourceManager.GetString("ContainerCannotContainSelfToast", resourceCulture);
+            }
+        }
     }
 }

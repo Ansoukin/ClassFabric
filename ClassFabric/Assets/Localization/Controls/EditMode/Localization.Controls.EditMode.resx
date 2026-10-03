@@ -413,4 +413,19 @@
     xml:space="preserve">
     <value>无法重命名组件配置，因为已存在一个相同名称的组件配置。</value>
   </data>
+  <data name="ViewChildComponentsTip" xml:space="preserve">
+    <value>查看子组件</value>
+  </data>
+  <data name="MoreOptionsTip" xml:space="preserve">
+    <value>更多选项…</value>
+  </data>
+  <data name="WrapToNewContainer" xml:space="preserve">
+    <value>包裹到新容器</value>
+  </data>
+  <data name="CreateDuplicateTip" xml:space="preserve">
+    <value>创建副本</value>
+  </data>
+  <data name="ContainerCannotContainSelfToast" xml:space="preserve">
+    <value>容器组件不能包含自己。</value>
+  </data>
 </root>

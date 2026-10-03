@@ -113,6 +113,7 @@
         <Folder Include="Assets\Localization\Controls\NotificationProviders\" />
         <Folder Include="Assets\Localization\Controls\SpeechProviderSettingsControls\" />
         <Folder Include="Assets\Localization\Controls\EditMode\" />
+        <Folder Include="Assets\Localization\Windows\ProfileSettings\" />
         <Folder Include="Models\Logging\" />
         <Folder Include="Models\Native\" />
         <Folder Include="Models\TimeRules\" />
@@ -151,6 +152,7 @@
         <AvaloniaResource Remove="Assets\Localization\Controls\NotificationProviders\Localization.Controls.NotificationProviders.resx" />
         <AvaloniaResource Remove="Assets\Localization\Controls\SpeechProviderSettingsControls\Localization.Controls.SpeechProviderSettingsControls.resx" />
         <AvaloniaResource Remove="Assets\Localization\Controls\EditMode\Localization.Controls.EditMode.resx" />
+        <AvaloniaResource Remove="Assets\Localization\Windows\ProfileSettings\Localization.Windows.ProfileSettings.resx" />
         <None Include="Assets\AppLogo.png" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" PublishFolderType="Resource" />
     </ItemGroup>
     <ItemGroup Condition="'$(ClassFabricBundleAssetsInAssembly)' == 'true'">
@@ -195,6 +197,7 @@
         <None Include="Assets\Localization\Controls\NotificationProviders\Localization.Controls.NotificationProviders.resx" />
         <None Include="Assets\Localization\Controls\SpeechProviderSettingsControls\Localization.Controls.SpeechProviderSettingsControls.resx" />
         <None Include="Assets\Localization\Controls\EditMode\Localization.Controls.EditMode.resx" />
+        <None Include="Assets\Localization\Windows\ProfileSettings\Localization.Windows.ProfileSettings.resx" />
     </ItemGroup>
     <ItemGroup Condition="'$(TrimAssets)'=='true'">
         <Resource Remove="Assets\Fonts\*.ttf" />

@@ -5,6 +5,7 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:local="clr-namespace:ClassIsland.Controls.Components"
+                  xmlns:locC="clr-namespace:ClassFabric.Assets.Localization.Controls.Components"
                   xmlns:ci="http://classfabric.tech/schemas/xaml/core"
                   xmlns:models="clr-namespace:ClassIsland.Models"
                   xmlns:componentSettings="clr-namespace:ClassIsland.Models.ComponentSettings"
@@ -84,7 +85,7 @@
             Padding="8 2"
             CornerRadius="16"
             x:Name="Tomorrow">
-            <TextBlock Text="明天" Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
+            <TextBlock Text="{x:Static locC:Localization.TomorrowLabel}" Foreground="{DynamicResource TextOnAccentFillColorPrimaryBrush}"
                        Margin="0,1,0,-1"/>
         </Border>
         <ci:LessonsListBox Grid.Column="1" 

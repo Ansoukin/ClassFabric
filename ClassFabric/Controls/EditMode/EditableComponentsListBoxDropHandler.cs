@@ -17,6 +17,7 @@ using ClassIsland.Services;
 using ClassIsland.Shared;
 using ClassIsland.Shared.Helpers;
 using DynamicData;
+using ClassFabric.Assets.Localization.Controls.EditMode;
 
 namespace ClassIsland.Controls.EditMode;
 
@@ -59,7 +60,7 @@ public class EditableComponentsListBoxDropHandler : DropHandlerBase
         {
             if (execute)
             {
-                listBox.ShowWarningToast("容器组件不能包含自己。");
+                listBox.ShowWarningToast(Localization.ContainerCannotContainSelfToast);
             }
             return false;
         }

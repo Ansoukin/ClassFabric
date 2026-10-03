@@ -761,4 +761,10 @@
     xml:space="preserve">
     <value>事件名称和倒计时的字体大小。</value>
   </data>
+  <data name="CountdownDistancePrefix" xml:space="preserve">
+    <value>距离</value>
+  </data>
+  <data name="TomorrowLabel" xml:space="preserve">
+    <value>明天</value>
+  </data>
 </root>

@@ -1508,5 +1508,23 @@ namespace ClassFabric.Assets.Localization.Controls.Components {
                 return ResourceManager.GetString("CountdownFontSizeDescription", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   查找类似 距离 的本地化字符串。
+        /// </summary>
+        public static string CountdownDistancePrefix {
+            get {
+                return ResourceManager.GetString("CountdownDistancePrefix", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 明天 的本地化字符串。
+        /// </summary>
+        public static string TomorrowLabel {
+            get {
+                return ResourceManager.GetString("TomorrowLabel", resourceCulture);
+            }
+        }
     }
 }

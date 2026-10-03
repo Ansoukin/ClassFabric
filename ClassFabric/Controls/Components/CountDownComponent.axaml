@@ -5,6 +5,7 @@
                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                         xmlns:local="clr-namespace:ClassIsland.Controls.Components"
+                        xmlns:locC="clr-namespace:ClassFabric.Assets.Localization.Controls.Components"
                         xmlns:classFabric="using:ClassIsland"
                         xmlns:converters="using:ClassIsland.Converters"
                         xmlns:converters1="using:ClassIsland.Core.Converters"
@@ -79,7 +80,7 @@
                     </Path.Data>
                 </Path>
             </Panel>
-            <TextBlock Text="距离"
+            <TextBlock Text="{x:Static locC:Localization.CountdownDistancePrefix}"
                        x:Name="TextBlockTo"
                        Classes="connector l-instructive"
                        IsVisible="{Binding !Settings.IsCompactModeEnabled}"
