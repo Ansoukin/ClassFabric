@@ -160,3 +160,30 @@ files:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/Windows/ClassChanging/Localization.Windows.ClassChanging.resx
+    translation: /ClassFabric/Assets/Localization/Windows/ClassChanging/Localization.Windows.ClassChanging.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/Windows/TutorialEditor/Localization.Windows.TutorialEditor.resx
+    translation: /ClassFabric/Assets/Localization/Windows/TutorialEditor/Localization.Windows.TutorialEditor.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant
+
+  - source: /ClassFabric/Assets/Localization/Views/DataTransfer/Localization.Views.DataTransfer.resx
+    translation: /ClassFabric/Assets/Localization/Views/DataTransfer/Localization.Views.DataTransfer.%locale%.resx
+    update_option: update_as_unapproved
+    languages_mapping:
+      locale:
+        zh-CN: zh-Hans
+        en-US: en
+        zh-TW: zh-Hant

@@ -23,6 +23,7 @@ using ClassIsland.Shared.Protobuf.Enum;
 using ClassIsland.ViewModels;
 using FluentAvalonia.UI.Controls;
 using ClassIsland.Models;
+using ClassFabric.Assets.Localization.Windows.ClassChanging;
 
 namespace ClassIsland.Views;
 
@@ -63,7 +64,7 @@ public partial class ClassChangingWindow : ViewBase
         var aI = GetSubjectIndex(ViewModel.SourceIndex);
         if (aI < 0 || aI >= ClassPlan.Classes.Count)
         {
-            this.ShowWarningToast("选择的课程无效。");
+            this.ShowWarningToast(Localization.InvalidSelectedClass);
             return;
         }
         ViewModel.SelectedClassInfo = ClassPlan.Classes[aI];
@@ -102,10 +103,10 @@ public partial class ClassChangingWindow : ViewBase
         {
             var r = await new FAContentDialog()
             {
-                Title = "覆盖当前的临时层",
-                Content = "当前已经存在一个临时层课表，如果继续换课，那么该临时层将被覆盖。是否继续？",
-                PrimaryButtonText = "继续",
-                SecondaryButtonText = "取消",
+                Title = Localization.OverwriteTempLayerTitle,
+                Content = Localization.OverwriteTempLayerContent,
+                PrimaryButtonText = Localization.Continue,
+                SecondaryButtonText = Localization.Cancel,
                 DefaultButton = FAContentDialogButton.Primary
             }.ShowAsyncAuto();
             if (r != FAContentDialogResult.Primary)
@@ -129,7 +130,7 @@ public partial class ClassChangingWindow : ViewBase
         var bI = 0;
         if (aI < 0 || aI >= ClassPlan.Classes.Count)
         {
-            this.ShowWarningToast("选择的课程无效。");
+            this.ShowWarningToast(Localization.InvalidSelectedClass);
             return;
         }
         var a = Guid.Empty;
@@ -140,7 +141,7 @@ public partial class ClassChangingWindow : ViewBase
             bI = GetSubjectIndex(ViewModel.SwapModeTargetIndex);
             if (bI < 0 || bI >= ClassPlan.Classes.Count)
             {
-                this.ShowWarningToast("选择的课程无效。");
+                this.ShowWarningToast(Localization.InvalidSelectedClass);
                 return;
             }
             a = cp.Classes[aI].SubjectId;

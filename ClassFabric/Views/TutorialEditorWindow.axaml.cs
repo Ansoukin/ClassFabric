@@ -26,6 +26,7 @@ using DynamicData;
 using FluentAvalonia.UI.Controls;
 using HotAvalonia;
 using Mono.Unix;
+using ClassFabric.Assets.Localization.Windows.TutorialEditor;
 
 namespace ClassIsland.Views;
 
@@ -64,7 +65,7 @@ public partial class TutorialEditorWindow : ViewBase
     {
         var tutorial = new Tutorial()
         {
-            Title = "新教程"
+            Title = Localization.NewTutorial
         };
         ViewModel.CurrentTutorialGroup.Tutorials.Add(tutorial);
         ViewModel.CurrentTutorial = tutorial;
@@ -92,7 +93,7 @@ public partial class TutorialEditorWindow : ViewBase
     {
         var tutorialParagraph = new TutorialParagraph()
         {
-            Title = "新段落"
+            Title = Localization.NewParagraph
         };
         ViewModel.CurrentTutorial?.Paragraphs.Add(tutorialParagraph);
         ViewModel.CurrentParagraph = tutorialParagraph;
@@ -186,11 +187,11 @@ public partial class TutorialEditorWindow : ViewBase
         try
         {
             using var file = await PlatformServices.FilePickerService.GetFileAsync(path, TopLevel!)
-                             ?? throw new FileNotFoundException("无法打开所选教程文件。", path);
+                             ?? throw new FileNotFoundException(Localization.ErrorCannotOpenTutorialFile, path);
             await using var stream = await file.OpenReadAsync();
             ViewModel.CurrentTutorialGroup = ConfigureFileHelper.LoadConfigUnWrapped<TutorialGroup>(stream);
             ViewModel.OpenedFilePath = path;
-            this.ShowToast($"已打开 {path}");
+            this.ShowToast(string.Format(Localization.OpenedToast, path));
             var id = ViewModel.CurrentTutorialGroup.Id;
             if (ITutorialService.RegisteredTutorialGroups.FirstOrDefault(x => x.Id == id) is not {} existed)
             {
@@ -198,11 +199,11 @@ public partial class TutorialEditorWindow : ViewBase
             }
             ViewModel.TutorialService.StopTutorial();
             ITutorialService.RegisteredTutorialGroups.Replace(existed, ViewModel.CurrentTutorialGroup);
-            this.ShowToast($"已替换 ID 为 {id} 的教程组并启用热重载。");
+            this.ShowToast(string.Format(Localization.ReplacedGroupToast, id));
         }
         catch (Exception exception)
         {
-            this.ShowErrorToast("无法打开教程文件", exception);
+            this.ShowErrorToast(Localization.ErrorOpenTutorialFile, exception);
         }
     }
 
@@ -239,7 +240,7 @@ public partial class TutorialEditorWindow : ViewBase
         try
         {
             using var file = await PlatformServices.FilePickerService.GetFileAsync(ViewModel.OpenedFilePath, TopLevel!)
-                             ?? throw new FileNotFoundException("无法打开所选教程文件。", ViewModel.OpenedFilePath);
+                             ?? throw new FileNotFoundException(Localization.ErrorCannotOpenTutorialFile, ViewModel.OpenedFilePath);
             await using var stream = await file.OpenWriteAsync();
             if (stream.CanSeek)
             {
@@ -247,12 +248,12 @@ public partial class TutorialEditorWindow : ViewBase
                 stream.Position = 0;
             }
             ConfigureFileHelper.SaveConfig(stream, ViewModel.CurrentTutorialGroup, true);
-            this.ShowToast($"已保存 {ViewModel.OpenedFilePath}");
+            this.ShowToast(string.Format(Localization.SavedToast, ViewModel.OpenedFilePath));
             return true;
         }
         catch (Exception exception)
         {
-            this.ShowErrorToast("无法保存教程文件", exception);
+            this.ShowErrorToast(Localization.ErrorSaveTutorialFile, exception);
             return false;
         }
     }
@@ -274,16 +275,16 @@ public partial class TutorialEditorWindow : ViewBase
             var dialog = new FATaskDialog()
             {
                 XamlRoot = this,
-                Header = "更改尚未保存",
-                Content = "更改尚未保存，您要在退出前保存更改吗？",
+                Header = Localization.UnsavedChangesTitle,
+                Content = Localization.UnsavedChangesContent,
                 Buttons =
                 [
-                    new FATaskDialogButton("保存", 0)
+                    new FATaskDialogButton(Localization.Save, 0)
                     {
                         IsDefault = true,
                     },
-                    new FATaskDialogButton("不保存", 1),
-                    new FATaskDialogButton("取消", 2)
+                    new FATaskDialogButton(Localization.DontSave, 1),
+                    new FATaskDialogButton(Localization.Cancel, 2)
                 ]
             };
             var result = await dialog.ShowAsync();

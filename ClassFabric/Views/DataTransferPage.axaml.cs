@@ -40,6 +40,7 @@ using ClassIsland.ViewModels;
 using FluentAvalonia.UI.Controls;
 using IniParser;
 using IniParser.Model;
+using ClassFabric.Assets.Localization.Views.DataTransfer;
 using Microsoft.Extensions.Logging;
 
 namespace ClassIsland.Views;
@@ -82,7 +83,7 @@ public partial class DataTransferPage : UserControl
         ViewModel.PerformImportAction = BeginPerformClassIslandImport;
         ViewModel.PageIndex = 1;
         ViewModel.ImportSourcePath = "";
-        ViewModel.ImportDescription = "支持从 1.x 版本的 ClassIsland 导入课表、组件配置、自动化配置、应用设置、部分插件和主题等数据。";
+        ViewModel.ImportDescription = Localization.ImportDescriptionFromClassIsland;
         ViewModel.IsExport = false;
     }
 
@@ -97,10 +98,10 @@ public partial class DataTransferPage : UserControl
         PopupHelper.DisableAllPopups();
         var file = await PlatformServices.FilePickerService.OpenFilesPickerAsync(new FilePickerOpenOptions()
         {
-            Title = "选择先前版本的 ClassIsland 实例",
+            Title = Localization.PickerTitleFromClassIsland,
             FileTypeFilter =
             [
-                new FilePickerFileType("ClassIsland 可执行文件")
+                new FilePickerFileType(Localization.FileTypeClassIslandExecutable)
                 {
                     Patterns = ["ClassIsland.exe"]
                 }
@@ -119,10 +120,10 @@ public partial class DataTransferPage : UserControl
     {
         var r = await new FAContentDialog()
         {
-            Title = "重启以继续",
-            Content = "应用需要重启以继续导入操作，要重启以继续导入吗？",
-            PrimaryButtonText = "重启并继续",
-            SecondaryButtonText = "取消",
+            Title = Localization.RestartToContinueTitle,
+            Content = Localization.RestartToContinueImportContent,
+            PrimaryButtonText = Localization.RestartAndContinue,
+            SecondaryButtonText = Localization.Cancel,
             DefaultButton = FAContentDialogButton.Primary
         }.ShowAsyncAuto(TopLevel.GetTopLevel(this));
         if (r != FAContentDialogResult.Primary)
@@ -151,7 +152,7 @@ public partial class DataTransferPage : UserControl
         var settings = ConfigureFileHelper.LoadConfigUnWrapped<Settings>(Path.Combine(root, "Settings.json"), false);
         if (settings.LastAppVersion < Version.Parse("1.7.0.0"))
         {
-            throw new Exception("源 ClassFabric 版本必须在 1.7.0.x，才能进行导入。");
+            throw new Exception(Localization.ErrorSourceVersionNotSupported);
         }
         settings.MainWindowFont = MainWindow.DefaultFontFamilyKey;
         settings.AutoInstallUpdateNextStartup = false;
@@ -247,7 +248,7 @@ public partial class DataTransferPage : UserControl
         catch (Exception e)
         {
             IAppHost.TryGetService<ILogger<DataTransferPage>>()?.LogError(e, "导入时发生意外错误");
-            this.ShowErrorToast("导入时发生意外错误", e);
+            this.ShowErrorToast(Localization.UnexpectedImportError, e);
         }
 
     }
@@ -262,7 +263,7 @@ public partial class DataTransferPage : UserControl
         ViewModel.PerformImportAction = BeginPerformClassFabric2Import;
         ViewModel.PageIndex = 1;
         ViewModel.ImportSourcePath = "";
-        ViewModel.ImportDescription = "支持从 ClassFabric 2.x 数据文件导入课表、组件配置、自动化配置、应用设置、部分插件和主题等数据。";
+        ViewModel.ImportDescription = Localization.ImportDescriptionFromClassFabric2;
         ViewModel.IsExport = false;
     }
     
@@ -277,8 +278,8 @@ public partial class DataTransferPage : UserControl
         PopupHelper.DisableAllPopups();
         var file = await PlatformServices.FilePickerService.OpenFilesPickerAsync(new FilePickerOpenOptions()
         {
-            Title = "浏览 ClassFabric 2 导出文件",
-            FileTypeFilter = [ new FilePickerFileType("ClassFabric 数据文件")
+            Title = Localization.PickerTitleFromClassFabric2,
+            FileTypeFilter = [ new FilePickerFileType(Localization.FileTypeClassFabricData)
                 {
                     Patterns = ["*.cidata"]
                 } 
@@ -297,10 +298,10 @@ public partial class DataTransferPage : UserControl
     {
         var r = await new FAContentDialog()
         {
-            Title = "重启以继续",
-            Content = "应用需要重启以继续导入操作，要重启以继续导入吗？",
-            PrimaryButtonText = "重启并继续",
-            SecondaryButtonText = "取消",
+            Title = Localization.RestartToContinueTitle,
+            Content = Localization.RestartToContinueImportContent,
+            PrimaryButtonText = Localization.RestartAndContinue,
+            SecondaryButtonText = Localization.Cancel,
             DefaultButton = FAContentDialogButton.Primary
         }.ShowAsyncAuto(TopLevel.GetTopLevel(this));
         if (r != FAContentDialogResult.Primary)
@@ -331,7 +332,7 @@ public partial class DataTransferPage : UserControl
             ViewModel.PageIndex = 3;
             var topLevel = TopLevel.GetTopLevel(this) ?? AppBase.Current.GetRootWindow();
             using var file = await PlatformServices.FilePickerService.GetFileAsync(root, topLevel)
-                             ?? throw new FileNotFoundException("无法打开所选 ClassFabric 数据文件。", root);
+                             ?? throw new FileNotFoundException(Localization.ErrorCannotOpenDataFile, root);
             await using var inputStream = await file.OpenReadAsync();
             await Task.Run(() =>
             {
@@ -388,7 +389,7 @@ public partial class DataTransferPage : UserControl
                         : appDataRoot + Path.DirectorySeparatorChar;
                     if (!targetPath.StartsWith(rootWithSeparator, StringComparison.Ordinal) && targetPath != appDataRoot)
                     {
-                        throw new InvalidDataException($"压缩包包含无效路径：{entry.FullName}");
+                        throw new InvalidDataException(string.Format(Localization.ErrorInvalidEntryPath, entry.FullName));
                     }
 
                     if (string.IsNullOrEmpty(entry.Name))
@@ -407,7 +408,7 @@ public partial class DataTransferPage : UserControl
         catch (Exception e)
         {
             IAppHost.TryGetService<ILogger<DataTransferPage>>()?.LogError(e, "导入时发生意外错误");
-            this.ShowErrorToast("导入时发生意外错误", e);
+            this.ShowErrorToast(Localization.UnexpectedImportError, e);
         }
 
     }
@@ -422,7 +423,7 @@ public partial class DataTransferPage : UserControl
         ViewModel.PerformImportAction = PerformClassFabric2ExportAction;
         ViewModel.PageIndex = 1;
         ViewModel.ImportSourcePath = "";
-        ViewModel.ImportDescription = "支持导出为可以导入到其它 ClassFabric 2 实例的文件格式。";
+        ViewModel.ImportDescription = Localization.ExportDescription;
         ViewModel.IsExport = true;
     }
 
@@ -438,8 +439,8 @@ public partial class DataTransferPage : UserControl
         PopupHelper.DisableAllPopups();
         var file = await PlatformServices.FilePickerService.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "浏览保存的导出文件",
-            FileTypeChoices = [ new FilePickerFileType("ClassFabric 数据文件")
+            Title = Localization.PickerTitleForExport,
+            FileTypeChoices = [ new FilePickerFileType(Localization.FileTypeClassFabricData)
                 {
                     Patterns = ["*.cidata"]
                 } 
@@ -464,7 +465,7 @@ public partial class DataTransferPage : UserControl
             var path = ViewModel.ImportSourcePath;
             var topLevel = TopLevel.GetTopLevel(this) ?? AppBase.Current.GetRootWindow();
             using var file = await PlatformServices.FilePickerService.GetFileAsync(path, topLevel)
-                             ?? throw new FileNotFoundException("无法打开所选 ClassFabric 数据文件。", path);
+                             ?? throw new FileNotFoundException(Localization.ErrorCannotOpenDataFile, path);
             await using var outputStream = await file.OpenWriteAsync();
             if (outputStream.CanSeek)
             {
@@ -500,7 +501,7 @@ public partial class DataTransferPage : UserControl
         catch (Exception e)
         {
             ViewModel.Logger.LogError(e, "导出数据时发生意外错误。");
-            this.ShowErrorToast("导出数据时发生意外错误。", e);
+            this.ShowErrorToast(Localization.UnexpectedExportError, e);
             throw;
         }
     }
@@ -555,7 +556,7 @@ public partial class DataTransferPage : UserControl
         ViewModel.PerformImportAction = PerformClassWidgetsImportAction;
         ViewModel.PageIndex = 1;
         ViewModel.ImportSourcePath = "";
-        ViewModel.ImportDescription = "支持从 Class Widgets 1 导入全部课表信息和大部分配置。";
+        ViewModel.ImportDescription = Localization.ImportDescriptionFromClassWidgets;
         ViewModel.IsExport = false;
     }
     
@@ -570,7 +571,7 @@ public partial class DataTransferPage : UserControl
         PopupHelper.DisableAllPopups();
         var file = await PlatformServices.FilePickerService.OpenFoldersPickerAsync(new FolderPickerOpenOptions()
         {
-            Title = "浏览 Class Widgets 安装（即有 ClassWidgets[.exe]）的文件夹或其数据目录"
+            Title = Localization.PickerTitleFromClassWidgets
         }, topLevel);
         PopupHelper.RestoreAllPopups();
         if (file.Count <= 0)
@@ -737,10 +738,10 @@ public partial class DataTransferPage : UserControl
         }
         var r = await new FAContentDialog()
         {
-            Title = "重启以继续",
-            Content = "应用需要重启以完全应用导入操作，要继续吗？",
-            PrimaryButtonText = "重启并继续",
-            SecondaryButtonText = "取消",
+            Title = Localization.RestartToContinueTitle,
+            Content = Localization.RestartToContinueApplyContent,
+            PrimaryButtonText = Localization.RestartAndContinue,
+            SecondaryButtonText = Localization.Cancel,
             DefaultButton = FAContentDialogButton.Primary
         }.ShowAsyncAuto(TopLevel.GetTopLevel(this));
         if (r != FAContentDialogResult.Primary)
@@ -784,7 +785,7 @@ public partial class DataTransferPage : UserControl
         catch (Exception e)
         {
             IAppHost.TryGetService<ILogger<DataTransferPage>>()?.LogError(e, "导入时发生意外错误");
-            this.ShowErrorToast("导入时发生意外错误", e);
+            this.ShowErrorToast(Localization.UnexpectedImportError, e);
         }
     }
 
@@ -796,8 +797,8 @@ public partial class DataTransferPage : UserControl
         {
             await PlatformServices.DesktopToastService.ShowToastAsync(new DesktopToastContent()
             {
-                Title = "正在升级插件",
-                Body = "正在升级从 ClassIsland 1 导入的插件到兼容 ClassFabric 2 的版本，这可能需要一定的时间，应用将在升级完成后显示一条通知。部分插件可能暂不支持 ClassFabric 2。"
+                Title = Localization.UpgradingPluginsTitle,
+                Body = Localization.UpgradingPluginsBody
             });
             await IAppHost.GetService<IPluginMarketService>().RefreshPluginSourceAsync();
             IAppHost.GetService<IPluginMarketService>().UpdateAllPlugins(true);

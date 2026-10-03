@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditorTitle"
+    xml:space="preserve">
+    <value>教程编辑器</value>
+  </data>
+  <data name="TutorialGroup"
+    xml:space="preserve">
+    <value>教程组</value>
+  </data>
+  <data name="Title"
+    xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="Description"
+    xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="Tutorial"
+    xml:space="preserve">
+    <value>教程</value>
+  </data>
+  <data name="WatermarkDefault"
+    xml:space="preserve">
+    <value>（默认）</value>
+  </data>
+  <data name="BasicTab"
+    xml:space="preserve">
+    <value>基本</value>
+  </data>
+  <data name="Paragraph"
+    xml:space="preserve">
+    <value>段落</value>
+  </data>
+  <data name="TopLevelClassName"
+    xml:space="preserve">
+    <value>TopLevel 类名</value>
+  </data>
+  <data name="EnableBarrier"
+    xml:space="preserve">
+    <value>启用屏障</value>
+  </data>
+  <data name="EnterEventTab"
+    xml:space="preserve">
+    <value>进入事件</value>
+  </data>
+  <data name="Sentence"
+    xml:space="preserve">
+    <value>语句</value>
+  </data>
+  <data name="Content"
+    xml:space="preserve">
+    <value>内容</value>
+  </data>
+  <data name="HeroImage"
+    xml:space="preserve">
+    <value>头图</value>
+  </data>
+  <data name="WatermarkDisabled"
+    xml:space="preserve">
+    <value>（禁用）</value>
+  </data>
+  <data name="Icon"
+    xml:space="preserve">
+    <value>图标</value>
+  </data>
+  <data name="TargetSelectorLabel"
+    xml:space="preserve">
+    <value>目标控件选择器</value>
+  </data>
+  <data name="TeachingTipPlacement"
+    xml:space="preserve">
+    <value>教学提示摆放模式</value>
+  </data>
+  <data name="PointToTarget"
+    xml:space="preserve">
+    <value>指向目标</value>
+  </data>
+  <data name="HighlightTarget"
+    xml:space="preserve">
+    <value>高亮目标</value>
+  </data>
+  <data name="ModalTarget"
+    xml:space="preserve">
+    <value>使目标具有模态</value>
+  </data>
+  <data name="WaitForNextCommand"
+    xml:space="preserve">
+    <value>可等待被外部推动</value>
+  </data>
+  <data name="UseLightDismiss"
+    xml:space="preserve">
+    <value>使用 LightDismiss 代替右侧按钮</value>
+  </data>
+  <data name="RightButton"
+    xml:space="preserve">
+    <value>右侧按钮</value>
+  </data>
+  <data name="LeftButton"
+    xml:space="preserve">
+    <value>左侧按钮</value>
+  </data>
+  <data name="LeftButtonEventTab"
+    xml:space="preserve">
+    <value>左按钮事件</value>
+  </data>
+  <data name="RightButtonEventTab"
+    xml:space="preserve">
+    <value>右按钮事件</value>
+  </data>
+  <data name="ScriptTab"
+    xml:space="preserve">
+    <value>脚本</value>
+  </data>
+  <data name="TutorialScript"
+    xml:space="preserve">
+    <value>教程脚本</value>
+  </data>
+  <data name="EnableScript"
+    xml:space="preserve">
+    <value>启用脚本</value>
+  </data>
+  <data name="EditScriptHint"
+    xml:space="preserve">
+    <value>使用独立编辑器编辑此语句的 Lua 脚本。</value>
+  </data>
+  <data name="EditScript"
+    xml:space="preserve">
+    <value>编辑脚本…</value>
+  </data>
+  <data name="FileMenu"
+    xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="Open"
+    xml:space="preserve">
+    <value>打开…</value>
+  </data>
+  <data name="Save"
+    xml:space="preserve">
+    <value>保存…</value>
+  </data>
+  <data name="SaveAs"
+    xml:space="preserve">
+    <value>另存为…</value>
+  </data>
+  <data name="ChapterInfo"
+    xml:space="preserve">
+    <value>教程章节信息…</value>
+  </data>
+  <data name="RunMenu"
+    xml:space="preserve">
+    <value>运行</value>
+  </data>
+  <data name="RunCurrent"
+    xml:space="preserve">
+    <value>运行当前教程</value>
+  </data>
+  <data name="RunFromParagraph"
+    xml:space="preserve">
+    <value>从当前段落开始运行</value>
+  </data>
+  <data name="StopRunning"
+    xml:space="preserve">
+    <value>停止运行</value>
+  </data>
+  <data name="Add"
+    xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Duplicate"
+    xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Delete"
+    xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="TargetSelector"
+    xml:space="preserve">
+    <value>目标选择器</value>
+  </data>
+  <data name="NewTutorial"
+    xml:space="preserve">
+    <value>新教程</value>
+  </data>
+  <data name="NewParagraph"
+    xml:space="preserve">
+    <value>新段落</value>
+  </data>
+  <data name="ErrorCannotOpenTutorialFile"
+    xml:space="preserve">
+    <value>无法打开所选教程文件。</value>
+  </data>
+  <data name="OpenedToast"
+    xml:space="preserve">
+    <value>已打开 {0}</value>
+  </data>
+  <data name="ReplacedGroupToast"
+    xml:space="preserve">
+    <value>已替换 ID 为 {0} 的教程组并启用热重载。</value>
+  </data>
+  <data name="ErrorOpenTutorialFile"
+    xml:space="preserve">
+    <value>无法打开教程文件</value>
+  </data>
+  <data name="SavedToast"
+    xml:space="preserve">
+    <value>已保存 {0}</value>
+  </data>
+  <data name="ErrorSaveTutorialFile"
+    xml:space="preserve">
+    <value>无法保存教程文件</value>
+  </data>
+  <data name="UnsavedChangesTitle"
+    xml:space="preserve">
+    <value>更改尚未保存</value>
+  </data>
+  <data name="UnsavedChangesContent"
+    xml:space="preserve">
+    <value>更改尚未保存，您要在退出前保存更改吗？</value>
+  </data>
+  <data name="DontSave"
+    xml:space="preserve">
+    <value>不保存</value>
+  </data>
+  <data name="Cancel"
+    xml:space="preserve">
+    <value>取消</value>
+  </data>
+</root>

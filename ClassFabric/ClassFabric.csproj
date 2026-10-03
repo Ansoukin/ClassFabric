@@ -106,6 +106,9 @@
         <Folder Include="Assets\Localization\SettingsPage\Refreshing\" />
         <Folder Include="Assets\Localization\SettingsPage\Themes\" />
         <Folder Include="Assets\Localization\SettingsPage\Plugins\" />
+        <Folder Include="Assets\Localization\Windows\ClassChanging\" />
+        <Folder Include="Assets\Localization\Windows\TutorialEditor\" />
+        <Folder Include="Assets\Localization\Views\DataTransfer\" />
         <Folder Include="Models\Logging\" />
         <Folder Include="Models\Native\" />
         <Folder Include="Models\TimeRules\" />
@@ -137,6 +140,9 @@
         <AvaloniaResource Remove="Assets\Localization\SettingsPage\Refreshing\Localization.SettingsPage.Refreshing.resx" />
         <AvaloniaResource Remove="Assets\Localization\SettingsPage\Themes\Localization.SettingsPage.Themes.resx" />
         <AvaloniaResource Remove="Assets\Localization\SettingsPage\Plugins\Localization.SettingsPage.Plugins.resx" />
+<AvaloniaResource Remove="Assets\Localization\Windows\ClassChanging\Localization.Windows.ClassChanging.resx" />
+<AvaloniaResource Remove="Assets\Localization\Windows\TutorialEditor\Localization.Windows.TutorialEditor.resx" />
+<AvaloniaResource Remove="Assets\Localization\Views\DataTransfer\Localization.Views.DataTransfer.resx" />
         <None Include="Assets\AppLogo.png" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" PublishFolderType="Resource" />
     </ItemGroup>
     <ItemGroup Condition="'$(ClassFabricBundleAssetsInAssembly)' == 'true'">
@@ -174,6 +180,9 @@
         <None Include="Assets\Localization\SettingsPage\Refreshing\Localization.SettingsPage.Refreshing.resx" />
         <None Include="Assets\Localization\SettingsPage\Themes\Localization.SettingsPage.Themes.resx" />
         <None Include="Assets\Localization\SettingsPage\Plugins\Localization.SettingsPage.Plugins.resx" />
+<None Include="Assets\Localization\Windows\ClassChanging\Localization.Windows.ClassChanging.resx" />
+<None Include="Assets\Localization\Windows\TutorialEditor\Localization.Windows.TutorialEditor.resx" />
+<None Include="Assets\Localization\Views\DataTransfer\Localization.Views.DataTransfer.resx" />
     </ItemGroup>
     <ItemGroup Condition="'$(TrimAssets)'=='true'">
         <Resource Remove="Assets\Fonts\*.ttf" />
