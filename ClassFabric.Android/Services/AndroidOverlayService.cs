@@ -164,7 +164,7 @@ internal sealed class AndroidOverlayService : IDisposable
         catch (ActivityNotFoundException e)
         {
             _logger.LogWarning(e, "无法打开悬浮窗授权设置");
-            Toast.MakeText(_context, "请在系统设置中允许 ClassIsland 显示在其他应用上层。", ToastLength.Long)?.Show();
+            Toast.MakeText(_context, "请在系统设置中允许 ClassFabric 显示在其他应用上层。", ToastLength.Long)?.Show();
         }
     }
 
