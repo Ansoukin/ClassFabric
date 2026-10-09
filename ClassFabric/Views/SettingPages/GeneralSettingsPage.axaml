@@ -274,8 +274,10 @@
                                 <CheckBox Content="{x:Static locG:Localization.HideOnClass}"
                                           IsChecked="{Binding ViewModel.SettingsService.Settings.HideOnClass}"/>
                                 <CheckBox Content="{x:Static locG:Localization.HideOnMaxWindow}"
+                                          IsEnabled="{OnPlatform Default=True, Android=False}"
                                           IsChecked="{Binding ViewModel.SettingsService.Settings.HideOnMaxWindow}" />
                                 <CheckBox Content="{x:Static locG:Localization.HideOnFullscreen}"
+                                          IsEnabled="{OnPlatform Default=True, Android=False}"
                                           IsChecked="{Binding ViewModel.SettingsService.Settings.HideOnFullscreen}" />
                             </StackPanel>
                         </TabItem>

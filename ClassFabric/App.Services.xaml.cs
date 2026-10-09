@@ -259,10 +259,13 @@ public partial class App
         // 规则
         services.AddRule("classfabric.test.true", "总是为真", onHandle: _ => true);
         services.AddRule("classfabric.test.false", "总是为假", onHandle: _ => false);
-        services.AddRule<StringMatchingSettings, RulesetStringMatchingSettingsControl>("classfabric.windows.className", "前台窗口类名", "\uF4A2");
-        services.AddRule<StringMatchingSettings, RulesetStringMatchingSettingsControl>("classfabric.windows.text", "前台窗口标题", "\uF26B");
-        services.AddRule<WindowStatusRuleSettings, WindowStatusRuleSettingsControl>("classfabric.windows.status", "前台窗口状态是", "\uEC83");
-        services.AddRule<StringMatchingSettings, RulesetStringMatchingSettingsControl>("classfabric.windows.processName", "前台窗口进程", "\uF488");
+        if (!System.OperatingSystem.IsAndroid())
+        {
+            services.AddRule<StringMatchingSettings, RulesetStringMatchingSettingsControl>("classfabric.windows.className", "前台窗口类名", "\uF4A2");
+            services.AddRule<StringMatchingSettings, RulesetStringMatchingSettingsControl>("classfabric.windows.text", "前台窗口标题", "\uF26B");
+            services.AddRule<WindowStatusRuleSettings, WindowStatusRuleSettingsControl>("classfabric.windows.status", "前台窗口状态是", "\uEC83");
+            services.AddRule<StringMatchingSettings, RulesetStringMatchingSettingsControl>("classfabric.windows.processName", "前台窗口进程", "\uF488");
+        }
         services.AddRule<CurrentSubjectRuleSettings, CurrentSubjectRuleSettingsControl>("classfabric.lessons.currentSubject", "科目是", "\uE215");
         services.AddRule<CurrentSubjectRuleSettings, CurrentSubjectRuleSettingsControl>("classfabric.lessons.nextSubject", "下节课科目是", "\uE217");
         services.AddRule<CurrentSubjectRuleSettings, CurrentSubjectRuleSettingsControl>("classfabric.lessons.previousSubject", "上节课科目是", "\uE226");
