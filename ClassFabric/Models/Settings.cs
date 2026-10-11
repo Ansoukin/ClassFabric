@@ -81,6 +81,7 @@ public class Settings : ObservableRecipient, ILessonControlSettings, INotificati
     private int _updateMode = 3;
     private bool _autoInstallUpdateNextStartup = true;
     private bool _isDebugOptionsEnabled = false;
+    private bool _isDevPreviewNoticeSuppressed = false;
     private Color _selectedPlatte = Colors.DodgerBlue;
     private int _selectedPlatteIndex = 0;
     private ObservableCollection<Color> _wallpaperColorPlatte = new(Enumerable.Repeat(Colors.DodgerBlue, 5));
@@ -2548,6 +2549,18 @@ public class Settings : ObservableRecipient, ILessonControlSettings, INotificati
         {
             if (value == _isDebugOptionsEnabled) return;
             _isDebugOptionsEnabled = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>是否不再显示开发者预览版提示（对话框下拉菜单「不再提醒」置位；集控部署的教室机靠它跳过启动提示）。</summary>
+    public bool IsDevPreviewNoticeSuppressed
+    {
+        get => _isDevPreviewNoticeSuppressed;
+        set
+        {
+            if (value == _isDevPreviewNoticeSuppressed) return;
+            _isDevPreviewNoticeSuppressed = value;
             OnPropertyChanged();
         }
     }
