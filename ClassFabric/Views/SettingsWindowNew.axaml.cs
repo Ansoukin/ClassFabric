@@ -131,7 +131,37 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         BuildNavigationMenuItems();
         _debugOptionsSubscription = SettingsService.Settings
             .ObservableForProperty(x => x.IsDebugOptionsEnabled)
-            .Subscribe(_ => BuildNavigationMenuItems());
+            .Subscribe(_ => OnDebugOptionsToggled());
+    }
+
+    /// <summary>
+    /// 调试开关切换：先决定当前页去留，再重建导航菜单。
+    /// 顺序反了会出现「页已被踢掉、菜单里却没有它的去向」，右窗格整块空白——实测踩过。
+    /// Debug 类页面在被关闭时落到「关于」页（设置窗口的常驻页，不依赖任何开关）。
+    /// </summary>
+    private async void OnDebugOptionsToggled()
+    {
+        if (_resourcesReleased)
+        {
+            return;
+        }
+
+        var debugEnabled = SettingsService.Settings.IsDebugOptionsEnabled;
+        var current = ViewModel.SelectedPageInfo;
+        if (!debugEnabled && current is { Category: SettingsPageCategory.Debug })
+        {
+            var fallback = SettingsWindowRegistryService.Registered.FirstOrDefault(x => x.Id == "about");
+            if (fallback != null)
+            {
+                await CoreNavigate(fallback);
+            }
+        }
+
+        if (_resourcesReleased)
+        {
+            return;
+        }
+        BuildNavigationMenuItems();
     }
 
     private void BuildNavigationMenuItems()

@@ -158,7 +158,9 @@
         </DataTemplate>
     </controls1:ViewBase.HeaderTemplate>
     <controls1:ViewBase.Resources>
-        <ScrollViewer Width="332" x:Key="ExperimentalSettings"
+        <!-- x:Shared=False：抽屉内容默认是资源单例，被 DrawerHost 摘挂一次再挂回来时残留状态
+             会让整块内容不再渲染（文字全消失、重开窗口才恢复）。每次打开都取新实例绕开它。 -->
+        <ScrollViewer Width="332" x:Key="ExperimentalSettings" x:Shared="False"
                       VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="16">
                 <TextBlock Text="{x:Static locS:Localization.ExperimentalFeature_string}" Theme="{StaticResource SubtitleTextBlockStyle}"
@@ -171,6 +173,15 @@
                     <TextBlock TextWrapping="Wrap">
                         <Run Text="{x:Static locS:Localization.EchoCaveLine1}"/>
                         <Run Text="{x:Static locS:Localization.EchoCaveLine2}" TextDecorations="{x:Static TextDecorations.Strikethrough}"/>
+                    </TextBlock>
+                </CheckBox>
+                <CheckBox IsChecked="{Binding SettingsService.Settings.IsDebugOptionsEnabled}"
+                          Margin="0 12 0 0"
+                          IsVisible="{Binding ManagementService.Policy.DisableDebugMenu, Converter={StaticResource BooleanToBooleanReConverter}}">
+                    <TextBlock TextWrapping="Wrap">
+                        <Run Text="{x:Static locS:Localization.DebugModeLine1}"/>
+                        <LineBreak/>
+                        <Run Text="{x:Static locS:Localization.DebugModeEasterEgg}" TextDecorations="{x:Static TextDecorations.Strikethrough}"/>
                     </TextBlock>
                 </CheckBox>
             </StackPanel>

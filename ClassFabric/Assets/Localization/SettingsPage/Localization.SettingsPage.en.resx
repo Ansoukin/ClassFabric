@@ -281,4 +281,12 @@
     <value>(Actually it usually finishes loading before you finish reading)</value>
     <comment>实验性功能页-回声洞删除线文本</comment>
   </data>
+  <data name="DebugModeLine1" xml:space="preserve">
+    <value>Enable debug mode</value>
+    <comment>实验性功能页-调试模式复选框</comment>
+  </data>
+  <data name="DebugModeEasterEgg" xml:space="preserve">
+    <value>(Up up down down left left right right, start!)</value>
+    <comment>实验性功能页-调试模式删除线文本（替换说明行）</comment>
+  </data>
 </root>

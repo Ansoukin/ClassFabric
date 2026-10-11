@@ -386,5 +386,21 @@ namespace ClassFabric.Assets.Localization.SettingsPage {
             get {
                 return ResourceManager.GetString("EchoCaveLine2", resourceCulture);
             }
+        }
+        /// <summary>
+        ///   查找类似 启动调试模式 的本地化字符串。
+        /// </summary>
+        public static string DebugModeLine1 {
+            get {
+                return ResourceManager.GetString("DebugModeLine1", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   查找类似 （上上下下左左右右，启动！） 的本地化字符串。
+        /// </summary>
+        public static string DebugModeEasterEgg {
+            get {
+                return ResourceManager.GetString("DebugModeEasterEgg", resourceCulture);
+            }
         }    }
 }
