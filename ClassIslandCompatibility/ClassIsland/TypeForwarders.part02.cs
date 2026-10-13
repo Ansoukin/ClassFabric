@@ -29,6 +29,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.NotificationProviders.WeatherNotificationProviderSettingsControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.OobeIntroAnimationControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ParallelogramControl))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Controls.PipsPager))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ProfileTransferProviders.ClassIsland1ImportProvider))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ProfileTransferProviders.ClassWidgets1ImportProvider))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ProfileTransferProviders.ClassWidgets2ImportProvider))]

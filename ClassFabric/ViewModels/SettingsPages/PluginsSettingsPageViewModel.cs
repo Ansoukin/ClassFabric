@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
+using ClassIsland.Controls;
 using ClassIsland.Core.Abstractions.Services;
 using ClassIsland.Core.ComponentModels;
 using ClassIsland.Core.Models.Plugin;
@@ -114,8 +115,9 @@ public partial class PluginsSettingsPageViewModel : ObservableRecipient
         var panel = new Avalonia.Controls.WrapPanel { Margin = new Avalonia.Thickness(0, 2, 0, 8) };
         foreach (var badge in badges)
         {
-            // AdvancedImage 构造要传 baseUri（同 AboutSettingsPage 网络图用法），纯网络地址传 null
-            var image = new AsyncImageLoader.AdvancedImage((Uri?)null)
+            // AdvancedImage 只会走 Skia 位图解码，README 徽章/图表大量是 SVG，
+            // 换 SvgAwareImage（SVG 内容探测分叉解码，见 Controls/SvgAwareImage.cs）
+            var image = new SvgAwareImage
             {
                 Source = badge.ImageUrl,
                 MaxHeight = 22,

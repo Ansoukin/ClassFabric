@@ -16,6 +16,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.SlantedMaskControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.SpeechProviderSettingsControls.EdgeTtsSpeechServiceSettingsControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.SpeechProviderSettingsControls.GptSovitsSpeechServiceSettingsControl))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Controls.SvgAwareImage))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.TimeLine.TimeLineBackgroundRulerControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.TimeLine.TimeLineInsertTimePointEventArgs))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.TimeLine.TimeLineListControl))]

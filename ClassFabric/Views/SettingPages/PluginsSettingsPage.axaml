@@ -7,6 +7,7 @@
       xmlns:controls="clr-namespace:ClassIsland.Core.Abstractions.Controls;assembly=ClassFabric.Core"
       xmlns:services="clr-namespace:ClassIsland.Core.Abstractions.Services;assembly=ClassFabric.Core"
       xmlns:controls1="clr-namespace:ClassIsland.Controls"
+      xmlns:appServices="clr-namespace:ClassIsland.Services"
       xmlns:plugin="clr-namespace:ClassIsland.Core.Models.Plugin;assembly=ClassFabric.Core"
       xmlns:ci="http://classfabric.tech/schemas/xaml/core"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -258,9 +259,8 @@
                                                                HorizontalAlignment="Center"
                                                                VerticalAlignment="Center"/>
                                             </Border>
-                                            <asyncImageLoader:AdvancedImage x:Name="GalleryImage"
+                                            <controls1:SvgAwareImage x:Name="GalleryImage"
                                                                             MaxHeight="360"
-                                                                            Stretch="Uniform"
                                                                             Source="{Binding ViewModel.CurrentGalleryImage, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}, FallbackValue={x:Null}}"/>
                                             <!-- 切换图片时网络拉取有窗口期，给个真实加载态免得像卡死 -->
                                             <controls2:FAProgressRing Width="28" Height="28" MinWidth="0" MinHeight="0"
