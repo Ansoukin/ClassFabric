@@ -237,16 +237,71 @@
                                 </Binding.ConverterParameter>
                             </Binding>
                         </Border.IsVisible>
+                        <!-- 图片与文字整体滚动：唯一滚动域在外层；README 用引擎 Transform 直出控件树，
+                             避免 MarkdownScrollViewer 自带滚动容器与外层抢滚轮、高度塌陷叠字 -->
                         <Grid>
-                            <mdxaml:MarkdownScrollViewer
-                                Engine="{x:Static helpers:MarkdownConvertHelper.Engine}"
-                                Margin="6 4 0 0"
-                                Markdown="{Binding ViewModel.ReadmeDocument, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}}">
-                                <mdxaml:MarkdownScrollViewer.Styles>
-                                    <StyleInclude Source="avares://ClassFabric.Core/Themes/RichTextStyles.axaml"/>
-                                        
-                                </mdxaml:MarkdownScrollViewer.Styles>
-                            </mdxaml:MarkdownScrollViewer>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                          IsVisible="{Binding !ViewModel.IsLoadingDocument, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}}">
+                                <StackPanel Margin="6 4 8 0">
+                                    <StackPanel.Styles>
+                                        <StyleInclude Source="avares://ClassFabric.Core/Themes/RichTextStyles.axaml"/>
+                                    </StackPanel.Styles>
+                                    <Border Margin="0 0 0 8"
+                                            IsVisible="{Binding ViewModel.HasGalleryImages, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}}">
+                                        <Grid MinHeight="160">
+                                            <Border CornerRadius="8"
+                                                    ClipToBounds="True"
+                                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}">
+                                                <ci:FluentIcon Glyph="{x:Static icons:FluentIcons.ImageRegular}"
+                                                               FontSize="36"
+                                                               Foreground="{DynamicResource SystemFillColorDisabledBrush}"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center"/>
+                                            </Border>
+                                            <asyncImageLoader:AdvancedImage x:Name="GalleryImage"
+                                                                            MaxHeight="360"
+                                                                            Stretch="Uniform"
+                                                                            Source="{Binding ViewModel.CurrentGalleryImage, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}, FallbackValue={x:Null}}"/>
+                                            <!-- 切换图片时网络拉取有窗口期，给个真实加载态免得像卡死 -->
+                                            <controls2:FAProgressRing Width="28" Height="28" MinWidth="0" MinHeight="0"
+                                                                       HorizontalAlignment="Center"
+                                                                       VerticalAlignment="Center"
+                                                                       IsVisible="{Binding #GalleryImage.IsLoading}"/>
+                                            <controls1:PipsPager PageCount="{Binding ViewModel.GalleryImages.Count, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}}"
+                                                                 SelectedPageIndex="{Binding ViewModel.GallerySelectedIndex, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}}"/>
+                                        </Grid>
+                                    </Border>
+                                    <TextBlock Text="{Binding ViewModel.OverviewTitle, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}}"
+                                               FontSize="26" FontWeight="SemiBold"
+                                               Margin="0 0 0 2"
+                                               TextWrapping="Wrap"
+                                               IsVisible="{Binding ViewModel.OverviewTitle, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                                    <!-- 徽章行控件树由后台代码构建（ViewModel.BuildBadgeRow），空内容不占位 -->
+                                    <ContentControl Content="{Binding ViewModel.BadgeRow, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}}"/>
+                                    <ContentControl Content="{Binding ViewModel.ReadmeContent, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}}"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                            <!-- README 拉取期间的骨架占位：内容区隐藏时才显示，视觉上先于数据落位 -->
+                            <StackPanel Margin="6 4 8 0" Spacing="10"
+                                        IsVisible="{Binding ViewModel.IsLoadingDocument, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}}">
+                                <StackPanel.Styles>
+                                    <Style Selector="Border.skeleton">
+                                        <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorSecondaryBrush}"/>
+                                        <Setter Property="CornerRadius" Value="6"/>
+                                        <Style.Animations>
+                                            <Animation Duration="0:0:1.1" IterationCount="Infinite" PlaybackDirection="Alternate">
+                                                <KeyFrame Cue="0%"><Setter Property="Opacity" Value="0.35"/></KeyFrame>
+                                                <KeyFrame Cue="100%"><Setter Property="Opacity" Value="0.85"/></KeyFrame>
+                                            </Animation>
+                                        </Style.Animations>
+                                    </Style>
+                                </StackPanel.Styles>
+                                <Border Classes="skeleton" Height="200" HorizontalAlignment="Stretch"/>
+                                <Border Classes="skeleton" Height="24" Width="220" HorizontalAlignment="Left"/>
+                                <Border Classes="skeleton" Height="14" HorizontalAlignment="Stretch"/>
+                                <Border Classes="skeleton" Height="14" HorizontalAlignment="Stretch"/>
+                                <Border Classes="skeleton" Height="14" Width="340" HorizontalAlignment="Left"/>
+                            </StackPanel>
                             <ProgressBar IsVisible="{Binding ViewModel.IsLoadingDocument, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}}"
                                          VerticalAlignment="Top"
                                          Height="3"

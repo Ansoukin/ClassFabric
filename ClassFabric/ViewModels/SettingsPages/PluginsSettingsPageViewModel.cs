@@ -23,7 +23,11 @@ public partial class PluginsSettingsPageViewModel : ObservableRecipient
     public ILogger<PluginsSettingsPage> Logger { get; }
     
     [ObservableProperty] private PluginInfo? _selectedPluginInfo;
-    [ObservableProperty] private string _readmeDocument = "";
+    [ObservableProperty] private Avalonia.Controls.Control? _readmeContent;
+    [ObservableProperty] private ObservableCollection<string> _galleryImages = new();
+    [ObservableProperty] private int _gallerySelectedIndex;
+    [ObservableProperty] private string _overviewTitle = "";
+    [ObservableProperty] private Avalonia.Controls.Control? _badgeRow;
     [ObservableProperty] private bool _isPluginOperationsPopupOpened = false;
     [ObservableProperty] private bool _isPluginMarketOperationsPopupOpened = false;
     [ObservableProperty] private PluginIndexInfo? _selectedPluginIndexInfo;
@@ -39,6 +43,105 @@ public partial class PluginsSettingsPageViewModel : ObservableRecipient
     [ObservableProperty] private string _dragInstallHintText = "将插件拖入到此处，松手即可安装。";
     [ObservableProperty] private string _dragInstallSubHintText = "";
     [ObservableProperty] private bool _pluginListBoxHasItems = false;
+
+    /// <summary>README 没有图片时轮播整体隐藏；有图时供绑定判断。</summary>
+    public bool HasGalleryImages => GalleryImages.Count > 0;
+
+    /// <summary>轮播当前显示的图片地址，下标越界一律给空串（切插件瞬间下标还没复位）。</summary>
+    public string CurrentGalleryImage =>
+        GallerySelectedIndex >= 0 && GallerySelectedIndex < GalleryImages.Count
+            ? GalleryImages[GallerySelectedIndex]
+            : "";
+
+    partial void OnGalleryImagesChanged(ObservableCollection<string> value)
+    {
+        OnPropertyChanged(nameof(HasGalleryImages));
+        OnPropertyChanged(nameof(CurrentGalleryImage));
+    }
+
+    partial void OnGallerySelectedIndexChanged(int value)
+    {
+        OnPropertyChanged(nameof(CurrentGalleryImage));
+    }
+
+    /// <summary>
+    /// 应用 README 清洗结果并渲染控件树。
+    /// 不走 MarkdownScrollViewer：它的模板自带滚动容器，会和详情页的统一滚动域抢滚轮、
+    /// 在自适应高度下塌陷叠字；引擎直出控件树塞进 ContentControl，滚动完全归外层。
+    /// </summary>
+    internal void ApplyReadme(ClassIsland.Services.MarketReadmeResult result)
+    {
+        OverviewTitle = result.OverviewTitle;
+        GalleryImages = new ObservableCollection<string>(result.GalleryImages);
+        GallerySelectedIndex = 0;
+        BadgeRow = BuildBadgeRow(result.Badges);
+        try
+        {
+            ReadmeContent = ClassIsland.Core.Helpers.MarkdownConvertHelper.Engine.Transform(result.BodyMarkdown);
+        }
+        catch (Exception e)
+        {
+            Logger.LogError(e, "README 渲染失败");
+            ReadmeContent = new Avalonia.Controls.TextBlock
+            {
+                Text = string.Format(ClassFabric.Assets.Localization.SettingsPage.Plugins.Localization.ReadmeLoadFailed, e.Message),
+                TextWrapping = Avalonia.Media.TextWrapping.Wrap,
+                Opacity = 0.7
+            };
+        }
+    }
+
+    public void ClearReadmeExtras()
+    {
+        OverviewTitle = "";
+        GalleryImages = new ObservableCollection<string>();
+        GallerySelectedIndex = 0;
+        BadgeRow = null;
+        ReadmeContent = null;
+    }
+
+    /// <summary>
+    /// 徽章行：README 抽出的 shields 徽标横排展示，有外链的可点击跳转。
+    /// 照 ReadmeContent 的方式在代码里构建控件树，不为两个展示字段新增公开类型——
+    /// app 程序集新增公开类型要连带补兼容垫片转发声明，不值当。
+    /// </summary>
+    private static Avalonia.Controls.Control? BuildBadgeRow(IReadOnlyList<MarketBadge> badges)
+    {
+        if (badges.Count == 0)
+        {
+            return null;
+        }
+        var panel = new Avalonia.Controls.WrapPanel { Margin = new Avalonia.Thickness(0, 2, 0, 8) };
+        foreach (var badge in badges)
+        {
+            // AdvancedImage 构造要传 baseUri（同 AboutSettingsPage 网络图用法），纯网络地址传 null
+            var image = new AsyncImageLoader.AdvancedImage((Uri?)null)
+            {
+                Source = badge.ImageUrl,
+                MaxHeight = 22,
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center
+            };
+            if (badge.LinkUrl is null)
+            {
+                image.Margin = new Avalonia.Thickness(0, 0, 6, 2);
+                panel.Children.Add(image);
+                continue;
+            }
+            var button = new Avalonia.Controls.Button
+            {
+                Content = image,
+                Padding = new Avalonia.Thickness(0),
+                BorderThickness = new Avalonia.Thickness(0),
+                Background = Avalonia.Media.Brushes.Transparent,
+                Margin = new Avalonia.Thickness(0, 0, 6, 2),
+                Command = ClassIsland.Core.Commands.UriNavigationCommands.UriNavigationCommand,
+                CommandParameter = badge.LinkUrl,
+                Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Hand)
+            };
+            panel.Children.Add(button);
+        }
+        return panel;
+    }
 
     private ReadOnlyObservableCollection<KeyValuePair<string, PluginInfo>> _mergedPluginsFiltered = null!;
     public ReadOnlyObservableCollection<KeyValuePair<string, PluginInfo>> MergedPluginsFiltered => _mergedPluginsFiltered;

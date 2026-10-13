@@ -71,17 +71,18 @@ public partial class PluginsSettingsPage : SettingsPageBase
     {
         if (ViewModel.SelectedPluginInfo == null)
         {
-            ViewModel.ReadmeDocument = "";
+            ViewModel.ClearReadmeExtras();
             return;
         }
-        var path = System.IO.Path.Combine(ViewModel.SelectedPluginInfo.PluginFolderPath,
-            ViewModel.SelectedPluginInfo.Manifest.Readme);
+        var plugin = ViewModel.SelectedPluginInfo;
+        var path = System.IO.Path.Combine(plugin.PluginFolderPath,
+            plugin.Manifest.Readme);
         var uri = new Uri(path, UriKind.RelativeOrAbsolute);
 
         string document;
         try
         {
-            ViewModel.ReadmeDocument = "> Loading...";
+            ViewModel.ClearReadmeExtras();
             await DocumentLoadingCancellationTokenSource.CancelAsync();
             DocumentLoadingCancellationTokenSource = new();
             ViewModel.IsLoadingDocument = true;
@@ -106,7 +107,18 @@ public partial class PluginsSettingsPage : SettingsPageBase
             ViewModel.IsLoadingDocument = false;
         }
 
-        ViewModel.ReadmeDocument = document;
+        // 相对路径图片的补全基址：市场插件相对 README 所在目录，本地插件相对插件目录
+        string? baseUrl;
+        if (uri.IsAbsoluteUri && uri.Scheme is "https" or "http")
+        {
+            baseUrl = new Uri(uri, ".").ToString();
+        }
+        else
+        {
+            baseUrl = plugin.PluginFolderPath;
+        }
+
+        ViewModel.ApplyReadme(MarketReadmeProcessor.Process(document, baseUrl, plugin.Manifest.Name));
     }
 
     private async void ViewModelOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
