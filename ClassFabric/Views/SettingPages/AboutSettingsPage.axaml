@@ -215,10 +215,23 @@
                         </WrapPanel>
                     </controls3:FASettingsExpanderItem.Footer>
                     <TextBlock Background="Transparent">
-                        <Run Text="{x:Static locAbout:Localization.LicenseStatement}"/><LineBreak/>
-                        <Run Text="Copyright (c) 2023-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /> HelloWRC<LineBreak/>
-                        <Run Text="Copyright (c) 2026-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /> Ansoukin
+                        <Run Text="{x:Static locAbout:Localization.LicenseStatement}"/>
                     </TextBlock>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem>
+                    <TextBlock Background="Transparent">
+                        <Run Text="Copyright (c) 2023-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /><Run Text=" HelloWRC" />
+                    </TextBlock>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem>
+                    <TextBlock Background="Transparent">
+                        <Run Text="Copyright (c) 2026-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /><Run Text=" Ansoukin" />
+                    </TextBlock>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem MinHeight="40">
+                    <TextBlock Text="本项目基于 GNU General Public License v3.0 获得许可。"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               FontSize="13"/>
                 </controls3:FASettingsExpanderItem>
                 <controls3:FASettingsExpanderItem Content="{x:Static locAbout:Localization.CommonLinks}">
                     <controls3:FASettingsExpanderItem.Footer>
@@ -232,6 +245,10 @@
                             <HyperlinkButton Click="UriNavigationCommands_OnClick"
                                              CommandParameter="https://classisland.tech"
                                              IsVisible="False">
+                                <TextBlock Text="{x:Static locAbout:Localization.ProjectHomepage}"/>
+                            </HyperlinkButton>
+                            <HyperlinkButton Click="UriNavigationCommands_OnClick"
+                                             CommandParameter="https://cf.ansoukin.top">
                                 <TextBlock Text="{x:Static locAbout:Localization.ProjectHomepage}"/>
                             </HyperlinkButton>
                             <HyperlinkButton Click="UriNavigationCommands_OnClick"
