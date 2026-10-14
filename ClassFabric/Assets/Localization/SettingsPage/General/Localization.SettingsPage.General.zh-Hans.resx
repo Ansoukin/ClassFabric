@@ -345,4 +345,12 @@
     <value>启用后将降低主界面进度条精度，降低主界面更新频率，以减少应用的性能占用。</value>
     <comment>降低主界面进度条精度-描述</comment>
   </data>
+  <data name="TranslationCredit" xml:space="preserve">
+    <value>ClassFabric 的多语言翻译由 Crowdin 托管。</value>
+    <comment>设置-通用-界面语言-翻译贡献宣传</comment>
+  </data>
+  <data name="TranslationCreditAction" xml:space="preserve">
+    <value>贡献译文</value>
+    <comment>设置-通用-界面语言-翻译贡献链接文字</comment>
+  </data>
 </root>

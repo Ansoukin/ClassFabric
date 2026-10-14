@@ -345,4 +345,12 @@
     <value>Reduces the precision of the main window progress bar and lowers its refresh rate to decrease the application's resource usage.</value>
     <comment>降低主界面进度条精度-描述</comment>
   </data>
+  <data name="TranslationCredit" xml:space="preserve">
+    <value>Localization of ClassFabric is hosted on Crowdin.</value>
+    <comment>设置-通用-界面语言-翻译贡献宣传</comment>
+  </data>
+  <data name="TranslationCreditAction" xml:space="preserve">
+    <value>Contribute</value>
+    <comment>设置-通用-界面语言-翻译贡献链接文字</comment>
+  </data>
 </root>

@@ -49,6 +49,14 @@ public partial class GeneralSettingsPage : SettingsPageBase
         ViewModel.SettingsService.Settings.ShowComponentsMigrateTip = false;
     }
 
+    private void UriNavigationCommands_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is HyperlinkButton { CommandParameter: string url })
+        {
+            ClassIsland.Core.Commands.UriNavigationCommands.UriNavigationCommand.Execute(url);
+        }
+    }
+
     private void ButtonWeekOffsetSettingsButtons_OnClick(object sender, RoutedEventArgs e)
     {
         ViewModel.IsWeekOffsetSettingsOpen = false;

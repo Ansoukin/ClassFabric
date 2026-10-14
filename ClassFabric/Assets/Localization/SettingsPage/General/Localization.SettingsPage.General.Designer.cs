@@ -514,5 +514,21 @@ namespace ClassFabric.Assets.Localization.SettingsPage.General {
             get {
                 return ResourceManager.GetString("ReduceProgressAccuracyDescription", resourceCulture);
             }
+        }
+        /// <summary>
+        ///   查找类似 ClassFabric 的多语言翻译由 Crowdin 托管，欢迎访问项目主页，为翻译贡献力量。 的本地化字符串。
+        /// </summary>
+        public static string TranslationCredit {
+            get {
+                return ResourceManager.GetString("TranslationCredit", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   查找类似 贡献译文 的本地化字符串。
+        /// </summary>
+        public static string TranslationCreditAction {
+            get {
+                return ResourceManager.GetString("TranslationCreditAction", resourceCulture);
+            }
         }    }
 }
