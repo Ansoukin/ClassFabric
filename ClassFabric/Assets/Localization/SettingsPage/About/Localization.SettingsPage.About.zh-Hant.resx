@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -226,7 +226,7 @@
     <comment>鸣谢-服务器资源（后段）</comment>
   </data>
   <data name="WeatherDataCredit" xml:space="preserve">
-    <value>天氣數據來源於小米天氣。</value>
+    <value>天氣數據來源於小米天氣與 OpenWeather。</value>
     <comment>鸣谢-天气数据来源</comment>
   </data>
   <data name="SpecialThanksPrefix" xml:space="preserve">
