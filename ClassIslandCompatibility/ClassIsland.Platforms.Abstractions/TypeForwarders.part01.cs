@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Platforms.Abstraction.Services.IDesktopToastService))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Platforms.Abstraction.Services.ILauncherService))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Platforms.Abstraction.Services.ILocationService))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Platforms.Abstraction.Services.INotificationPermissionService))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Platforms.Abstraction.Services.IPlatformFilePickerService))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Platforms.Abstraction.Services.ISystemEventsService))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Platforms.Abstraction.Services.IWindowPlatformService))]

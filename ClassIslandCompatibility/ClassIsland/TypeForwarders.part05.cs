@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.AttachedSettings.AfterSchoolNotificationAttachedSettings))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.AttachedSettings.ClassNotificationAttachedSettings))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Models.AttachedSettings.RealtimeNotificationAttachedSettings))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.AttachedSettings.TestAttachedSettings))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.AttachedSettings.WeatherNotificationAttachedSettings))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.AttachedSettingsNodeWithState))]
@@ -39,4 +40,5 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.GitHubReleaseInfo))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.GptSoVitsSpeechSettings))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.IClassNotificationSettings))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Models.IRealtimeNotificationSettings))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Models.Ipc.IpcPeer))]

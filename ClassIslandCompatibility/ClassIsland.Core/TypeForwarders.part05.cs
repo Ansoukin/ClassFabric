@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.LucideIcon))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.LucideIconSource))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.MainWindowBackgroundMaterialControl))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.MultipleDateSelector))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.MyWindow))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.NavHyperlink.NavHyperlink))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Controls.NotificationTemplates.RollingTextTemplate))]

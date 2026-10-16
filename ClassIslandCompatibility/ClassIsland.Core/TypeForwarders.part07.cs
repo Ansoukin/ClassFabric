@@ -31,6 +31,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.UI.ContentDialogHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.UI.ControlColorHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.UI.FlyoutHelper))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.UI.IconBitmapHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.UI.IconExpressionHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.UI.PopupHelper))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Helpers.UI.SelectorHelpers))]

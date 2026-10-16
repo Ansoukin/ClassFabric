@@ -20,6 +20,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.AttachedSettingsControls.AfterSchoolNotificationAttachedSettingsControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.AttachedSettingsControls.ClassNotificationAttachedSettingsControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.AttachedSettingsControls.LessonControlAttachedSettingsControl))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Controls.AttachedSettingsControls.RealtimeNotificationAttachedSettingsControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.AttachedSettingsControls.WeatherNotificationAttachedSettingsControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.AuthorizeProvider.PasswordAuthorizeProvider))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.AuthorizeProviderPresenter))]

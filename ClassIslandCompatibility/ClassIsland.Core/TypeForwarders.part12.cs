@@ -16,6 +16,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Enums.SettingsWindow.SettingsPageCategory))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Enums.SettingsWindow.SettingsWindowNavigationExtraData))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Enums.Tutorial.TutorialActionKind))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Enums.UI.IconBitmapRenderMode))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Enums.UI.MainWindowBackgroundMaterialType))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Enums.UI.ViewActivationPreference))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Enums.Updating.DeployMethod))]

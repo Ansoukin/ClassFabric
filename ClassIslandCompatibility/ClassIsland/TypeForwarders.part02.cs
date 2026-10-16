@@ -3,6 +3,8 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.Components.TextComponentSettingsControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.Components.WeatherComponent))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.Components.WeatherComponentSettingsControl))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Controls.RectanglesNotificationBubble))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Controls.RectanglesNotificationPanel))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.DataOperatingIndicator))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.Demo.ThemeDemo))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.EditMode.EditModeContainerComponentInfo))]
