@@ -37,6 +37,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Behaviors.PopupIntroAnimationBehavior))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Behaviors.ProgressBarRunBehavior))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Behaviors.StackPanelIntroAnimationBehavior))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Behaviors.ToastSwipeBehavior))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Behaviors.ToggleTabStripBehavior))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Behaviors.WrapPanelAutoResizeBehavior))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.BindingProxy))]

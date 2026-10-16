@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: TypeForwardedTo(typeof(ClassIsland.Shared.Models.Profile.OrderedSchedule))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Shared.Models.Profile.OrderedScheduleV2))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Shared.Models.Profile.Profile))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Shared.Models.Profile.ProfileMigration))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Shared.Models.Profile.ScheduleItem))]

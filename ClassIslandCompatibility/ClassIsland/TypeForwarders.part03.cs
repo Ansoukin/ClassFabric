@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ScheduleDataGrid.ScheduleDataGridColHeaderViewModel))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ScheduleDataGrid.ScheduleDataGridSelectionChangedEventArgs))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ScheduleDayControl))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ScheduleWeekEdit.ScheduleDayHeaderEventArgs))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ScheduleWeekEdit.ScheduleWeekBlock))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ScheduleWeekEdit.ScheduleWeekEditControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.ScheduleWeekEdit.ScheduleWeekEditEventArgs))]
