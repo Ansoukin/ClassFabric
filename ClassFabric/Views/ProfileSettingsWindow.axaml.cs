@@ -21,6 +21,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using ClassIsland.Controls.ScheduleDataGrid;
+using ClassIsland.Controls;
 using ClassIsland.Controls.TimeLine;
 using ClassIsland.Controls.ScheduleWeekEdit;
 using ClassIsland.Core;
@@ -122,6 +123,12 @@ public partial class ProfileSettingsWindow : ViewBase
                 _undoStack.Clear(); _redoStack.Clear();
                 ViewModel.CanUndo = false; ViewModel.CanRedo = false;
                 ViewModel.UndoDescriptions.Clear(); ViewModel.RedoDescriptions.Clear();
+            }));
+        _externalSubscriptions.Add(ViewModel.ObservableForProperty(x => x.ScheduleWeekSelectedDate)
+            .Subscribe(change =>
+            {
+                if (change.Value is { } date && ViewModel.SelectedScheduleItemId != null && CanEditScheduleItems())
+                    WarnAboutAdjustedCourseEdit(date);
             }));
     }
 
@@ -1531,6 +1538,7 @@ public partial class ProfileSettingsWindow : ViewBase
     private void ScheduleWeekEditor_OnEditRequested(object? sender, ScheduleWeekEditEventArgs e)
     {
         if (!CanEditScheduleItems()) return;
+        WarnAboutAdjustedCourseEdit(e.OriginalDate);
         if (!ViewModel.ApplyScheduleWeekEdit(e))
             ToastsHelper.ShowToast(this, new ToastMessage(Localization.CannotMoveScheduleItemToast));
         e.Handled = true;
@@ -1539,8 +1547,22 @@ public partial class ProfileSettingsWindow : ViewBase
     private void ScheduleWeekEditor_OnDeleteRequested(object? sender, ScheduleWeekEditEventArgs e)
     {
         if (!CanEditScheduleItems()) return;
+        WarnAboutAdjustedCourseEdit(e.Date);
         ViewModel.SelectedScheduleItemId = e.ScheduleItemId;
         ButtonDeleteScheduleItem_OnClick(this, e);
+        e.Handled = true;
+    }
+
+    private void WarnAboutAdjustedCourseEdit(DateOnly date)
+    {
+        if (ViewModel.ProfileService.Profile.OrderedSchedulesV2.ContainsKey(date.ToDateTime(TimeOnly.MinValue)))
+            this.ShowToast("编辑会影响来源课程及其重复安排。");
+    }
+
+    private void ScheduleWeekEditor_OnDayHeaderClicked(object? sender, ScheduleDayHeaderEventArgs e)
+    {
+        if (!CanEditScheduleItems()) return;
+        ScheduleAdjustmentMenu.Show(this, e.Anchor, e.Date, () => Task.FromResult(CanEditScheduleItems()));
         e.Handled = true;
     }
 
