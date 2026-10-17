@@ -379,6 +379,20 @@ var json = await AssetLoader.ReadAllTextAsync(new Uri(
                 result.ErrorMessage = $"{provider.Id} 获��取失败，已回退到小米天气：{providerException.Message}";
             }
 
+            // 数据有效性闸门：天气源异常时会返回 HTTP 200 + 空 JSON（如小米接口的 {}），
+            // 反序列化成全默认对象且不抛异常，上面的重试与回退都拦不住；校验不过就保留旧数据，
+            // 不覆盖 LastWeatherInfo，等下个刷新周期重试（上游问题 ClassIsland/ClassIsland#2031）。
+            if (info.UpdateTimeUnix == 0 ||
+                (string.IsNullOrWhiteSpace(info.Current.Temperature.Value) && info.Current.Weather == "99"))
+            {
+                Logger.LogWarning(
+                    "天气源返回数据无效（updateTime={UpdateTime}, temperature={Temperature}, weather={Weather}），保留上次数据。",
+                    info.UpdateTimeUnix, info.Current.Temperature.Value, info.Current.Weather);
+                result.IsSuccess = false;
+                result.ErrorMessage = "天气接口返回数据异常，已保留上次数据，将在下个刷新周期重试。";
+                return result;
+            }
+
             // 排除天气预警
             var validExclusions = Settings.ExcludedWeatherAlerts
                 .Where(x => !string.IsNullOrWhiteSpace(x))
