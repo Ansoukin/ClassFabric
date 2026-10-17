@@ -325,4 +325,40 @@
     <value>Weather refresh failed: {0}</value>
     <comment>吐司：天气刷新失败，{0}=原因</comment>
   </data>
+  <data name="QWeatherName" xml:space="preserve">
+    <value>QWeather</value>
+    <comment>天气数据源名称：和风天气</comment>
+  </data>
+  <data name="QWeatherApiKey" xml:space="preserve">
+    <value>QWeather API Key</value>
+    <comment>设置项：和风天气 API Key</comment>
+  </data>
+  <data name="QWeatherApiKeyPlaceholder" xml:space="preserve">
+    <value>Enter your QWeather API key</value>
+    <comment>输入框水印：和风天气 API Key</comment>
+  </data>
+  <data name="QWeatherApiKeyDescription" xml:space="preserve">
+    <value>The developer key for QWeather. Create one in the QWeather developer console. The free subscription is sufficient.</value>
+    <comment>设置项说明：和风天气 API Key</comment>
+  </data>
+  <data name="QWeatherApiHost" xml:space="preserve">
+    <value>QWeather API Host</value>
+    <comment>设置项：和风天气 API Host</comment>
+  </data>
+  <data name="QWeatherApiHostPlaceholder" xml:space="preserve">
+    <value>Leave empty for the official default domain</value>
+    <comment>输入框水印：和风天气 API Host</comment>
+  </data>
+  <data name="QWeatherApiHostDescription" xml:space="preserve">
+    <value>The API domain for QWeather. Only fill this in when using a self-hosted or proxied endpoint.</value>
+    <comment>设置项说明：和风天气 API Host</comment>
+  </data>
+  <data name="WeatherUsageLimit" xml:space="preserve">
+    <value>API usage limit</value>
+    <comment>设置项：天气 API 用量限制</comment>
+  </data>
+  <data name="WeatherUsageLimitDescription" xml:space="preserve">
+    <value>Track weather data requests and pause them when the free quota is reached (1,000/day for OpenWeather, 50,000/month for QWeather). Xiaomi Weather is used instead until the quota period resets.</value>
+    <comment>设置项说明：天气 API 用量限制</comment>
+  </data>
 </root>

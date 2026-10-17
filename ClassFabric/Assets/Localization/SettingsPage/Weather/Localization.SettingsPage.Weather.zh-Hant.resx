@@ -325,4 +325,40 @@
     <value>天氣刷新失敗: {0}</value>
     <comment>吐司：天气刷新失败，{0}=原因</comment>
   </data>
+  <data name="QWeatherName" xml:space="preserve">
+    <value>和風天氣</value>
+    <comment>天气数据源名称：和风天气</comment>
+  </data>
+  <data name="QWeatherApiKey" xml:space="preserve">
+    <value>QWeather API Key</value>
+    <comment>设置项：和风天气 API Key</comment>
+  </data>
+  <data name="QWeatherApiKeyPlaceholder" xml:space="preserve">
+    <value>請輸入和風天氣 API Key</value>
+    <comment>输入框水印：和风天气 API Key</comment>
+  </data>
+  <data name="QWeatherApiKeyDescription" xml:space="preserve">
+    <value>和風天氣開發者密鑰，在和風天氣開發者控制台申請，免費訂閱即可使用。</value>
+    <comment>设置项说明：和风天气 API Key</comment>
+  </data>
+  <data name="QWeatherApiHost" xml:space="preserve">
+    <value>QWeather API Host</value>
+    <comment>设置项：和风天气 API Host</comment>
+  </data>
+  <data name="QWeatherApiHostPlaceholder" xml:space="preserve">
+    <value>留空使用官方預設網域</value>
+    <comment>输入框水印：和风天气 API Host</comment>
+  </data>
+  <data name="QWeatherApiHostDescription" xml:space="preserve">
+    <value>和風天氣 API 請求網域，使用自建或代理服務時填寫，一般用戶保持留空。</value>
+    <comment>设置项说明：和风天气 API Host</comment>
+  </data>
+  <data name="WeatherUsageLimit" xml:space="preserve">
+    <value>API 用量限制</value>
+    <comment>设置项：天气 API 用量限制</comment>
+  </data>
+  <data name="WeatherUsageLimitDescription" xml:space="preserve">
+    <value>跟蹤天氣數據請求次數，達到服務免費額度上限（OpenWeather 每天 1000 次、和風天氣每月 50000 次）後暫停請求，自動改用小米天氣，額度週期重置後恢復。</value>
+    <comment>设置项说明：天气 API 用量限制</comment>
+  </data>
 </root>

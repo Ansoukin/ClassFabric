@@ -285,6 +285,7 @@
                               MinWidth="160">
                         <ComboBoxItem Content="{x:Static locWth:Localization.XiaomiWeatherDefault}" />
                         <ComboBoxItem Content="OpenWeather" />
+                        <ComboBoxItem Content="{x:Static locWth:Localization.QWeatherName}" />
                     </ComboBox>
                 </controls3:FASettingsExpander.Footer>
                 <controls3:FASettingsExpanderItem Content="OpenWeather API Key"
@@ -296,10 +297,50 @@
                                  Watermark="{x:Static locWth:Localization.OpenWeatherApiKeyPlaceholder}" />
                     </controls3:FASettingsExpanderItem.Footer>
                 </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.QWeatherApiKey}"
+                                                  Description="{x:Static locWth:Localization.QWeatherApiKeyDescription}">
+                    <controls3:FASettingsExpanderItem.IsVisible>
+                        <Binding Path="ViewModel.SelectedWeatherProvider"
+                                 Converter="{x:Static ObjectConverters.Equal}">
+                            <Binding.ConverterParameter>
+                                <system:Int32>2</system:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </controls3:FASettingsExpanderItem.IsVisible>
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <TextBox Text="{Binding ViewModel.SettingsService.Settings.QWeatherApiKey, Mode=TwoWay}"
+                                 PasswordChar="●"
+                                 MinWidth="240"
+                                 PlaceholderText="{x:Static locWth:Localization.QWeatherApiKeyPlaceholder}" />
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.QWeatherApiHost}"
+                                                  Description="{x:Static locWth:Localization.QWeatherApiHostDescription}">
+                    <controls3:FASettingsExpanderItem.IsVisible>
+                        <Binding Path="ViewModel.SelectedWeatherProvider"
+                                 Converter="{x:Static ObjectConverters.Equal}">
+                            <Binding.ConverterParameter>
+                                <system:Int32>2</system:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </controls3:FASettingsExpanderItem.IsVisible>
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <TextBox Text="{Binding ViewModel.SettingsService.Settings.QWeatherApiHost, Mode=TwoWay}"
+                                 MinWidth="240"
+                                 PlaceholderText="{x:Static locWth:Localization.QWeatherApiHostPlaceholder}" />
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
                 <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.FallbackToXiaomiWeather}"
                                                   Description="{x:Static locWth:Localization.FallbackToXiaomiWeatherDescription}">
                     <controls3:FASettingsExpanderItem.Footer>
                         <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.WeatherProviderFallbackEnabled, Mode=TwoWay}" />
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.WeatherUsageLimit}"
+                                                  Description="{x:Static locWth:Localization.WeatherUsageLimitDescription}"
+                                                  IsVisible="{Binding ViewModel.IsUsageLimitVisible}">
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.WeatherUsageLimitEnabled, Mode=TwoWay}" />
                     </controls3:FASettingsExpanderItem.Footer>
                 </controls3:FASettingsExpanderItem>
             </controls3:FASettingsExpander>

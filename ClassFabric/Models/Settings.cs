@@ -351,6 +351,53 @@ public partial class Settings : ObservableRecipient, ILessonControlSettings, INo
         }
     }
 
+    public string QWeatherApiKey
+    {
+        get => _qWeatherApiKey;
+        set
+        {
+            var normalizedValue = value?.Trim() ?? string.Empty;
+            if (normalizedValue == _qWeatherApiKey) return;
+            _qWeatherApiKey = normalizedValue;
+            OnPropertyChanged();
+        }
+    }
+
+    public string QWeatherApiHost
+    {
+        get => _qWeatherApiHost;
+        set
+        {
+            var normalizedValue = value?.Trim() ?? string.Empty;
+            if (normalizedValue == _qWeatherApiHost) return;
+            _qWeatherApiHost = normalizedValue;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool WeatherUsageLimitEnabled
+    {
+        get => _weatherUsageLimitEnabled;
+        set
+        {
+            if (value == _weatherUsageLimitEnabled) return;
+            _weatherUsageLimitEnabled = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>天气请求计量表：键 = "数据源:周期"（日/月），值 = 请求次数，用于免费额度保护。</summary>
+    public Dictionary<string, int> WeatherRequestCounts
+    {
+        get => _weatherRequestCounts;
+        set
+        {
+            if (value.Equals(_weatherRequestCounts)) return;
+            _weatherRequestCounts = value;
+            OnPropertyChanged();
+        }
+    }
+
     public bool AutoRefreshWeatherLocation
     {
         get => _autoRefreshWeatherLocation;
@@ -1953,6 +2000,11 @@ public partial class Settings : ObservableRecipient, ILessonControlSettings, INo
     private string _weatherProvider = "xiaomi";
     private string _openWeatherApiKey = string.Empty;
     private bool _weatherProviderFallbackEnabled = true;
+    private string _qWeatherApiKey = string.Empty;
+    private string _qWeatherApiHost = string.Empty;
+    private bool _weatherUsageLimitEnabled = false;
+    // 计量键形如 "openweather:2026-10-17"、"qweather:2026-10"，按数据源分离，避免切换数据源后旧计数虚增新源额度。
+    private Dictionary<string, int> _weatherRequestCounts = new();
     private bool _autoRefreshWeatherLocation = false;
     private bool _noTLSWeatherRequests = false;
     private bool _useExperimentColorPickingMethod = false;

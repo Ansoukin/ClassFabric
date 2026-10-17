@@ -224,6 +224,64 @@ public class WeatherService : ObservableRecipient, IHostedService, IWeatherServi
         await QueryWeatherAsync();
     }
 
+    /// <summary>
+    /// 判断请求数是否已达免费额度上限。仅对带 Key 的数据源生效（小米无额度概念）。
+    /// OpenWeather 免费档 1000 次/天；和风天气免费档 50000 次/月。
+    /// </summary>
+    private bool IsOverUsageLimit(string providerId)
+    {
+        if (!Settings.WeatherUsageLimitEnabled || providerId is not ("openweather" or "qweather"))
+        {
+            return false;
+        }
+
+        var now = DateTime.Now;
+        return providerId switch
+        {
+            "openweather" => GetCount("openweather", $"{now:yyyy-MM-dd}") >= 1000,
+            "qweather" => GetCount("qweather", $"{now:yyyy-MM}") >= 50000,
+            _ => false
+        };
+    }
+
+    private int GetCount(string providerId, string periodKey)
+    {
+        return Settings.WeatherRequestCounts.TryGetValue($"{providerId}:{periodKey}", out var count) ? count : 0;
+    }
+
+    /// <summary>
+    /// 成功获取天气后计量。周期键滚出后旧键自然失效，字典只增不减，但每键极小，
+    /// 十年体量也不足 1MB，不做清理。
+    /// </summary>
+    private void CountRequest(string requestedProviderId, string actualProviderId)
+    {
+        if (requestedProviderId is not ("openweather" or "qweather"))
+        {
+            return;
+        }
+
+        // 按实际 HTTP 请求计（OpenWeather 一轮 current+forecast 共 2 次、和风一轮最多 5 次），
+        // 这是服务商标的计费口径；实际提供者可能因达限回退成了小米，此时按原请求源计量。
+        var httpCalls = actualProviderId switch
+        {
+            "openweather" => 2,
+            "qweather" => 5,
+            _ => 1
+        };
+        if (actualProviderId != requestedProviderId && actualProviderId == "xiaomi")
+        {
+            // 原请求源失败回退小米：原源只计 1 次失败请求，不按满轮计。
+            httpCalls = 1;
+        }
+
+        var now = DateTime.Now;
+        var dayKey = $"{requestedProviderId}:{now:yyyy-MM-dd}";
+        var monthKey = $"{requestedProviderId}:{now:yyyy-MM}";
+        Settings.WeatherRequestCounts[dayKey] = GetCount(requestedProviderId, $"{now:yyyy-MM-dd}") + httpCalls;
+        Settings.WeatherRequestCounts[monthKey] = GetCount(requestedProviderId, $"{now:yyyy-MM}") + httpCalls;
+        // 直接改字典不会触发 PropertyChanged，但计量表无需通知 UI，保存机制靠 SettingsChanged 兜底。
+    }
+
     private async void LoadData()
     {
 var json = await AssetLoader.ReadAllTextAsync(new Uri(
@@ -356,11 +414,20 @@ var json = await AssetLoader.ReadAllTextAsync(new Uri(
                 Settings.CityId, cityLongitude, cityLatitude, Settings.WeatherLocationSource);
             var latitude = double.Parse(cityLatitude, CultureInfo.InvariantCulture);
             var longitude = double.Parse(cityLongitude, CultureInfo.InvariantCulture);
-            var context = new WeatherProviderContext(latitude, longitude, Settings.CityId,
-                Settings.OpenWeatherApiKey, Settings.NoTLSWeatherRequests);
-            var providerId = string.IsNullOrWhiteSpace(Settings.WeatherProvider)
+            var requestedProviderId = string.IsNullOrWhiteSpace(Settings.WeatherProvider)
                 ? "xiaomi"
                 : Settings.WeatherProvider;
+            // 免费额度保护：计量键按数据源+周期分离，达限后本次刷新改走小米源，周期自然滚动后恢复。
+            // 小米源本身无 Key 无额度，不参与计量；手动刷新同样受限，避免用户狂点把仅剩额度打光。
+            var providerId = IsOverUsageLimit(requestedProviderId) ? "xiaomi" : requestedProviderId;
+            if (providerId != requestedProviderId)
+            {
+                result.ErrorMessage = "已达到天气服务免费额度上限，本次已改用小米天气，额度周期重置后自动恢复。";
+            }
+            var context = new WeatherProviderContext(latitude, longitude, Settings.CityId,
+                requestedProviderId == "openweather" ? Settings.OpenWeatherApiKey :
+                requestedProviderId == "qweather" ? Settings.QWeatherApiKey : "",
+                Settings.NoTLSWeatherRequests, Settings.QWeatherApiHost);
             if (!WeatherProviders.TryGetValue(providerId, out var provider))
             {
                 Logger.LogWarning("未知天气源 {ProviderId}，已回退到小米天气。", providerId);
@@ -431,6 +498,7 @@ var json = await AssetLoader.ReadAllTextAsync(new Uri(
 
             Settings.LastWeatherInfo = info;
             IsWeatherRefreshed = true;
+            CountRequest(providerId, provider.Id);
             result.IsSuccess = true;
         }
         catch (Exception ex)

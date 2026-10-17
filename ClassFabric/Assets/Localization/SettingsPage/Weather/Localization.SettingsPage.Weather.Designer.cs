@@ -527,5 +527,86 @@ namespace ClassFabric.Assets.Localization.SettingsPage.Weather {
                 return ResourceManager.GetString("WeatherRefreshFailedFormat", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   查找类似 和风天气 的本地化字符串。
+        /// </summary>
+        public static string QWeatherName {
+            get {
+                return ResourceManager.GetString("QWeatherName", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 QWeather API Key 的本地化字符串。
+        /// </summary>
+        public static string QWeatherApiKey {
+            get {
+                return ResourceManager.GetString("QWeatherApiKey", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 请输入和风天气 API Key 的本地化字符串。
+        /// </summary>
+        public static string QWeatherApiKeyPlaceholder {
+            get {
+                return ResourceManager.GetString("QWeatherApiKeyPlaceholder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 和风天气开发者密钥 的本地化字符串。
+        /// </summary>
+        public static string QWeatherApiKeyDescription {
+            get {
+                return ResourceManager.GetString("QWeatherApiKeyDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 QWeather API Host 的本地化字符串。
+        /// </summary>
+        public static string QWeatherApiHost {
+            get {
+                return ResourceManager.GetString("QWeatherApiHost", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 留空使用官方默认域名 的本地化字符串。
+        /// </summary>
+        public static string QWeatherApiHostPlaceholder {
+            get {
+                return ResourceManager.GetString("QWeatherApiHostPlaceholder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 和风天气 API 请求域名 的本地化字符串。
+        /// </summary>
+        public static string QWeatherApiHostDescription {
+            get {
+                return ResourceManager.GetString("QWeatherApiHostDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 API 用量限制 的本地化字符串。
+        /// </summary>
+        public static string WeatherUsageLimit {
+            get {
+                return ResourceManager.GetString("WeatherUsageLimit", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 达到免费额度上限后暂停请求并改用小米天气 的本地化字符串。
+        /// </summary>
+        public static string WeatherUsageLimitDescription {
+            get {
+                return ResourceManager.GetString("WeatherUsageLimitDescription", resourceCulture);
+            }
+        }
     }
 }

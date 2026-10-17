@@ -16,4 +16,5 @@ public sealed record WeatherProviderContext(
     double Longitude,
     string CityId,
     string ApiKey,
-    bool UseHttp);
+    bool UseHttp,
+    string ApiHost = "");

@@ -37,10 +37,13 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
     [ObservableProperty] private int _selectedWeatherProvider;
     [ObservableProperty] private bool _hideLocationPos = true;
     public bool IsLocationPosVisible => !_hideLocationPos;
-        partial void OnHideLocationPosChanged(bool value)
+    partial void OnHideLocationPosChanged(bool value)
     {
         OnPropertyChanged(nameof(IsLocationPosVisible));
     }
+
+    // API 用量限制仅对带 Key 的数据源有意义（小米无额度概念），小米源下整项隐藏。
+    public bool IsUsageLimitVisible => SelectedWeatherProvider is 1 or 2;
 
 
     public WeatherSettingsViewModel(
@@ -58,7 +61,12 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
         _searchDebounceTimer.Tick += SearchDebounceTimer_Tick;
 
         SelectedLocationSource = settingsService.Settings.WeatherLocationSource;
-        SelectedWeatherProvider = settingsService.Settings.WeatherProvider == "openweather" ? 1 : 0;
+        SelectedWeatherProvider = settingsService.Settings.WeatherProvider switch
+        {
+            "openweather" => 1,
+            "qweather" => 2,
+            _ => 0
+        };
     }
 
     /// <summary>
@@ -98,7 +106,12 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
         }
         else if (e.PropertyName == nameof(SettingsService.Settings.WeatherProvider))
         {
-            SelectedWeatherProvider = _settingsService.Settings.WeatherProvider == "openweather" ? 1 : 0;
+            SelectedWeatherProvider = _settingsService.Settings.WeatherProvider switch
+            {
+                "openweather" => 1,
+                "qweather" => 2,
+                _ => 0
+            };
         }
     }
 
@@ -211,12 +224,18 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
 
     partial void OnSelectedWeatherProviderChanged(int value)
     {
-        if (value is not (0 or 1))
+        OnPropertyChanged(nameof(IsUsageLimitVisible));
+        if (value is not (0 or 1 or 2))
         {
             return;
         }
 
-        var provider = value == 1 ? "openweather" : "xiaomi";
+        var provider = value switch
+        {
+            1 => "openweather",
+            2 => "qweather",
+            _ => "xiaomi"
+        };
         if (_settingsService.Settings.WeatherProvider == provider)
         {
             return;
