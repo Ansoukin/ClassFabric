@@ -2005,6 +2005,12 @@
                                         <Style Selector="DataGridRow TextBlock, DataGridRow TextBox">
                                             <Setter Property="TextElement.FontSize" Value="13"/>
                                         </Style>
+                                        <Style Selector="Grid.disabled">
+                                            <Setter Property="Opacity" Value="0.45"/>
+                                        </Style>
+                                        <Style Selector="TextBlock.disabled">
+                                            <Setter Property="Opacity" Value="0.45"/>
+                                        </Style>
                                         <Style Selector="DataGridRow.DraggingUp">
                                             <Setter Property="BorderBrush"
                                                     Value="{DynamicResource AccentFillColorDefaultBrush}"/>
@@ -2053,10 +2059,14 @@
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Header="{x:Static locPw:Localization.SubjectLabel}" Width="*" MinWidth="140">
+                                        <DataGridCheckBoxColumn Header="启用" Width="60"
+                                                                Binding="{Binding Value.IsEnabled, Mode=TwoWay}"/>
+                                                                                <DataGridTemplateColumn Header="{x:Static locPw:Localization.SubjectLabel}" Width="*" MinWidth="140">
+
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <Grid Margin="6 0" ColumnDefinitions="*,Auto">
+                                                    <Grid Margin="6 0" ColumnDefinitions="*,Auto"
+                                                          Classes.disabled="{Binding !Value.IsEnabled}">
                                                         <ContentControl
                                                             Content="{Binding Value.SubjectId, Converter={StaticResource SubjectIdToSubjectConverter}, TargetNullValue={StaticResource UnspecifiedScheduleSubject}, FallbackValue={StaticResource UnspecifiedScheduleSubject}}"
                                                             VerticalAlignment="Center">
@@ -2104,6 +2114,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Value.StartTime, StringFormat='{}{0:hh\\:mm\\:ss}'}"
+                                                               Classes.disabled="{Binding !Value.IsEnabled}"
                                                                VerticalAlignment="Center" Margin="6 0"/>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
@@ -2119,6 +2130,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Value.EndTime, StringFormat='{}{0:hh\\:mm\\:ss}'}"
+                                                               Classes.disabled="{Binding !Value.IsEnabled}"
                                                                VerticalAlignment="Center" Margin="6 0"/>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
@@ -2262,6 +2274,8 @@
                                                             UseSeconds="True" MinWidth="0"
                                                             HorizontalAlignment="Stretch"/>
                                             </ci:Field>
+                                            <CheckBox Content="启用此课程"
+                                                      IsChecked="{Binding IsEnabled, Mode=TwoWay}"/>
                                             <controls1:TimeRuleEditControl x:Name="ScheduleItemTimeRuleEditControl"
                                                                            TimeRule="{Binding EnableRule, Mode=OneWay}"/>
                                         </StackPanel>
