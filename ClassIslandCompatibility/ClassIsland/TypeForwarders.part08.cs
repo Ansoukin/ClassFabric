@@ -35,6 +35,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Services.WeatherService))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Services.WeatherProviders.IWeatherProvider))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Services.WeatherProviders.OpenWeatherProvider))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Services.WeatherProviders.QWeatherProvider))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Services.WeatherProviders.WeatherProviderContext))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Services.WeatherProviders.XiaomiWeatherProvider))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Services.WindowRuleService))]
