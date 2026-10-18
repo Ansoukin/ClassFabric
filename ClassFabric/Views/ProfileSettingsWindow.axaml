@@ -2243,7 +2243,6 @@
                                                     </StackPanel>
                                                 </controls:FAInfoBar.ActionButton>
                                             </controls:FAInfoBar>
-                                            <ci:Field Label="科目">
                                             <ci:Field Label="{x:Static locPw:Localization.SubjectLabel}">
                                                 <ComboBox ItemsSource="{Binding $parent[views:ProfileSettingsWindow].ViewModel.ScheduleItemSubjects.List}"
                                                           SelectedValue="{Binding SubjectId, Mode=TwoWay}"
