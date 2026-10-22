@@ -537,6 +537,13 @@ public partial class App : AppBase, IAppHost
     internal async void Init()
     {
         AppBase.CurrentLifetime = ClassIsland.Core.Enums.ApplicationLifetime.Initializing;
+        if (System.OperatingSystem.IsAndroid() || System.OperatingSystem.IsIOS() || ApplicationCommand.Mobile)
+        {
+            Styles.Add(new Style(x => x.OfType<ComboBox>())
+            {
+                Setters = { new Setter(ComboBoxAssist.UseDrawerProperty, true) }
+            });
+        }
         var isDesktop = System.OperatingSystem.IsWindows() || System.OperatingSystem.IsMacOS() || System.OperatingSystem.IsLinux();
         if (isDesktop)
         {
