@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:ClassIsland.ViewModels.MainViewParts"
-             xmlns:ci="http://classisland.tech/schemas/xaml/core"
+             xmlns:ci="http://classfabric.tech/schemas/xaml/core"
              xmlns:converters="clr-namespace:ClassIsland.Converters"
              xmlns:services="clr-namespace:ClassIsland.Core.Abstractions.Services;assembly=ClassIsland.Core"
              xmlns:views="clr-namespace:ClassIsland.Views.MainViewParts"

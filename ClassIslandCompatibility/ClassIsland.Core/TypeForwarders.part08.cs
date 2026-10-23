@@ -39,3 +39,4 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Models.Tutorial.TutorialGroup))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Models.Tutorial.TutorialParagraph))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Models.Tutorial.TutorialSentence))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Models.UI.DrawerOptions))]

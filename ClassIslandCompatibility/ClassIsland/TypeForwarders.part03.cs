@@ -37,6 +37,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.Tutorial.TutorialStateProvider))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.TutorialEditor.TutorialActionsEditControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.TypingControl))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Controls.UI.DrawerNavigationHost))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.UI.WindowViewHost))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.WeatherPackIconControl))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Controls.WeatherRangePackIconControl))]

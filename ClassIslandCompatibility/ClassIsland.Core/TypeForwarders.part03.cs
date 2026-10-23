@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Assists.PointerStateAssist))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Assists.ScrollPresenterAnimationAssist))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Assists.SliderDragTooltipAssist))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Core.Assists.ViewHostAssist))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Assists.WrapPanelResizingAnimationAssist))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Attributes.ActionInfo))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Core.Attributes.AttachedSettingsControlInfo))]

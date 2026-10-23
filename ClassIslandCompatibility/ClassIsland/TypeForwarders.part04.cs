@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 [assembly: TypeForwardedTo(typeof(ClassIsland.Converters.StringToColorConverter))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Converters.StringToFontFamilyConverter))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Converters.SubjectColorBrushConverter))]
+[assembly: TypeForwardedTo(typeof(ClassIsland.Converters.SubjectDetailsConverter))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Converters.SubjectIconSourceConverter))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Converters.SupportedOSPlatformsToBooleanConverter))]
 [assembly: TypeForwardedTo(typeof(ClassIsland.Converters.ThemeEnabledConverter))]
