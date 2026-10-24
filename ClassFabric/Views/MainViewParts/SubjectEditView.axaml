@@ -5,7 +5,7 @@
              xmlns:viewModels="clr-namespace:ClassIsland.ViewModels.MainViewParts"
              xmlns:ci="http://classfabric.tech/schemas/xaml/core"
              xmlns:converters="clr-namespace:ClassIsland.Converters"
-             xmlns:services="clr-namespace:ClassIsland.Core.Abstractions.Services;assembly=ClassIsland.Core"
+             xmlns:services="clr-namespace:ClassIsland.Core.Abstractions.Services;assembly=ClassFabric.Core"
              xmlns:views="clr-namespace:ClassIsland.Views.MainViewParts"
              x:Class="ClassIsland.Views.MainViewParts.SubjectEditView"
              mc:Ignorable="d"

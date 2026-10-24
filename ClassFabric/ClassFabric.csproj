@@ -166,6 +166,9 @@
     </ItemGroup>
     <ItemGroup Condition="'$(ClassFabricBundleAssetsInAssembly)' == 'true'">
         <AvaloniaResource Include="Assets\**" />
+        <!-- axaml 必须排除：XAML 编译通道已把源文件按同一资源键内嵌进程序集，
+             这里再打包一份会在启动初始化资源表时因同键冲突直接崩溃。 -->
+        <AvaloniaResource Remove="Assets\**\*.axaml" />
     </ItemGroup>
     <ItemGroup Condition="'$(ClassFabricBundleAssetsInAssembly)' != 'true'">
         <None Update="Assets\**">
