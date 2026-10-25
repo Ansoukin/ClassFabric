@@ -999,7 +999,15 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         NavigationFrame.NavigationPageFactory = null;
         NavigationFrame.BackStack.Clear();
         NavigationFrame.Content = null;
-        NavigationView.SelectedItem = null;
+        try
+        {
+            // FluentAvalonia 3 的 FANavigationView 在 SelectedItem 置空时会走进内部判空缺失的
+            // 路径抛出 NullReferenceException，导致清理流程中断。这里吞掉该异常保证后续清理执行。
+            NavigationView.SelectedItem = null;
+        }
+        catch (NullReferenceException)
+        {
+        }
         NavigationView.MenuItems.Clear();
 
         ViewModel.FrameContent = null;
