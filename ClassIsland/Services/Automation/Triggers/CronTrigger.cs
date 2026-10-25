@@ -15,6 +15,10 @@ namespace ClassIsland.Services.Automation.Triggers;
 [TriggerInfo("classisland.cron", "cron", "\ue125")]
 public class CronTrigger : TriggerBase<CronTriggerSettings>
 {
+    // Task.Delay 的正常调度误差在毫秒级；超过该容差视为应用内时间发生过跳变
+    // （时间偏移调整、NTP 校时、系统时间修改、休眠唤醒），错过的时间点不做补触发。
+    private const double OccurrenceToleranceSeconds = 5;
+
     private Crontab? _crontab;
 
     private CancellationTokenSource? _stopCancellationTokenSource;
@@ -35,17 +39,30 @@ public class CronTrigger : TriggerBase<CronTriggerSettings>
         {
             if (_crontab == null)
             {
+                await Task.Delay(1000, _stopCancellationTokenSource.Token);
                 continue;
             }
 
             var now = ExactTimeService.GetCurrentLocalDateTime();
-            await Task.Delay(_crontab.GetSleepTimeSpan(now), _stopCancellationTokenSource.Token);
+            var expectedOccurrence = now + _crontab.GetSleepTimeSpan(now);
+            await Task.Delay(expectedOccurrence - now, _stopCancellationTokenSource.Token);
             if (_stopCancellationTokenSource.IsCancellationRequested)
             {
                 break;
             }
 
-            Dispatcher.UIThread.Invoke(Trigger);
+            // 时间偏移调整、NTP 校时、系统时间修改都会让应用内时间相对墙钟跳变，
+            // 按睡眠时长醒来后实际时刻可能已经偏离预期发生点（时间偏移调整时表现为
+            // 新旧两条时间线各触发一次）。偏离预期发生点时不触发，按当前时间重新对齐。
+            var after = ExactTimeService.GetCurrentLocalDateTime();
+            if (Math.Abs((after - expectedOccurrence).TotalSeconds) <= OccurrenceToleranceSeconds)
+            {
+                Dispatcher.UIThread.Invoke(Trigger);
+            }
+            else
+            {
+                Logger.LogInformation("cron 触发前对齐校验未通过（预期 {}，实际 {}），已按当前时间重新对齐", expectedOccurrence, after);
+            }
         }
     }
 
