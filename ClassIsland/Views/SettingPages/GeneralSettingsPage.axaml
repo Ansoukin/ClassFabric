@@ -31,12 +31,6 @@
     </controls:SettingsPageBase.Resources>
     <ScrollViewer>
         <StackPanel Classes="settings-container animated-intro">
-            <controls3:FAInfoBar IsOpen="{Binding ViewModel.SettingsService.Settings.ShowSellingAnnouncement, Mode=TwoWay}"
-                               IsVisible="{Binding ViewModel.SettingsService.Settings.ShowSellingAnnouncement}"
-                               Severity="Warning"
-                               Message="{x:Static locG:Localization.SellingAnnouncement}"
-                               />
-
             <!-- Announcements -->
             <ItemsControl ItemsSource="{Binding ViewModel.AnnouncementService.Announcements, Mode=OneWay}"
                           Margin="0 0 0 8">

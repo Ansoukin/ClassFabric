@@ -2795,26 +2795,6 @@ public partial class Settings : ObservableRecipient, ILessonControlSettings, INo
         }
     }
 
-    [JsonIgnore]
-    public bool ShowSellingAnnouncement
-    {
-        get => GlobalStorageService.GetValue("ShowSellingAnnouncement") is "1" or null;
-        set
-        {
-            try
-            {
-                var envVar = value ? "1" : "0";
-                GlobalStorageService.SetValue("ShowSellingAnnouncement", envVar);
-                OnPropertyChanged();
-            }
-            catch (Exception ex)
-            {
-                IAppHost.GetService<ILogger<Settings>>().LogError(ex, "无法设置 ShowSellingAnnouncement 启用状态。");
-            }
-
-        }
-    }
-
     public bool HasEditModeTutorialShown
     {
         get => _hasEditModeTutorialShown;

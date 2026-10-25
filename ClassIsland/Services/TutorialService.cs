@@ -167,12 +167,8 @@ public partial class TutorialService : ObservableObject, ITutorialService
 
     public void BeginNotCompletedTutorials(params string[] paths)
     {
-        var target = paths.FirstOrDefault(x => !Settings.CompletedTutorials.Contains(x));
-        if (target == null)
-        {
-            return;
-        }
-        BeginTutorial(target);
+        // 教学引导永久跳过：本方法的调用方全部是主窗口、编辑模式等场景的自动触发；
+        // 教程中心、教程编辑器与开发者门户的显式打开走 BeginTutorial(Tutorial)，不受影响。
     }
 
     public void JumpToParagraph(string path)
