@@ -2,7 +2,7 @@
 
 $ErrorActionPreference = "Stop"
 
-$PUBLISH_TARGET = "..\out\ClassFabric"
+$PUBLISH_TARGET = "..\out\ClassIsland"
 
 if ($(Test-Path ./out) -eq $false) {
     mkdir out
@@ -23,7 +23,7 @@ if ($os -eq 'linux') {
 }
 
 Write-Host "Publish parameters: TrimAssets=$is_trim, Platform=$arch, OS=$os, OS_RID=$os_rid" 
-dotnet publish .\ClassFabric.Desktop\ClassFabric.Desktop.csproj -c Release -p:PublishProfile=FolderProfile -p:PublishDir=$PUBLISH_TARGET -p:TrimAssets=$is_trim -p:ClassFabric_PlatformTarget=$arch -p:RuntimeIdentifier="${os_rid}-${arch}" -p:PublishBuilding=true -p:PublishPlatform=$os
+dotnet publish .\ClassIsland.Desktop\ClassIsland.Desktop.csproj -c Release -p:PublishProfile=FolderProfile -p:PublishDir=$PUBLISH_TARGET -p:TrimAssets=$is_trim -p:ClassIsland_PlatformTarget=$arch -p:RuntimeIdentifier="${os_rid}-${arch}" -p:PublishBuilding=true -p:PublishPlatform=$os
 
 Write-Host "Packaging..." -ForegroundColor Cyan
 

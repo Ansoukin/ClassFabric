@@ -4,13 +4,13 @@
     <option name="importPathEntries">
       <list>
         <ImportPathEntry>
-          <option name="location" value="file://$PROJECT_DIR$/ClassFabric.Shared.IPC/Protobuf" />
+          <option name="location" value="file://$PROJECT_DIR$/ClassIsland.Shared.IPC/Protobuf" />
         </ImportPathEntry>
         <ImportPathEntry>
-          <option name="location" value="file://$PROJECT_DIR$/ClassFabric.Shared.IPC" />
+          <option name="location" value="file://$PROJECT_DIR$/ClassIsland.Shared.IPC" />
         </ImportPathEntry>
         <ImportPathEntry>
-          <option name="location" value="file://$PROJECT_DIR$/ClassFabric.Shared" />
+          <option name="location" value="file://$PROJECT_DIR$/ClassIsland.Shared" />
         </ImportPathEntry>
       </list>
     </option>

@@ -1,0 +1,341 @@
+<controls:SettingsPageBase x:Class="ClassIsland.Views.SettingPages.AboutSettingsPage"
+      xmlns="https://github.com/avaloniaui"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="using:ClassIsland.Views.SettingPages"
+      xmlns:locAbout="clr-namespace:ClassIsland.Assets.Localization.SettingsPage.About"
+      xmlns:controls="using:ClassIsland.Core.Abstractions.Controls"
+      xmlns:ci="using:ClassIsland"
+      xmlns:controls1="using:ClassIsland.Core.Controls"
+      xmlns:models="using:ClassIsland.Models"
+      xmlns:commands="http://classisland.tech/schemas/xaml/core"
+      xmlns:controls2="clr-namespace:ClassIsland.Controls"
+      xmlns:ci2="http://classisland.tech/schemas/xaml/core"
+      xmlns:system="clr-namespace:System;assembly=System.Runtime"
+      xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+      xmlns:controls3="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      d:DataContext="{d:DesignInstance local:AboutSettingsPage}">
+    <controls:SettingsPageBase.Resources>
+        <Grid Margin="16" x:Key="ContributorsDrawer" Width="300" RowDefinitions="Auto,Auto,Auto,*">
+            <TextBlock Grid.Row="0" Text="{x:Static locAbout:Localization.ContributorsHeader}" Theme="{StaticResource SubtitleTextBlockStyle}" />
+            <TextBlock Grid.Row="1" Margin="0 6 0 0" Text="{x:Static locAbout:Localization.ContributorsThanks}"/>
+            <Button Grid.Row="2" HorizontalAlignment="Left" 
+                    Click="ButtonRefreshContributors_OnClick"
+                    Margin="0 2 0 0"
+                    IsEnabled="{Binding ViewModel.IsRefreshingContributors, Converter={StaticResource InvertBooleanConverter}}">
+                <controls1:IconText Glyph="&#xE0B5;" Text="{x:Static locAbout:Localization.Refresh}"/>
+            </Button>
+            <ListBox Grid.Row="3" Margin="0 2 0 0"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ItemsSource="{Binding ViewModel.SettingsService.Settings.ContributorsCache.Contributors}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" VerticalAlignment="Center"
+                                  Width="32" Height="32"
+                                  Margin="0 0 6 0">
+                                <Grid.Clip>
+                                    <RectangleGeometry RadiusX="16" RadiusY="16"
+                                                       Rect="0,0,32,32" />
+                                </Grid.Clip>
+                                <Border Background="{DynamicResource MaterialDesignBody}" Opacity="0.1" />
+                                <asyncImageLoader:AdvancedImage Source="{Binding AvatarUri}"
+                                       Width="32" Height="32">
+                                </asyncImageLoader:AdvancedImage>
+                            </Grid>
+                            <TextBlock Grid.Column="1" TextWrapping="Wrap">
+                                <Run FontSize="15"
+                                     Text="{Binding Name, Mode=OneWay}" />
+                                <LineBreak />
+                                <Run FontSize="11"
+                                     FontWeight="Light"
+                                     Text="{Binding ContributionText, Mode=OneWay}" />
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <Grid Margin="16" x:Key="ThirdPartyLibs" Width="300" RowDefinitions="Auto,*">
+            <TextBlock Grid.Row="0" Text="{x:Static locAbout:Localization.ThirdPartyLibsHeader}" Theme="{StaticResource SubtitleTextBlockStyle}" />
+            <ListBox Grid.Row="1" Margin="0 6 0 0"
+                     ItemsSource="{Binding ViewModel.ThirdPartyLibs}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:NuGetLicenseInfo}">
+                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto"
+                              Margin="0 4">
+                            <controls1:FluentIcon Grid.Row="0" Grid.Column="0"
+                                                  Glyph="&#xE07D;" VerticalAlignment="Center"
+                                                  Margin="0 0 6 0" />
+                             <TextBlock Grid.Row="0" Grid.Column="1"
+                                        Text="{Binding PackageId}"
+                                        VerticalAlignment="Center" FontSize="14"
+                                        FontWeight="Bold" TextWrapping="Wrap" />
+                            <WrapPanel Grid.Row="1" Grid.Column="1"
+                                       VerticalAlignment="Center" 
+                                       IsVisible="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBoxItem}}">
+                                 <commands:NavHyperlink NavTarget="{Binding PackageProjectUrl}"
+                                                        ToolTip.Tip="{Binding PackageProjectUrl}"
+                                                        Content="{x:Static locAbout:Localization.Website}" />
+                                 <commands:NavHyperlink NavTarget="{Binding LicenseUrl}"
+                                                        ToolTip.Tip="{Binding LicenseUrl}">
+                                     <TextBlock><Run Text="{x:Static locAbout:Localization.LicensePrefix}"/><Run Text="{Binding License, Mode=OneWay}"/></TextBlock>
+                                 </commands:NavHyperlink>
+                             </WrapPanel>
+                             <!--<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Description}"  Margin="0 3 0 0" TextWrapping="Wrap"/>-->
+                         </Grid>
+                     </DataTemplate>
+                 </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <Grid x:Key="OpenSourceLicense" Margin="16" MaxHeight="{Binding Height}"
+              RowDefinitions="Auto,*,Auto">
+            <TextBox Grid.Row="1" Margin="0 12 0 0"
+                     Padding="8" Text="{Binding ViewModel.License, Mode=OneWay}" IsReadOnly="True"
+                     FontFamily="Consolas" />
+        </Grid>
+
+        <Grid x:Key="DiagnosticInfoDialog" Margin="16" Height="400" Width="550" MaxHeight="{Binding Height}"
+              RowDefinitions="Auto,*,Auto">
+            <TextBox Grid.Row="1" Margin="0 12 0 0"
+                     Padding="8" Text="{Binding ViewModel.DiagnosticInfo, Mode=OneWay}" IsReadOnly="True"
+                     VerticalContentAlignment="Top"
+                     FontFamily="Consolas" />
+        </Grid>
+
+    </controls:SettingsPageBase.Resources>
+    <controls1:StickyScrollViewer CollapsedHeight="58">
+        <controls1:StickyScrollViewer.HeaderContent>
+            <Grid>
+                <Panel MaxHeight="300" 
+                       Opacity="{Binding $self.(ci2:StickyScrollViewer.HeaderFadingOpacity)}"
+                       Background="Transparent">
+                    <Panel.OpacityMask>
+                        <LinearGradientBrush StartPoint="0%, 0%"
+                                             EndPoint="0%, 100%">
+                            <GradientStop Color="#ffffffff" Offset="0.0"/>
+                            <GradientStop Color="#ffffffff" Offset="0.75"/>
+                            <GradientStop Color="#00ffffff" Offset="0.92"/>
+                        </LinearGradientBrush>
+                    </Panel.OpacityMask>
+                    <Border Background="#0d1111" />
+                    <Panel MaxWidth="{StaticResource SettingsContainerWidth}">
+                        <Panel.Styles>
+                            <Style Selector="Panel">
+                                <Style.Animations>
+                                    <Animation Delay="0:0:0.25" Duration="0:0:0.2"
+                                               FillMode="Both" Easing="0,0 0,1">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="Opacity" Value="0.0"/>
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="Opacity" Value="1.0"/>
+                                        </KeyFrame>
+                                    </Animation> 
+                                </Style.Animations>
+                            </Style>
+                        </Panel.Styles>
+                        <Border Width="{Binding $self.Bounds.Height}"
+                                HorizontalAlignment="Left"
+                                Margin="-150 -100 0 0">
+                            <Border.Background>
+                                <RadialGradientBrush Center="50%, 50%">
+                                    <GradientStop Offset="0.2" Color="#ff0c0e1f"/>
+                                    <GradientStop Offset="1" Color="#ff0d1111"/>
+                                </RadialGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <Border Width="{Binding $self.Bounds.Height}"
+                                HorizontalAlignment="Right"
+                                Margin="0 0 100 -50">
+                            <Border.Background>
+                                <RadialGradientBrush Center="50%, 50%">
+                                    <GradientStop Offset="0.2" Color="#ff0c0e1f"/>
+                                    <GradientStop Offset="1" Color="#ff0d1111"/>
+                                </RadialGradientBrush>
+                            </Border.Background>
+                        </Border>
+                    </Panel>
+                    <Image Source="/Assets/BannerMain_App2.png" Stretch="Uniform" 
+                           HorizontalAlignment="Center"
+                           PointerPressed="DebugBorder_OnPointerPressed"
+                           MaxWidth="{StaticResource SettingsContainerWidth}"
+                           VerticalAlignment="Top">
+                        
+                    </Image>
+                </Panel>
+                <Border Margin="12 16 18 0"
+                        MaxWidth="{StaticResource SettingsContainerWidth}">
+                    <TextBlock FontWeight="Normal"
+                               Text="{x:Static locAbout:Localization.AboutHeader}"
+                               VerticalAlignment="Bottom"
+                               Theme="{StaticResource TitleTextBlockStyle}"
+                               Margin="0 8"/>
+                </Border>
+            </Grid>
+        </controls1:StickyScrollViewer.HeaderContent>
+        <StackPanel Classes="settings-container ">
+            <controls3:FASettingsExpander Header="ClassFabric"
+                                        IsExpanded="True">
+                <controls3:FASettingsExpander.Footer>
+                    <TextBlock Text="{x:Static local:AboutSettingsPage.DisplayVersion}"
+                               FontSize="12"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                </controls3:FASettingsExpander.Footer>
+                <controls3:FASettingsExpander.IconSource>
+                    <controls3:FAImageIconSource Source="/Assets/AppLogo.png"/>
+                </controls3:FASettingsExpander.IconSource>
+                <controls3:FASettingsExpanderItem>
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <WrapPanel Classes="animated-resize">
+                            <WrapPanel.Styles>
+                                <Style Selector="HyperlinkButton">
+                                    <Setter Property="Padding" Value="4"/>
+                                    <Setter Property="Margin" Value="2"/>
+                                </Style>
+                            </WrapPanel.Styles>
+                            <HyperlinkButton Click="SettingsExpanderItemShowOssLicense_OnClick"
+                                             CommandParameter="https://classisland.tech">
+                                <TextBlock Text="{x:Static locAbout:Localization.OpenSourceLicense}"/>
+                            </HyperlinkButton>
+                            <HyperlinkButton Click="ButtonPrivacy_OnClick"
+                                             CommandParameter="https://docs.classisland.tech">
+                                <TextBlock Text="{x:Static locAbout:Localization.PrivacyPolicy}"/>
+                            </HyperlinkButton>
+                        </WrapPanel>
+                    </controls3:FASettingsExpanderItem.Footer>
+                    <TextBlock Background="Transparent">
+                        <Run Text="{x:Static locAbout:Localization.LicenseStatement}"/>
+                    </TextBlock>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem>
+                    <TextBlock Background="Transparent">
+                        <Run Text="Copyright (c) 2023-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /><Run Text=" HelloWRC" />
+                    </TextBlock>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem>
+                    <TextBlock Background="Transparent">
+                        <Run Text="Copyright (c) 2026-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /><Run Text=" Ansoukin" />
+                    </TextBlock>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem MinHeight="40">
+                    <TextBlock Text="本项目基于 GNU General Public License v3.0 获得许可。"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               FontSize="13"/>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem Content="{x:Static locAbout:Localization.CommonLinks}">
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <WrapPanel Classes="animated-resize">
+                            <WrapPanel.Styles>
+                                <Style Selector="HyperlinkButton">
+                                    <Setter Property="Padding" Value="4"/>
+                                    <Setter Property="Margin" Value="2"/>
+                                </Style>
+                            </WrapPanel.Styles>
+                            <HyperlinkButton Click="UriNavigationCommands_OnClick"
+                                             CommandParameter="https://classisland.tech"
+                                             IsVisible="False">
+                                <TextBlock Text="{x:Static locAbout:Localization.ProjectHomepage}"/>
+                            </HyperlinkButton>
+                            <HyperlinkButton Click="UriNavigationCommands_OnClick"
+                                             CommandParameter="https://cf.ansoukin.top">
+                                <TextBlock Text="{x:Static locAbout:Localization.ProjectHomepage}"/>
+                            </HyperlinkButton>
+                            <HyperlinkButton Click="UriNavigationCommands_OnClick"
+                                             CommandParameter="https://docs.classisland.tech">
+                                <TextBlock Text="{x:Static locAbout:Localization.Documentation}"/>
+                            </HyperlinkButton>
+                            <HyperlinkButton Click="UriNavigationCommands_OnClick"
+                                             CommandParameter="https://github.com/Ansoukin/ClassFabric">
+                                <TextBlock Text="GitHub"/>
+                            </HyperlinkButton>
+                            <HyperlinkButton Click="UriNavigationCommands_OnClick"
+                                             CommandParameter="https://docs.classisland.tech/community/"
+                                             IsVisible="False">
+                                <TextBlock Text="{x:Static locAbout:Localization.JoinCommunity}"/>
+                            </HyperlinkButton>
+                        </WrapPanel>
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+                
+            </controls3:FASettingsExpander>
+
+            <controls3:FASettingsExpander Header="{x:Static locAbout:Localization.TroubleshootingHeader}" IconSource="{commands:FluentIconSource &#xE3F6;}"
+                                        IsExpanded="True">
+                <controls3:FASettingsExpanderItem
+                    Click="UriNavigationCommands_OnClick"
+                    CommandParameter="https://github.com/Ansoukin/ClassFabric/issues"
+                    Content="{x:Static locAbout:Localization.Feedback}"
+                    ActionIconSource="{controls1:FluentIconSource &#xEC2E;} "
+                    IsClickEnabled="True"/>
+                <controls3:FASettingsExpanderItem
+                    Click="UriNavigationCommands_OnClick"
+                    CommandParameter="https://github.com/ClassIsland/voting/discussions/categories/classisland?discussions_q=is%3Aopen+category%3AClassIsland+sort%3Atop"
+                    Content="{x:Static locAbout:Localization.FeatureVoting}"
+                    ActionIconSource="{controls1:FluentIconSource &#xEC2E;} "
+                    IsClickEnabled="True"
+                    IsVisible="False"/>
+                <controls3:FASettingsExpanderItem 
+                    Click="ButtonDiagnosticInfo_OnClick"
+                    Content="{x:Static locAbout:Localization.ViewDiagnosticInfo}"
+                    IsClickEnabled="True"/>
+            </controls3:FASettingsExpander>
+            
+            <controls3:FASettingsExpander Header="{x:Static locAbout:Localization.AcknowledgementsHeader}" IconSource="{commands:FluentIconSource &#xE971;}"
+                                        IsExpanded="True">
+                <controls3:FASettingsExpanderItem 
+                    Content="{x:Static locAbout:Localization.ContributorsHeader}"
+                    Click="ButtonContributors_OnClick"
+                    IsClickEnabled="True"/>
+                <controls3:FASettingsExpanderItem 
+                    Content="{x:Static locAbout:Localization.ThirdPartyLibsHeader}"
+                    Click="ButtonThirdPartyLibs_OnClick"
+                    IsClickEnabled="True"/>
+                <controls3:FASettingsExpanderItem>
+                    <TextBlock LineHeight="30" Margin="0 0 0 0" FontSize="14" TextWrapping="Wrap">
+                        <Run Text="{x:Static locAbout:Localization.InspiredByPrefix}"/>
+                        <HyperlinkButton Click="Hyperlink2_OnClick">DuguSand/class_form</HyperlinkButton>
+                        <Run Text="{x:Static locAbout:Localization.InspiredBySuffix}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.ThemeFrameworkCredit}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.FontCredit}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.TesterCredit}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.ServerResourceCreditPrefix}"/><commands:NavHyperlink NavTarget="https://forum.smart-teach.cn/">智教联盟</commands:NavHyperlink><Run Text="{x:Static locAbout:Localization.ServerResourceCreditMiddle}"/><commands:NavHyperlink NavTarget="https://xiaowuap.com/">吴恩泽</commands:NavHyperlink><Run Text="{x:Static locAbout:Localization.ServerResourceCreditSuffix}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.WeatherDataCredit}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.SpecialThanksPrefix}"/><commands:NavHyperlink NavTarget="https://github.com/Programmer-MrWang">MrWang</commands:NavHyperlink><Run Text="{x:Static locAbout:Localization.SpecialThanksMiddle}"/><commands:NavHyperlink NavTarget="https://github.com/Programmer-MrWang/SystemTools">SystemTools</commands:NavHyperlink><Run Text="{x:Static locAbout:Localization.SpecialThanksSuffix}"/><LineBreak/>
+                        <Run Text="{x:Static locAbout:Localization.OtherCredits}"/>
+                    </TextBlock>
+                </controls3:FASettingsExpanderItem>
+
+            </controls3:FASettingsExpander>
+            
+            <controls3:FASettingsExpander Header="{x:Static locAbout:Localization.EchoCaveHeader}" IconSource="{commands:FluentIconSource &#xE55F;}">
+                <controls3:FASettingsExpanderItem 
+                    IsClickEnabled="True"
+                    Click="Sayings_OnMouseLeftButtonDown">
+                    <StackPanel>
+                        <controls2:TypingControl
+                                 Text="{Binding ViewModel.Sayings, Mode=OneWay}"
+                                 IsBusy="{Binding ViewModel.IsSayingBusy, Mode=OneWayToSource}"/>
+                    </StackPanel>
+                </controls3:FASettingsExpanderItem>
+            </controls3:FASettingsExpander>
+            
+            <TextBlock Text="{x:Static locAbout:Localization.Dedication}"
+                       Margin="0 8 0 0"
+                       Classes="l-instructive" FontSize="13"
+                       VerticalAlignment="Center" TextAlignment="Center"
+                       Background="Transparent"
+                       PointerPressed="InputElementReunion_OnPointerPressed"/>
+        </StackPanel>
+    </controls1:StickyScrollViewer>
+</controls:SettingsPageBase>

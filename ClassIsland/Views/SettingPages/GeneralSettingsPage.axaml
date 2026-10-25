@@ -1,0 +1,359 @@
+<controls:SettingsPageBase x:Class="ClassIsland.Views.SettingPages.GeneralSettingsPage"
+      xmlns="https://github.com/avaloniaui"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ClassIsland.Views.SettingPages"
+      xmlns:controls="clr-namespace:ClassIsland.Core.Abstractions.Controls;assembly=ClassIsland.Core"
+      xmlns:controls1="clr-namespace:ClassIsland.Core.Controls;assembly=ClassIsland.Core"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:controls2="clr-namespace:ClassIsland.Controls"
+      xmlns:interfaces="clr-namespace:ClassIsland.Shared.Interfaces;assembly=ClassIsland.Shared"
+      xmlns:views="clr-namespace:ClassIsland.Views"
+      xmlns:converters="clr-namespace:ClassIsland.Core.Converters;assembly=ClassIsland.Core"
+      xmlns:commands="clr-namespace:ClassIsland.Core.Commands;assembly=ClassIsland.Core"
+      xmlns:ci="http://classisland.tech/schemas/xaml/core"
+      xmlns:controls3="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+      xmlns:locG="clr-namespace:ClassIsland.Assets.Localization.SettingsPage.General"
+      xmlns:icons="clr-namespace:ClassIsland.Core.Icons;assembly=ClassIsland.Core"
+      xmlns:abstraction="clr-namespace:ClassIsland.Platforms.Abstraction;assembly=ClassIsland.Platforms.Abstractions"
+      mc:Ignorable="d" 
+      Design.Width="960" Design.Height="500"
+      d:DataContext="{d:DesignInstance local:GeneralSettingsPage}"
+      Loaded="GeneralSettingsPage_OnLoaded"
+      Unloaded="GeneralSettingsPage_OnUnloaded">
+    <controls:SettingsPageBase.Resources>
+        <converters:MiniInfoGuidToMiniInfoProviderMultiConverter x:Key="MiniInfoGuidToMiniInfoProviderMultiConverter" />
+
+        <ci:RulesetControl x:Key="RulesetControl"
+                           Classes="in-drawer"
+                           Ruleset="{Binding ViewModel.SettingsService.Settings.HideRules, Mode=TwoWay}"/>
+    </controls:SettingsPageBase.Resources>
+    <ScrollViewer>
+        <StackPanel Classes="settings-container animated-intro">
+            <controls3:FAInfoBar IsOpen="{Binding ViewModel.SettingsService.Settings.ShowSellingAnnouncement, Mode=TwoWay}"
+                               IsVisible="{Binding ViewModel.SettingsService.Settings.ShowSellingAnnouncement}"
+                               Severity="Warning"
+                               Message="{x:Static locG:Localization.SellingAnnouncement}"
+                               />
+
+            <!-- Announcements -->
+            <ItemsControl ItemsSource="{Binding ViewModel.AnnouncementService.Announcements, Mode=OneWay}"
+                          Margin="0 0 0 8">
+                <ItemsControl.Styles>
+                    <Style Selector="ItemsControl:empty">
+                        <Setter Property="IsVisible" Value="False"/>
+                    </Style>
+                </ItemsControl.Styles>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ci:AnnouncementControl Announcement="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <controls1:IconText Glyph="&#xE84F;" Text="{x:Static locG:Localization.Behavior}" Margin="0 0 0 4" />
+            <!-- 开机自启 -->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xE342;}" 
+                                        Header="{x:Static locG:Localization.LoadOnBoot}"
+                                        Description="{x:Static locG:Localization.LoadOnBootDescription}"
+                                        >
+                <controls3:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding IsAutoStartEnabled, Source={x:Static abstraction:PlatformServices.DesktopService}, Mode=TwoWay}"/>
+                </controls3:FASettingsExpander.Footer>
+            </controls3:FASettingsExpander>
+            <!-- 注册 Url 协议 -->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xEAB0;}" 
+                                        Header="{x:Static locG:Localization.RegURLProto}"
+                                        Description="{x:Static locG:Localization.RegURLProtoDescription}">
+                <controls3:FASettingsExpander.IsVisible>
+                    <OnPlatform Default="False">
+                        <On Options="Windows" Content="True"/>
+                        <On Options="Linux" Content="True"/>
+                    </OnPlatform>
+                </controls3:FASettingsExpander.IsVisible>
+                <controls3:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding IsUrlSchemeRegistered, Source={x:Static abstraction:PlatformServices.DesktopService}, Mode=TwoWay}"/>
+                </controls3:FASettingsExpander.Footer>
+            </controls3:FASettingsExpander>
+            <!--  学期开始时间  -->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xE304;}"
+                                        Header="{x:Static locG:Localization.SemesterStartDate}"
+                                        Description="{x:Static locG:Localization.SemesterStartDateDescription}">
+                <controls3:FASettingsExpander.Footer>
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="4">
+                        <CalendarDatePicker SelectedDate="{Binding ViewModel.SettingsService.Settings.SingleWeekStartTime}"
+                                            Width="120"/>
+                        <Button Theme="{StaticResource TransparentButton}"
+                                Classes="accent"
+                                Content="{ci:FluentIcon &#xE324;}"
+                                Click="ButtonWeekOffsetSettingsOpen_OnClick"
+                                ToolTip.Tip="{x:Static locG:Localization.AdjustOffset}"
+                                VerticalAlignment="Stretch"
+                                x:Name="WeekOffsetSettingsControlButton">
+                            <Button.Flyout>
+                                <Flyout>
+                                    <Border>
+                                        <controls2:WeekOffsetSettingsControl
+                                            x:Name="WeekOffsetSettingsControl"/>
+                                    </Border>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </controls3:FASettingsExpander.Footer>
+                <!--  最大多周轮换周数  -->
+                <controls3:FASettingsExpanderItem Content="{x:Static locG:Localization.MaxMultiWeekRotationCycles}">
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <ci:Field VerticalAlignment="Center"
+                                  Suffix="{x:Static locG:Localization.WeekUnit}">
+                            <NumericUpDown MinWidth="120"
+                                           Maximum="9"
+                                           Minimum="2"
+                                           Value="{Binding ViewModel.SettingsService.Settings.MultiWeekRotationMaxCycle}"
+                                           FormatString="0" />
+                        </ci:Field>
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+            </controls3:FASettingsExpander>
+            
+            <!-- 点击托盘图标行为 -->
+            <!-- 平台行为差异：在macOS平台上此选项不显示（无效），在Linux平台上一些DE会正确响应左键（如Deepin），也有其他的DE将左键响应为右键点击（如Ubuntu）-->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xE5C1;}" 
+                                        Header="{x:Static locG:Localization.TrayIconClickBehavior}">
+                <controls3:FASettingsExpander.Description>
+                    <OnPlatform Default="{x:Static locG:Localization.TrayIconClickBehaviorDescription}">
+                        <On Options="Linux" Content="{x:Static locG:Localization.TrayIconClickBehaviorDescriptionLinux}"/>
+                    </OnPlatform>
+                </controls3:FASettingsExpander.Description>
+                <controls3:FASettingsExpander.IsVisible>
+                    <OnPlatform Default="True">
+                        <On Options="macOS" Content="False"/>
+                    </OnPlatform>
+                </controls3:FASettingsExpander.IsVisible>
+                <controls3:FASettingsExpander.Footer>
+                    <Grid>
+                        <ComboBox SelectedIndex="{Binding ViewModel.SettingsService.Settings.TaskBarIconClickBehavior}"
+                                  HorizontalContentAlignment="Left">
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <ComboBoxItem.IsEnabled>
+                                    <OnPlatform Default="False">
+                                        <On Options="Windows" Content="True"/>
+                                    </OnPlatform>
+                                </ComboBoxItem.IsEnabled>
+                                <!-- 此选项只在Windows平台受支持 -->
+                                <controls1:IconText Glyph="&#xE075;" Text="{x:Static locG:Localization.TrayIconClickActionOpenMainMenu}" />
+                            </ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <controls1:IconText Glyph="&#xE6BB;" Text="{x:Static locG:Localization.TrayIconClickActionOpenProfileEditor}" />
+                            </ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <controls1:IconText Glyph="&#xEFBF;" Text="{x:Static locG:Localization.TrayIconClickActionToggleMainWindow}" />
+                            </ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+                                <controls1:IconText Glyph="&#xE15F;" Text="{x:Static locG:Localization.TrayIconClickActionOpenClassChanging}" />
+                            </ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Left">
+								<controls1:IconText Glyph="&#xEF27;" Text="{x:Static locG:Localization.TrayIconClickActionOpenSettings}" />
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                </controls3:FASettingsExpander.Footer>
+            </controls3:FASettingsExpander>
+            <!-- 教学安全模式 -->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xE809;}" 
+                                        Header="{x:Static locG:Localization.CriticalSafeMode}"
+                                        Description="{x:Static locG:Localization.CriticalSafeModeDescription}">
+                <controls3:FASettingsExpander.Footer>
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <ComboBox Width="135"
+                                  VerticalAlignment="Center"
+                                  IsVisible="{Binding !ViewModel.SettingsService.Settings.IsCriticalSafeMode}"
+                                  IsEnabled="False"
+                                  SelectedIndex="0">
+                            <ComboBoxItem Content="{x:Static locG:Localization.CriticalSafeModeMethodShowCrashReport}" />
+                        </ComboBox>
+                        <ComboBox Width="135"
+                                  VerticalAlignment="Center"
+                                  IsVisible="{Binding ViewModel.SettingsService.Settings.IsCriticalSafeMode}"
+                                  SelectedIndex="{Binding ViewModel.SettingsService.Settings.CriticalSafeModeMethod}">
+                            <ComboBoxItem Content="{x:Static locG:Localization.CriticalSafeModeMethodExitApp}" />
+                            <ComboBoxItem Content="{x:Static locG:Localization.CriticalSafeModeMethodSilentRestart}" />
+                            <ComboBoxItem Content="{x:Static locG:Localization.CriticalSafeModeMethodShowNotification}" />
+                            <ComboBoxItem Content="{x:Static locG:Localization.CriticalSafeModeMethodIgnore}" />
+                        </ComboBox>
+                        <ToggleSwitch VerticalAlignment="Center"
+                                      Margin="8 0 0 0"
+                                      IsChecked="{Binding ViewModel.SettingsService.Settings.IsCriticalSafeMode}" />
+                    </StackPanel>
+                </controls3:FASettingsExpander.Footer>
+            </controls3:FASettingsExpander>
+            
+            <controls3:FASettingsExpander Header="{x:Static locG:Localization.ShowSplash}"
+                                        IconSource="{ci:FluentIconSource &#xEea1;}"
+                                        Description="{x:Static locG:Localization.ShowSplashDescription}">
+                <controls3:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.IsSplashEnabled}"/>
+                </controls3:FASettingsExpander.Footer>
+                <controls3:FASettingsExpanderItem Content="{x:Static locG:Localization.SplashCustomLogo}"
+                                                IsVisible="{Binding !ViewModel.ManagementService.Policy.DisableSplashCustomize, Mode=OneWay}">
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal"
+                                    HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <TextBox MinWidth="150" MaxWidth="250"
+                                     Text="{Binding ViewModel.SettingsService.Settings.SplashCustomLogoSource}"
+                                     VerticalAlignment="Center" Margin="0 0 2 0" 
+                                     Watermark="{x:Static locG:Localization.SplashCustomLogoPlaceholder}"/>
+                            <controls2:FileBrowserButton
+                                Theme="{StaticResource TransparentButton}"
+                                Content="{ci:FluentIcon &#xE88D;}"
+                                CurrentPath="{Binding ViewModel.SettingsService.Settings.SplashCustomLogoSource, Mode=TwoWay}"
+                                VerticalAlignment="Center"
+                                FileTypes="{x:Static local:GeneralSettingsPage.ImageFileTypes}"/>
+                        </StackPanel>
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem Content="{x:Static locG:Localization.SplashCustomText}"
+                                                IsVisible="{Binding !ViewModel.ManagementService.Policy.DisableSplashCustomize, Mode=OneWay}">
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <TextBox MinWidth="200" MaxWidth="300"
+                                 Watermark="{x:Static locG:Localization.SplashCustomTextPlaceholder}"
+                                 Text="{Binding ViewModel.SettingsService.Settings.SplashCustomText}"
+                                 VerticalAlignment="Center" />
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem Content="{x:Static locG:Localization.SplashDetailedStatus}"
+                                                IsVisible="{Binding !ViewModel.ManagementService.Policy.DisableSplashCustomize, Mode=OneWay}"
+                                                Description="{x:Static locG:Localization.SplashDetailedStatusDescription}">
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.ShowDetailedStatusOnSplash}"/>
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem IsVisible="{Binding ViewModel.ManagementService.Policy.DisableSplashCustomize, Mode=OneWay}"
+                                                Content="{x:Static locG:Localization.SplashCustomizeDisabledByPolicy}"/>
+                <controls3:FASettingsExpanderItem ActionIconSource="{ci:FluentIconSource &#xE44E;}"
+                                            IsClickEnabled="True"
+                                            Content="{x:Static locG:Localization.SplashPreview}"
+                                            IsEnabled="{Binding !ViewModel.IsSplashPreviewing}"
+                                            Click="SettingsExpanderItemPreviewSplash_OnClick">
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <controls3:FAProgressRing IsVisible="{Binding ViewModel.IsSplashPreviewing}"
+                                                Width="24" Height="24"/>
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+            </controls3:FASettingsExpander>
+            
+            <Separator Margin="0 12 0 4" />
+            <controls1:IconText Glyph="&#xf485;" Text="{x:Static locG:Localization.Interface}" Margin="0 0 0 4" />
+            <!-- 界面语言 -->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.LocalLanguageRegular}}"
+                                        Header="{x:Static locG:Localization.Language}"
+                                        Description="{x:Static locG:Localization.LanguageDescription}">
+                <controls3:FASettingsExpander.Footer>
+                    <ComboBox MinWidth="140"
+                              HorizontalContentAlignment="Left"
+                              SelectedIndex="{Binding ViewModel.LanguageSelectedIndex, Mode=TwoWay}">
+                        <ComboBoxItem Content="简体中文" />
+                        <ComboBoxItem Content="English" />
+                        <ComboBoxItem Content="繁體中文" />
+                    </ComboBox>
+                </controls3:FASettingsExpander.Footer>
+            </controls3:FASettingsExpander>
+            <!-- 翻译贡献入口；Path 为 Crowdin 官方标识，跟随主题前景色；左缩进与相邻项标题文字对齐 -->
+            <Border Background="{DynamicResource ExpanderHeaderBackground}"
+                    BorderBrush="{DynamicResource ExpanderHeaderBorderBrush}"
+                    BorderThickness="{DynamicResource ExpanderHeaderBorderThickness}"
+                    CornerRadius="{DynamicResource ControlCornerRadius}"
+                    Padding="16 5">
+                <StackPanel Orientation="Horizontal" Spacing="4" Margin="42 0 0 0" VerticalAlignment="Center">
+                    <Path Width="12" Height="12"
+                          Stretch="Uniform"
+                          VerticalAlignment="Center"
+                          Fill="{DynamicResource TextFillColorSecondaryBrush}"
+                          Data="M16.119 17.793a2.619 2.619 0 0 1-1.667-.562c-.546-.436-1.004-1.09-1.018-1.858-.008-.388.414-.388.414-.388l1.018-.008c.332.008.43.47.445.586.128 1.04.717 1.495 1.168 1.702.273.123.204.513-.362.528zm-5.695-5.287L8.5 12.252c-.867-.214-.844-.982-.807-1.247a5.119 5.119 0 0 1 .814-2.125c.545-.804 1.303-1.508 2.29-2.073 1.856-1.074 4.45-1.673 7.31-1.673 2.09 0 4.256.27 4.29.27.197.025.328.213.333.437a.377.377 0 0 1-.355.393l-.92-.01c-2.902 0-4.968.394-6.506 1.248-1.527.837-2.57 2.117-3.287 4.012-.076.163-.335 1.12-1.24 1.022zm2.533 7.823c-1.44 0-2.797-.622-3.825-1.746-.87-.96-1.397-1.931-1.493-3.164-.06-.813.3-1.094.788-1.044l1.988.218c.45.092.75.34.825.854.397 2.736 2.122 3.814 3.15 4.046.18.042.292.157.283.365a.412.412 0 0 1-.322.398c-.458.074-.936.073-1.394.073zm-4.101 2.418a14.216 14.216 0 0 1-2.307-.214c-1.202-.214-2.208-.582-3.072-1.13C1.41 20.095.163 17.786.014 15.048c-.037-.65-.11-1.89 1.427-1.797.638.033 1.653.343 2.368.548.887.247 1.314.933 1.314 1.608 0 3.858 3.494 6.408 5.02 6.408.654 0 .414.701.127.779-.502.136-1.15.153-1.413.153zM3.525 11.419c-.605-.109-1.194-.358-1.768-.5C-.018 10.479.284 8.688.45 8.196c1.617-4.757 6.746-6.35 10.887-6.773 3.898-.4 7.978-.092 11.778.967.31.083 1.269.327.718.891-.35.358-1.7-.016-2.073-.041-2.23-.167-4.434-.192-6.656.15-2.349.357-4.768 1.099-6.71 2.665-.938.758-1.76 1.723-2.313 2.866-.144.3-.256.6-.354.9-.11.327-.47 1.91-2.215 1.6zm9.94.917c.332-1.488 1.81-3.848 6.385-3.686 1.05.033.57.749.052.731-2.586-.09-3.815 1.578-4.457 3.27-.219.546-.68.626-1.271.53-.415-.074-.866-.123-.71-.846Z"/>
+                    <TextBlock Text="{x:Static locG:Localization.TranslationCredit}"
+                               FontSize="11"
+                               Opacity="0.7"
+                               VerticalAlignment="Center"/>
+                    <HyperlinkButton Click="UriNavigationCommands_OnClick"
+                                     CommandParameter="https://crowdin.com/project/classfabric"
+                                     Padding="0"
+                                     MinHeight="0"
+                                     FontSize="11"
+                                     VerticalAlignment="Center">
+                        <TextBlock Text="{x:Static locG:Localization.TranslationCreditAction}"/>
+                    </HyperlinkButton>
+                </StackPanel>
+            </Border>
+            
+            <!-- 隐藏窗口 -->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xEFBF;}" 
+                                        Header="{x:Static locG:Localization.HideWindow}"
+                                        Description="{x:Static locG:Localization.HideWindowDescription}">
+                <controls3:FASettingsExpanderItem>
+                    <TabControl HorizontalContentAlignment="Left"
+                                SelectedIndex="{Binding ViewModel.SettingsService.Settings.HideMode}"
+                                Classes="compact">
+                        <TabItem Header="{x:Static locG:Localization.HideWindowBasicMode}">
+                            <StackPanel Margin="6 6 0 0" Spacing="2">
+                                <CheckBox Content="{x:Static locG:Localization.HideOnClass}"
+                                          IsChecked="{Binding ViewModel.SettingsService.Settings.HideOnClass}"/>
+                                <CheckBox Content="{x:Static locG:Localization.HideOnMaxWindow}"
+                                          IsEnabled="{OnPlatform Default=True, Android=False}"
+                                          IsChecked="{Binding ViewModel.SettingsService.Settings.HideOnMaxWindow}" />
+                                <CheckBox Content="{x:Static locG:Localization.HideOnFullscreen}"
+                                          IsEnabled="{OnPlatform Default=True, Android=False}"
+                                          IsChecked="{Binding ViewModel.SettingsService.Settings.HideOnFullscreen}" />
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="{x:Static locG:Localization.HideWindowAdvancedMode}">
+                            <StackPanel>
+                                <Button HorizontalAlignment="Left" Theme="{StaticResource TransparentButton}"
+                                        Classes="accent"
+                                        Command="{x:Static ci:SettingsPageBase.OpenDrawerCommand}"
+                                        CommandParameter="{StaticResource RulesetControl}">
+                                    <controls1:IconText Glyph="&#xF17E;" Text="{x:Static locG:Localization.EditRuleset}"/>
+                                </Button>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                </controls3:FASettingsExpanderItem>
+            </controls3:FASettingsExpander>
+            
+            <!-- 动画级别 -->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xEDC1;}" 
+                                        Header="{x:Static locG:Localization.AnimationLevel}"
+                                        Description="{x:Static locG:Localization.AnimationLevelDescription}">
+                <controls3:FASettingsExpander.Footer>
+                    <ComboBox Width="120"
+                              VerticalAlignment="Center"
+                              SelectedIndex="{Binding ViewModel.SettingsService.Settings.AnimationLevel}">
+                        <ComboBoxItem Content="{x:Static locG:Localization.AnimationLevelDisabled}" />
+                        <ComboBoxItem Content="{x:Static locG:Localization.AnimationLevelStandard}" />
+                        <ComboBoxItem Content="{x:Static locG:Localization.AnimationLevelFancy}" />
+                    </ComboBox>
+                </controls3:FASettingsExpander.Footer>
+            </controls3:FASettingsExpander>
+            
+            <!-- 禁用动画等待 -->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xF365;}" 
+                                       Header="{x:Static locG:Localization.DisableAnimationWait}"
+                                       Description="{x:Static locG:Localization.DisableAnimationWaitDescription}"
+            >
+                <controls3:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.IsWaitForTransientDisabled, Mode=TwoWay}"/>
+                </controls3:FASettingsExpander.Footer>
+            </controls3:FASettingsExpander>
+            
+            <!-- 降低主界面进度条精度 -->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xe5e3;}" 
+                                        Header="{x:Static locG:Localization.ReduceProgressAccuracy}"
+                                        Description="{x:Static locG:Localization.ReduceProgressAccuracyDescription}">
+                <controls3:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.ReduceProgressAccuracy}"/>
+                </controls3:FASettingsExpander.Footer>
+            </controls3:FASettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
+</controls:SettingsPageBase>

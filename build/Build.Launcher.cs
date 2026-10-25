@@ -43,10 +43,10 @@ partial class Build
                 .SetProperty("PublishBuilding", true)
                 .SetProperty("PublishPlatform", OsName)
                 .SetProperty("RuntimeIdentifier", RuntimeIdentifier)
-                .SetProperty("ClassFabric_PlatformTarget", Arch)
+                .SetProperty("ClassIsland_PlatformTarget", Arch)
                 .SetProperty("PublishDir", LauncherPublishPath));
             var extension = OsName == "windows" ? ".exe" : "";
-            File.Move(LauncherPublishPath / "ClassFabric.Launcher" + extension, LauncherPublishPath / "ClassFabric" + extension);
+            File.Move(LauncherPublishPath / "ClassIsland.Launcher" + extension, LauncherPublishPath / "ClassFabric" + extension);
         });
 
     Target GenerateLauncherZipArchive => _ => _

@@ -1,0 +1,160 @@
+<ci:SettingsPageBase xmlns="https://github.com/avaloniaui"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                  xmlns:settingPages="clr-namespace:ClassIsland.Views.SettingPages;assembly=ClassIsland"
+                  xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+                  xmlns:locRfs="clr-namespace:ClassIsland.Assets.Localization.SettingsPage.Refreshing"
+                  mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                  x:Class="ClassIsland.Views.SettingPages.RefreshingSettingsPage"
+                  d:DataContext="{d:DesignInstance settingPages:RefreshingSettingsPage}">
+    <ScrollViewer>
+        <StackPanel Classes="settings-container animated-intro">
+            <!-- 定期翻新 -->
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE0B9;}" 
+                                        Header="{x:Static locRfs:Localization.RefreshingHeader}"
+                                        Description="{x:Static locRfs:Localization.RefreshingDescription}">
+                <controls:FASettingsExpander.Styles>
+                    <Style Selector="controls|FASettingsExpanderItem.new-cfg">
+                        <Setter Property="Description" Value="{x:Static locRfs:Localization.NewConfigDescription}"/>
+                    </Style>
+                    <Style Selector="controls|FASettingsExpanderItem.disable-plugins">
+                        <Setter Property="Description" Value="{x:Static locRfs:Localization.DisablePluginsDescription}"/>
+                    </Style>
+                </controls:FASettingsExpander.Styles>
+                <controls:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.IsRefreshingToastEnabled, Mode=TwoWay}"/>
+                </controls:FASettingsExpander.Footer>
+                <controls:FASettingsExpanderItem Description="{x:Static locRfs:Localization.DefaultRefreshingScopesDescription}">
+                    <TextBlock Text="{x:Static locRfs:Localization.DefaultRefreshingScopes}"/>
+                </controls:FASettingsExpanderItem>
+                <controls:FASettingsExpanderItem Classes.new-cfg="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.Profile}">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <StackPanel Orientation="Horizontal" Spacing="4" Classes="items-valign-center" IsVisible="{Binding !ViewModel.SettingsService.Settings.RefreshingScopes.Profile}">
+                            <CheckBox Content="{x:Static locRfs:Localization.ScopeProfileClassPlans}" IsChecked="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.ProfileClassPlans}"/>
+                            <CheckBox Content="{x:Static locRfs:Localization.ScopeProfileTimeLayouts}" IsChecked="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.ProfileTimeLayouts}"/>
+                            <Button Content="{ci:FluentIcon &#xF1A8;}" ToolTip.Tip="{x:Static locRfs:Localization.ChooseReservedContent}"
+                                    Theme="{StaticResource TransparentButton}"
+                                    Click="ButtonReserveSettings_OnClick"/>
+                        </StackPanel>
+                    </controls:FASettingsExpanderItem.Footer>
+                    <CheckBox Content="{x:Static locRfs:Localization.ScopeProfile}" IsChecked="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.Profile}"/>
+                </controls:FASettingsExpanderItem>
+                <!-- <controls:FASettingsExpanderItem> -->
+                <!--     <CheckBox Content="应用设置" IsChecked="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.Settings}"/> -->
+                <!-- </controls:FASettingsExpanderItem> -->
+                <controls:FASettingsExpanderItem Classes.new-cfg="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.Components}">
+                    <CheckBox Content="{x:Static locRfs:Localization.ScopeComponents}" IsChecked="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.Components}"/>
+                </controls:FASettingsExpanderItem>
+                <controls:FASettingsExpanderItem Classes.new-cfg="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.Automations}">
+                    <CheckBox Content="{x:Static locRfs:Localization.ScopeAutomations}" IsChecked="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.Automations}"/>
+                </controls:FASettingsExpanderItem>
+                <controls:FASettingsExpanderItem Classes.disable-plugins="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.Plugins}">
+                    <CheckBox Content="{x:Static locRfs:Localization.ScopePlugins}" IsChecked="{Binding ViewModel.SettingsService.Settings.RefreshingScopes.Plugins}"/>
+                </controls:FASettingsExpanderItem>
+                <controls:FASettingsExpanderItem Content="{x:Static locRfs:Localization.RefreshNow}" ActionIconSource="{ci:FluentIconSource &#xE44E;}"
+                                               IsClickEnabled="True"
+                                               Click="SettingsExpanderItemRefreshNow_OnClick"/>
+            </controls:FASettingsExpander>
+            
+            <!-- 启用迎新指引 -->
+            <controls:FASettingsExpander Header="{x:Static locRfs:Localization.OnboardingModeHeader}"
+                                       IconSource="{ci:FluentIconSource &#xE95D;}"
+                                       IsExpanded="{Binding ViewModel.SettingsService.Settings.RefreshingToastIsOnboardingGuide, Mode=OneWay}"
+                                       Description="{x:Static locRfs:Localization.OnboardingModeDescription}">
+                <controls:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.RefreshingToastIsOnboardingGuide, Mode=TwoWay}"/>
+                </controls:FASettingsExpander.Footer>
+                <controls:FASettingsExpanderItem Content="{x:Static locRfs:Localization.NotificationTitle}">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <TextBox Text="{Binding ViewModel.SettingsService.Settings.OnboardingToastTitle}"
+                                 MinWidth="120" MaxWidth="450"/>
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+                <controls:FASettingsExpanderItem>
+                    <ci:Field Label="{x:Static locRfs:Localization.NotificationBody}">
+                        <TextBox Text="{Binding ViewModel.SettingsService.Settings.OnboardingToastBody}"
+                                 AcceptsReturn="True" TextWrapping="Wrap"/>
+                    </ci:Field>
+                </controls:FASettingsExpanderItem>
+                <controls:FASettingsExpanderItem Content="{x:Static locRfs:Localization.ResetToDefault}"
+                                               IsClickEnabled="True" ActionIconSource="{ci:FluentIconSource &#xE44E;}"
+                                               Click="SettingsExpanderItemResetOnboardingMessages_OnClick"/>
+                <controls:FASettingsExpanderItem Content="{x:Static locRfs:Localization.TestNotification}"
+                                               IsClickEnabled="True" ActionIconSource="{ci:FluentIconSource &#xE44E;}"
+                                               Click="SettingsExpanderItemTestOnboardingDialog_OnClick"/>
+            </controls:FASettingsExpander>
+            
+            <Separator Margin="0 12 0 4" />
+            <ci:IconText Glyph="&#xE408;" Text="{x:Static locRfs:Localization.NotificationOptions}" Margin="0 0 0 4" />
+            
+            <!-- 通知显示间隔 -->
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE3F8;}" 
+                                       Header="{x:Static locRfs:Localization.NotificationDisplayInterval}"
+                                       IsExpanded="True"
+                                       Description="{x:Static locRfs:Localization.NotificationDisplayIntervalDescription}">
+                <controls:FASettingsExpander.Footer>
+                    <ci:Field VerticalAlignment="Center"
+                              Suffix="{x:Static locRfs:Localization.DayUnit}">
+                        <NumericUpDown MinWidth="120"
+                                       Maximum="33550337"
+                                       Minimum="1"
+                                       Value="{Binding ViewModel.SettingsService.Settings.RefreshingToastThresholdDays}"
+                                       FormatString="0" />
+                    </ci:Field>
+                </controls:FASettingsExpander.Footer>
+                <controls:FASettingsExpanderItem Content="{x:Static locRfs:Localization.ShowNotificationOnNextStart}"
+                                               Description="{x:Static locRfs:Localization.ShowNotificationOnNextStartDescription}">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <StackPanel Classes="items-valign-center" Orientation="Horizontal" Spacing="6">
+                            <Button Content="{x:Static locRfs:Localization.ExitAppNow}"
+                                    Click="ButtonExit_OnClick"
+                                    IsVisible="{Binding ViewModel.SettingsService.Settings.ShowRefreshingToastOnNextStart, Mode=TwoWay}"/>
+                            <ToggleSwitch
+                                IsChecked="{Binding ViewModel.SettingsService.Settings.ShowRefreshingToastOnNextStart, Mode=TwoWay}" />
+                        </StackPanel>
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+            </controls:FASettingsExpander>
+            
+            <!-- 最高通知显示次数 -->
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE3FE;}" 
+                                       Header="{x:Static locRfs:Localization.MaxNotificationCount}"
+                                       IsExpanded="True"
+                                       Description="{x:Static locRfs:Localization.MaxNotificationCountDescription}">
+                <controls:FASettingsExpander.Footer>
+                    <ci:Field VerticalAlignment="Center"
+                              Suffix="{x:Static locRfs:Localization.TimesUnit}">
+                        <NumericUpDown MinWidth="120"
+                                       Maximum="16"
+                                       Minimum="1"
+                                       Value="{Binding ViewModel.SettingsService.Settings.MaxRefreshingToastCounts}"
+                                       FormatString="0" />
+                    </ci:Field>
+                </controls:FASettingsExpander.Footer>
+                <controls:FASettingsExpanderItem>
+                    <controls:FASettingsExpanderItem.Footer>
+                        <StackPanel Classes="items-valign-center" Orientation="Horizontal" Spacing="6">
+                            <Button Content="{x:Static locRfs:Localization.Clear}" Click="ButtonClearLeftToastCount_OnClick">
+                                <Button.IsVisible>
+                                    <Binding Path="ViewModel.SettingsService.Settings.LeftRefreshingToastCounts"
+                                             Converter="{x:Static ObjectConverters.NotEqual}">
+                                        <Binding.ConverterParameter>
+                                            <x:Int32>0</x:Int32>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </Button.IsVisible>
+                            </Button>
+                        </StackPanel>
+                    </controls:FASettingsExpanderItem.Footer>
+                    <TextBlock VerticalAlignment="Center">
+                        <Run Text="{x:Static locRfs:Localization.LeftNotificationCount}"/><Run Text="{Binding ViewModel.SettingsService.Settings.LeftRefreshingToastCounts}"/>
+                    </TextBlock>
+                </controls:FASettingsExpanderItem>
+            </controls:FASettingsExpander>
+            
+           
+        </StackPanel>
+    </ScrollViewer>
+</ci:SettingsPageBase>

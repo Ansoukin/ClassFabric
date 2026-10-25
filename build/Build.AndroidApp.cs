@@ -25,7 +25,7 @@ public partial class Build
                 .SetProperty("PublishBuilding", true)
                 .SetProperty("PublishPlatform", OsName)
                 .SetProperty("RuntimeIdentifier", RuntimeIdentifier)
-                .SetProperty("ClassFabric_PlatformTarget", Arch));
+                .SetProperty("ClassIsland_PlatformTarget", Arch));
         });
     
     Target CleanAndroidApp => _ => _
@@ -40,7 +40,7 @@ public partial class Build
                 .SetProperty("PublishBuilding", true)
                 .SetProperty("PublishPlatform", OsName)
                 .SetProperty("RuntimeIdentifier", RuntimeIdentifier)
-                .SetProperty("ClassFabric_PlatformTarget", Arch));
+                .SetProperty("ClassIsland_PlatformTarget", Arch));
         });
 
     Target CompileAndroidApp => t => t
@@ -56,7 +56,7 @@ public partial class Build
                 .SetProperty("PublishBuilding", true)
                 .SetProperty("PublishPlatform", OsName)
                 .SetProperty("RuntimeIdentifier", RuntimeIdentifier)
-                .SetProperty("ClassFabric_PlatformTarget", Arch)
+                .SetProperty("ClassIsland_PlatformTarget", Arch)
                 .SetProperty("ClassFabric_MonoAoT", true)
                 .SetProperty("PublishDir", AppPublishPath)
                 .SetProperty("BrandType", IsProductionBuild ? "Production" : "Beta")

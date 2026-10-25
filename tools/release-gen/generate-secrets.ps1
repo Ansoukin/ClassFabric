@@ -3,7 +3,7 @@ $hasSecrets = ($null -ne $env:API_SIGNING_KEY -and $null -ne $env:API_SIGNING_KE
 Write-Output "Secrets filled: $hasSecrets"
 
 $code = "
-namespace ClassFabric.Services.SpeechService{
+namespace ClassIsland.Services.SpeechService{
     public static partial class GptSovitsSecrets
     {
         public const string PrivateKey = 

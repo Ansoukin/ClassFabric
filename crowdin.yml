@@ -1,4 +1,7 @@
 # Crowdin 本地化同步配置（GitHub App 与 CLI 共用）
+# ⚠ 当前处于冻结状态（2.1.1.4 起）：云侧项目与翻译全部保留，同步暂停，本文件暂不追加新资源组。
+# 冻结原因：源文件路径与工程名已整体回归 ClassIsland.*（本文件内的 source 路径已同步更新），
+# 重新开闸前需先在 Crowdin 云侧核对源路径映射与已翻译串，迁移方案另行立项，勿直接恢复同步。
 # 凭据不入库：GitHub App 在集成界面授权；CLI 走环境变量 CROWDIN_PROJECT_ID / CROWDIN_PERSONAL_TOKEN
 # 维护规则：新增本地化资源组时，在 files 中追加对应条目（源文件=无语言后缀的默认 resx，即简中文案）
 # 首次同步校验点：源字符串总数应为 734（Main 86 + SettingsPage 41 + General 57 + TrayMenu 8 + 设置页 12 组 542）
@@ -16,8 +19,8 @@ pull_request_labels:
 
 files:
   # ── 主界面、设置窗口、托盘菜单（语言设置基础设施同期资源组）──
-  - source: /ClassFabric/Assets/Localization/Main/Localization.Main.resx
-    translation: /ClassFabric/Assets/Localization/Main/Localization.Main.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Main/Localization.Main.resx
+    translation: /ClassIsland/Assets/Localization/Main/Localization.Main.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -25,8 +28,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Localization.SettingsPage.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Localization.SettingsPage.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Localization.SettingsPage.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Localization.SettingsPage.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -34,8 +37,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/General/Localization.SettingsPage.General.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/General/Localization.SettingsPage.General.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/General/Localization.SettingsPage.General.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/General/Localization.SettingsPage.General.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -43,8 +46,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/TrayMenu/Localization.TrayMenu.resx
-    translation: /ClassFabric/Assets/Localization/TrayMenu/Localization.TrayMenu.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/TrayMenu/Localization.TrayMenu.resx
+    translation: /ClassIsland/Assets/Localization/TrayMenu/Localization.TrayMenu.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -53,8 +56,8 @@ files:
         zh-TW: zh-Hant
 
   # ── 各设置页资源组 ──
-  - source: /ClassFabric/Assets/Localization/SettingsPage/About/Localization.SettingsPage.About.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/About/Localization.SettingsPage.About.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/About/Localization.SettingsPage.About.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/About/Localization.SettingsPage.About.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -62,8 +65,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Appearance/Localization.SettingsPage.Appearance.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Appearance/Localization.SettingsPage.Appearance.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Appearance/Localization.SettingsPage.Appearance.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Appearance/Localization.SettingsPage.Appearance.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -71,8 +74,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Clock/Localization.SettingsPage.Clock.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Clock/Localization.SettingsPage.Clock.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Clock/Localization.SettingsPage.Clock.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Clock/Localization.SettingsPage.Clock.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -80,8 +83,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Component/Localization.SettingsPage.Component.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Component/Localization.SettingsPage.Component.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Component/Localization.SettingsPage.Component.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Component/Localization.SettingsPage.Component.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -89,8 +92,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Notification/Localization.SettingsPage.Notification.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Notification/Localization.SettingsPage.Notification.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Notification/Localization.SettingsPage.Notification.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Notification/Localization.SettingsPage.Notification.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -98,8 +101,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Plugins/Localization.SettingsPage.Plugins.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Plugins/Localization.SettingsPage.Plugins.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Plugins/Localization.SettingsPage.Plugins.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Plugins/Localization.SettingsPage.Plugins.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -107,8 +110,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Refreshing/Localization.SettingsPage.Refreshing.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Refreshing/Localization.SettingsPage.Refreshing.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Refreshing/Localization.SettingsPage.Refreshing.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Refreshing/Localization.SettingsPage.Refreshing.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -116,8 +119,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Storage/Localization.SettingsPage.Storage.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Storage/Localization.SettingsPage.Storage.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Storage/Localization.SettingsPage.Storage.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Storage/Localization.SettingsPage.Storage.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -125,8 +128,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Themes/Localization.SettingsPage.Themes.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Themes/Localization.SettingsPage.Themes.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Themes/Localization.SettingsPage.Themes.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Themes/Localization.SettingsPage.Themes.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -134,8 +137,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Update/Localization.SettingsPage.Update.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Update/Localization.SettingsPage.Update.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Update/Localization.SettingsPage.Update.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Update/Localization.SettingsPage.Update.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -143,8 +146,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Weather/Localization.SettingsPage.Weather.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Weather/Localization.SettingsPage.Weather.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Weather/Localization.SettingsPage.Weather.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Weather/Localization.SettingsPage.Weather.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -152,8 +155,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/SettingsPage/Window/Localization.SettingsPage.Window.resx
-    translation: /ClassFabric/Assets/Localization/SettingsPage/Window/Localization.SettingsPage.Window.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/SettingsPage/Window/Localization.SettingsPage.Window.resx
+    translation: /ClassIsland/Assets/Localization/SettingsPage/Window/Localization.SettingsPage.Window.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -161,8 +164,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/Windows/ClassChanging/Localization.Windows.ClassChanging.resx
-    translation: /ClassFabric/Assets/Localization/Windows/ClassChanging/Localization.Windows.ClassChanging.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Windows/ClassChanging/Localization.Windows.ClassChanging.resx
+    translation: /ClassIsland/Assets/Localization/Windows/ClassChanging/Localization.Windows.ClassChanging.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -170,8 +173,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/Windows/TutorialEditor/Localization.Windows.TutorialEditor.resx
-    translation: /ClassFabric/Assets/Localization/Windows/TutorialEditor/Localization.Windows.TutorialEditor.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Windows/TutorialEditor/Localization.Windows.TutorialEditor.resx
+    translation: /ClassIsland/Assets/Localization/Windows/TutorialEditor/Localization.Windows.TutorialEditor.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -179,8 +182,8 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/Views/DataTransfer/Localization.Views.DataTransfer.resx
-    translation: /ClassFabric/Assets/Localization/Views/DataTransfer/Localization.Views.DataTransfer.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Views/DataTransfer/Localization.Views.DataTransfer.resx
+    translation: /ClassIsland/Assets/Localization/Views/DataTransfer/Localization.Views.DataTransfer.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -188,40 +191,40 @@ files:
         en-US: en
         zh-TW: zh-Hant
 
-  - source: /ClassFabric/Assets/Localization/Controls/Components/Localization.Controls.Components.resx
-    translation: /ClassFabric/Assets/Localization/Controls/Components/Localization.Controls.Components.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Controls/Components/Localization.Controls.Components.resx
+    translation: /ClassIsland/Assets/Localization/Controls/Components/Localization.Controls.Components.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
-  - source: /ClassFabric/Assets/Localization/Controls/NotificationProviders/Localization.Controls.NotificationProviders.resx
-    translation: /ClassFabric/Assets/Localization/Controls/NotificationProviders/Localization.Controls.NotificationProviders.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Controls/NotificationProviders/Localization.Controls.NotificationProviders.resx
+    translation: /ClassIsland/Assets/Localization/Controls/NotificationProviders/Localization.Controls.NotificationProviders.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
-  - source: /ClassFabric/Assets/Localization/Controls/SpeechProviderSettingsControls/Localization.Controls.SpeechProviderSettingsControls.resx
-    translation: /ClassFabric/Assets/Localization/Controls/SpeechProviderSettingsControls/Localization.Controls.SpeechProviderSettingsControls.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Controls/SpeechProviderSettingsControls/Localization.Controls.SpeechProviderSettingsControls.resx
+    translation: /ClassIsland/Assets/Localization/Controls/SpeechProviderSettingsControls/Localization.Controls.SpeechProviderSettingsControls.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
-  - source: /ClassFabric/Assets/Localization/Controls/EditMode/Localization.Controls.EditMode.resx
-    translation: /ClassFabric/Assets/Localization/Controls/EditMode/Localization.Controls.EditMode.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Controls/EditMode/Localization.Controls.EditMode.resx
+    translation: /ClassIsland/Assets/Localization/Controls/EditMode/Localization.Controls.EditMode.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
-  - source: /ClassFabric/Assets/Localization/Windows/ProfileSettings/Localization.Windows.ProfileSettings.resx
-    translation: /ClassFabric/Assets/Localization/Windows/ProfileSettings/Localization.Windows.ProfileSettings.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Windows/ProfileSettings/Localization.Windows.ProfileSettings.resx
+    translation: /ClassIsland/Assets/Localization/Windows/ProfileSettings/Localization.Windows.ProfileSettings.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
@@ -230,32 +233,32 @@ files:
         zh-TW: zh-Hant
 
 
-  - source: /ClassFabric/Assets/Localization/Services/Update/Localization.Services.Update.resx
-    translation: /ClassFabric/Assets/Localization/Services/Update/Localization.Services.Update.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Services/Update/Localization.Services.Update.resx
+    translation: /ClassIsland/Assets/Localization/Services/Update/Localization.Services.Update.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
-  - source: /ClassFabric/Assets/Localization/Services/ProfileTransfer/Localization.Services.ProfileTransfer.resx
-    translation: /ClassFabric/Assets/Localization/Services/ProfileTransfer/Localization.Services.ProfileTransfer.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Services/ProfileTransfer/Localization.Services.ProfileTransfer.resx
+    translation: /ClassIsland/Assets/Localization/Services/ProfileTransfer/Localization.Services.ProfileTransfer.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
-  - source: /ClassFabric/Assets/Localization/Services/Plugins/Localization.Services.Plugins.resx
-    translation: /ClassFabric/Assets/Localization/Services/Plugins/Localization.Services.Plugins.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Services/Plugins/Localization.Services.Plugins.resx
+    translation: /ClassIsland/Assets/Localization/Services/Plugins/Localization.Services.Plugins.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:
         zh-CN: zh-Hans
         en-US: en
         zh-TW: zh-Hant
-  - source: /ClassFabric/Assets/Localization/Windows/SettingsWindow/Localization.Windows.SettingsWindow.resx
-    translation: /ClassFabric/Assets/Localization/Windows/SettingsWindow/Localization.Windows.SettingsWindow.%locale%.resx
+  - source: /ClassIsland/Assets/Localization/Windows/SettingsWindow/Localization.Windows.SettingsWindow.resx
+    translation: /ClassIsland/Assets/Localization/Windows/SettingsWindow/Localization.Windows.SettingsWindow.%locale%.resx
     update_option: update_as_unapproved
     languages_mapping:
       locale:

@@ -1,4 +1,4 @@
-#define AppName "ClassFabric"
+﻿#define AppName "ClassFabric"
 #ifndef AppVersion
 #define AppVersion GetCmdParam("AppVersion", "2.0.0")
 #endif
@@ -25,7 +25,7 @@ DefaultDirName={autopf}\{#AppName}
 UninstallDisplayIcon={app}\{#AppExeName}
 DisableProgramGroupPage=yes
 LicenseFile={#GetEnv("GITHUB_WORKSPACE") + "\\LICENSE.txt"}
-SetupIconFile={#GetEnv("GITHUB_WORKSPACE") + "\\ClassFabric\\Assets\\AppLogo.ico"}
+SetupIconFile={#GetEnv("GITHUB_WORKSPACE") + "\\ClassIsland\\Assets\\AppLogo.ico"}
 SolidCompression=yes
 ; WizardStyle=modern dynamic windows11
 #if Arch == "x64"

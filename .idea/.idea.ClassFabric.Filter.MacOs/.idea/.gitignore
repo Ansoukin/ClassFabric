@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Rider 忽略的文件
-/.idea.ClassFabric.Filter.MacOs.iml
+/.idea.ClassIsland.Filter.MacOs.iml
 /modules.xml
 /contentModel.xml
 /projectSettingsUpdater.xml

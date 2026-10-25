@@ -1,13 +1,21 @@
 # AGENTS.md
 
+## Branding Rule (read this first)
+ClassFabric is a **surface-only brand** on top of the ClassIsland codebase, reverted to upstream-real names since 2.1.1.4:
+
+- Project directories, project files, assembly names, namespaces, avares:// URIs, the `classisland.tech` XAML schema URLs, the `classisland://` URI scheme, data directories (`%APPDATA%\ClassIsland\Data`, `%LOCALAPPDATA%\ClassIsland`) and asset file names all use the upstream-real `ClassIsland.*` names. Do not introduce `ClassFabric` into any of these.
+- The only code-level exception is the desktop executable name: `ClassIsland.Desktop` builds into `ClassFabric.Desktop.exe` via an explicit `<AssemblyName>` in its csproj, plus the installed executable `ClassFabric.exe` referenced by the installer and `App.axaml.cs`. Do not "fix" these to ClassIsland — deployment images and existing shortcuts depend on them.
+- `ClassFabric` remains correct in user-visible copy (resx strings, dialogs, titles), installer metadata (`AppName`, `Product`, `Title`), the Inno AppId family (`cn.classfabric.app`, `FClassFabric_*` artifacts), the Phainon distribution paths (`classfabric/distribution-v2/...`), the SignPath project slug, release asset names, and the repository name `Ansoukin/ClassFabric`.
+- After rename-sensitive work, review `git grep -I -i "ClassFabric"` and confirm every remaining hit falls into one of the retained categories above.
+
 ## Repo Shape
-- Main solution: `ClassFabric.sln`; platform-filtered solutions: `ClassFabric.Filter.Linux.slnf`, `ClassFabric.Filter.MacOs.slnf`.
-- Runtime app entrypoint: `ClassFabric.Desktop/Program.cs`; Avalonia app/library: `ClassFabric/`; shared UI/services: `ClassFabric.Core/`.
-- Android entry project: `ClassFabric.Android/`; it targets `net10.0-android` and shares the Avalonia application code from `ClassFabric/`.
-- Platform services: `platforms/ClassFabric.Platforms.{Windows,Linux,MacOs}`, wired by `CrossPlatformProps.props`.
-- Plugin compatibility shims: `ClassIslandCompatibility/` holds six forwarder-only projects that emit the legacy assembly names (`ClassIsland`, `ClassIsland.Core`, `ClassIsland.Shared`, `ClassIsland.Shared.IPC`, `ClassIsland.Platforms.Abstractions`, `ClassIsland.PluginSdk`). They contain only `TypeForwardedTo` declarations pointing at the renamed `ClassFabric.*` implementations, so plugins compiled against the old assembly names keep loading. `ClassFabric.Desktop` references them. Do not delete them, and do not put implementations in them.
-- `ClassFabric.Shared` and `ClassFabric.Shared.IPC` target `net10.0;net472` on Windows and `net10.0` elsewhere; avoid APIs unavailable on `net472` in shared code.
-- Most app projects target `net10.0`; `ClassFabric.Launcher` intentionally remains on `net9.0`.
+- Main solution: `ClassFabric.sln` (file name kept intentionally); platform-filtered solutions: `ClassFabric.Filter.Linux.slnf`, `ClassFabric.Filter.MacOs.slnf`.
+- Runtime app entrypoint: `ClassIsland.Desktop/Program.cs`; Avalonia app/library: `ClassIsland/`; shared UI/services: `ClassIsland.Core/`.
+- Android entry project: `ClassIsland.Android/`; it targets `net10.0-android` and shares the Avalonia application code from `ClassIsland/`.
+- Platform services: `platforms/ClassIsland.Platforms.{Windows,Linux,MacOs}`, wired by `CrossPlatformProps.props`.
+- `ClassIsland.Shared` and `ClassIsland.Shared.IPC` target `net10.0;net472` on Windows and `net10.0` elsewhere; avoid APIs unavailable on `net472` in shared code.
+- Most app projects target `net10.0`; `ClassIsland.Launcher` intentionally remains on `net9.0`.
+- Upstream-market plugins load directly against the `ClassIsland.*` assemblies; there is no compatibility shim layer anymore.
 
 ## SDK And Restore
 - `global.json` requests the .NET 10 SDK with `rollForward: latestFeature` and prerelease SDKs allowed. Use a .NET 10 SDK for repository builds, including the `net9.0` launcher.
@@ -17,15 +25,15 @@
 - CI uses GitHub Package Registry: `https://nuget.pkg.github.com/ClassIsland/index.json`.
 
 ## Build Commands
-- Desktop app: `dotnet build ClassFabric.Desktop/ClassFabric.Desktop.csproj -c Debug`
-- Android app: `dotnet build ClassFabric.Android/ClassFabric.Android.csproj -c Debug` after installing the Android workload.
-- Single library: `dotnet build ClassFabric.Core/ClassFabric.Core.csproj -c Debug`
+- Desktop app: `dotnet build ClassIsland.Desktop/ClassIsland.Desktop.csproj -c Debug`
+- Android app: `dotnet build ClassIsland.Android/ClassIsland.Android.csproj -c Debug` after installing the Android workload.
+- Single library: `dotnet build ClassIsland.Core/ClassIsland.Core.csproj -c Debug`
 - Use NUKE only for release/publish builds, not verification.
 - Release packaging: `./build.ps1 PublishApp` (Windows) or `./build.sh PublishApp` (Unix) with required metadata.
 - `PublishApp` requires metadata: `--OsName windows|linux|macos`, `--Arch x64|x86|arm64`, `--Package folder|deb|pkg`, `--BuildType full|selfContained`, `--BuildName appBase|app`, `--AppVersion <version>`.
 - Android release packaging uses `./build.sh PublishAndroidApp --OsName android --Arch arm64 --Package apk --BuildType monoaot --BuildName app --AppVersion <version>`; production branding additionally passes `--IsProductionBuild true`.
 - Launcher packaging: `PublishLauncher` (native AOT self-contained).
-- Plugin dev environment target `InitPluginDevEnv` writes user environment variables/profile blocks pointing at `out/ClassFabric_Dev`; do not run it casually during verification.
+- Plugin dev environment target `InitPluginDevEnv` writes user environment variables/profile blocks pointing at `out/ClassIsland_Dev`; do not run it casually during verification.
 
 ## Agent Workflow
 Before editing:
@@ -39,14 +47,6 @@ Avoid speculative refactoring.
 When requirements are unclear:
 - Ask the user when changes affect architecture, behavior, compatibility, or public APIs.
 - For minor implementation details, follow existing project patterns.
-
-## File Operations
-Use the following order for every file operation:
-1. Browse and read with `read_file` / `list_files` first.
-2. Edit with `apply_patch`.
-3. Fall back to Node.js atomic file operations only when those tools are unavailable or fail: read with `fs.readFile`, and write by creating a temporary file and replacing the destination with `fs.rename`.
-Do not bypass this order with shell commands such as `cat`, `sed`, or `echo`.
-Follow this rule strictly.
 
 ## Priority Rules
 When instructions conflict, follow this order:
@@ -66,23 +66,20 @@ When instructions conflict, follow this order:
   - Consider backward-compatible alternatives or migration paths.
 
 ### Naming Is Load-Bearing
-Never run a blanket rename of `ClassIsland` to `ClassFabric`. The old name is intentionally kept in several places, and replacing it breaks the plugin ecosystem.
+Never run a blanket rename of `ClassIsland` to `ClassFabric`. The brand lives only on the surface; the code tree must stay on upstream-real names.
 
-- `ClassFabric.Core`, `ClassFabric.Shared`, `ClassFabric.Shared.IPC` and `ClassFabric.Platforms.Abstractions` deliberately keep their `ClassIsland.*` namespaces so the compatibility shims can forward them. Renaming these types breaks every plugin.
 - Do not rename or remove: upstream repository and documentation links, upstream dependency package IDs (`ClassIsland.SimpleGitInfoGenerator`, `ClassIsland.Markdown.Avalonia`, …), the GitHub Package Registry source `https://nuget.pkg.github.com/ClassIsland/index.json`, the `vendors/EdgeTtsSharp` branch name, licence and copyright headers, or the ClassIsland v1 data-import symbols (`ClassIsland1ImportProvider`, `ClassIslandV1ProfileTransferHelper`).
 - Types under `ClassIsland.Core.*` are plugin-visible API. Never add an optional parameter to an existing constructor: that creates a new signature, and already-compiled plugins throw `MissingMethodException` while their attributes are parsed. Add an overload or a separate attribute instead.
-- Adding a public type to `ClassFabric.Core`, `ClassFabric.Shared`, `ClassFabric.Shared.IPC` or `ClassFabric.Platforms.Abstractions` is not finished until the matching `[assembly: TypeForwardedTo(typeof(...))]` line exists in the corresponding `ClassIslandCompatibility` project. The `ClassIsland.Core` list lives in `TypeForwarders.part*.cs`, sorted by full type name — insert in order, do not append. New public API is otherwise unreachable for plugin projects that still compile against the old assembly name.
-- `tools/type-forwarder-coverage/check-type-forwarders.ps1` checks this automatically: it lists the exported types of the built `ClassFabric.*` assemblies and fails with a non-zero exit code when one has no entry in `ClassIslandCompatibility`. Run it after any change to plugin-visible public API, after a Debug build of `ClassFabric.Desktop` has produced fresh assemblies.
-- After any rename work, review `git grep -I -i "ClassIsland"` and confirm every remaining hit is intentional.
+- resx embedded resource names derive from `<RootNamespace>`; the main project pins `ClassIsland`. Changing it desyncs the `Localization.*.Designer.cs` managers and crashes startup with `MissingManifestResourceException`.
 
 ## Platform Targeting
 - `CrossPlatformProps.props` auto-selects platform constants from host OS for normal builds; release builds override this with `PublishBuilding=true` and `PublishPlatform=<os>`.
-- `ClassFabric.Desktop` conditionally references one platform based on `Platforms_Windows`, `Platforms_Linux`, `Platforms_MacOs`.
+- `ClassIsland.Desktop` conditionally references one platform based on `Platforms_Windows`, `Platforms_Linux`, `Platforms_MacOs`.
 - Linux requires X11; Wayland/XWayland not supported.
 
 ## Generated And Output Files
 - NUKE artifacts: `out/`; plugin builds: `.cipx` files.
-- `ClassFabric/secrets.g.cs` is generated by NUKE `GenerateSecrets` and deleted by `PostCleanup`; never commit.
+- `ClassIsland/secrets.g.cs` is generated by NUKE `GenerateSecrets` and deleted by `PostCleanup`; never commit.
 - Ignore `*_wpftmp.csproj` files.
 - CsWin32 inputs: `NativeMethods.txt`/`NativeMethods.json`.
 
@@ -91,6 +88,7 @@ Never run a blanket rename of `ClassIsland` to `ClassFabric`. The old name is in
 - Releases are produced by `.github/workflows/build_release.yml`, never created by hand.
 - Any push triggers a full build through that workflow. Unless a full build is actually wanted, cancel the push-triggered run after pushing.
 - The workflow accepts `workflow_dispatch` inputs including `release_tag`, `primary_version`, `is_test_mode`, `publish_only`, `source_run_id`, `release_name`, `is_prerelease`, `source_ref` and `is_draft`.
+- Versions are derived from git tags; never create tags whose name is not a plain `major.minor.build.revision` version (a `backup/...` tag once broke every build with CS7034). Use branches for backup points.
 
 ## Remotes
 - `origin` is `Ansoukin/ClassFabric`: this fork, and the only remote anything is ever pushed to. `upstream` is `ClassIsland/ClassIsland`, the parent project, kept read-only for tracking it. Never push to `upstream`.
@@ -98,10 +96,11 @@ Never run a blanket rename of `ClassIsland` to `ClassFabric`. The old name is in
 
 ## Tests And Verification
 - No test projects in the solution; do not add one unless explicitly asked. Verify with `dotnet build <project>` instead.
-- After code changes, run at least one compile check; for app changes, use `dotnet build ClassFabric.Desktop/ClassFabric.Desktop.csproj -c Debug` rather than NUKE.
+- After code changes, run at least one compile check; for app changes, use `dotnet build ClassIsland.Desktop/ClassIsland.Desktop.csproj -c Debug` rather than NUKE.
 - If automated tests become available, run the relevant automated tests too.
 - If automated testing is not available, tell the user what related behavior still needs manual verification.
 - For platform-specific changes, build with intended host/platform settings; a Windows-host debug build will not compile Linux/macOS-specific code unless invoked through publish properties.
+- `X`AML compile caches can hide XAML errors behind a green build: when XAML-related symptoms appear, delete all `obj/`/`bin/` directories and rebuild clean before trusting the result.
 
 ## Verification Rules
 Before claiming work is complete:
@@ -143,7 +142,7 @@ Red flags — STOP and follow process:
 
 ## Icons
 - For new or modified in-app `FontIcon`-style icons, prefer Fluent System Icons.
-- Search the generated `ClassFabric.Core.Icons.FluentIcons` constant pool and choose the icon whose name most closely matches the intended action or concept. Do not guess glyphs or introduce raw Unicode/code-point literals such as `&#x...;`.
+- Search the generated `ClassIsland.Core.Icons.FluentIcons` constant pool and choose the icon whose name most closely matches the intended action or concept. Do not guess glyphs or introduce raw Unicode/code-point literals such as `&#x...;`.
 - Use the named `FluentIcons` constant from C# or XAML rather than duplicating its glyph value.
 - Fall back to an existing alternative icon system only when Fluent System Icons has no suitable semantic icon or a platform convention explicitly requires another icon family.
 

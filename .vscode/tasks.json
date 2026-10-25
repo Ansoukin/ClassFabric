@@ -7,19 +7,19 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/ClassFabric/ClassFabric.csproj",
+                "${workspaceFolder}/ClassIsland/ClassIsland.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "build ClassFabric.Desktop (Debug)",
+            "label": "build ClassIsland.Desktop (Debug)",
             "type": "process",
             "command": "dotnet",
             "args": [
                 "build",
-                "${workspaceFolder}/ClassFabric.Desktop/ClassFabric.Desktop.csproj",
+                "${workspaceFolder}/ClassIsland.Desktop/ClassIsland.Desktop.csproj",
                 "-c",
                 "Debug"
             ],
@@ -35,7 +35,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/ClassFabric/ClassFabric.csproj",
+                "${workspaceFolder}/ClassIsland/ClassIsland.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary;ForceNoAlign"
             ],
@@ -49,7 +49,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/ClassFabric/ClassFabric.csproj"
+                "${workspaceFolder}/ClassIsland/ClassIsland.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

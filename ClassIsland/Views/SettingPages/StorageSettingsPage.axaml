@@ -1,0 +1,112 @@
+<ci:SettingsPageBase x:Class="ClassIsland.Views.SettingPages.StorageSettingsPage"
+      xmlns="https://github.com/avaloniaui"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ClassIsland.Views.SettingPages"
+      xmlns:ci="http://classisland.tech/schemas/xaml/core"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:helpers="clr-namespace:ClassIsland.Shared.Helpers;assembly=ClassIsland.Shared"
+      xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+      xmlns:locSto="clr-namespace:ClassIsland.Assets.Localization.SettingsPage.Storage"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      d:DataContext="{d:DesignInstance local:StorageSettingsPage}">
+
+    <ScrollViewer>
+        <StackPanel Classes="settings-container animated-intro">
+            <controls:FAInfoBar Severity="Warning"
+                              Message="{x:Static locSto:Localization.ConfigureFileDamagedInfoBar}"
+                              IsVisible="{Binding !!Count, Source={x:Static helpers:ConfigureFileHelper.Errors}}">
+                <controls:FAInfoBar.ActionButton>
+                    <Button Theme="{StaticResource TransparentButton}" HorizontalAlignment="Left"
+                            Margin="24 6 0 0" Foreground="{DynamicResource MaterialDesignBody}"
+                            Command="{x:Static ci:UriNavigationCommands.UriNavigationCommand}"
+                            CommandParameter="classisland://app/config-errors">
+                        <ci:IconText Glyph="&#xEC2E;" Text="{x:Static locSto:Localization.ConfigureFileDamagedInfoBarDetails}"/>
+                    </Button>
+                </controls:FAInfoBar.ActionButton>
+            </controls:FAInfoBar>
+
+            <!--<Separator Margin="0 16 0 8" />
+            <ci:IconText Kind="DatabaseOutline" Text="{x:Static locSto:Localization.StorageSection}" Margin="0 0 0 8" />
+            <TextBlock Text="{x:Static locSto:Localization.StorageSectionDescription}" 
+                       FontWeight="Light"
+                       TextWrapping="Wrap"/>
+
+            <Separator Margin="0 16 0 8" />-->
+            <ci:IconText Glyph="&#xE081;" Text="{x:Static locSto:Localization.BackupSection}" Margin="0 0 0 4" />
+            <!-- 启用自动备份 -->
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xEFFF;}"
+                                       Header="{x:Static locSto:Localization.AutoBackupHeader}"
+                                       Description="{x:Static locSto:Localization.AutoBackupDescription}"
+                                       IsExpanded="{Binding ViewModel.SettingsService.Settings.IsAutoBackupEnabled, Mode=OneWay}">
+                <controls:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.IsAutoBackupEnabled, Mode=TwoWay}"/>
+                </controls:FASettingsExpander.Footer>
+                <controls:FASettingsExpanderItem Content="{x:Static locSto:Localization.AutoBackupInterval}"
+                                               IconSource="{ci:FluentIconSource &#xE4D2;}"
+                                               Description="{x:Static locSto:Localization.AutoBackupIntervalDescription}">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <ci:Field Suffix="{x:Static locSto:Localization.DayUnit}">
+                            <controls:FANumberBox 
+                                Minimum="0"
+                                 Width="150"
+                                SpinButtonPlacementMode="Inline"
+                                 Value="{Binding ViewModel.SettingsService.Settings.AutoBackupIntervalDays, Converter={x:Static ci:NotNaNConverter.Instance}}"/>
+                        </ci:Field>
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+                <controls:FASettingsExpanderItem Content="{x:Static locSto:Localization.AutoBackupLimit}"
+                                               IconSource="{ci:FluentIconSource &#xE07F;}"
+                                               Description="{x:Static locSto:Localization.AutoBackupLimitDescription}">
+                    <controls:FASettingsExpanderItem.Footer>
+                        <ci:Field Suffix="{x:Static locSto:Localization.CountUnit}">
+                            <controls:FANumberBox 
+                                Minimum="0"
+                                Width="150"
+                                SpinButtonPlacementMode="Inline"
+                                Value="{Binding ViewModel.SettingsService.Settings.AutoBackupLimit, Converter={x:Static ci:NotNaNConverter.Instance}}"/>
+                        </ci:Field>
+                    </controls:FASettingsExpanderItem.Footer>
+                </controls:FASettingsExpanderItem>
+                <controls:FASettingsExpanderItem Content="{x:Static locSto:Localization.LastAutoBackupTime}"
+                                               Footer="{Binding ViewModel.SettingsService.Settings.LastAutoBackupTime}"/>
+            </controls:FASettingsExpander>
+            
+            <!-- 备份 -->
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE07D;}"
+                                       Header="{x:Static locSto:Localization.ManualBackupHeader}"
+                                       Description="{x:Static locSto:Localization.ManualBackupDescription}"
+                                       IsExpanded="True">
+                <controls:FASettingsExpander.Footer>
+                    <Panel>
+                        <controls:FAProgressRing IsIndeterminate="True" IsVisible="{Binding ViewModel.IsBackingUp}"
+                                               Width="20" Height="20"/>
+                        <ci:FluentIcon Glyph="&#xE423;"
+                                         VerticalAlignment="Stretch"
+                                         ToolTip.Tip="{x:Static locSto:Localization.BackupSucceedToolTip}"
+                                         IsVisible="{Binding ViewModel.IsBackupFinished}"/>
+                    </Panel>
+                </controls:FASettingsExpander.Footer>
+                
+                <controls:FASettingsExpanderItem Content="{x:Static locSto:Localization.BackupNow}"
+                                               Click="ButtonCreateBackup_OnClick"
+                                               IsClickEnabled="True"
+                                               IsEnabled="{Binding !ViewModel.IsBackingUp}"/>
+                <controls:FASettingsExpanderItem Content="{x:Static locSto:Localization.ViewBackupFiles}"
+                                               Click="ButtonViewBackupFiles_OnClick"
+                                               IsClickEnabled="True" ActionIconSource="{ci:FluentIconSource &#xEC2D;}"
+                                               IsEnabled="{Binding !ViewModel.IsBackingUp}"/>
+                <controls:FASettingsExpanderItem Content="{x:Static locSto:Localization.RecoverBackup}"
+                                               Click="ButtonRecoverBackup_OnClick"
+                                               Description="{x:Static locSto:Localization.RecoverBackupDescription}"
+                                               IsClickEnabled="True" ActionIconSource="{ci:FluentIconSource &#xEC2D;}"
+                                               IsEnabled="{Binding !ViewModel.IsBackingUp}"/>
+                <controls:FASettingsExpanderItem Content="{x:Static locSto:Localization.BackupFilesSize}"
+                                               Footer="{Binding ViewModel.SettingsService.Settings.BackupFilesSize}"/>
+            </controls:FASettingsExpander>
+            
+        </StackPanel>
+    </ScrollViewer>
+</ci:SettingsPageBase>

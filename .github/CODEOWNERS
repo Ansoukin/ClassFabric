@@ -18,13 +18,13 @@
 /ClassFabric/Services/Management/ @HelloWRC
 /ClassFabric/MainWindow.xaml* @HelloWRC
 /ClassFabric/App.xaml* @HelloWRC
-/ClassFabric.Core/ThemeBase.xaml @HelloWRC
+/ClassIsland.Core/ThemeBase.xaml @HelloWRC
 
 # 类别：自动化
 **/Action @DryIce-cc @HelloWRC
 **/Automation @DryIce-cc @HelloWRC
-/ClassFabric.Core/Abstractions/Services/IActionService.cs @DryIce-cc @HelloWRC
-/ClassFabric.Core/Abstractions/Services/IAutomationService.cs @DryIce-cc @HelloWRC
+/ClassIsland.Core/Abstractions/Services/IActionService.cs @DryIce-cc @HelloWRC
+/ClassIsland.Core/Abstractions/Services/IAutomationService.cs @DryIce-cc @HelloWRC
 /ClassFabric/Services/ActionService.cs @DryIce-cc @HelloWRC
 /ClassFabric/Services/AutomationService.cs @DryIce-cc @HelloWRC
 /ClassFabric/Models/Actions @DryIce-cc @HelloWRC

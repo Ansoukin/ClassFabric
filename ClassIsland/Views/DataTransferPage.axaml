@@ -1,0 +1,274 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             xmlns:ci="http://classisland.tech/schemas/xaml/core"
+             xmlns:views="clr-namespace:ClassIsland.Views"
+             xmlns:locDt="clr-namespace:ClassIsland.Assets.Localization.Views.DataTransfer"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ClassIsland.Views.DataTransferPage">
+    <UserControl.Styles>
+        <Style Selector="CheckBox">
+            <Setter Property="Padding" Value="8 0"/>
+        </Style>
+    </UserControl.Styles>
+    <ScrollViewer DataContext="{Binding RelativeSource={RelativeSource AncestorType=views:DataTransferPage}}"
+                  Classes.export="{Binding ViewModel.IsExport}">
+        <Grid MaxWidth="600" 
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Center">
+            
+            <Carousel Width="600" SelectedIndex="{Binding ViewModel.PageIndex}"
+                      VerticalAlignment="Stretch"
+                      ClipToBounds="False">
+                <Carousel.Items>
+                    <Border VerticalAlignment="Center">
+                        <StackPanel>   
+                            <TextBlock Text="{x:Static locDt:Localization.PageTitle}" HorizontalAlignment="Center"
+                                       Margin="0 0 0 4"
+                                       Theme="{StaticResource SubtitleTextBlockStyle}" />
+                            <TextBlock Text="{x:Static locDt:Localization.PageDescription}"
+                                       HorizontalAlignment="Center"
+                                       Margin="0 0 0 8" />
+                            <TabControl Classes="compact">
+                                <TabItem Header="{x:Static locDt:Localization.ImportTab}">
+                                    <StackPanel Classes="animated-intro" Spacing="2">
+                                        <controls:FASettingsExpander Header="ClassFabric 2.x"
+                                                                   IsClickEnabled="True"
+                                                                   Click="SettingsExpanderImportFromClassFabric2_OnClick">
+                                            <controls:FASettingsExpander.IconSource>
+                                                <controls:FABitmapIconSource
+                                                    UriSource="avares://ClassIsland/Assets/AppLogo.png" />
+                                            </controls:FASettingsExpander.IconSource>
+                                        </controls:FASettingsExpander>
+                                        <controls:FASettingsExpander Header="ClassIsland 1.7.0.x"
+                                                                   IsClickEnabled="True"
+                                                                   Click="SettingsExpanderImportFromClassIsland1_OnClick">
+                                            <controls:FASettingsExpander.IconSource>
+                                                <controls:FABitmapIconSource
+                                                    UriSource="avares://ClassIsland/Assets/AppLogo.png" />
+                                            </controls:FASettingsExpander.IconSource>
+                                        </controls:FASettingsExpander>
+                                        <controls:FASettingsExpander Header="Class Widgets 1.2"
+                                                                   IsClickEnabled="True"
+                                                                   Click="ImportFromClassWidgets1_OnClick"
+                                                                   IconSource="{ci:FluentIconSource &#xe06f;}" />
+                                    </StackPanel>
+                                </TabItem>
+                                <TabItem Header="{x:Static locDt:Localization.ExportTab}">
+                                    <StackPanel Classes="animated-intro" Spacing="2">
+                                        <controls:FAInfoBar Message="{x:Static locDt:Localization.ExportInfoBarMessage}"
+                                                          IsOpen="True" IsClosable="False"/>
+                                        <controls:FASettingsExpander Header="ClassFabric 2.x"
+                                                                   IsClickEnabled="True"
+                                                                   Click="SettingsExpanderExportToClassFabric2_OnClick">
+                                            <controls:FASettingsExpander.IconSource>
+                                                <controls:FABitmapIconSource
+                                                    UriSource="avares://ClassIsland/Assets/AppLogo.png" />
+                                            </controls:FASettingsExpander.IconSource>
+                                        </controls:FASettingsExpander>
+                                    </StackPanel>
+                                </TabItem>
+                            </TabControl>
+                        </StackPanel>
+                    </Border>
+                    <Border VerticalAlignment="Center">
+                        <StackPanel Classes="animated-intro" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Margin="0 0 0 4"
+                                       Theme="{StaticResource SubtitleTextBlockStyle}">
+                                <TextBlock.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.SelectDataToImport}"/>
+                                    </Style>
+                                    <Style Selector=".export TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.SelectDataToExport}"/>
+                                    </Style>
+                                </TextBlock.Styles>
+                            </TextBlock>
+                            <TextBlock Text="{Binding ViewModel.ImportDescription}" 
+                                       HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Margin="0 0 0 4"/>
+                            <TextBlock HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Margin="0 0 0 8">
+                                <TextBlock.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.SelectInfoToImport}"/>
+                                    </Style>
+                                    <Style Selector=".export TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.SelectInfoToExport}"/>
+                                    </Style>
+                                </TextBlock.Styles>
+                            </TextBlock>
+                            <CheckBox IsChecked="{Binding ViewModel.IsProfileSelected}">
+                                <ci:Thing IconSource="{ci:FluentIconSource &#xe699;}"
+                                          VerticalAlignment="Center"
+                                          Header="{x:Static locDt:Localization.ProfileDataHeader}"
+                                          Description="{x:Static locDt:Localization.ProfileDataDescription}"/>
+                            </CheckBox>
+                            <CheckBox IsChecked="{Binding ViewModel.IsSettingsSelected}">
+                                <ci:Thing IconSource="{ci:FluentIconSource &#xef27;}"
+                                          Header="{x:Static locDt:Localization.SettingsDataHeader}"
+                                          VerticalAlignment="Center"
+                                          Description="{x:Static locDt:Localization.SettingsDataDescription}"/>
+                            </CheckBox>
+                            <CheckBox IsChecked="{Binding ViewModel.IsOtherConfigSelected}">
+                                <ci:Thing IconSource="{ci:FluentIconSource &#xe06f;}"
+                                          Header="{x:Static locDt:Localization.OtherConfigHeader}"
+                                          VerticalAlignment="Center"
+                                          Description="{x:Static locDt:Localization.OtherConfigDescription}"/>
+                            </CheckBox>
+                            <StackPanel Orientation="Horizontal" Spacing="4" HorizontalAlignment="Center">
+                                <Button Click="ButtonTurnBack_OnClick"
+                                        ToolTip.Tip="{x:Static locDt:Localization.PreviousToolTip}"
+                                        Content="{ci:FluentIcon &#xE108;, FontSize=18}"
+                                        Width="48" Height="48"
+                                        CornerRadius="24"
+                                        Margin="0 8 0 0"/>
+                                <Button Click="ButtonNext_OnClick"
+                                        ToolTip.Tip="{x:Static locDt:Localization.NextToolTip}"
+                                        Content="{ci:FluentIcon &#xE130;, FontSize=18}"
+                                        Width="48" Height="48"
+                                        CornerRadius="24"
+                                        Classes="accent" 
+                                        Margin="0 8 0 0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border VerticalAlignment="Center">
+                        <StackPanel Classes="animated-intro" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Margin="0 0 0 4"
+                                       Theme="{StaticResource SubtitleTextBlockStyle}">
+                                <TextBlock.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.ImportSourceTitle}"/>
+                                    </Style>
+                                    <Style Selector=".export TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.ExportTargetTitle}"/>
+                                    </Style>
+                                </TextBlock.Styles>
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Margin="0 0 0 8">
+                                <TextBlock.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.SelectImportSourceDescription}"/>
+                                    </Style>
+                                    <Style Selector=".export TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.SelectExportTargetDescription}"/>
+                                    </Style>
+                                </TextBlock.Styles>
+                            </TextBlock>
+
+                            <controls:FASettingsExpander Header="{x:Static locDt:Localization.BrowseHeader}"
+                                                       IconSource="{ci:FluentIconSource &#xe88d;}"
+                                                       IsClickEnabled="True"
+                                                       Click="SettingsExpanderBrowse_OnClick">
+                                <controls:FASettingsExpander.Styles>
+                                    <Style Selector="controls|FASettingsExpander">
+                                        <Setter Property="Description" Value="{x:Static locDt:Localization.BrowseImportDescription}"/>
+                                    </Style>
+                                    <Style Selector=".export controls|FASettingsExpander">
+                                        <Setter Property="Description" Value="{x:Static locDt:Localization.BrowseExportDescription}"/>
+                                    </Style>
+                                </controls:FASettingsExpander.Styles>
+                            </controls:FASettingsExpander>
+                            <Button Click="ButtonTurnBack_OnClick"
+                                    ToolTip.Tip="{x:Static locDt:Localization.PreviousToolTip}"
+                                    Content="{ci:FluentIcon &#xE108;, FontSize=18}"
+                                    Width="48" Height="48"
+                                    CornerRadius="24"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 8 0 0"/>
+                        </StackPanel>
+                    </Border>
+                    <Border VerticalAlignment="Center">
+                        <StackPanel Classes="animated-intro" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Margin="0 0 0 4"
+                                       Theme="{StaticResource SubtitleTextBlockStyle}">
+                                <TextBlock.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.ImportingTitle}"/>
+                                    </Style>
+                                    <Style Selector=".export TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.ExportingTitle}"/>
+                                    </Style>
+                                </TextBlock.Styles>
+                            </TextBlock>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap"
+                                Margin="0 0 0 4">
+                                <TextBlock.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.ImportingDescription}"/>
+                                    </Style>
+                                    <Style Selector=".export TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.ExportingDescription}"/>
+                                    </Style>
+                                </TextBlock.Styles>
+                            </TextBlock>
+                            <controls:FAProgressRing IsIndeterminate="True"
+                                                   Width="48" Height="48"
+                                                   Margin="0 8 0 0"/>
+                        </StackPanel>
+                    </Border>
+                    <Border VerticalAlignment="Center">
+                        <StackPanel Classes="animated-intro" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center"
+                                       Margin="0 0 0 4"
+                                       Theme="{StaticResource SubtitleTextBlockStyle}">
+                                <TextBlock.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.ImportCompleteTitle}"/>
+                                    </Style>
+                                    <Style Selector=".export TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.ExportCompleteTitle}"/>
+                                    </Style>
+                                </TextBlock.Styles>
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Margin="0 0 0 4">
+                                <TextBlock.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.ImportCompleteDescription}"/>
+                                    </Style>
+                                    <Style Selector=".export TextBlock">
+                                        <Setter Property="Text" Value="{x:Static locDt:Localization.ExportCompleteDescription}"/>
+                                    </Style>
+                                </TextBlock.Styles>
+                            </TextBlock>
+                            <Button ToolTip.Tip="{x:Static locDt:Localization.FinishToolTip}"
+                                    VerticalAlignment="Center"
+                                    Content="{ci:FluentIcon &#xE423;, FontSize=18}"
+                                    Width="48" Height="48"
+                                    CornerRadius="24"
+                                    Classes="accent" 
+                                    HorizontalAlignment="Center"
+                                    Click="ButtonFinish_OnClick"
+                                    Margin="0 8 0 0"/>
+                        </StackPanel>
+                    </Border>
+                </Carousel.Items>
+                <Carousel.PageTransition>
+                    <CompositePageTransition>
+                        <PageSlide Duration="0:0:0.3" Orientation="Horizontal"
+                                   SlideOutEasing="0.76, 0, 0.24, 1"
+                                   SlideInEasing="0.76, 0, 0.24, 1"/>
+                        <CrossFade Duration="0:0:0.3"/>
+                    </CompositePageTransition>
+                </Carousel.PageTransition>
+            </Carousel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

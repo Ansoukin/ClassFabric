@@ -13,7 +13,7 @@ public class EmptySplashScreen : IFAApplicationSplashScreen
 {
     private static readonly Lazy<Bitmap> AppIconBitmap = new(() =>
     {
-        using var stream = AssetLoader.Open(new Uri("avares://ClassFabric/Assets/AppLogo@384w.png"));
+        using var stream = AssetLoader.Open(new Uri("avares://ClassIsland/Assets/AppLogo@384w.png"));
         return new Bitmap(stream);
     });
 
@@ -35,9 +35,9 @@ public class EmptySplashScreen : IFAApplicationSplashScreen
     {
     }
 
-    public string AppName { get; } = "ClassIsland";
+    public string AppName { get; } = "ClassFabric";
 
-    public IImage AppIcon { get; } = AppIconBitmap.Value;
+public IImage AppIcon { get; } = AppIconBitmap.Value;
     public object? SplashScreenContent { get; } = null;
     public int MinimumShowTime { get; } = 0;
 }
