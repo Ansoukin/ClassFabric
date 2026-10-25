@@ -31,6 +31,15 @@
             <Style Selector=":is(ci|MyWindow)">
                 <Setter Property="Icon" Value="/Assets/AppLogo.png"/>
             </Style>
+
+            <!-- 浮出层实心化：主窗口以 Transparent 提示运行时，Avalonia 12 会把 PopupRoot
+                 窗口一并送进半透明合成路径，托盘菜单/右键菜单的实心底色被压低透明度，
+                 叠在浅色壁纸上呈现灰蒙蒙的效果（Avalonia 11 时代为实心）。这里强制弹出窗口
+                 走不透明合成并铺深色回退底，恢复与旧版一致的实心观感。 -->
+            <Style Selector="PopupRoot">
+                <Setter Property="TransparencyLevelHint" Value="None"/>
+                <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource AcrylicInAppFillColorDefaultBrush}"/>
+            </Style>
         </cstyling:ResourceLookupCachingStyles>
     </ci:AppBase.Styles>
     <Application.Resources>

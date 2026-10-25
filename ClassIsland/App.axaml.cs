@@ -260,6 +260,7 @@ public partial class App : AppBase, IAppHost
     {
         // 必须先于任何目录创建执行，否则新目录被部分占用会阻断整体迁移；2.1.1.7 起连同调用点一并删除。
         LegacyBrandDataMigrator.Run();
+        PopupTransparencyCorrector.Start();
         Environment.CurrentDirectory = Path.GetDirectoryName(Environment.ProcessPath) ?? "./";
         ActivatePackageType();
         ActivateAppDirectories();
