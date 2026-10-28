@@ -214,7 +214,9 @@
                             </HyperlinkButton>
                         </WrapPanel>
                     </controls3:FASettingsExpanderItem.Footer>
-                    <TextBlock Background="Transparent">
+                    <TextBlock Background="Transparent"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               FontSize="13">
                         <Run Text="{x:Static locAbout:Localization.LicenseStatement}"/>
                     </TextBlock>
                 </controls3:FASettingsExpanderItem>
@@ -227,11 +229,6 @@
                     <TextBlock Background="Transparent">
                         <Run Text="Copyright (c) 2026-"/><Run Text="{Binding Year, Source={x:Static system:DateTime.Now}, Mode=OneWay}" /><Run Text=" Ansoukin" />
                     </TextBlock>
-                </controls3:FASettingsExpanderItem>
-                <controls3:FASettingsExpanderItem MinHeight="40">
-                    <TextBlock Text="本项目基于 GNU General Public License v3.0 获得许可。"
-                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                               FontSize="13"/>
                 </controls3:FASettingsExpanderItem>
                 <controls3:FASettingsExpanderItem Content="{x:Static locAbout:Localization.CommonLinks}">
                     <controls3:FASettingsExpanderItem.Footer>

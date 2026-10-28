@@ -133,12 +133,12 @@
             <TextBlock Text="a" Classes="text"/>
             <TextBlock Text="s" Classes="text"/>
             <TextBlock Text="s" Classes="text"/>
-            <TextBlock Text="I" Classes="text"/>
-            <TextBlock Text="s" Classes="text"/>
-            <TextBlock Text="l" Classes="text"/>
+            <TextBlock Text="F" Classes="text"/>
             <TextBlock Text="a" Classes="text"/>
-            <TextBlock Text="n" Classes="text"/>
-            <TextBlock Text="d" Classes="text"/>
+            <TextBlock Text="b" Classes="text"/>
+            <TextBlock Text="r" Classes="text"/>
+            <TextBlock Text="i" Classes="text"/>
+            <TextBlock Text="c" Classes="text"/>
         </StackPanel>
     </Grid>
 </UserControl>
