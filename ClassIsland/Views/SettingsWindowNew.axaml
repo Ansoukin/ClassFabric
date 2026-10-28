@@ -11,6 +11,8 @@
           xmlns:input="clr-namespace:Avalonia.Labs.Input;assembly=Avalonia.Labs.CommandManager"
           xmlns:controls3="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
           xmlns:windowing="clr-namespace:FluentAvalonia.UI.Windowing;assembly=FluentAvalonia"
+          xmlns:icons="using:ClassIsland.Core.Icons"
+          xmlns:models="clr-namespace:ClassIsland.Models"
           xmlns:locS="clr-namespace:ClassIsland.Assets.Localization.SettingsPage"
           d:DataContext="{d:DesignInstance local:SettingsWindowNew}"
           mc:Ignorable="d"
@@ -137,7 +139,7 @@
                                 Click="TogglePaneButton_OnClick"
                                 IsVisible="{Binding !#NavigationView.IsPaneToggleButtonVisible}"
                                 MinWidth="40" Width="48"/>
-                        
+
                         <Image Margin="0 4 12 4"
                                IsHitTestVisible="False"
                                Source="/Assets/AppLogo.png"
@@ -209,6 +211,81 @@
                                         BackRequested="NavigationView_OnBackRequested"
                                         Loaded="Control_OnLoaded"
                                         OpenPaneLength="283">
+                <controls3:FANavigationView.PaneHeader>
+                    <!-- PaneHeader 起始于 Close Navigation 右侧（模板内建的 toggle/back 列宽已为它留位）。
+                         搜索框右缘钉在放大镜按钮左缘，宽度过渡时左缘向左推进，即「从右往左展开」。 -->
+                    <Grid Name="SettingsSearchPanel"
+                          ColumnDefinitions="*,Auto"
+                          Height="36"
+                          DataContext="{Binding #SettingsWindowRoot}"
+                          IsVisible="{Binding #NavigationView.IsPaneOpen}">
+                        <Grid.Styles>
+                            <Style Selector="TextBox#SettingsSearchBox">
+                                <Setter Property="Width" Value="0"/>
+                                <Setter Property="MinWidth" Value="0"/>
+                                <Setter Property="Opacity" Value="0"/>
+                                <Setter Property="Padding" Value="8 4 8 4"/>
+                                <Setter Property="FontSize" Value="13"/>
+                                <!-- FA 模板把占位文字的垂直对齐绑到 VerticalContentAlignment，默认顶对齐会偏上 -->
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                                <Setter Property="Transitions">
+                                    <Transitions>
+                                        <DoubleTransition Property="Width" Duration="0:0:0.25" Easing="0.1,0.9 0.2,1"/>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.15"/>
+                                    </Transitions>
+                                </Setter>
+                            </Style>
+                            <Style Selector="TextBox#SettingsSearchBox.open">
+                                <Setter Property="Width" Value="200"/>
+                                <Setter Property="Opacity" Value="1"/>
+                            </Style>
+                        </Grid.Styles>
+                        <TextBox Name="SettingsSearchBox"
+                                 Grid.Column="0"
+                                 Margin="0 0 4 0"
+                                 PlaceholderText="在此键入搜索设置项"
+                                 TextChanged="SettingsSearchBox_OnTextChanged"
+                                 KeyDown="SettingsSearchBox_OnKeyDown"/>
+                        <Button Name="SettingsSearchButton"
+                                Grid.Column="1"
+                                Theme="{StaticResource TransparentButton}"
+                                Width="40" Height="36"
+                                AutomationProperties.Name="搜索设置项"
+                                ToolTip.Tip="搜索设置项"
+                                Click="SettingsSearchButton_OnClick">
+                            <commands:FluentIcon Glyph="{x:Static icons:FluentIcons.SearchRegular}"/>
+                        </Button>
+                        <Popup Name="SettingsSearchResultsPopup"
+                               Grid.Column="1"
+                               Placement="BottomEdgeAlignedLeft"
+                               PlacementTarget="{Binding #SettingsSearchPanel}"
+                               IsLightDismissEnabled="True">
+                            <Border Width="283" MaxHeight="380"
+                                    CornerRadius="8"
+                                    Background="{DynamicResource AcrylicInAppFillColorDefaultBrush}"
+                                    BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                                    BorderThickness="1">
+                                <ListBox Name="SettingsSearchResultsList"
+                                         ItemsSource="{Binding ViewModel.SearchResults}"
+                                         SelectionChanged="SettingsSearchResults_OnSelectionChanged"
+                                         Padding="4"
+                                         ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type models:SettingsSearchItem}">
+                                            <StackPanel Spacing="2">
+                                                <TextBlock Text="{Binding Title}" FontSize="14"/>
+                                                <TextBlock Text="{Binding PageInfo.Name}" FontSize="12"
+                                                           Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </controls3:FANavigationView.PaneHeader>
                 <controls3:FANavigationView.Styles>
                     <Style Selector="controls3|FANavigationView#NavigationView:minimal">
                         <Setter Property="IsPaneToggleButtonVisible" Value="False"/>

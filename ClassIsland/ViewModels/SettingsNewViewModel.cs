@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using ClassIsland.Core.Attributes;
+using ClassIsland.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using FluentAvalonia.UI.Controls;
 
@@ -201,6 +202,33 @@ public class SettingsNewViewModel : ObservableRecipient
         {
             if (Equals(value, _flattenNavigationItemsCache)) return;
             _flattenNavigationItemsCache = value;
+            OnPropertyChanged();
+        }
+    }
+
+    // 设置项搜索：IsSearchOpen 驱动标题栏搜索框的展开/收起过渡，
+    // SearchResults 是当前关键词命中的设置项，供结果弹层展示与跳转。
+    private bool _isSearchOpen = false;
+    private ObservableCollection<SettingsSearchItem> _searchResults = [];
+
+    public bool IsSearchOpen
+    {
+        get => _isSearchOpen;
+        set
+        {
+            if (value == _isSearchOpen) return;
+            _isSearchOpen = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public ObservableCollection<SettingsSearchItem> SearchResults
+    {
+        get => _searchResults;
+        set
+        {
+            if (Equals(value, _searchResults)) return;
+            _searchResults = value;
             OnPropertyChanged();
         }
     }

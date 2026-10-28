@@ -17,6 +17,7 @@ using ClassIsland.Core.Abstractions.Services.Management;
 using ClassIsland.Core.Attributes;
 using ClassIsland.Core.Enums.SettingsWindow;
 using ClassIsland.Core.Services.Registry;
+using ClassIsland.Models;
 using ClassIsland.Shared;
 using ClassIsland.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,9 @@ using ClassIsland.Helpers;
 using System.Transactions;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.LogicalTree;
+using Avalonia.VisualTree;
 using Avalonia.Data.Converters;
 using Avalonia.Data.Core;
 using Avalonia.Interactivity;
@@ -898,6 +902,212 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
     private void TogglePaneButton_OnClick(object? sender, RoutedEventArgs e)
     {
         NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
+    }
+
+    // 搜索控件在 PaneHeader 内，x:Name 由 NameGenerator 自动生成同名窗口字段，直接取用。
+
+    private void SettingsSearchButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var box = SettingsSearchBox;
+        if (box == null)
+        {
+            return;
+        }
+        if (ViewModel.IsSearchOpen)
+        {
+            CloseSettingsSearch();
+            return;
+        }
+        ViewModel.IsSearchOpen = true;
+        box.Classes.Add("open");
+        box.Clear();
+        UpdateSettingsSearchResults();
+        Dispatcher.UIThread.Post(() => box.Focus());
+    }
+
+    private void CloseSettingsSearch()
+    {
+        ViewModel.IsSearchOpen = false;
+        ViewModel.SearchResults.Clear();
+        if (SettingsSearchBox is { } box)
+        {
+            box.Classes.Remove("open");
+            box.Clear();
+        }
+        if (SettingsSearchResultsPopup is { } popup)
+        {
+            popup.IsOpen = false;
+        }
+    }
+
+    private void SettingsSearchBox_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        UpdateSettingsSearchResults();
+    }
+
+    private void UpdateSettingsSearchResults()
+    {
+        var popup = SettingsSearchResultsPopup;
+        ViewModel.SearchResults.Clear();
+        var query = ViewModel.IsSearchOpen ? SettingsSearchBox?.Text?.Trim() : null;
+        if (string.IsNullOrEmpty(query))
+        {
+            if (popup != null) popup.IsOpen = false;
+            return;
+        }
+
+        foreach (var item in BuildSearchIndex()
+                     .Where(x => x.Matches(query)))
+        {
+            ViewModel.SearchResults.Add(item);
+        }
+        if (popup != null) popup.IsOpen = ViewModel.SearchResults.Count > 0;
+    }
+
+    // 与 BuildNavigationMenuItems 的可见性口径保持一致：管理策略禁改、调试菜单关闭时对应页面不出现在搜索结果里。
+    private bool IsPageSearchable(SettingsPageInfo info)
+    {
+        return !info.HideDefault
+               && !(ManagementService.Policy.DisableSettingsEditing &&
+                    info.Category is SettingsPageCategory.Internal or SettingsPageCategory.External)
+               && !(ManagementService.Policy.DisableDebugMenu && info.Category == SettingsPageCategory.Debug)
+               && !(!SettingsService.Settings.IsDebugOptionsEnabled && info.Category == SettingsPageCategory.Debug);
+    }
+
+    // 从已缓存或新建的设置页实例中提取 FASettingsExpander/FASettingsExpanderItem 的标题与说明，
+    // 构成条目级搜索索引。页面实例走 GetPage 缓存，不触发 Loaded 事件，避免天气等页提前初始化。
+    // 部分页面构造函数有副作用（测试页直接抛异常、插件页可能拉取插件源），实例化失败只跳过该页，
+    // 不让搜索中断。GetVisualDescendants 对未挂载的页面是空的，必须走逻辑树。
+    private IEnumerable<SettingsSearchItem> BuildSearchIndex()
+    {
+        foreach (var info in SettingsWindowRegistryService.Registered.Where(IsPageSearchable))
+        {
+            SettingsPageBase? page;
+            try
+            {
+                page = GetPage(info.Id, out _);
+            }
+            catch (Exception e)
+            {
+                Logger.LogWarning(e, "搜索索引：设置页 {Id} 实例化失败，已跳过", info.Id);
+                continue;
+            }
+            if (page == null) continue;
+            foreach (var item in ExtractSearchItems(info, page))
+            {
+                yield return item;
+            }
+        }
+    }
+
+    private static IEnumerable<SettingsSearchItem> ExtractSearchItems(SettingsPageInfo info, SettingsPageBase page)
+    {
+        // 页面自身作为兜底条目，确保按页面名也能命中
+        yield return new SettingsSearchItem(info, info.Name, null, null);
+
+        foreach (var expander in page.GetLogicalDescendants().OfType<FASettingsExpander>())
+        {
+            var header = GetPlainText(expander.Header);
+            if (!string.IsNullOrWhiteSpace(header))
+            {
+                yield return new SettingsSearchItem(info, header, null, expander.Name);
+            }
+            foreach (var item in expander.Items.OfType<FASettingsExpanderItem>())
+            {
+                var title = GetPlainText(item.Content);
+                if (string.IsNullOrWhiteSpace(title)) continue;
+                var desc = GetPlainText(item.Description);
+                yield return new SettingsSearchItem(info, title,
+                    string.IsNullOrWhiteSpace(desc) ? null : desc, item.Name);
+            }
+        }
+    }
+
+    // 条目标题常用 x:Static 资源串或 TextBlock 等复合内容，直接 ToString 会拿到类型名而非文字；
+    // 递归抽出其中可读的文字，图形类内容返回 null。
+    private static string? GetPlainText(object? content)
+    {
+        switch (content)
+        {
+            case null:
+            case Avalonia.Controls.Shapes.Shape:
+            case ClassIsland.Core.Controls.FluentIcon:
+                return null;
+            case string s:
+                return s;
+            case TextBlock tb:
+                return tb.Text;
+            case Panel panel:
+                return string.Join(" ", panel.Children.Select(GetPlainText)
+                             .Where(x => !string.IsNullOrWhiteSpace(x)));
+            case Avalonia.Controls.Presenters.ContentPresenter presenter:
+                return GetPlainText(presenter.Content);
+            default:
+                return content.ToString() is { } text && text != content.GetType().Name ? text : null;
+        }
+    }
+
+    private async void SettingsSearchResults_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (sender is not ListBox { SelectedItem: SettingsSearchItem item } list)
+        {
+            return;
+        }
+        list.SelectedItem = null;
+        CloseSettingsSearch();
+        await CoreNavigate(item.PageInfo);
+        if (item.ControlKey != null)
+        {
+            ScrollToSearchTarget(item.PageInfo.Id, item.ControlKey);
+        }
+    }
+
+    private void SettingsSearchBox_OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Escape)
+        {
+            CloseSettingsSearch();
+            e.Handled = true;
+        }
+        else if (e.Key == Key.Enter && ViewModel.SearchResults.Count > 0)
+        {
+            var item = ViewModel.SearchResults[0];
+            CloseSettingsSearch();
+            _ = CoreNavigate(item.PageInfo);
+            if (item.ControlKey != null)
+            {
+                ScrollToSearchTarget(item.PageInfo.Id, item.ControlKey);
+            }
+            e.Handled = true;
+        }
+    }
+
+    // 导航完成后延迟一帧再定位目标控件，等页面 Loaded 与布局完成。
+    // 命中卡片可能是收起的 FASettingsExpander，先沿可视树把它逐层展开再滚动定位。
+    private void ScrollToSearchTarget(string pageId, string controlKey)
+    {
+        Dispatcher.UIThread.Post(() =>
+        {
+            var page = GetPage(pageId, out _);
+            if (page == null) return;
+            var target = page.FindControl<Control>(controlKey);
+            if (target == null) return;
+            for (var node = target.GetVisualParent(); node != null && node != page; node = node.GetVisualParent())
+            {
+                if (node is FASettingsExpander expander)
+                {
+                    expander.IsExpanded = true;
+                }
+            }
+
+            var scrollViewer = page.GetVisualDescendants().OfType<ScrollViewer>()
+                .FirstOrDefault(x => x.Extent.Height > x.Viewport.Height);
+            var topLeft = target.TranslatePoint(new Point(0, 0), scrollViewer ?? (Visual)page);
+            if (scrollViewer != null && topLeft is { } point)
+            {
+                scrollViewer.Offset = new Vector(scrollViewer.Offset.X, Math.Max(0, point.Y - 24));
+            }
+        }, DispatcherPriority.Loaded);
     }
 
     private async void MenuItemDataTransfer_OnClick(object? sender, RoutedEventArgs e)
