@@ -805,15 +805,7 @@ public partial class App : AppBase, IAppHost
             #endif
         }
         spanLoadingSettings.Finish();
-#if RELEASE
-        // 开发者预览提示（Release-only）：本机选过「永久不再显示」就不再弹。
-        // 放在设置装载之后：DI 已就绪、Settings 已从盘上读出——原位置（Mutex 检查后）
-        // 服务未装配且读到的是空实例默认值，Release 一启动就抛 "Service is null"。
-        if (!Settings.IsDevPreviewNoticeSuppressed)
-        {
-            await new DevPreviewNoticeWindow().ShowModal();
-        }
-#endif
+
         //OverrideFocusVisualStyle();
 
         CurrentLifetime = Core.Enums.ApplicationLifetime.StartingOnline;

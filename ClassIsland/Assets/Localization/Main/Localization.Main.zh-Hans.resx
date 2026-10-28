@@ -248,12 +248,6 @@
   <data name="CrashReportToastBody" xml:space="preserve">
     <value>ClassFabric 发生了一个无法处理的错误：{0}</value>
   </data>
-  <data name="DevPreviewHeader" xml:space="preserve">
-    <value>欢迎使用 2.2-Mikhail Developer Preview</value>
-  </data>
-  <data name="DevPreviewContent" xml:space="preserve">
-    <value>此版本仅供开发人员进行早期预览，稳定性欠佳，不适用于生产环境或日常使用。如果您在使用的过程中遇到问题，欢迎前往 GitHub issues 上提交 issue！</value>
-  </data>
   <data name="OkButton" xml:space="preserve">
     <value>确定</value>
   </data>

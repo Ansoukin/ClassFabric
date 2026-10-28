@@ -298,14 +298,6 @@
     <comment>吐司内容：崩溃报告正文，{0}=异常消息</comment>
   </data>
   <!-- ========== App.axaml.cs 启动期对话框 ========== -->
-  <data name="DevPreviewHeader" xml:space="preserve">
-    <value>歡迎使用 2.2-Mikhail Developer Preview</value>
-    <comment>开发版预览对话框标题</comment>
-  </data>
-  <data name="DevPreviewContent" xml:space="preserve">
-    <value>此版本僅供開發人員進行早期預覽，穩定性欠佳，不適用於生產環境或日常使用。如果您在使用的過程中遇到問題，歡迎前往 GitHub issues 上提交 issue！</value>
-    <comment>开发版预览对话框内容</comment>
-  </data>
   <data name="OkButton" xml:space="preserve">
     <value>確定</value>
     <comment>对话框"确定"按钮（通用）</comment>

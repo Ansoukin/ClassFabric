@@ -457,24 +457,6 @@ namespace ClassIsland.Assets.Localization.Main {
         }
 
         /// <summary>
-        ///   查找类似 欢迎使用 2.2-Mikhail Developer Preview 的本地化字符串。
-        /// </summary>
-        public static string DevPreviewHeader {
-            get {
-                return ResourceManager.GetString("DevPreviewHeader", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   查找类似 此版本仅供开发人员进行早期预览... 的本地化字符串。
-        /// </summary>
-        public static string DevPreviewContent {
-            get {
-                return ResourceManager.GetString("DevPreviewContent", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   查找类似 确定 的本地化字符串。
         /// </summary>
         public static string OkButton {
