@@ -154,7 +154,7 @@ public partial class DataTransferPage : UserControl
         {
             throw new Exception(Localization.ErrorSourceVersionNotSupported);
         }
-        settings.MainWindowFont = MainWindow.DefaultFontFamilyKey;
+        settings.MainWindowFont = MainWindow.PlatformDefaultFontFamilyKey;
         settings.AutoInstallUpdateNextStartup = false;
         settings.ShowEchoCaveWhenSettingsPageLoading = false;
         if (settings.WeatherIconId == "classisland.weatherIcons.materialDesign")

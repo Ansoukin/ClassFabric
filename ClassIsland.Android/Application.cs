@@ -7,6 +7,7 @@ using Avalonia.Android;
 using Avalonia.Controls;
 using Avalonia.Media;
 using ClassIsland.Android.Services.Platform;
+using ClassIsland.Core;
 using ClassIsland.Core.Services;
 using ClassIsland.Extensions;
 using ClassIsland.Platforms.Abstraction;
@@ -78,12 +79,11 @@ public class Application : AvaloniaAndroidApplication<App>
             .UseOverlayAssetLoader()
             .With(new FontManagerOptions
             {
-                DefaultFamilyName = MainWindow.DefaultFontFamilyKey,
                 FontFallbacks =
                 [
                     new FontFallback
                     {
-                        FontFamily = MainWindow.DefaultFontFamily
+                        FontFamily = AppBase.FluentIconsFontFamily
                     }
                 ]
             })
