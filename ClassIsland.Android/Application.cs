@@ -75,6 +75,7 @@ public class Application : AvaloniaAndroidApplication<App>
                 return app;
             })
             .UseAndroid()
+            .UseOverlayAssetLoader()
             .With(new FontManagerOptions
             {
                 DefaultFamilyName = MainWindow.DefaultFontFamilyKey,
