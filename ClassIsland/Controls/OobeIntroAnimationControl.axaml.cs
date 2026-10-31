@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
@@ -87,7 +86,7 @@ public partial class OobeIntroAnimationControl : UserControl
                             new Setter(OpacityProperty, 1.0),
                             new Setter(TranslateTransform.YProperty, 0.0),
                         },
-                        KeySpline = KeySpline.Parse("0.25, 1, 0.5, 1", CultureInfo.CurrentUICulture)
+                        KeySpline = new KeySpline(0.25, 1, 0.5, 1)
                     },
                     new KeyFrame()
                     {
@@ -114,7 +113,7 @@ public partial class OobeIntroAnimationControl : UserControl
                             new Setter(OpacityProperty, 0.0),
                             new Setter(Rotate3DTransform.AngleXProperty, 90.0)
                         },
-                        KeySpline = KeySpline.Parse("0.32, 0, 0.67, 0", CultureInfo.CurrentUICulture)
+                        KeySpline = new KeySpline(0.32, 0, 0.67, 0)
                     }
                     
                 }
@@ -148,7 +147,7 @@ public partial class OobeIntroAnimationControl : UserControl
                             new Setter(Rotate3DTransform.AngleXProperty, 0.0),
                             new Setter(OpacityProperty, 1.0)
                         },
-                        KeySpline = KeySpline.Parse("0.33, 1, 0.68, 1", CultureInfo.CurrentUICulture)
+                        KeySpline = new KeySpline(0.33, 1, 0.68, 1)
                     }
                     
                 }
