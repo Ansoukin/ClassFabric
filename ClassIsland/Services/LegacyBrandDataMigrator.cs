@@ -39,12 +39,31 @@ public static class LegacyBrandDataMigrator
     {
         var source = Path.Combine(baseDir, "ClassFabric");
         var target = Path.Combine(baseDir, "ClassIsland");
-        if (!Directory.Exists(source) || Directory.Exists(target))
+        if (!Directory.Exists(source))
         {
             return;
         }
-        // 同卷目录重命名是原子操作，要么完整发生要么不发生，不存在搬一半的状态。
+        if (!Directory.Exists(target))
+        {
+            // 同卷目录重命名是原子操作，要么完整发生要么不发生，不存在搬一半的状态。
+            Directory.Move(source, target);
+            return;
+        }
+        // 目标已存在不能直接跳过：残留的旧目标目录会把新数据挡在门外，升级后用户看到的是陈旧数据。
+        // 以 Data\Settings.json 的修改时间判断两边新旧：源更新，就把目标改名备份后整体迁入，两边数据都不丢；
+        // 源不比目标新，说明目标才是活跃数据，维持现状避免被旧数据覆盖。
+        if (GetDataStamp(source) <= GetDataStamp(target))
+        {
+            return;
+        }
+        Directory.Move(target, target + ".bak-" + DateTime.Now.ToString("yyyyMMdd-HHmmss"));
         Directory.Move(source, target);
+    }
+
+    private static DateTime GetDataStamp(string root)
+    {
+        var settings = Path.Combine(root, "Data", "Settings.json");
+        return File.Exists(settings) ? File.GetLastWriteTime(settings) : DateTime.MinValue;
     }
 
     private static void MigrateAutostartShortcut()
