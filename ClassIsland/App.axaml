@@ -64,6 +64,7 @@
             <ci:BooleanOrExpressionMultiConverter x:Key="BooleanOrExpressionMultiConverter" />
             <ci:PreventNullConverter x:Key="PreventNullConverter" />
             <converters:StringToFontFamilyConverter x:Key="StringToFontFamilyConverter" />
+            <converters:SafeFontFamilyConverter x:Key="SafeFontFamilyConverter" />
             
             <StaticResource x:Key="ContentControlThemeFontFamily" ResourceKey="AppFont"/>
         </ResourceDictionary>

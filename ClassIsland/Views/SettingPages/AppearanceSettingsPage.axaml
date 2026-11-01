@@ -460,7 +460,7 @@
                         </ComboBox.Styles>
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock FontFamily="{Binding}" FontWeight="Normal"
+                                <TextBlock FontFamily="{Binding Converter={StaticResource SafeFontFamilyConverter}}" FontWeight="Normal"
                                            ToolTip.Tip="{Binding Name}"
                                            MaxWidth="240"
                                            Height="20"
@@ -473,7 +473,7 @@
                                             <Style Selector="^.DefaultFont">
                                                 <Setter Property="Text" Value="{x:Static locApp:Localization.DefaultFontOption}"/>
                                             </Style>
-                                            <Setter Property="Text" Value="{Binding }" />
+                                            <Setter Property="Text" Value="{Binding Name}" />
                                         </Style>
                                     </TextBlock.Styles>
                                 </TextBlock>

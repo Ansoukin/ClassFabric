@@ -18,7 +18,7 @@ public class StringToFontFamilyConverter : IValueConverter
             return parameter as string == UseSharedDefaultParameter &&
                    fontFamily.ToString() == MainWindow.DefaultFontFamily.ToString()
                 ? MainWindow.DefaultFontFamily
-                : fontFamily;
+                : SafeFontFamilyConverter.IsRenderable(fontFamily) ? fontFamily : MainWindow.DefaultFontFamily;
         }
         catch (Exception)
         {
