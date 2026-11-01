@@ -66,7 +66,7 @@
     </controls:SettingsPageBase.Resources>
     <ScrollViewer>
         <StackPanel Classes="settings-container animated-intro">
-            <controls1:IconText Glyph="&#xF464;" Text="{x:Static locWth:Localization.WeatherPreview}" Margin="0 0 0 8" />
+            <controls1:IconText Icon="WeatherSunnyRegular" Text="{x:Static locWth:Localization.WeatherPreview}" Margin="0 0 0 8" />
             <Border Background="{DynamicResource ControlFillColorDefaultBrush}"
                     Padding="20"
                     CornerRadius="12"
@@ -94,7 +94,7 @@
                             <StackPanel Spacing="4">
                                 <TextBlock Text="{x:Static locWth:Localization.Humidity}" Classes="l-instructive" HorizontalAlignment="Center" FontSize="12" Opacity="0.8" />
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
-                                    <ci:FluentIcon Glyph="&#xE794;" FontSize="14" VerticalAlignment="Center" />
+                                    <ci:FluentIcon Icon="DropFilled" FontSize="14" VerticalAlignment="Center" />
                                     <TextBlock VerticalAlignment="Center" FontWeight="Medium">
                                         <Run Text="{Binding ViewModel.SettingsService.Settings.LastWeatherInfo.Current.Humidity.Value}" />
                                         <Run Text="{Binding ViewModel.SettingsService.Settings.LastWeatherInfo.Current.Humidity.Unit}" FontSize="10" />
@@ -104,14 +104,14 @@
                             <StackPanel Spacing="4">
                                 <TextBlock Text="{x:Static locWth:Localization.AirQuality}" Classes="l-instructive" HorizontalAlignment="Center" FontSize="12" Opacity="0.8" />
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
-                                    <ci:FluentIcon Glyph="&#xEA7D;" FontSize="14" VerticalAlignment="Center" />
+                                    <ci:FluentIcon Icon="LeafTwoFilled" FontSize="14" VerticalAlignment="Center" />
                                     <TextBlock Text="{Binding ViewModel.SettingsService.Settings.LastWeatherInfo.Aqi.Aqi}" VerticalAlignment="Center" FontWeight="Medium" />
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Spacing="4">
                                 <TextBlock Text="{x:Static locWth:Localization.Wind}" Classes="l-instructive" HorizontalAlignment="Center" FontSize="12" Opacity="0.8" />
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="4">
-                                    <ci:FluentIcon Glyph="&#xF43B;" FontSize="14" VerticalAlignment="Center" />
+                                    <ci:FluentIcon Icon="WeatherBlowingSnowRegular" FontSize="14" VerticalAlignment="Center" />
                                     <TextBlock VerticalAlignment="Center" FontWeight="Medium">
                                         <Run Text="{Binding ViewModel.SettingsService.Settings.LastWeatherInfo.Current.Wind.Speed.Value}" />
                                         <Run Text="{Binding ViewModel.SettingsService.Settings.LastWeatherInfo.Current.Wind.Speed.Unit}" FontSize="10" />
@@ -120,7 +120,7 @@
                             </StackPanel>
                         </StackPanel>
                         <Grid Grid.Column="2" VerticalAlignment="Center">
-                            <Button Content="{ci:FluentIcon &#xE0B5;}"
+                            <Button Content="{ci:FluentIcon Icon=ArrowClockwiseRegular}"
                                     ToolTip.Tip="{x:Static locWth:Localization.Refresh}"
                                     Width="40" Height="40"
                                     Theme="{StaticResource TransparentButton}"
@@ -152,8 +152,8 @@
             </Border>
 
             <Separator Margin="0 16 0 8" />
-            <controls1:IconText Glyph="&#xE7C5;" Text="{x:Static locWth:Localization.LocationSettings}" Margin="0 0 0 8" />
-            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xE7C5;}"
+            <controls1:IconText Icon="EarthRegular" Text="{x:Static locWth:Localization.LocationSettings}" Margin="0 0 0 8" />
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource Icon=EarthRegular}"
                                         Header="{x:Static locWth:Localization.WeatherLocation}"
                                         IsExpanded="True"
                                         Description="{x:Static locWth:Localization.WeatherLocationDescription}">
@@ -166,7 +166,7 @@
                     </ListBox>
                 </controls3:FASettingsExpander.Footer>
                 <!-- 城市选择 -->
-                <controls3:FASettingsExpanderItem IconSource="{ci:FluentIconSource &#xE478;}"
+                <controls3:FASettingsExpanderItem IconSource="{ci:FluentIconSource Icon=CityRegular}"
                                                 Content="{x:Static locWth:Localization.CitySelection}"
                                                 Description="{x:Static locWth:Localization.CitySelectionDescription}">
                     <controls3:FASettingsExpanderItem.IsVisible>
@@ -181,7 +181,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding ViewModel.SettingsService.Settings.CityName}"
                                        VerticalAlignment="Center" />
-                            <Button Content="{ci:FluentIcon &#xE7C9;}" ToolTip.Tip="{x:Static locWth:Localization.EditCity}"
+                            <Button Content="{ci:FluentIcon Icon=EditRegular}" ToolTip.Tip="{x:Static locWth:Localization.EditCity}"
                                     Margin="6 0 0 0"
                                     Theme="{StaticResource TransparentButton}"
                                     Click="ButtonEditCurrentCity_OnClick"
@@ -190,7 +190,7 @@
                     </controls3:FASettingsExpanderItem.Footer>
                 </controls3:FASettingsExpanderItem>
                 <!-- 位置坐标 -->
-                <controls3:FASettingsExpanderItem IconSource="{ci:FluentIconSource &#xEB5A;}"
+                <controls3:FASettingsExpanderItem IconSource="{ci:FluentIconSource Icon=MapRegular}"
                                                 Content="{x:Static locWth:Localization.LocationCoordinates}"
                                                 Description="{x:Static locWth:Localization.LocationCoordinatesDescription}">
                     <controls3:FASettingsExpanderItem.IsVisible>
@@ -247,11 +247,11 @@
                                         Click="ButtonShowPos_OnClick"
                                         IsEnabled="{Binding !ViewModel.IsLocationUpdating}"
                                         IsVisible="{Binding ViewModel.HideLocationPos}">
-                                    <controls1:IconText Glyph="&#xE813;" Text="{x:Static locWth:Localization.ShowCoordinates}" />
+                                    <controls1:IconText Icon="EyeRegular" Text="{x:Static locWth:Localization.ShowCoordinates}" />
                                 </Button>
                             </Grid>
                             <Button Theme="{StaticResource TransparentButton}"
-                                    Content="{ci:FluentIcon &#xEBD2;}"
+                                    Content="{ci:FluentIcon Icon=MyLocationRegular}"
                                     ToolTip.Tip="{x:Static locWth:Localization.AutoLocate}"
                                     IsEnabled="{Binding !ViewModel.IsLocationUpdating}"
                                     Click="ButtonGetCurrentPos_OnClick" />
@@ -259,7 +259,7 @@
                     </controls3:FASettingsExpanderItem.Footer>
                 </controls3:FASettingsExpanderItem>
                 <!-- 自动获取位置 -->
-                <controls3:FASettingsExpanderItem IconSource="{ci:FluentIconSource &#xEAEA;}"
+                <controls3:FASettingsExpanderItem IconSource="{ci:FluentIconSource Icon=LocationRippleRegular}"
                                                Content="{x:Static locWth:Localization.AutoGetLocation}"
                                                Description="{x:Static locWth:Localization.AutoGetLocationDescription}">
                     <controls3:FASettingsExpanderItem.IsVisible>
@@ -345,9 +345,9 @@
                 </controls3:FASettingsExpanderItem>
             </controls3:FASettingsExpander>
             <Separator Margin="0 16 0 8" />
-            <controls1:IconText Glyph="&#xE713;" Text="{x:Static locWth:Localization.AppearanceAndAdvancedSettings}" Margin="0 0 0 8" />
+            <controls1:IconText Icon="DocumentPageTopCenterRegular" Text="{x:Static locWth:Localization.AppearanceAndAdvancedSettings}" Margin="0 0 0 8" />
             <!-- 天气图标包 -->
-            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xE9B0;}"
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource Icon=IconsRegular}"
                                         Header="{x:Static locWth:Localization.WeatherIconPack}"
                                         Description="{x:Static locWth:Localization.WeatherIconPackDescription}">
 
@@ -367,7 +367,7 @@
             </controls3:FASettingsExpander>
 
             <!-- 排除预警 -->
-            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xE837;}"
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource Icon=FilterDismissRegular}"
                                         Header="{x:Static locWth:Localization.ExcludedWeatherAlerts}"
                                         Description="{x:Static locWth:Localization.ExcludedWeatherAlertsDescription}">
                 <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.ExclusionList}">
@@ -382,7 +382,7 @@
             </controls3:FASettingsExpander>
 
             <!-- TLS 设置 -->
-            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xEAB0;}"
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource Icon=LinkRegular}"
                                        Header="{x:Static locWth:Localization.NoTLSWeather}"
                                        Description="{x:Static locWth:Localization.NoTLSWeatherDescription}">
                 <controls3:FASettingsExpander.Footer>
