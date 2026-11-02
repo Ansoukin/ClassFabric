@@ -15,8 +15,9 @@ public partial class AppearanceSettingsViewModel(SettingsService settingsService
     [ObservableProperty] private bool _isSelectingBackgroundImage;
     [ObservableProperty] private string _backgroundImageError = "";
 
-    // DirectWrite 缓存可能残留已卸载字体的幽灵族，逐项渲染会炸布局，构造列表时先过滤掉；
-    // 键控族（fonts: 系）与名字带 URI 特征（://）的怪族一并禁入——真实字体族名不会包含协议分隔符。
+    // DirectWrite 的字体缓存可能残留已卸载字体的枚举项：能枚举到、字形却创建不了，
+    // 而 Avalonia 对带键字体族查找失败时不走兜底，逐项渲染会直接抛异常。构造列表时过滤：
+    // 带键族（fonts: 系）与名字含 "://" 的项一并禁入，真实字体族名不会包含协议分隔符。
     public ObservableCollection<FontFamily> FontFamilies { get; } =
         new([..FontManager.Current.SystemFonts
             .Where(f => f.Key == null && !f.Name.Contains("://") && SafeFontFamilyConverter.IsRenderable(f)),
