@@ -28,10 +28,45 @@ public static class LegacyBrandDataMigrator
             MigrateRoot(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
             MigrateAutostartShortcut();
             EnsureDualUriScheme();
+            RewriteLegacyAutomationIds();
         }
         catch
         {
             // 迁移失败不阻塞启动：旧目录原样保留，应用在标准目录按首次启动流程运行，数据不会丢失。
+        }
+    }
+
+    /// <summary>
+    /// 旧版动作/触发器以 classfabric. 为前缀注册，标准版为 classisland.，配置文件里存的是注册 ID。
+    /// 目录迁移只搬文件，改不了文件内容里的 ID，升级后自动化列表会因找不到对应实现而整批失效，
+    /// 这里对自动化配置做前缀重写。仅处理 JSON 文本中带引号的完整字面量，且前缀带点号，
+    /// 不会误伤其他内容。
+    /// </summary>
+    private static void RewriteLegacyAutomationIds()
+    {
+        var dir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "ClassIsland", "Config", "Automations");
+        if (!Directory.Exists(dir))
+        {
+            return;
+        }
+        foreach (var file in Directory.EnumerateFiles(dir, "*.json"))
+        {
+            try
+            {
+                var content = File.ReadAllText(file);
+                if (!content.Contains("classfabric."))
+                {
+                    continue;
+                }
+                File.WriteAllText(file, content.Replace("classfabric.", "classisland."));
+                File.WriteAllText(file + ".bak-legacy-id", content);
+            }
+            catch
+            {
+                // 单个文件失败不影响其他文件与启动，用户可按备份恢复。
+            }
         }
     }
 
