@@ -8,6 +8,11 @@
 > [!IMPORTANT]
 > 自本版本起，用户数据目录更名：首次启动时，旧目录（`%APPDATA%\ClassFabric` 与对应的本地数据目录）将自动迁移至标准目录名（`ClassIsland`），配置、档案与插件数据原样搬迁，开机自启快捷方式同步更名；旧版注册的 `classfabric://` 协议在过渡期与新 `classisland://` 协议同时有效。迁移失败时应用将在新目录按首次启动流程运行，旧目录数据原样保留，不会丢失。
 
+> [!CAUTION]
+> 升级前请手动备份 `%APPDATA%\ClassFabric` 整个目录，迁移脚本并非万能。
+>
+> 升级后若自动化列表出现 `classfabric.xxx` 之类无法识别的条目，删除对应自动化后重新配置即可；也可以在 `%APPDATA%\ClassIsland\Config\Automations\` 的 JSON 文件中，把 `classfabric.` 前缀手动替换为 `classisland.`。其他迁移问题欢迎在 Issue 中反馈。
+
 ## 🚀 新增功能与优化
 
 ### 主界面与课表
@@ -57,6 +62,8 @@
 - 【迎新】修复特定区域配置下 OOBE 开屏动画闪退的问题（[fdf3b4c](https://github.com/Ansoukin/ClassFabric/commit/fdf3b4c9cc0aa666a479cdd862b0d2a778f620f2)）by [**@Ansoukin**](https://github.com/Ansoukin)
 - 【设置】修复字体下拉列表滚动时因无效字体崩溃的问题（[2731629](https://github.com/Ansoukin/ClassFabric/commit/273162985976719b0767de224bd682cf11b9b7d7)）by [**@Ansoukin**](https://github.com/Ansoukin)
 - 【数据迁移】修复旧数据目录被陈旧目标阻挡时迁移静默跳过的问题（[66be940](https://github.com/Ansoukin/ClassFabric/commit/66be9405045b291f02cf1aac1f8f44652d2e149a)）by [**@Ansoukin**](https://github.com/Ansoukin)
+- 【数据迁移】修复升级后自动化配置中旧版动作与触发器 ID 失效的问题（[82af8df](https://github.com/Ansoukin/ClassFabric/commit/82af8dfddd7af699fc57a76ec29cb44f0dc99323)）by [**@Ansoukin**](https://github.com/Ansoukin)
+- 【语音】修复 EdgeTTS 无法朗读的问题（[f98ef49](https://github.com/Ansoukin/ClassFabric/commit/f98ef493d7e25c259f8947c991f66af49e85d9c0)）by [**@HelloWRC**](https://github.com/HelloWRC)
 - 【界面】优化托盘菜单与弹层在 Avalonia 12 下的半透明渲染（[3f2c8dc](https://github.com/Ansoukin/ClassFabric/commit/3f2c8dc435d4b37b5e01b307789e4ec6930fb500)）；修复 Rectangles 主题在展示天气提醒时崩溃的问题（[247c295](https://github.com/Ansoukin/ClassFabric/commit/247c295572d04b9fee9ddae2cc0b7730555e6a5b)）by [**@Ansoukin**](https://github.com/Ansoukin)、[**@HelloWRC**](https://github.com/HelloWRC)
 - 【组件】修复主题切换后天气简报数值消失的问题（[b19d0d1](https://github.com/Ansoukin/ClassFabric/commit/b19d0d151b861d49492370775bc7fcce1ba7cabf)）by [**@Ansoukin**](https://github.com/Ansoukin)
 - 【天气】天气源返回无效数据时保留上次数据（[aeccc65](https://github.com/Ansoukin/ClassFabric/commit/aeccc65abe7de00a31b56be9d67df9950beb0c4d)）by [**@Ansoukin**](https://github.com/Ansoukin)
