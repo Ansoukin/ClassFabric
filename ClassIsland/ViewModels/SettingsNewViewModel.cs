@@ -11,6 +11,7 @@ public class SettingsNewViewModel : ObservableRecipient
 {
     private object? _frameContent;
     private SettingsPageInfo? _selectedPageInfo = null;
+    private string? _pageTitle;
     private bool _isViewCompressed = false;
     private bool _isNavigationDrawerOpened = true;
     private bool _canGoBack = false;
@@ -46,6 +47,12 @@ public class SettingsNewViewModel : ObservableRecipient
             _selectedPageInfo = value;
             OnPropertyChanged();
         }
+    }
+
+    public string? PageTitle
+    {
+        get => _pageTitle;
+        internal set => SetProperty(ref _pageTitle, value);
     }
 
     public bool IsViewCompressed
