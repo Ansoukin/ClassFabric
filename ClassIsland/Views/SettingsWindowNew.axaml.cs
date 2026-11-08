@@ -52,7 +52,6 @@ using ClassIsland.Platforms.Abstraction;
 using DynamicData;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Data;
-using FluentAvalonia.UI.Navigation;
 using FluentAvalonia.UI.Windowing;
 using Markdown.Avalonia.Full;
 using ReactiveUI;
@@ -99,6 +98,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
 
     private readonly Dictionary<string, SettingsPageBase?> _cachedPages = new();
     private IDisposable? _debugOptionsSubscription;
+    private TaskCompletionSource? _navigationOperation;
     private bool _resourcesReleased;
     
     public static readonly FuncValueConverter<object?, double> ControlToWidthConverter = new(x =>
@@ -126,11 +126,10 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         SettingsService = settingsService;
         SettingsService.Settings.PropertyChanged += SettingsOnPropertyChanged;
         InitializeComponent();
-        FaFrameLifetimeHelper.Attach(NavigationFrame);
+        PageNavigationSystemBackButtonPressed += SettingsWindow_OnSystemBackRequested;
         // SplashScreen = new EmptySplashScreen();
         
         // TitleBar.TitleBarHitTestType = FATitleBarHitTestType.Complex;
-        NavigationFrame.NavigationPageFactory = this;
 
         if (ManagementService.Policy.DisableSettingsEditing)
         {
@@ -221,7 +220,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         }
 
         SelectNavigationItem(ViewModel.SelectedPageInfo);
-        if (NavigationFrame.Content is SettingsNavigationPage directory)
+        if (SettingsPageHost.CurrentPage is SettingsContentPage { SettingsPage: SettingsNavigationPage directory })
         {
             ViewModel.PageTitle = directory.UpdateSections(_navigationSections);
         }
@@ -288,7 +287,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
             return;
         }
         ViewModel.IsRendered = true;
-        if (NavigationFrame.Content == null)
+        if (SettingsPageHost.CurrentPage == null)
         {
             var pageId = UseNavigationDirectoryByDefault ? SettingsNavigationPage.PageId : LaunchSettingsPage;
             await CoreNavigate(FindPageInfo(pageId));
@@ -339,25 +338,35 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         }
     }
 
-    private void NavigationServiceOnLoadCompleted(object sender, FANavigationEventArgs e)
+    private void SettingsPageHost_OnCurrentPageChanged(object? sender, EventArgs e)
     {
         if (_resourcesReleased)
         {
             return;
         }
 
-        var info = e.Content is SettingsPageBase { Tag: string pageId } ? FindPageInfo(pageId) : null;
+        var page = (SettingsPageHost.CurrentPage as SettingsContentPage)?.SettingsPage;
+        var info = page?.Tag is string pageId ? FindPageInfo(pageId) : null;
         ViewModel.SelectedPageInfo = info;
         SelectNavigationItem(info);
-        ViewModel.CanGoBack = NavigationFrame.CanGoBack;
 
-        ViewModel.PageTitle = e.Content is SettingsNavigationPage directory
+        ViewModel.PageTitle = page is SettingsNavigationPage directory
             ? directory.UpdateSections(_navigationSections)
             : info is { HidePageTitle: false } ? info.Name : null;
     }
 
     private async Task CoreNavigate(SettingsPageInfo? info, Uri? uri = null, bool preserveDirectoryHistory = false)
     {
+        if (ViewModel.IsNavigating)
+        {
+            return;
+        }
+
+        while (!_resourcesReleased && _navigationOperation is { } pending)
+        {
+            await pending.Task;
+        }
+
         if (_resourcesReleased || ViewModel.IsNavigating || info == null || !CanNavigate(info))
         {
             return;
@@ -370,7 +379,8 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         var isRoot = isDirectory && groupId == null;
 
         if (Equals(info, ViewModel.SelectedPageInfo) &&
-            (!isDirectory || NavigationFrame.Content is SettingsNavigationPage directory && directory.GroupId == groupId))
+            (!isDirectory || SettingsPageHost.CurrentPage is SettingsContentPage
+                { SettingsPage: SettingsNavigationPage directory } && directory.GroupId == groupId))
         {
             if (UseNavigationDirectoryByDefault)
             {
@@ -384,6 +394,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         transaction.SetTag("navigationPage.id", info.Id);
         var setupSpan = transaction.StartChild("setupPage");
         ISpan? frameSpan = null;
+        _navigationOperation = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         ViewModel.IsPopupOpen = false;
         ViewModel.IsNavigating = true;
 
@@ -394,7 +405,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
                 await UpdateEchoCaveAsync();
             }
 
-            if (_resourcesReleased || (!isRoot && !EnsureNavigationRoot()))
+            if (_resourcesReleased || (!isRoot && !await EnsureNavigationRootAsync()) || _resourcesReleased)
             {
                 setupSpan.Finish(SpanStatus.Cancelled);
                 transaction.Finish(SpanStatus.Cancelled);
@@ -410,8 +421,15 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
             SettingsWindowNavigationData data = isDirectory
                 ? new DirectoryNavigationData(info, groupId, uri, keepHistory, transaction, frameSpan)
                 : new SettingsWindowNavigationData(true, uri != null, uri, keepHistory, transaction, frameSpan, info);
-            var navigated = NavigationFrame.NavigateFromObject(data);
-            if (navigated)
+            var navigated = false;
+            if (GetPageFromObject(data) is SettingsPageBase settingsPage)
+            {
+                var navigation = NavigatePageAsync(new SettingsContentPage(settingsPage), back: false);
+                ViewModel.IsNavigating = false;
+                navigated = await navigation;
+            }
+
+            if (navigated && !_resourcesReleased)
             {
                 TrimNavigationHistory(keepHistory, isRoot);
             }
@@ -430,6 +448,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         finally
         {
             ViewModel.IsNavigating = false;
+            CompleteNavigationOperation();
         }
 
         if (info.Id != ErrorPageId && !isRoot)
@@ -454,26 +473,29 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
             : null;
     }
 
-    private bool HasNavigationRootInHistory =>
-        NavigationFrame.BackStack.FirstOrDefault()?.Context is DirectoryNavigationData { GroupId: null };
-
-    private bool EnsureNavigationRoot()
+    private async Task<bool> EnsureNavigationRootAsync()
     {
-        if (!UseNavigationDirectoryByDefault || HasNavigationRootInHistory ||
-            NavigationFrame.Content is SettingsNavigationPage { GroupId: null })
+        if (!UseNavigationDirectoryByDefault || IsNavigationRoot(SettingsPageHost.NavigationStack.FirstOrDefault()))
         {
             return true;
         }
 
-        var directoryInfo = FindPageInfo(SettingsNavigationPage.PageId)!;
-        if (!NavigationFrame.NavigateFromObject(new DirectoryNavigationData(directoryInfo, null, null, false)))
+        if (FindPageInfo(SettingsNavigationPage.PageId) is not { } directoryInfo ||
+            GetPageFromObject(new DirectoryNavigationData(directoryInfo, null, null, false)) is not SettingsPageBase page ||
+            !await NavigatePageAsync(new SettingsContentPage(page), back: false, animate: false))
         {
             return false;
         }
 
-        TrimNavigationHistory(keepHistory: false, isRoot: true);
+        if (!_resourcesReleased)
+        {
+            TrimNavigationHistory(keepHistory: false, isRoot: true);
+        }
         return true;
     }
+
+    private static bool IsNavigationRoot(Page? page) =>
+        page is SettingsContentPage { SettingsPage: SettingsNavigationPage { GroupId: null } };
 
     private void TrimNavigationHistory(bool keepHistory, bool isRoot)
     {
@@ -482,20 +504,88 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
             return;
         }
 
-        if (UseNavigationDirectoryByDefault && !isRoot && HasNavigationRootInHistory)
+        var stack = SettingsPageHost.NavigationStack;
+        var firstToRemove = UseNavigationDirectoryByDefault && !isRoot && IsNavigationRoot(stack.FirstOrDefault()) ? 1 : 0;
+        foreach (var page in stack.Skip(firstToRemove).SkipLast(1).ToArray())
         {
-            while (NavigationFrame.BackStack.Count > 1)
-            {
-                NavigationFrame.BackStack.RemoveAt(NavigationFrame.BackStack.Count - 1);
-            }
-        }
-        else
-        {
-            NavigationFrame.BackStack.Clear();
+            SettingsPageHost.RemovePage(page);
         }
 
-        NavigationFrame.ForwardStack.Clear();
-        ViewModel.CanGoBack = NavigationFrame.CanGoBack;
+        ViewModel.CanGoBack = SettingsPageHost.CanGoBack;
+    }
+
+    private async Task<bool> NavigatePageAsync(SettingsContentPage destination, bool back, bool animate = true)
+    {
+        var previous = SettingsPageHost.CurrentPage as SettingsContentPage;
+        try
+        {
+            destination.Mount();
+            if (back)
+            {
+                await SettingsPageHost.PopAsync();
+            }
+            else
+            {
+                await SettingsPageHost.PushAsync(destination, previous != null && animate ? SettingsPageHost.PageTransition : null);
+            }
+
+            return ReferenceEquals(SettingsPageHost.CurrentPage, destination);
+        }
+        finally
+        {
+            if (!ReferenceEquals(SettingsPageHost.CurrentPage, destination))
+            {
+                destination.Unmount();
+            }
+
+            if (!ReferenceEquals(SettingsPageHost.CurrentPage, previous))
+            {
+                previous?.Unmount();
+            }
+        }
+    }
+
+    private void CompleteNavigationOperation()
+    {
+        var operation = _navigationOperation;
+        _navigationOperation = null;
+        try
+        {
+            if (_resourcesReleased)
+            {
+                ClearNavigationPages();
+            }
+            else
+            {
+                ViewModel.CanGoBack = SettingsPageHost.CanGoBack;
+            }
+        }
+        finally
+        {
+            operation?.SetResult();
+        }
+    }
+
+    private sealed class SettingsContentPage : ContentPage
+    {
+        private readonly Decorator _host = new();
+
+        public SettingsContentPage(SettingsPageBase settingsPage)
+        {
+            SettingsPage = settingsPage;
+            Content = _host;
+            AutomaticallyApplySafeAreaPadding = false;
+            NavigationPage.SetHasNavigationBar(this, false);
+        }
+
+        protected override Type StyleKeyOverride => typeof(ContentPage);
+
+        public SettingsPageBase SettingsPage { get; }
+
+        // A cached control can appear in multiple history entries, but can only be mounted once.
+        public void Mount() => _host.Child = SettingsPage;
+
+        public void Unmount() => _host.Child = null;
     }
 
     private sealed class DirectoryNavigationData(SettingsPageInfo info, string? groupId, Uri? uri, bool keepHistory,
@@ -543,11 +633,6 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
     private void ButtonBaseToggleNavigationDrawer_OnClick(object sender, RoutedEventArgs e)
     {
         ViewModel.IsNavigationDrawerOpened = !ViewModel.IsNavigationDrawerOpened;
-    }
-
-    private void ButtonGoBack_OnClick(object sender, RoutedEventArgs e)
-    {
-        NavigationFrame.GoBack();
     }
 
     public override async void Open(ViewBase? owner = null) => await OpenCore(owner, null, null);
@@ -1158,6 +1243,14 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
 
     private void BackButton_OnClick(object? sender, RoutedEventArgs e) => TryGoBack();
 
+    private void SettingsWindow_OnSystemBackRequested(object? sender, RoutedEventArgs e)
+    {
+        if (!e.Handled)
+        {
+            e.Handled = TryGoBackCore();
+        }
+    }
+
     protected override bool TryGoBackCore()
     {
         if (_resourcesReleased)
@@ -1165,18 +1258,36 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
             return false;
         }
 
-        if (ViewModel.IsNavigating)
+        if (_navigationOperation != null)
         {
             return true;
         }
 
-        if (!NavigationFrame.CanGoBack)
+        var stack = SettingsPageHost.NavigationStack;
+        if (stack.Count < 2 || stack[^2] is not SettingsContentPage destination)
         {
             return false;
         }
 
-        NavigationFrame.GoBack();
+        _ = GoBackAsync(destination);
         return true;
+    }
+
+    private async Task GoBackAsync(SettingsContentPage destination)
+    {
+        _navigationOperation = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        try
+        {
+            await NavigatePageAsync(destination, back: true);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "无法返回上一个设置页面");
+        }
+        finally
+        {
+            CompleteNavigationOperation();
+        }
     }
 
     private void SelectNavigationItem(SettingsPageInfo? info)
@@ -1258,12 +1369,8 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         _debugOptionsSubscription = null;
         Closed -= ViewBase_OnClosed;
 
-        NavigationFrame.Navigated -= NavigationServiceOnLoadCompleted;
-        NavigationFrame.NavigationPageFactory = null;
-        NavigationFrame.IsNavigationStackEnabled = false;
-        NavigationFrame.BackStack.Clear();
-        NavigationFrame.ForwardStack.Clear();
-        NavigationFrame.Content = null;
+        PageNavigationSystemBackButtonPressed -= SettingsWindow_OnSystemBackRequested;
+        SettingsPageHost.CurrentPageChanged -= SettingsPageHost_OnCurrentPageChanged;
         try
         {
             // FluentAvalonia 3 的 FANavigationView 在 SelectedItem 置空时会走进内部判空缺失的
@@ -1282,12 +1389,30 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         ViewModel.IsDrawerOpen = false;
         ViewModel.IsNavigating = false;
         ViewModel.IsRendered = false;
+        ViewModel.CanGoBack = false;
         ViewModel.FlattenNavigationItemsCache.Clear();
         ViewModel.NavigationViewItems.Clear();
-        _cachedPages.Clear();
 
         DataContext = null;
         Content = null;
         Resources.Clear();
+
+        if (_navigationOperation == null)
+        {
+            ClearNavigationPages();
+        }
+    }
+
+    private void ClearNavigationPages()
+    {
+        foreach (var page in SettingsPageHost.NavigationStack.OfType<SettingsContentPage>().ToArray())
+        {
+            page.Unmount();
+            SettingsPageHost.RemovePage(page);
+        }
+
+        SettingsPageHost.Template = null;
+        SettingsPageHost.ApplyTemplate();
+        _cachedPages.Clear();
     }
 }
