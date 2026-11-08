@@ -1,13 +1,16 @@
 using System;
 using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Templates;
 using Avalonia.Platform;
+using ClassIsland.Controls;
 using ClassIsland.Controls.ActionSettingsControls;
 using ClassIsland.Controls.AttachedSettingsControls;
 using ClassIsland.Controls.AuthorizeProvider;
 using ClassIsland.Controls.Components;
 using ClassIsland.Controls.EditMode;
+using ClassIsland.Controls.NotificationEffects;
 using ClassIsland.Controls.NotificationProviders;
 using ClassIsland.Controls.ProfileTransferProviders;
 using ClassIsland.Controls.RuleSettingsControls;
@@ -137,11 +140,15 @@ public partial class App
         services.AddTransient<DebugPageViewModel>();
         services.AddTransient<RefreshingSettingsViewModel>();
         // Views
-        services.AddTransient<ITopmostEffectPlayer>(x => x.GetRequiredService<TopmostEffectWindow>());
+        services.AddSingleton<ITopmostEffectPlayer, PhonyTopmostEffectPlayer>();
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime)
+        {
+            services.AddTransient<ITopmostEffectPlayer>(x => x.GetRequiredService<TopmostEffectWindow>());
+            services.AddSingleton<TopmostEffectWindow>();
+        }
         services.AddSingleton<MainWindow>();
         // services.AddTransient<SplashWindowBase, SplashWindow>();
         // services.AddTransient<FeatureDebugWindow>();
-        services.AddSingleton<TopmostEffectWindow>();
         services.AddSingleton<AppLogsWindow>();
         services.AddTransientView<SettingsWindowNew>();
         services.AddTransientView<ProfileSettingsWindow>();
@@ -354,6 +361,9 @@ public partial class App
             // services.AddTutorialGroupByUri(new Uri("avares://ClassIsland/Assets/Tutorials/ClassIsland.sp.json"));
             services.AddTutorialGroupByUri(ResolveLocalizedTutorialUri("classisland.getStarted"));
         }
+        // 提醒效果
+        services.AddNotificationEffect("classisland.ripple", "波纹", RippleEffect.Create);
+        services.AddNotificationEffect("classisland.confetti", "下彩带", ConfettiEffect.Create);
         // Plugins
         if (!ApplicationCommand.Safe && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV1) && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV2))
         {
