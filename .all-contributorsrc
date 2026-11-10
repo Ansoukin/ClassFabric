@@ -42,6 +42,17 @@
       ]
     },
     {
+      "login": "Ansoukin",
+      "name": "Ansoukin",
+      "avatar_url": "https://github.com/Ansoukin.png?size=100",
+      "profile": "https://github.com/Ansoukin",
+      "contributions": [
+        "code",
+        "ideas",
+        "maintenance"
+      ]
+    },
+    {
       "login": "fossabot",
       "name": "fossabot",
       "avatar_url": "https://avatars.githubusercontent.com/u/29791463?v=4",
