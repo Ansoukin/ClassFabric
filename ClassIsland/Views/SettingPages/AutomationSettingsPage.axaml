@@ -20,7 +20,7 @@
                                  IsVisible="{Binding ViewModel.SettingsService.Settings.IsAutomationWarningVisible, Converter={StaticResource InvertBooleanConverter}}"
                                  ShowTitleWhenNotCompressed="True">
             <controls:ListDetailView.LeftContent>
-                <Grid RowDefinitions="Auto,Auto,*,Auto" Classes="animated-intro">
+                <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" Classes="animated-intro">
                     <!--  左上：自动化开关  -->
                     <fa:FASettingsExpander Description="自动化是一种可使 ClassFabric 自动作出行动的功能。"
                                          Header="启用自动化"
@@ -47,7 +47,17 @@
                             </StackPanel>
                         </fa:FASettingsExpander.Footer>
                     </fa:FASettingsExpander>
-                    <Grid Grid.Row="1"
+                    <!--  左上：面板/经典菜单选择方式切换；仅回退到经典菜单时出现，拨回新版即隐藏  -->
+                    <fa:FASettingsExpander Grid.Row="1"
+                                         Description="关闭时使用经典下拉与级联菜单选择触发器和行动。"
+                                         Header="启用新版菜单选择器"
+                                         IconSource="{ci:FluentIconSource {ci:FI SettingsRegular}}"
+                                         IsVisible="{Binding ViewModel.IsPanelPickerEnabled, Converter={StaticResource InvertBooleanConverter}}">
+                        <fa:FASettingsExpander.Footer>
+                            <ToggleSwitch IsChecked="{Binding ViewModel.IsPanelPickerEnabled, Mode=TwoWay}" />
+                        </fa:FASettingsExpander.Footer>
+                    </fa:FASettingsExpander>
+                    <Grid Grid.Row="2"
                           Margin="0 6 0 0"
                           ColumnDefinitions="Auto,*,Auto">
                         <Button Margin="6"
@@ -84,7 +94,7 @@
                         </StackPanel>
                     </Grid>
                     <!--  左：自动化导航栏  -->
-                    <ScrollViewer Grid.Row="2">
+                    <ScrollViewer Grid.Row="3">
                         <ListBox ItemsSource="{Binding ViewModel.AutomationService.Workflows}"
                                  SelectedItem="{Binding ViewModel.SelectedWorkflow, Mode=TwoWay}"
                                  SelectionChanged="SelectorMain_OnSelected"
@@ -244,7 +254,8 @@
                                                     <ci:IconText Glyph="&#xE84F;"
                                                                  Text="当事件触发时" />
                                                 </Expander.Header>
-                                                <automation:TriggerSettingsControl Triggers="{Binding Triggers}" />
+                                                <automation:TriggerSettingsControl Triggers="{Binding Triggers}"
+                                                                                   UsePanelPicker="{Binding $parent[local:AutomationSettingsPage].ViewModel.IsPanelPickerEnabled}" />
                                             </Expander>
                                             <!--  规则编辑  -->
                                             <Expander Classes="compact stretch-header">
@@ -275,7 +286,8 @@
                                                     <ci:IconText Glyph="&#xE01F;"
                                                                  Text="触发行动" />
                                                 </Expander.Header>
-                                                <automation:ActionControl ActionSet="{Binding ActionSet}" />
+                                                <automation:ActionControl ActionSet="{Binding ActionSet}"
+                                                                          UsePanelPicker="{Binding $parent[local:AutomationSettingsPage].ViewModel.IsPanelPickerEnabled}" />
                                             </Expander>
                                             <!--  v3: 恢复行动编辑  -->
                                             <!--<Expander Grid.Row="3" Classes="compact stretch-header"
@@ -315,6 +327,9 @@
                             </StackPanel>
                         </ci:Emptiable.EmptyContent>
                     </ci:Emptiable>
+
+                    <!--  触发器/行动选择面板：覆盖自动化编辑区，由旧下拉与级联菜单的打开点唤起  -->
+                    <automation:AutomationPickerOverlay x:Name="PickerOverlay" />
                 </Panel>
             </controls:ListDetailView.RightContent>
         </controls:ListDetailView>

@@ -1,5 +1,9 @@
+using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 using ClassIsland.Core.Abstractions.Services;
 using ClassIsland.Core.Models.Automation;
 using ClassIsland.Shared;
@@ -14,30 +18,18 @@ namespace ClassIsland.Core.Controls.Automation;
 public partial class ActionControl : UserControl
 {
     /// <inheritdoc cref="ActionControl" />
-    public ActionControl() => InitializeComponent();
+    public ActionControl()
+    {
+        InitializeComponent();
+        AddActionButton.Click += AddActionButton_OnClick;
+    }
 
     IActionService ActionService { get; } = IAppHost.GetService<IActionService>();
 
     [RelayCommand]
     void AddAction(ActionMenuTreeItem menu)
     {
-        var actionItem = new ActionItem { Id = menu.ActionItemId };
-
-        if (menu.GetType().IsGenericType &&
-            menu.GetType().GetGenericTypeDefinition() == typeof(ActionMenuTreeItem<>))
-        {
-            var settingsType = menu.GetType().GetGenericArguments()[0];
-            var settings = Activator.CreateInstance(settingsType);
-
-            var setterProperty = menu.GetType()
-                .GetProperty(nameof(ActionMenuTreeItem<object>.ActionItemSettingsSetter));
-            var setter = setterProperty?.GetValue(menu) as Delegate;
-            setter?.DynamicInvoke(settings);
-            actionItem.Settings = settings;
-        }
-
-        actionItem.IsNewAdded = true;
-        ActionSet.ActionItems.Add(actionItem);
+        ActionSet.ActionItems.Add(AutomationPickerDelivery.CreateActionItem(menu));
     }
 
     /// <inheritdoc cref="ActionSet"/>
@@ -51,6 +43,56 @@ public partial class ActionControl : UserControl
     {
         get => GetValue(ActionSetProperty);
         set => SetValue(ActionSetProperty, value);
+    }
+
+    /// <summary>
+    /// 是否用选择面板替代旧级联菜单。默认关闭，档案时间点行动、教程编辑器等
+    /// 未挂载面板的宿主保持旧行为；自动化设置页置 true 启用面板。
+    /// </summary>
+    public static readonly StyledProperty<bool> UsePanelPickerProperty =
+        AvaloniaProperty.Register<ActionControl, bool>(nameof(UsePanelPicker));
+
+    public bool UsePanelPicker
+    {
+        get => GetValue(UsePanelPickerProperty);
+        set => SetValue(UsePanelPickerProperty, value);
+    }
+
+    FlyoutBase? _addFlyout;
+
+    void UpdateFlyout()
+    {
+        // 面板模式下摘掉旧级联菜单，避免点击按钮时菜单仍自动弹出。
+        _addFlyout ??= AddActionButton.Flyout;
+        AddActionButton.Flyout = UsePanelPicker ? null : _addFlyout;
+    }
+
+    /// <inheritdoc />
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        UpdateFlyout();
+    }
+
+    /// <inheritdoc />
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+        if (e.Property == UsePanelPickerProperty)
+        {
+            UpdateFlyout();
+        }
+    }
+
+    void AddActionButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (!UsePanelPicker)
+        {
+            // 旧级联菜单由 Flyout 自动弹出，这里不处理。
+            return;
+        }
+        // 非定向请求：落地走宿主页面投递，面板内可切到触发器模式。
+        this.ExecutePick(AutomationPickerKind.Action);
     }
 
     static ActionControl()

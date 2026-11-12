@@ -50,7 +50,8 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <Button HorizontalAlignment="Left"
+        <Button x:Name="AddActionButton"
+                HorizontalAlignment="Left"
                 Theme="{StaticResource TransparentButton}">
             <controls:IconText Glyph="&#xE00D;"
                                Text="添加行动"

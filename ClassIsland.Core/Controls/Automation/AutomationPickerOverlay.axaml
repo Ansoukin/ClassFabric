@@ -1,0 +1,321 @@
+<UserControl x:Class="ClassIsland.Core.Controls.Automation.AutomationPickerOverlay"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ci="http://classisland.tech/schemas/xaml/core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1000">
+
+    <!--
+        自动化选择面板：覆盖宿主容器，替换旧的触发器下拉与行动级联菜单。
+        列表与分类由代码构建（条目量级小、结构随插件动态变化），外壳与样式在此声明。
+    -->
+    <UserControl.Styles>
+        <Style Selector="Border#Root">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="RenderTransform" Value="translateX(40px)" />
+            <Setter Property="IsHitTestVisible" Value="False" />
+            <Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorBaseBrush}" />
+            <Setter Property="ClipToBounds" Value="True" />
+        </Style>
+        <Style Selector="Border#Root.open">
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="RenderTransform" Value="translateX(0px)" />
+            <Setter Property="IsHitTestVisible" Value="True" />
+        </Style>
+
+        <!--  幽灵按钮（返回/头部按钮）  -->
+        <Style Selector="Button.picker-ghost">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.picker-ghost:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="Button.picker-ghost:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorTertiaryBrush}" />
+        </Style>
+
+        <!--  搜索框  -->
+        <Style Selector="TextBox.picker-search">
+            <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Margin" Value="12,0,0,0" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="TextBox.picker-search:focus">
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
+        </Style>
+
+        <!--  分类项  -->
+        <Style Selector="Button.picker-cat">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="MinHeight" Value="36" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+        <Style Selector="Button.picker-cat /template/ ContentPresenter">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Duration="0:0:0.12" Property="Background" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.picker-cat:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="Button.picker-cat.on /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+        </Style>
+
+        <!--  条目行  -->
+        <Style Selector="Button.picker-row">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="MinHeight" Value="44" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+        <Style Selector="Button.picker-row /template/ ContentPresenter">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Duration="0:0:0.12" Property="Background" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.picker-row:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="Button.picker-row.cursor /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorTertiaryBrush}" />
+        </Style>
+
+        <!--  模式按钮  -->
+        <Style Selector="Button.picker-mode">
+            <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="Height" Value="66" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="RenderTransform" Value="scale(1)" />
+            <!--  按下压缩、松手回弹的弹簧手感；过冲缓动是按压类动效的常用值  -->
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Duration="0:0:0.35" Easing="0.175,0.885,0.32,1.35" Property="RenderTransform" />
+                    <BrushTransition Duration="0:0:0.12" Property="BorderBrush" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.picker-mode:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.94)" />
+        </Style>
+        <!--  悬停：轻微抬升 + 描边浮现，与按下缩放叠加，让按钮的按压反馈有前后层次  -->
+        <Style Selector="Button.picker-mode:pointerover">
+            <Setter Property="RenderTransform" Value="scale(1) translateY(-1px)" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="Button.picker-mode /template/ ContentPresenter">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Duration="0:0:0.18" Property="Background" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.picker-mode:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource SubtleFillColorSecondaryBrush}" />
+        </Style>
+        <!--  选中态：强调底色直接落在按钮上（独立指示层在宿主懒加载时序下不稳，已弃用）；规则须在悬停规则之后声明才能覆盖悬停底色  -->
+        <Style Selector="Button.picker-mode.on /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource CustomizedAccentBarBackground1Brush}" />
+        </Style>
+        <Style Selector="Button.picker-mode.on:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource CustomizedAccentBarBackground1Brush}" />
+        </Style>
+        <Style Selector="Button.picker-mode.on ci|IconText">
+            <Setter Property="Foreground" Value="{DynamicResource AccentTextFillColorPrimaryBrush}" />
+        </Style>
+        <Style Selector="Button.picker-mode.on TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource AccentTextFillColorPrimaryBrush}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <!--  按钮内容（图标+文字）：悬停时上浮提示可点；pulse 类在模式切换落定时由代码短暂挂上，内容放大后回弹，作为操作的附加确认  -->
+        <Style Selector="Button.picker-mode StackPanel.picker-mode-body">
+            <Setter Property="RenderTransform" Value="translateY(0px)" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Duration="0:0:0.25" Easing="0.175,0.885,0.32,1.35" Property="RenderTransform" />
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.picker-mode:pointerover StackPanel.picker-mode-body">
+            <Setter Property="RenderTransform" Value="translateY(-2px)" />
+        </Style>
+        <Style Selector="Button.picker-mode StackPanel.picker-mode-body.pulse">
+            <Setter Property="RenderTransform" Value="translateY(0px) scale(1.08)" />
+        </Style>
+
+        <!--  列表区模式切换动画  -->
+        <Style Selector="Border#ListWrap">
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="RenderTransform" Value="translateX(0px)" />
+        </Style>
+        <Style Selector="Border#ListWrap.out-l">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="RenderTransform" Value="translateX(-16px)" />
+        </Style>
+        <Style Selector="Border#ListWrap.out-r">
+            <Setter Property="Opacity" Value="0" />
+            <Setter Property="RenderTransform" Value="translateX(16px)" />
+        </Style>
+        <Style Selector="Border#ListWrap.in-l">
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="RenderTransform" Value="translateX(0px)" />
+        </Style>
+        <Style Selector="Border#ListWrap.in-r">
+            <Setter Property="Opacity" Value="1" />
+            <Setter Property="RenderTransform" Value="translateX(0px)" />
+        </Style>
+    </UserControl.Styles>
+
+    <Border x:Name="Root" Classes="picker-root">
+        <Border.Transitions>
+            <Transitions>
+                <TransformOperationsTransition Duration="0:0:0.25" Easing="0.1,0.9,0.2,1" Property="RenderTransform" />
+                <DoubleTransition Duration="0:0:0.25" Easing="0.1,0.9,0.2,1" Property="Opacity" />
+            </Transitions>
+        </Border.Transitions>
+        <Grid RowDefinitions="48,*,36">
+            <!--  头部：返回 / 搜索 / 设置  -->
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto" VerticalAlignment="Center" Margin="12,0">
+                <Button x:Name="BackButton"
+                        Classes="picker-ghost"
+                        Click="Back_OnClick">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <ci:IconText Glyph="{ci:FI ArrowLeftRegular}" />
+                        <TextBlock Text="返回" />
+                    </StackPanel>
+                </Button>
+                <TextBox Grid.Column="1"
+                         x:Name="SearchTextBox"
+                         Classes="picker-search"
+                         Watermark="搜索…">
+                    <TextBox.InnerLeftContent>
+                        <ci:IconText Glyph="{ci:FI SearchRegular}"
+                                     Margin="8,0,6,0"
+                                     Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                    </TextBox.InnerLeftContent>
+                </TextBox>
+                <Button Grid.Column="2"
+                        Classes="picker-ghost"
+                        Margin="8,0,0,0"
+                        ToolTip.Tip="视图选项">
+                    <ci:IconText Glyph="{ci:FI MoreHorizontalRegular}" />
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuItem x:Name="ToggleCatsItem"
+                                      Header="显示分类栏"
+                                      ToggleType="CheckBox"
+                                      IsChecked="True"
+                                      Click="ToggleCats_OnClick" />
+                            <MenuItem x:Name="ToggleCompactItem"
+                                      Header="紧凑列表"
+                                      ToggleType="CheckBox"
+                                      Click="ToggleCompact_OnClick" />
+                            <MenuItem x:Name="ToggleHintIdItem"
+                                      Header="提示栏显示注册 ID"
+                                      ToggleType="CheckBox"
+                                      IsChecked="True"
+                                      Click="ToggleHintId_OnClick" />
+                            <Separator />
+                            <MenuItem Header="打开自动化帮助文档" Click="OpenDocs_OnClick" />
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+                <Button Grid.Column="3"
+                        Classes="picker-ghost"
+                        Margin="4,0,0,0"
+                        ToolTip.Tip="选择器设置">
+                    <ci:IconText Glyph="{ci:FI SettingsRegular}" />
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuItem x:Name="ToggleClassicItem"
+                                      Header="切换为经典菜单"
+                                      Click="ToggleClassic_OnClick" />
+                            <MenuItem x:Name="ToggleMarksItem"
+                                      Header="显示已添加标记"
+                                      ToggleType="CheckBox"
+                                      IsChecked="True"
+                                      Click="ToggleMarks_OnClick" />
+                            <MenuItem Header="刷新条目" Click="RefreshItems_OnClick" />
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </Grid>
+
+            <!--  主体：分类栏 / 列表 / 模式切换  -->
+            <Grid x:Name="BodyGrid" Grid.Row="1" ColumnDefinitions="200,*,104">
+                <ScrollViewer x:Name="CatsScroll">
+                    <Border BorderBrush="{DynamicResource DividerStrokeColorDefaultBrush}"
+                            BorderThickness="0,0,1,0">
+                        <StackPanel x:Name="CatsHost" Margin="0,8" />
+                    </Border>
+                </ScrollViewer>
+                <ScrollViewer x:Name="ListScroll" Grid.Column="1">
+                    <Border x:Name="ListWrap">
+                        <Border.Transitions>
+                            <Transitions>
+                                <TransformOperationsTransition Duration="0:0:0.15" Easing="0.1,0.9,0.2,1" Property="RenderTransform" />
+                                <DoubleTransition Duration="0:0:0.15" Easing="0.1,0.9,0.2,1" Property="Opacity" />
+                            </Transitions>
+                        </Border.Transitions>
+                        <StackPanel x:Name="ListHost" Margin="10,6,14,16" />
+                    </Border>
+                </ScrollViewer>
+                <Border Grid.Column="2"
+                        BorderBrush="{DynamicResource DividerStrokeColorDefaultBrush}"
+                        BorderThickness="1,0,0,0">
+                    <StackPanel Margin="10,12,10,12" Spacing="10">
+                        <Button x:Name="TriggerModeButton"
+                                Classes="picker-mode"
+                                Click="TriggerMode_OnClick">
+                            <StackPanel Classes="picker-mode-body" Spacing="6">
+                                <ci:IconText Glyph="{ci:FI FlashRegular}" HorizontalAlignment="Center" />
+                                <TextBlock Text="触发器" FontSize="13" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="ActionModeButton"
+                                Classes="picker-mode"
+                                Click="ActionMode_OnClick">
+                            <StackPanel Classes="picker-mode-body" Spacing="6">
+                                <ci:IconText Glyph="{ci:FI AirplaneTakeOffRegular}" HorizontalAlignment="Center" />
+                                <TextBlock Text="行动" FontSize="13" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!--  底部提示栏：悬停/键盘焦点条目时显示图标、名称与注册 ID  -->
+            <Border Grid.Row="2"
+                    Background="{DynamicResource ControlFillColorDefaultBrush}"
+                    BorderBrush="{DynamicResource DividerStrokeColorDefaultBrush}"
+                    BorderThickness="0,1,0,0">
+                <Panel x:Name="HintHost" Margin="12,0" VerticalAlignment="Center" />
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

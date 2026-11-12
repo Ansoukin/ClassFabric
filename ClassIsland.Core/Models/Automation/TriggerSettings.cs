@@ -26,6 +26,8 @@ public class TriggerSettings : ObservableRecipient
             _id = value;
             OnPropertyChanged();
             OnPropertyChanged(nameof(AssociatedTriggerInfo));
+            OnPropertyChanged(nameof(TriggerDisplayName));
+            OnPropertyChanged(nameof(TriggerDisplayIconSource));
         }
     }
 
@@ -48,6 +50,18 @@ public class TriggerSettings : ObservableRecipient
     /// </summary>
     [JsonIgnore]
     public TriggerInfo? AssociatedTriggerInfo => IAutomationService.RegisteredTriggers.FirstOrDefault(x => x.Id == Id);
+
+    /// <summary>
+    /// 触发器行按钮的显示名；未选择类型时给出占位提示。
+    /// </summary>
+    [JsonIgnore]
+    public string TriggerDisplayName => AssociatedTriggerInfo?.Name ?? "选择触发器…";
+
+    /// <summary>
+    /// 触发器行按钮的显示图标；未选择类型时为 null。
+    /// </summary>
+    [JsonIgnore]
+    public FluentAvalonia.UI.Controls.FAIconSource? TriggerDisplayIconSource => AssociatedTriggerInfo?.IconSource;
 
     [JsonIgnore]
     internal TriggerBase? TriggerInstance { get; set; }

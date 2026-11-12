@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ci="http://classisland.tech/schemas/xaml/core"
              xmlns:dd="urn:gong-wpf-dragdrop"
                       xmlns:controls="clr-namespace:ClassIsland.Core.Controls"
              xmlns:services="clr-namespace:ClassIsland.Core.Abstractions.Services"
@@ -34,17 +35,36 @@
                                             Content="{controls:FluentIcon &#xE671;}"
                                             VerticalAlignment="Stretch">
                                     </Button>
-                                    <ComboBox SelectedValue="{Binding Id}"
-                                              SelectedValueBinding="{Binding Id}"
-                                              ItemsSource="{x:Static services:IAutomationService.RegisteredTriggers}"
-                                              MinWidth="100">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <controls:IconText IconSource="{Binding IconSource}"
-                                                                   Text="{Binding Name}"/>
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                    </ComboBox>
+                                    <Panel VerticalAlignment="Center">
+                                        <!--  经典模式：行内下拉选择类型  -->
+                                        <ComboBox SelectedValue="{Binding Id}"
+                                                  SelectedValueBinding="{Binding Id}"
+                                                  ItemsSource="{x:Static services:IAutomationService.RegisteredTriggers}"
+                                                  MinWidth="100"
+                                                  IsVisible="{Binding $parent[automation:TriggerSettingsControl].UsePanelPicker, Converter={x:Static BoolConverters.Not}}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <controls:IconText IconSource="{Binding IconSource}"
+                                                                       Text="{Binding Name}"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <!--  面板模式：按钮唤起选择面板  -->
+                                        <Button Theme="{StaticResource TransparentButton}"
+                                                Command="{Binding PickForTriggerCommand, RelativeSource={RelativeSource AncestorType=automation:TriggerSettingsControl}}"
+                                                CommandParameter="{Binding}"
+                                                IsVisible="{Binding $parent[automation:TriggerSettingsControl].UsePanelPicker}">
+                                            <Panel>
+                                                <TextBlock Text="{Binding TriggerDisplayName}"
+                                                           VerticalAlignment="Center"
+                                                           IsVisible="{Binding AssociatedTriggerInfo, Converter={x:Static ObjectConverters.IsNull}}" />
+                                                <controls:IconText IconSource="{Binding TriggerDisplayIconSource}"
+                                                                   Text="{Binding TriggerDisplayName}"
+                                                                   Glyph="{ci:FI PersonWalkingRegular}"
+                                                                   IsVisible="{Binding AssociatedTriggerInfo, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                            </Panel>
+                                        </Button>
+                                    </Panel>
                                 </StackPanel>
                                 <automation:TriggerSettingsControlPresenter Settings="{Binding}"
                                                                        Id="{Binding Id}"

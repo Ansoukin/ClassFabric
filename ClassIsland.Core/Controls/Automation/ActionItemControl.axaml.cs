@@ -1,5 +1,8 @@
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 using ClassIsland.Core.Abstractions.Controls;
 using ClassIsland.Core.Abstractions.Services;
@@ -17,13 +20,32 @@ namespace ClassIsland.Core.Controls.Automation;
 /// <seealso cref="ActionControl"/>
 public partial class ActionItemControl : UserControl
 {
-    public ActionItemControl() => InitializeComponent();
+    public ActionItemControl()
+    {
+        InitializeComponent();
+        ChangeActionButton.Click += ChangeActionButton_OnClick;
+    }
 
     public IActionService ActionService { get; } = IAppHost.GetService<IActionService>();
+
+    /// <summary>
+    /// 是否用选择面板替代旧级联菜单；跟随宿主 <see cref="ActionControl"/> 的设置。
+    /// </summary>
+    bool UsePanelPicker => this.FindAncestorOfType<ActionControl>()?.UsePanelPicker ?? false;
+
+    FlyoutBase? _changeFlyout;
+
+    void UpdateFlyout()
+    {
+        // 面板模式下摘掉旧级联菜单，避免点击按钮时菜单仍自动弹出。
+        _changeFlyout ??= ChangeActionButton.Flyout;
+        ChangeActionButton.Flyout = UsePanelPicker ? null : _changeFlyout;
+    }
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
+        UpdateFlyout();
         ActionService.MigrateActionItem(ActionItem);
         UpdateContent();
     }
@@ -83,34 +105,62 @@ public partial class ActionItemControl : UserControl
     {
         if (p is { T1: ActionItem actionItem, T2: ActionMenuTreeItem menu })
         {
-            actionItem.Id = menu.ActionItemId;
+            ChangeAction(actionItem, menu);
+        }
+    }
 
-            if (menu.GetType().IsGenericType &&
-                menu.GetType().GetGenericTypeDefinition() == typeof(ActionMenuTreeItem<>))
-            {
-                var settingsType = menu.GetType().GetGenericArguments()[0];
-                var settings = actionItem.Settings;
-                if (settings?.GetType() != settingsType)
-                {
-                    Unload();
-                    ActionItem.IsNewAdded = true;
-                    settings = Activator.CreateInstance(settingsType);
-                }
+    void ChangeAction(ActionItem actionItem, ActionMenuTreeItem menu)
+    {
+        actionItem.Id = menu.ActionItemId;
 
-                var setterProperty = menu.GetType()
-                    .GetProperty(nameof(ActionMenuTreeItem<object>.ActionItemSettingsSetter));
-                var setter = setterProperty?.GetValue(menu) as Delegate;
-                setter?.DynamicInvoke(settings);
-                actionItem.Settings = settings;
-            }
-            else
+        if (menu.GetType().IsGenericType &&
+            menu.GetType().GetGenericTypeDefinition() == typeof(ActionMenuTreeItem<>))
+        {
+            var settingsType = menu.GetType().GetGenericArguments()[0];
+            var settings = actionItem.Settings;
+            if (settings?.GetType() != settingsType)
             {
                 Unload();
                 ActionItem.IsNewAdded = true;
+                settings = Activator.CreateInstance(settingsType);
             }
 
-            UpdateContent();
+            var setterProperty = menu.GetType()
+                .GetProperty(nameof(ActionMenuTreeItem<object>.ActionItemSettingsSetter));
+            var setter = setterProperty?.GetValue(menu) as Delegate;
+            setter?.DynamicInvoke(settings);
+            actionItem.Settings = settings;
         }
+        else
+        {
+            Unload();
+            ActionItem.IsNewAdded = true;
+        }
+
+        UpdateContent();
+    }
+
+    void ChangeActionButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (!UsePanelPicker)
+        {
+            // 旧级联菜单由 Flyout 自动弹出，这里不处理。
+            return;
+        }
+        // 换类型是定向场景：锁定行动模式，选中后回写该行动项。
+        var actionItem = ActionItem;
+        this.ExecutePick(AutomationPickerKind.Action, request =>
+        {
+            request.LockMode = true;
+            request.Callback = item =>
+            {
+                if (item.MenuSource != null)
+                {
+                    ChangeAction(actionItem, item.MenuSource);
+                }
+            };
+            request.ExistingIdsProvider = () => ActionSet?.ActionItems.Select(a => a.Id) ?? Enumerable.Empty<string>();
+        });
     }
 
     [RelayCommand]

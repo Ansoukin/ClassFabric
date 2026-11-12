@@ -1,16 +1,20 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using ClassIsland.Core.Abstractions.Controls;
 using ClassIsland.Core.Attributes;
 using ClassIsland.Core.Controls;
+using ClassIsland.Core.Controls.Automation;
 using ClassIsland.Core.Enums.SettingsWindow;
 using ClassIsland.Core.Extensions;
 using ClassIsland.Core.Extensions.UI;
 using ClassIsland.Core.Helpers.UI;
+using ClassIsland.Core.Models.Automation;
 using ClassIsland.Core.Models.UI;
 using ClassIsland.Platforms.Abstraction;
 using ClassIsland.Services;
@@ -34,6 +38,52 @@ public partial class AutomationSettingsPage : SettingsPageBase
     {
         InitializeComponent();
         DataContext = this;
+        PickerOverlay.Delivery = DeliverPick;
+        PickerOverlay.ExistingIdsProvider = ProvideExistingIds;
+        PickerOverlay.UseClassicMenu = !ViewModel.IsPanelPickerEnabled;
+        PickerOverlay.ClassicMenuChanged += (_, _) =>
+            ViewModel.IsPanelPickerEnabled = !PickerOverlay.UseClassicMenu;
+        // 页面设置项与面板内“切换为经典菜单”双向同步，任一处变化都刷新另一侧。
+        ViewModel.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(AutomationSettingsViewModel.IsPanelPickerEnabled))
+            {
+                PickerOverlay.UseClassicMenu = !ViewModel.IsPanelPickerEnabled;
+            }
+        };
+    }
+
+    /// <summary>
+    /// 选择面板的非定向落地：面板内切到哪个模式，选中项就落到哪个目标。
+    /// </summary>
+    void DeliverPick(AutomationPickerKind kind, AutomationPickerItem item)
+    {
+        var workflow = ViewModel.SelectedWorkflow;
+        if (workflow == null)
+        {
+            return;
+        }
+        if (kind == AutomationPickerKind.Trigger)
+        {
+            workflow.Triggers.Add(new TriggerSettings { Id = item.Id });
+            return;
+        }
+        if (item.MenuSource != null)
+        {
+            workflow.ActionSet.ActionItems.Add(AutomationPickerDelivery.CreateActionItem(item.MenuSource));
+        }
+    }
+
+    IEnumerable<string> ProvideExistingIds(AutomationPickerKind kind)
+    {
+        var workflow = ViewModel.SelectedWorkflow;
+        if (workflow == null)
+        {
+            return [];
+        }
+        return kind == AutomationPickerKind.Trigger
+            ? workflow.Triggers.Select(t => t.Id)
+            : workflow.ActionSet.ActionItems.Select(a => a.Id);
     }
 
     public AutomationSettingsViewModel ViewModel { get; } = IAppHost.GetService<AutomationSettingsViewModel>();
