@@ -59,4 +59,25 @@ public static class PlatformServices
     /// 启动器服务
     /// </summary>
     public static ILauncherService LauncherService { get; internal set; } = new LauncherServiceStub();
+
+    /// <summary>
+    /// 系统键鼠模拟与输入空闲查询服务
+    /// </summary>
+    public static ISystemInputService SystemInputService { get; internal set; } = new SystemInputServiceStub();
+
+    /// <summary>
+    /// 系统环境调整服务（壁纸/主题/强调色/音量/截图/前台窗口）
+    /// </summary>
+    public static ISystemEnvironmentService SystemEnvironmentService { get; internal set; } =
+        new SystemEnvironmentServiceStub();
+
+    /// <summary>
+    /// 系统电源操作服务（立即关机/重启）
+    /// </summary>
+    public static ISystemPowerService SystemPowerService { get; internal set; } = new SystemPowerServiceStub();
+
+    /// <summary>
+    /// 系统全局热键服务
+    /// </summary>
+    public static ISystemHotkeyService SystemHotkeyService { get; internal set; } = new SystemHotkeyServiceStub();
 }

@@ -3,6 +3,8 @@
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <!-- SystemParametersInfo(SPI_SETDESKWALLPAPER) 等 CsWin32 指针重载需要 unsafe 上下文 -->
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <RootNamespace>ClassIsland.Platform.Windows</RootNamespace>
         <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     </PropertyGroup>
