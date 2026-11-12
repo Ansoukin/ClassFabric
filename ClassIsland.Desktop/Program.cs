@@ -142,6 +142,10 @@ class Program
         PlatformServices.DesktopService = new DesktopService();
         PlatformServices.SystemEventsService = new SystemEventsService();
         PlatformServices.DesktopToastService = new DesktopToastService();
+        PlatformServices.SystemInputService = new SystemInputService();
+        PlatformServices.SystemEnvironmentService = new SystemEnvironmentService();
+        PlatformServices.SystemPowerService = new SystemPowerService();
+        PlatformServices.SystemHotkeyService = new SystemHotkeyService();
         postInitCallback = () =>
         {
             AppBase.Current.AppStarted += (sender, args) =>
