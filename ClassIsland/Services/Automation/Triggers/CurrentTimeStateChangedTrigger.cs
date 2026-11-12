@@ -5,6 +5,7 @@ using ClassIsland.Core.Attributes;
 
 namespace ClassIsland.Services.Automation.Triggers;
 
+[AutomationCategory("课程与时间")]
 [TriggerInfo("classisland.lessons.currentTimeStateChanged", "当前时间状态变化时", "\ue4d2")]
 public class CurrentTimeStateChangedTrigger(ILessonsService lessonsService) : TriggerBase
 {

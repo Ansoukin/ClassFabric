@@ -5,6 +5,7 @@ using ClassIsland.Core.Attributes;
 
 namespace ClassIsland.Services.Automation.Triggers;
 
+[AutomationCategory("课程与时间")]
 [TriggerInfo("classisland.lessons.onBreakingTime", "课间休息时", "\ue4c4")]
 public class OnBreakingTimeTrigger(ILessonsService lessonsService) : TriggerBase
 {

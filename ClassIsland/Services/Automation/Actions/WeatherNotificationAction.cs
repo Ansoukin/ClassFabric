@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 namespace ClassIsland.Services.Automation.Actions;
 
+[AutomationCategory("提醒与显示")]
 [ActionInfo("classisland.notification.weather", "显示天气提醒", "\uf44f", addDefaultToMenu:false)]
 public class WeatherNotificationAction : ActionBase<WeatherNotificationActionSettings>
 {

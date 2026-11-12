@@ -8,6 +8,7 @@ using ReactiveUI;
 
 namespace ClassIsland.Services.Automation.Triggers;
 
+[AutomationCategory("应用生命周期")]
 [TriggerInfo("classisland.trayMenu", "从托盘菜单运行时", "\ue075")]
 public class TrayMenuTrigger(TrayMenuTriggerHandlerService trayMenuTriggerHandlerService) : TriggerBase<TrayMenuTriggerSettings>
 {

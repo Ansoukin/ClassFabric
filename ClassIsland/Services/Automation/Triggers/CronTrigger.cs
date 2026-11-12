@@ -12,6 +12,7 @@ using TimeCrontab;
 
 namespace ClassIsland.Services.Automation.Triggers;
 
+[AutomationCategory("课程与时间")]
 [TriggerInfo("classisland.cron", "cron", "\ue125")]
 public class CronTrigger : TriggerBase<CronTriggerSettings>
 {

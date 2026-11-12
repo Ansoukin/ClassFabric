@@ -1,0 +1,18 @@
+using System.Text.Json.Serialization;
+
+namespace ClassIsland.Models.Actions.SystemTools;
+
+/// <summary>
+/// 切换悬浮窗配置方案行动的设置
+/// </summary>
+public class ToggleFloatingWindowProfileSettings
+{
+    [JsonPropertyName("notifyOnExecute")]
+    public bool NotifyOnExecute { get; set; } = false;
+
+    /// <summary>
+    /// 目标配置方案名称。null 表示切换到下一个，其他值表示指定方案名称。
+    /// </summary>
+    [JsonPropertyName("targetProfileName")]
+    public string? TargetProfileName { get; set; }
+}

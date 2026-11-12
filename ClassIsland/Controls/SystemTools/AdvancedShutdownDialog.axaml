@@ -1,0 +1,71 @@
+<Window xmlns="https://github.com/avaloniaui"
+        x:Class="ClassIsland.Controls.SystemTools.AdvancedShutdownDialog"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ci="http://classisland.tech/schemas/xaml/core"
+        xmlns:icons="using:ClassIsland.Core.Icons"
+        Width="588"
+        Height="200"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        CanResize="False"
+        Title="ClassFabric - 高级计时关机">
+
+    <Border Padding="16" CornerRadius="8"
+            Background="{DynamicResource LayerFillColorAltBrush}">
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="8">
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="10">
+                <ci:FluentIcon Glyph="{x:Static icons:FluentIcons.ClockRegular}" FontSize="21" FontWeight="SemiBold" VerticalAlignment="Center" Foreground="{DynamicResource AccentFillColorDefaultBrush}" />
+                <TextBlock Text="即将关机…" FontSize="19.5" FontWeight="SemiBold" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <Border Grid.Row="1" Padding="16" CornerRadius="8"
+                    Background="{DynamicResource SystemFillColorAttentionBackgroundBrush}">
+                <StackPanel Spacing="10">
+                    <TextBlock x:Name="CountdownTextBlockElement"
+                               FontSize="18"
+                               FontWeight="DemiBold"
+                               Text="将在2分00秒后关机……" />
+                    <ProgressBar x:Name="CountdownProgressBarElement" Height="5" Minimum="0" Maximum="3000" Value="3000">
+                        <ProgressBar.Styles>
+                            <Style Selector="ProgressBar">
+                                <Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}"/>
+                            </Style>
+                        </ProgressBar.Styles>
+                    </ProgressBar>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Row="2" Spacing="12">
+                <TextBlock Text=" 即将关闭计算机。请及时保存您的工作或选择其他操作。"
+                           TextWrapping="Wrap"
+                           FontSize="14"
+                           Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
+
+            <Grid Grid.Row="3" ColumnDefinitions="*,Auto,Auto,Auto">
+                <Button x:Name="ReadButtonElement"
+                        Grid.Column="0"
+                        Height="33"
+                        MinWidth="81"
+                        Classes="accent"
+                        IsDefault="True">
+                    <ci:IconText Glyph="{x:Static icons:FluentIcons.CheckmarkFilled}" Text="已阅" Spacing="8" FontSize="15" Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}"/>
+                </Button>
+
+                <Button x:Name="ImmediateShutdownButtonElement" Height="33" MinWidth="110" Grid.Column="1" Margin="0 0 8 0">
+                    <ci:IconText Glyph="{x:Static icons:FluentIcons.PowerRegular}" Text="立即关机" Spacing="8" FontSize="15"/>
+                </Button>
+
+                <Button x:Name="ExtendButtonElement" Height="33" MinWidth="110" Grid.Column="2" Margin="0 0 8 0">
+                    <ci:IconText Glyph="{x:Static icons:FluentIcons.CalendarClockRegular}" Text="延迟关机" Spacing="8" FontSize="15"/>
+                </Button>
+
+                <Button x:Name="CancelPlanButtonElement" Height="33" MinWidth="130" Grid.Column="3">
+                    <ci:IconText Glyph="{x:Static icons:FluentIcons.ClockDismissRegular}" Text="取消关机计划" Spacing="8" FontSize="15"/>
+                </Button>
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>

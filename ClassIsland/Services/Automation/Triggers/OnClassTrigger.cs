@@ -5,6 +5,7 @@ using ClassIsland.Core.Attributes;
 
 namespace ClassIsland.Services.Automation.Triggers;
 
+[AutomationCategory("课程与时间")]
 [TriggerInfo("classisland.lessons.onClass", "上课时", "\uE47A")]
 public class OnClassTrigger(ILessonsService lessonsService) : TriggerBase
 {

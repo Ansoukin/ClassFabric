@@ -5,6 +5,7 @@ using ClassIsland.Core.Attributes;
 using ClassIsland.Models.Actions;
 namespace ClassIsland.Services.Automation.Actions;
 
+[AutomationCategory("应用与系统")]
 [ActionInfo("classisland.app.restart", "重启 ClassFabric", "\ue0bd", addDefaultToMenu:false)]
 public class AppRestartAction : ActionBase<AppRestartActionSettings>
 {

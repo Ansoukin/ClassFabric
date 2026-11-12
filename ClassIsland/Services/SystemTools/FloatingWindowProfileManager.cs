@@ -1,0 +1,250 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using ClassIsland.Core;
+using ClassIsland.Shared.Helpers;
+using ClassIsland.Models.SystemTools;
+
+namespace ClassIsland.Services.SystemTools;
+
+/// <summary>
+/// 管理悬浮窗配置方案的存储和加载，每个方案为独立的 JSON 文件。
+/// </summary>
+public class FloatingWindowProfileManager
+{
+    private readonly string _profilesDirectory;
+    private FloatingWindowProfile _currentProfile = new();
+    private string _currentProfileName = "Default";
+
+    public static FloatingWindowProfile DefaultProfile { get; } = new()
+    {
+        Name = "Default",
+        FloatingWindowButtonOrder = new List<string>(),
+        FloatingWindowButtonRows = new List<List<string>>(),
+        FloatingWindowButtonRulesets = new Dictionary<string, ButtonRulesetConfig>(),
+        FloatingWindowRowRulesets = new List<RowRulesetConfig>()
+    };
+
+    public FloatingWindowProfileManager()
+    {
+        _profilesDirectory = Path.Combine(CommonDirectories.AppRootFolderPath, "SystemTools", "FloatingWindowProfiles");
+        if (!Directory.Exists(_profilesDirectory))
+        {
+            Directory.CreateDirectory(_profilesDirectory);
+        }
+    }
+
+    public string ProfilesDirectory => _profilesDirectory;
+
+    /// <summary>
+    /// 判断指定名称的方案文件是否存在于磁盘。
+    /// </summary>
+    public bool ProfileFileExists(string profileName)
+    {
+        if (!IsValidProfileName(profileName))
+        {
+            return false;
+        }
+
+        return File.Exists(GetProfilePath(profileName));
+    }
+
+    public FloatingWindowProfile CurrentProfile => _currentProfile;
+
+    public string CurrentProfileName
+    {
+        get => _currentProfileName;
+        private set
+        {
+            if (_currentProfileName == value) return;
+            _currentProfileName = value;
+            CurrentProfile.Name = value;
+        }
+    }
+
+    /// <summary>
+    /// 获取所有可用的方案名称列表
+    /// </summary>
+    public IReadOnlyList<string> GetProfileNames()
+    {
+        if (!Directory.Exists(_profilesDirectory))
+        {
+            return new List<string> { "Default" };
+        }
+
+        var names = Directory.GetFiles(_profilesDirectory, "*.json")
+            .Select(Path.GetFileNameWithoutExtension)
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Select(x => x!)
+            .ToList();
+
+        if (names.Count == 0)
+        {
+            names.Add("Default");
+        }
+
+        return names;
+    }
+
+    /// <summary>
+    /// 加载指定名称的方案
+    /// </summary>
+    public void LoadProfile(string profileName)
+    {
+        if (!IsValidProfileName(profileName))
+        {
+            profileName = "Default";
+        }
+
+        var path = GetProfilePath(profileName);
+        if (!File.Exists(path))
+        {
+            // 文件不存在时只在内存中加载默认模板，不写回磁盘，
+            // 避免被显式删除的方案被自动重建。
+            _currentProfile = ConfigureFileHelper.CopyObject(DefaultProfile);
+            _currentProfile.Name = profileName;
+        }
+        else
+        {
+            _currentProfile = ConfigureFileHelper.LoadConfig<FloatingWindowProfile>(path);
+            _currentProfile.Name = profileName;
+        }
+
+        _currentProfileName = profileName;
+    }
+
+    /// <summary>
+    /// 保存当前方案
+    /// </summary>
+    public void SaveProfile()
+    {
+        var path = GetProfilePath(_currentProfileName);
+        ConfigureFileHelper.SaveConfig(path, _currentProfile);
+    }
+
+    /// <summary>
+    /// 创建新方案，基于当前方案或默认方案
+    /// </summary>
+    public string CreateProfile(string? name = null)
+    {
+        var baseName = name?.Trim();
+        if (string.IsNullOrWhiteSpace(baseName))
+        {
+            baseName = $"Profile {GetProfileNames().Count + 1}";
+        }
+
+        var profileName = baseName;
+        var counter = 1;
+        while (File.Exists(GetProfilePath(profileName)))
+        {
+            profileName = $"{baseName} ({counter})";
+            counter++;
+        }
+
+        var newProfile = ConfigureFileHelper.CopyObject(_currentProfile);
+        newProfile.Name = profileName;
+
+        var path = GetProfilePath(profileName);
+        ConfigureFileHelper.SaveConfig(path, newProfile);
+
+        return profileName;
+    }
+
+    /// <summary>
+    /// 删除指定方案
+    /// </summary>
+    public bool RemoveProfile(string profileName)
+    {
+        if (!IsValidProfileName(profileName) || string.Equals(profileName, "Default", StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        var path = GetProfilePath(profileName);
+        if (!File.Exists(path))
+        {
+            return false;
+        }
+
+        try
+        {
+            File.Delete(path);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// 重命名方案
+    /// </summary>
+    public bool RenameProfile(string oldName, string newName)
+    {
+        if (!IsValidProfileName(oldName) || !IsValidProfileName(newName) ||
+            string.Equals(oldName, newName, StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        var oldPath = GetProfilePath(oldName);
+        var newPath = GetProfilePath(newName);
+
+        if (!File.Exists(oldPath) || File.Exists(newPath))
+        {
+            return false;
+        }
+
+        try
+        {
+            File.Move(oldPath, newPath);
+            if (string.Equals(_currentProfileName, oldName, StringComparison.OrdinalIgnoreCase))
+            {
+                _currentProfileName = newName;
+                _currentProfile.Name = newName;
+            }
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public static bool IsValidProfileName(string? profileName)
+    {
+        if (string.IsNullOrWhiteSpace(profileName) || profileName.Length > 250 ||
+            profileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0 ||
+            profileName.EndsWith('.') || profileName.EndsWith(' '))
+        {
+            return false;
+        }
+
+        // Windows 设备名即使带上 .json 扩展名也依然是保留名，写入会被系统重定向到设备。
+        var stem = profileName.Split('.')[0].TrimEnd(' ').ToUpperInvariant();
+        return stem is not ("CON" or "PRN" or "AUX" or "NUL" or "CONIN$" or "CONOUT$") &&
+               !(stem.Length == 4 && (stem.StartsWith("COM") || stem.StartsWith("LPT")) &&
+                 "123456789¹²³".Contains(stem[3]));
+    }
+
+    private string GetProfilePath(string profileName)
+    {
+        if (!IsValidProfileName(profileName))
+        {
+            throw new ArgumentException("配置方案名称只能包含合法文件名字符。", nameof(profileName));
+        }
+
+        // 方案名直接拼进文件路径，必须夹在目录内，防止 "..\xxx" 之类输入逃出方案目录。
+        var root = Path.GetFullPath(_profilesDirectory)
+            .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+        var path = Path.GetFullPath(Path.Combine(root, profileName + ".json"));
+        if (!path.StartsWith(root, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new ArgumentException("配置方案路径必须位于配置目录内。", nameof(profileName));
+        }
+
+        return path;
+    }
+}

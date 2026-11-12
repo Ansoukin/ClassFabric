@@ -11,6 +11,7 @@ using ClassIsland.Platforms.Abstraction;
 using static ClassIsland.Models.Actions.RunActionSettings.RunActionRunType;
 namespace ClassIsland.Services.Automation.Actions;
 
+[AutomationCategory("应用与系统")]
 [ActionInfo("classisland.os.run", "运行", "\uec2e", addDefaultToMenu:false)]
 public class RunAction(IUriNavigationService uriNavigationService) : ActionBase<RunActionSettings>
 {

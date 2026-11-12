@@ -5,6 +5,7 @@ using ClassIsland.Core.Attributes;
 
 namespace ClassIsland.Services.Automation.Triggers;
 
+[AutomationCategory("应用生命周期")]
 [TriggerInfo("classisland.lifetime.stopping", "应用退出时", "\ue0df")]
 public class AppStoppingTrigger : TriggerBase
 {

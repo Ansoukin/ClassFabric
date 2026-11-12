@@ -7,6 +7,7 @@ using ClassIsland.Core.Enums;
 
 namespace ClassIsland.Services.Automation.Triggers;
 
+[AutomationCategory("应用生命周期")]
 [TriggerInfo("classisland.lifetime.startup", "应用启动时", "\ue067")]
 public class AppStartupTrigger : TriggerBase
 {

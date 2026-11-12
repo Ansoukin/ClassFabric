@@ -8,6 +8,7 @@ using ClassIsland.Core.Attributes;
 using ClassIsland.Models.Actions;
 namespace ClassIsland.Services.Automation.Actions;
 
+[AutomationCategory("流程控制")]
 [ActionInfo("classisland.action.sleep", "等待时长", "\ue9a8")]
 public class SleepAction : ActionBase<SleepActionSettings>
 {

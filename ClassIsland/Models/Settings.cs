@@ -167,6 +167,23 @@ public partial class Settings : ObservableRecipient, ILessonControlSettings, INo
     private bool _isAutomationEnabled = false;
     private bool _isAutomationWarningVisible = true;
     private string _currentAutomationConfig = "Default";
+    private bool _isAutomationPanelPickerEnabled = true;
+    private bool _isFloatingWindowEnabled = false;
+    private bool _showFloatingWindow = true;
+    private double _floatingWindowScale = 1.0;
+    private int _floatingWindowTextSize = 12;
+    private int _floatingWindowIconSize = 22;
+    private int _floatingWindowOpacity = 80;
+    private bool _floatingWindowShadowEnabled = true;
+    private int _floatingWindowTheme = 0;
+    private int _floatingWindowPositionX = 100;
+    private int _floatingWindowPositionY = 100;
+    private int _floatingWindowLayer = 1;
+    private int _floatingWindowLayerRecheckMode = 1;
+    private string _currentFloatingWindowProfile = "Default";
+    private bool _floatingWindowRulesetEnabled = false;
+    private bool _floatingWindowDragHandleAlwaysVisible = false;
+    private ClassIsland.Core.Models.Ruleset.Ruleset _floatingWindowRuleset = new();
     private Version _lastAppVersion = new Version("0.0.0.0");
     private bool _showComponentsMigrateTip = false;
     private bool _expAllowEditingActivatedTimeLayout = false;
@@ -1844,6 +1861,210 @@ public partial class Settings : ObservableRecipient, ILessonControlSettings, INo
         {
             if (value == _isAutomationWarningVisible) return;
             _isAutomationWarningVisible = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    /// 自动化编辑器的触发器/行动选择是否使用新面板；关闭则回退旧的行内下拉与级联菜单。
+    /// </summary>
+    public bool IsAutomationPanelPickerEnabled
+    {
+        get => _isAutomationPanelPickerEnabled;
+        set
+        {
+            if (value == _isAutomationPanelPickerEnabled) return;
+            _isAutomationPanelPickerEnabled = value;
+            OnPropertyChanged();
+        }
+    }
+
+    #endregion
+
+    #region SystemTools
+
+    /// <summary>
+    /// 悬浮窗快捷遥控器总开关。关闭时整条功能链路不启动；按钮编排保存在配置方案里，重新打开即可恢复。
+    /// </summary>
+    public bool IsFloatingWindowEnabled
+    {
+        get => _isFloatingWindowEnabled;
+        set
+        {
+            if (value == _isFloatingWindowEnabled) return;
+            _isFloatingWindowEnabled = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>悬浮窗当前是否显示（拖到托盘/行动可以切；总开关关闭时此值无效）。</summary>
+    public bool ShowFloatingWindow
+    {
+        get => _showFloatingWindow;
+        set
+        {
+            if (value == _showFloatingWindow) return;
+            _showFloatingWindow = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public double FloatingWindowScale
+    {
+        get => _floatingWindowScale;
+        set
+        {
+            if (value.Equals(_floatingWindowScale)) return;
+            _floatingWindowScale = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int FloatingWindowTextSize
+    {
+        get => _floatingWindowTextSize;
+        set
+        {
+            if (value == _floatingWindowTextSize) return;
+            _floatingWindowTextSize = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int FloatingWindowIconSize
+    {
+        get => _floatingWindowIconSize;
+        set
+        {
+            if (value == _floatingWindowIconSize) return;
+            _floatingWindowIconSize = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int FloatingWindowOpacity
+    {
+        get => _floatingWindowOpacity;
+        set
+        {
+            if (value == _floatingWindowOpacity) return;
+            _floatingWindowOpacity = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool FloatingWindowShadowEnabled
+    {
+        get => _floatingWindowShadowEnabled;
+        set
+        {
+            if (value == _floatingWindowShadowEnabled) return;
+            _floatingWindowShadowEnabled = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>悬浮窗配色主题：0=跟随系统 1=浅色 2=深色 3=自适应背景。</summary>
+    public int FloatingWindowTheme
+    {
+        get => _floatingWindowTheme;
+        set
+        {
+            if (value == _floatingWindowTheme) return;
+            _floatingWindowTheme = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int FloatingWindowPositionX
+    {
+        get => _floatingWindowPositionX;
+        set
+        {
+            if (value == _floatingWindowPositionX) return;
+            _floatingWindowPositionX = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int FloatingWindowPositionY
+    {
+        get => _floatingWindowPositionY;
+        set
+        {
+            if (value == _floatingWindowPositionY) return;
+            _floatingWindowPositionY = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>悬浮窗层级：0=置底（桌面便签式） 1=置顶。</summary>
+    public int FloatingWindowLayer
+    {
+        get => _floatingWindowLayer;
+        set
+        {
+            if (value == _floatingWindowLayer) return;
+            _floatingWindowLayer = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>置底层级的维持方式：0=窗口重排事件 1=前台切换事件 2=50ms 轮询 3=1ms 轮询。</summary>
+    public int FloatingWindowLayerRecheckMode
+    {
+        get => _floatingWindowLayerRecheckMode;
+        set
+        {
+            if (value == _floatingWindowLayerRecheckMode) return;
+            _floatingWindowLayerRecheckMode = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>当前生效的悬浮窗方案名；方案文件存应用数据目录 SystemTools\FloatingWindowProfiles 下。</summary>
+    public string CurrentFloatingWindowProfile
+    {
+        get => _currentFloatingWindowProfile;
+        set
+        {
+            if (value == _currentFloatingWindowProfile) return;
+            OnPropertyChanging();
+            _currentFloatingWindowProfile = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>整窗显隐规则集开关（配合课程表等条件自动隐藏悬浮窗）。</summary>
+    public bool FloatingWindowRulesetEnabled
+    {
+        get => _floatingWindowRulesetEnabled;
+        set
+        {
+            if (value == _floatingWindowRulesetEnabled) return;
+            _floatingWindowRulesetEnabled = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool FloatingWindowDragHandleAlwaysVisible
+    {
+        get => _floatingWindowDragHandleAlwaysVisible;
+        set
+        {
+            if (value == _floatingWindowDragHandleAlwaysVisible) return;
+            _floatingWindowDragHandleAlwaysVisible = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public ClassIsland.Core.Models.Ruleset.Ruleset FloatingWindowRuleset
+    {
+        get => _floatingWindowRuleset;
+        set
+        {
+            if (Equals(value, _floatingWindowRuleset)) return;
+            _floatingWindowRuleset = value;
             OnPropertyChanged();
         }
     }

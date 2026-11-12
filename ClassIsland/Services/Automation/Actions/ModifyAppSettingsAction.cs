@@ -15,6 +15,7 @@ using ClassIsland.Shared.Helpers;
 using Microsoft.Extensions.Logging;
 namespace ClassIsland.Services.Automation.Actions;
 
+[AutomationCategory("应用与系统")]
 [ActionInfo("classisland.settings", "应用设置", "\uef27", addDefaultToMenu: false)]
 public class ModifyAppSettingsAction : ActionBase<ModifyAppSettingsActionSettings>
 {

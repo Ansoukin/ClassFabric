@@ -5,6 +5,7 @@ using ClassIsland.Models.EventArgs;
 
 namespace ClassIsland.Services.Automation.Triggers;
 
+[AutomationCategory("事件与集成")]
 [TriggerInfo("classisland.signal", "收到信号时", "\ue40e")]
 public class SignalTrigger(SignalTriggerHandlerService signalTriggerHandlerService) : TriggerBase<SignalTriggerSettings>
 {

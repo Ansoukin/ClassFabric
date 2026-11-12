@@ -5,6 +5,7 @@ using ClassIsland.Core.Attributes;
 
 namespace ClassIsland.Services.Automation.Triggers;
 
+[AutomationCategory("事件与集成")]
 [TriggerInfo("classisland.ruleSet.rulesetChanged", "规则集更新时", "\uf17e")]
 public class RulesetChangedTrigger(IRulesetService rulesetService) : TriggerBase
 {

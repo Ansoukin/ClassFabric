@@ -10,6 +10,7 @@ using ClassIsland.Shared.Models.Profile;
 
 namespace ClassIsland.Services.Automation.Triggers;
 
+[AutomationCategory("课程与时间")]
 [TriggerInfo("classisland.lessons.preTimePoint", "特定时间点前", "\ue4c6")]
 public class PreTimePointTrigger(ILessonsService lessonsService, IExactTimeService exactTimeService) : TriggerBase<PreTimePointTriggerSettings>
 {
