@@ -1,0 +1,385 @@
+<ci:SettingsPageBase x:Class="ClassIsland.Views.SettingPages.FloatingWindowEditorSettingsPage"
+                     xmlns="https://github.com/avaloniaui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:ci="http://classisland.tech/schemas/xaml/core"
+                     xmlns:icons="clr-namespace:ClassIsland.Core.Icons;assembly=ClassIsland.Core"
+                     xmlns:fa="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+                     xmlns:local="clr-namespace:ClassIsland.Views.SettingPages"
+                     x:CompileBindings="False"
+                     mc:Ignorable="d"
+                     d:DesignHeight="800"
+                     d:DesignWidth="800">
+
+    <!--
+      悬浮窗编辑页，移植自社区插件 SystemTools 的同名设置页。
+      与插件版的差异（液态玻璃不移植）：
+      1. 删掉了「悬浮窗样式」选择框（原「经典/液态玻璃(实验性)」两档，本仓只有经典材质）；
+      2. 删掉了玻璃模糊/玻璃折射/背景刷新频率/按钮弹性四组参数，以及配套的可用性联动逻辑；
+      3. 透明度改为直接绑定全局设置的不透明度 FloatingWindowOpacity（数值越大越不透明）；
+      4. 页面标题走本仓 [HidePageTitle] + 自绘标题。
+    -->
+    <ScrollViewer>
+        <StackPanel Classes="settings-container animated-intro">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                <ci:FluentIcon FontSize="56"
+                               Glyph="{ci:FI LayerDiagonalSparkleRegular}"
+                               Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                               VerticalAlignment="Center" />
+                <TextBlock VerticalAlignment="Center" FontSize="28">悬浮窗编辑</TextBlock>
+            </StackPanel>
+
+            <!-- 方案管理 + 显示开关（紧凑顶部栏） -->
+            <fa:FASettingsExpander IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.LayerDiagonalSparkleRegular}}"
+                                   Header="悬浮窗按钮布局"
+                                   Description="您可在下方通过拖拽调整行内按钮顺序，或添加行以实现纵列排布等功能"
+                                   IsExpanded="True">
+                <StackPanel Margin="12,8,12,12" Spacing="8">
+                    <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                        <ci:Field Grid.Column="0" Label="配置方案">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <ComboBox ItemsSource="{Binding ViewModel.FloatingWindowProfileNames}"
+                                          SelectedItem="{Binding ViewModel.SelectedFloatingWindowProfile, Mode=TwoWay}"
+                                          SelectionChanged="OnFloatingWindowProfileSelectionChanged"
+                                          MinWidth="150"
+                                          MaxWidth="250" />
+                                <Button Content="{ci:FluentIcon {x:Static icons:FluentIcons.AddRegular}}"
+                                        ToolTip.Tip="新建"
+                                        Click="OnAddFloatingWindowProfileClick"
+                                        Theme="{StaticResource TransparentButton}" />
+                                <Button Content="{ci:FluentIcon {x:Static icons:FluentIcons.FolderOpenRegular}}"
+                                        ToolTip.Tip="打开悬浮窗配置文件夹"
+                                        Click="OnOpenFloatingWindowProfileFolderClick"
+                                        Theme="{StaticResource TransparentButton}" />
+                                <Button Content="{ci:FluentIcon {x:Static icons:FluentIcons.DeleteRegular}}"
+                                        ToolTip.Tip="删除当前方案"
+                                        Click="OnRemoveCurrentProfileClick"
+                                        Theme="{StaticResource TransparentButton}" />
+                            </StackPanel>
+                        </ci:Field>
+                        <ToggleSwitch Grid.Column="1"
+                                      OnContent="显示" OffContent="隐藏"
+                                      IsChecked="{Binding ViewModel.Settings.ShowFloatingWindow, Mode=OneWay}"
+                                      IsEnabled="{Binding ViewModel.HasFloatingTriggerEntries}"
+                                      VerticalAlignment="Center"
+                                      IsCheckedChanged="OnFloatingWindowVisibleToggleChanged" />
+                    </Grid>
+
+                    <Grid>
+                        <Button Content="添加行" Width="92" HorizontalAlignment="Left"
+                                Click="OnAddFloatingTriggerRowClick" />
+                    </Grid>
+                    <ItemsControl ItemsSource="{Binding ViewModel.FloatingTriggerRows}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="6"
+                                        Padding="8"
+                                        Margin="0,0,0,6"
+                                        DragDrop.AllowDrop="True"
+                                        DragDrop.DragOver="OnFloatingTriggerRowDragOver"
+                                        DragDrop.Drop="OnFloatingTriggerRowDrop">
+                                    <StackPanel Spacing="6">
+                                        <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                                            <TextBlock Text="按钮行"
+                                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                                            <StackPanel Grid.Column="1"
+                                                        Orientation="Horizontal"
+                                                        Spacing="2"
+                                                        VerticalAlignment="Center">
+                                                <Button Content="{ci:FluentIcon {x:Static icons:FluentIcons.TagMultipleRegular}}"
+                                                        FontSize="12"
+                                                        Padding="4,2"
+                                                        MinWidth="24"
+                                                        MinHeight="24"
+                                                        ToolTip.Tip="行规则集"
+                                                        Click="OnRowRulesetClick"
+                                                        Theme="{StaticResource TransparentButton}" />
+                                                <Button Content="{ci:FluentIcon {x:Static icons:FluentIcons.AddRegular}}"
+                                                        FontSize="12"
+                                                        Padding="4,2"
+                                                        MinWidth="24"
+                                                        MinHeight="24"
+                                                        ToolTip.Tip="在下方插入一行"
+                                                        Click="OnInsertRowBelowClick"
+                                                        Theme="{StaticResource TransparentButton}" />
+                                                <Button Content="{ci:FluentIcon {x:Static icons:FluentIcons.DeleteRegular}}"
+                                                        FontSize="12"
+                                                        Padding="4,2"
+                                                        MinWidth="24"
+                                                        MinHeight="24"
+                                                        ToolTip.Tip="删除行"
+                                                        Click="OnRemoveFloatingTriggerRowClick"
+                                                        Theme="{StaticResource TransparentButton}" />
+                                            </StackPanel>
+                                        </Grid>
+                                        <Border MinHeight="52"
+                                                CornerRadius="6"
+                                                Background="{DynamicResource SubtleFillColorTertiaryBrush}"
+                                                Padding="6"
+                                                DragDrop.AllowDrop="True"
+                                                DragDrop.DragOver="OnFloatingTriggerRowDragOver"
+                                                DragDrop.Drop="OnFloatingTriggerRowDrop">
+                                            <ItemsControl ItemsSource="{Binding Buttons}"
+                                                          HorizontalAlignment="Stretch"
+                                                          VerticalAlignment="Center"
+                                                          DragDrop.AllowDrop="True"
+                                                          DragDrop.DragOver="OnFloatingTriggerRowDragOver"
+                                                          DragDrop.Drop="OnFloatingTriggerRowDrop">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Horizontal"
+                                                                    HorizontalAlignment="Center" Spacing="8" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border
+                                                            Background="{DynamicResource SubtleFillColorSecondaryBrush}"
+                                                            CornerRadius="6"
+                                                            Padding="4,2"
+                                                            Margin="0,0,2,0"
+                                                            DragDrop.AllowDrop="True"
+                                                            DragDrop.DragOver="OnFloatingTriggerItemDragOver"
+                                                            DragDrop.Drop="OnFloatingTriggerItemDrop">
+                                                            <StackPanel Orientation="Horizontal"
+                                                                        Spacing="4"
+                                                                        VerticalAlignment="Center">
+                                                                <Border Tag="{Binding ButtonId}"
+                                                                        Padding="4,2"
+                                                                        CornerRadius="4"
+                                                                        Background="{DynamicResource SubtleFillColorTertiaryBrush}"
+                                                                        PointerPressed="OnFloatingTriggerItemPointerPressed"
+                                                                        PointerMoved="OnFloatingTriggerItemPointerMoved"
+                                                                        PointerReleased="OnFloatingTriggerItemPointerReleased">
+                                                                    <TextBlock Text="⋮⋮"
+                                                                               FontSize="14"
+                                                                               VerticalAlignment="Center"
+                                                                               HorizontalAlignment="Center" />
+                                                                </Border>
+                                                                <StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                                                                    <fa:FAIconSourceElement IconSource="{Binding IconSource}"
+                                                                                         Width="16" Height="16"
+                                                                                         TextElement.FontSize="14"
+                                                                                         VerticalAlignment="Center" />
+                                                                    <TextBlock Text="{Binding ButtonName}" FontSize="13" VerticalAlignment="Center" />
+                                                                </StackPanel>
+                                                                <Button Content="{ci:FluentIcon {x:Static icons:FluentIcons.TagMultipleRegular}}"
+                                                                        FontSize="12"
+                                                                        Padding="4,2"
+                                                                        MinWidth="22"
+                                                                        MinHeight="22"
+                                                                        VerticalAlignment="Center"
+                                                                        ToolTip.Tip="按钮规则集"
+                                                                        Click="OnFloatingTriggerItemSettingsClick"
+                                                                        Theme="{StaticResource TransparentButton}" />
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </fa:FASettingsExpander>
+
+            <!-- 外观设置（经典材质参数） -->
+            <fa:FASettingsExpander IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.ColorRegular}}"
+                                   Header="外观设置"
+                                   Description="设置悬浮窗外观"
+                                   IsExpanded="False">
+
+                <fa:FASettingsExpanderItem IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.ArrowMaximizeRegular}}"
+                                           Content="悬浮窗缩放"
+                                           Description="调整悬浮窗缩放大小">
+                    <fa:FASettingsExpanderItem.Footer>
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Slider Width="160"
+                                    Minimum="0.5"
+                                    Maximum="2"
+                                    TickFrequency="0.1"
+                                    IsSnapToTickEnabled="True"
+                                    ToolTip.Tip="{Binding ViewModel.Settings.FloatingWindowScale, StringFormat='{}{0:F1}x'}"
+                                    Value="{Binding ViewModel.Settings.FloatingWindowScale, Mode=TwoWay}" />
+                            <TextBlock
+                                Text="{Binding ViewModel.Settings.FloatingWindowScale, StringFormat='{}{0:F1}x'}"
+                                Width="46"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
+                    </fa:FASettingsExpanderItem.Footer>
+                </fa:FASettingsExpanderItem>
+
+                <fa:FASettingsExpanderItem IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.DocumentPrintRegular}}"
+                                           Content="图标大小"
+                                           Description="调整悬浮窗内图标缩放">
+                    <fa:FASettingsExpanderItem.Footer>
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Slider Width="160"
+                                    Minimum="15"
+                                    Maximum="50"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    ToolTip.Tip="{Binding ViewModel.Settings.FloatingWindowIconSize, StringFormat='{}{0}px'}"
+                                    Value="{Binding ViewModel.Settings.FloatingWindowIconSize, Mode=TwoWay}" />
+                            <TextBlock
+                                Text="{Binding ViewModel.Settings.FloatingWindowIconSize, StringFormat='{}{0}px'}"
+                                Width="46"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
+                    </fa:FASettingsExpanderItem.Footer>
+                </fa:FASettingsExpanderItem>
+
+                <fa:FASettingsExpanderItem IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.TextFontRegular}}"
+                                           Content="文字大小"
+                                           Description="调整悬浮窗内文字缩放">
+                    <fa:FASettingsExpanderItem.Footer>
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Slider Width="160"
+                                    Minimum="8"
+                                    Maximum="25"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    ToolTip.Tip="{Binding ViewModel.Settings.FloatingWindowTextSize, StringFormat='{}{0}px'}"
+                                    Value="{Binding ViewModel.Settings.FloatingWindowTextSize, Mode=TwoWay}" />
+                            <TextBlock
+                                Text="{Binding ViewModel.Settings.FloatingWindowTextSize, StringFormat='{}{0}px'}"
+                                Width="46"
+                                VerticalAlignment="Center" />
+                        </StackPanel>
+                    </fa:FASettingsExpanderItem.Footer>
+                </fa:FASettingsExpanderItem>
+
+                <fa:FASettingsExpanderItem IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.DrawImageFilled}}"
+                                           Content="不透明度"
+                                           Description="调整悬浮窗不透明度，数值越大越不透明">
+                    <fa:FASettingsExpanderItem.Footer>
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <Slider Width="160"
+                                    Minimum="10"
+                                    Maximum="100"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    ToolTip.Tip="{Binding ViewModel.Settings.FloatingWindowOpacity, StringFormat='{}{0}%'}"
+                                    Value="{Binding ViewModel.Settings.FloatingWindowOpacity, Mode=TwoWay}" />
+                            <TextBlock Text="{Binding ViewModel.Settings.FloatingWindowOpacity, StringFormat='{}{0}%'}"
+                                       Width="46"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </fa:FASettingsExpanderItem.Footer>
+                </fa:FASettingsExpanderItem>
+
+                <fa:FASettingsExpanderItem IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.DarkThemeRegular}}"
+                                           Content="主题"
+                                           Description="设置悬浮窗主题">
+                    <fa:FASettingsExpanderItem.Footer>
+                        <ComboBox SelectedIndex="{Binding ViewModel.Settings.FloatingWindowTheme, Mode=TwoWay}">
+                            <ComboBoxItem>
+                                <ci:IconText Glyph="{ci:FI DarkThemeRegular}" Text="跟随ClassIsland" />
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <ci:IconText Glyph="{ci:FI WeatherSunnyRegular}" Text="明亮" />
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <ci:IconText Glyph="{ci:FI WeatherMoonRegular}" Text="黑暗" />
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <ci:IconText Glyph="{ci:FI ColorBackgroundRegular}" Text="自适应背景" />
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </fa:FASettingsExpanderItem.Footer>
+                </fa:FASettingsExpanderItem>
+
+                <fa:FASettingsExpanderItem IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.BlurRegular}}"
+                                           Content="阴影效果"
+                                           Description="悬浮窗阴影效果">
+                    <fa:FASettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding ViewModel.Settings.FloatingWindowShadowEnabled, Mode=TwoWay}" />
+                    </fa:FASettingsExpanderItem.Footer>
+                </fa:FASettingsExpanderItem>
+
+                <fa:FASettingsExpanderItem IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.HandWaveRegular}}"
+                                           Content="一直显示拖动把手"
+                                           Description="即使未检测到触摸设备也显示拖动把手">
+                    <fa:FASettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding ViewModel.Settings.FloatingWindowDragHandleAlwaysVisible, Mode=TwoWay}" />
+                    </fa:FASettingsExpanderItem.Footer>
+                </fa:FASettingsExpanderItem>
+            </fa:FASettingsExpander>
+
+            <!-- 层级设置 -->
+            <fa:FASettingsExpander IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.LayerRegular}}"
+                                   Header="悬浮窗层级"
+                                   Description="悬浮窗在屏幕上的层级。置底则会显示在所有窗口的后方，置顶则将显示在所有窗口的前方。"
+                                   IsExpanded="False">
+                <fa:FASettingsExpander.Footer>
+                    <ComboBox SelectedIndex="{Binding ViewModel.Settings.FloatingWindowLayer, Mode=TwoWay}">
+                        <ComboBoxItem>
+                            <ci:IconText Glyph="{ci:FI ArrowDownRegular}" Text="置底" />
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <ci:IconText Glyph="{ci:FI ArrowUpRegular}" Text="置顶" />
+                        </ComboBoxItem>
+                    </ComboBox>
+                </fa:FASettingsExpander.Footer>
+                <fa:FASettingsExpanderItem IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.ArrowRepeatAllRegular}}"
+                                           Content="层级设置频率"
+                                           Description="在什么时候重新设置悬浮窗层级。请注意，较高的频率可能会产生较高的性能占用并导致悬浮窗闪烁。">
+                    <fa:FASettingsExpanderItem.Footer>
+                        <ComboBox
+                            SelectedIndex="{Binding ViewModel.Settings.FloatingWindowLayerRecheckMode, Mode=TwoWay}">
+                            <ComboBoxItem>窗口层级变化时</ComboBoxItem>
+                            <ComboBoxItem>前台窗口变化时</ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal"
+                                            Classes="items-valign-center"
+                                            Spacing="4">
+                                    <TextBlock Text="每 50ms" />
+                                    <ci:FluentIcon Glyph="{ci:FI WarningRegular}"
+                                                   FontSize="20"
+                                                   Margin="0 -8"
+                                                   Foreground="Orange" />
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal"
+                                            Classes="items-valign-center"
+                                            Spacing="4">
+                                    <TextBlock Text="每 1ms（高占用）" />
+                                    <ci:FluentIcon Glyph="{ci:FI WarningRegular}"
+                                                   FontSize="20"
+                                                   Margin="0 -8"
+                                                   Foreground="OrangeRed" />
+                                </StackPanel>
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </fa:FASettingsExpanderItem.Footer>
+                </fa:FASettingsExpanderItem>
+            </fa:FASettingsExpander>
+
+            <!-- 规则集设置（全局设置，不随方案切换） -->
+            <fa:FASettingsExpander IconSource="{ci:FluentIconSource {x:Static icons:FluentIcons.SlideHideRegular}}"
+                                   Header="按规则隐藏"
+                                   Description="在指定规则满足时，自动隐藏悬浮窗。此为全局设置，不随配置方案切换。">
+                <fa:FASettingsExpander.Footer>
+                    <StackPanel Orientation="Horizontal">
+                        <Button HorizontalAlignment="Left"
+                                Theme="{StaticResource TransparentButton}"
+                                Click="ButtonOpenFloatingWindowRuleset_OnClick"
+                                IsVisible="{Binding ViewModel.Settings.FloatingWindowRulesetEnabled}">
+                            <ci:IconText Glyph="{ci:FI TagMultipleRegular}" Text="编辑规则集…" />
+                        </Button>
+                        <ToggleSwitch VerticalAlignment="Center"
+                                      OnContent="启用" OffContent="禁用"
+                                      IsChecked="{Binding ViewModel.Settings.FloatingWindowRulesetEnabled}" />
+                    </StackPanel>
+                </fa:FASettingsExpander.Footer>
+            </fa:FASettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
+</ci:SettingsPageBase>

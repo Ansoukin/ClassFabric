@@ -8,6 +8,7 @@ using ClassIsland.Core.Abstractions.Services;
 using System.Threading.Tasks;
 using ClassIsland.Core.Abstractions.Automation;
 using ClassIsland.Core.Models.Automation;
+using ClassIsland.Core.Icons;
 using ClassIsland.Models.Actions;
 using ClassIsland.Shared.Enums;
 using ClassIsland.Shared.Models.Automation;
@@ -252,6 +253,65 @@ public class ActionService : IActionService
             new ActionMenuTreeItem("classisland.app.quit", "退出 ClassFabric", "\ue0df"),
             new ActionMenuTreeItem("classisland.app.restart", "重启 ClassFabric", "\ue0bd")
         ));
+
+        // 系统工具行动子树。这些行动都依赖 Windows 能力（模拟输入/系统命令/注册表），非 Windows 平台挂出来也无法执行，整棵跳过。
+        // 条目名与图标沿用社区插件 SystemTools 的菜单结构，用过插件版的用户可以无缝对上。
+        if (OperatingSystem.IsWindows())
+        {
+            ActionMenuTree.Add(
+                new ActionMenuTreeGroup("系统工具", FluentIcons.AppsSettingsRegular,
+                new ActionMenuTreeGroup("模拟操作…", FluentIcons.KeyboardRegular,
+                    new ActionMenuTreeItem("SystemTools.SimulateKeyboard", "模拟键盘", FluentIcons.KeyboardLayoutFloatRegular),
+                    new ActionMenuTreeItem("SystemTools.SimulateKeyCombination", "模拟组合键", FluentIcons.KeyboardLayoutSplitRegular),
+                    new ActionMenuTreeItem("SystemTools.SimulateMouse", "模拟鼠标", FluentIcons.CursorClickRegular),
+                    new ActionMenuTreeItem("SystemTools.TypeContent", "键入内容", FluentIcons.ClipboardTextEditRegular),
+                    new ActionMenuTreeItem("SystemTools.WindowOperation", "窗口操作", FluentIcons.WindowMultipleSwapRegular),
+                    new ActionMenuTreeGroup("常用模拟键", FluentIcons.KeyboardRegular,
+                        new ActionMenuTreeItem("SystemTools.AltF4", "按下 Alt+F4", FluentIcons.KeyboardRegular),
+                        new ActionMenuTreeItem("SystemTools.AltTab", "按下 Alt+Tab", FluentIcons.KeyboardRegular),
+                        new ActionMenuTreeItem("SystemTools.CtrlZ", "按下 Ctrl+Z", FluentIcons.KeyboardRegular),
+                        new ActionMenuTreeItem("SystemTools.EnterKey", "按下 Enter 键", FluentIcons.KeyboardRegular),
+                        new ActionMenuTreeItem("SystemTools.EscKey", "按下 Esc 键", FluentIcons.KeyboardRegular),
+                        new ActionMenuTreeItem("SystemTools.F11Key", "按下 F11 键", FluentIcons.KeyboardRegular))),
+                new ActionMenuTreeGroup("显示设置…", FluentIcons.TvRegular,
+                    new ActionMenuTreeItem("SystemTools.CloneDisplay", "复制屏幕", FluentIcons.DesktopArrowRightRegular),
+                    new ActionMenuTreeItem("SystemTools.ExtendDisplay", "扩展屏幕", FluentIcons.DesktopSignalRegular),
+                    new ActionMenuTreeItem("SystemTools.InternalDisplay", "仅电脑屏幕", FluentIcons.DesktopRegular),
+                    new ActionMenuTreeItem("SystemTools.ExternalDisplay", "仅第二屏幕", FluentIcons.DesktopMacRegular),
+                    new ActionMenuTreeItem("SystemTools.BlackScreenHtml", "黑屏html", FluentIcons.DesktopOffRegular),
+                    new ActionMenuTreeItem("SystemTools.ShowDesktop", "显示桌面", FluentIcons.DesktopRegular),
+                    new ActionMenuTreeItem("SystemTools.AdjustScreenBrightness", "调整屏幕亮度", FluentIcons.WeatherSunnyFilled)),
+                new ActionMenuTreeGroup("电源选项…", FluentIcons.PowerFilled,
+                    new ActionMenuTreeItem("SystemTools.Shutdown", "计时关机", FluentIcons.ClockRegular),
+                    new ActionMenuTreeItem("SystemTools.AdvancedShutdown", "高级计时关机", FluentIcons.ClockSparkleRegular),
+                    new ActionMenuTreeItem("SystemTools.CancelShutdown", "取消关机计划", FluentIcons.ClockDismissRegular),
+                    new ActionMenuTreeItem("SystemTools.LockScreen", "锁定屏幕", FluentIcons.LockClosedRegular),
+                    new ActionMenuTreeItem("SystemTools.ImmediateRestart", "立即重启", FluentIcons.ArrowCounterclockwiseRegular),
+                    new ActionMenuTreeItem("SystemTools.ImmediateShutdown", "立即关机", FluentIcons.PowerRegular),
+                    new ActionMenuTreeItem("SystemTools.Sleep", "睡眠", FluentIcons.WeatherMoonRegular)),
+                new ActionMenuTreeGroup("文件操作…", FluentIcons.DocumentToolboxRegular,
+                    new ActionMenuTreeItem("SystemTools.Copy", "复制", FluentIcons.DocumentCopyRegular),
+                    new ActionMenuTreeItem("SystemTools.Move", "移动", FluentIcons.DocumentLandscapeSplitHintRegular),
+                    new ActionMenuTreeItem("SystemTools.Delete", "删除", FluentIcons.DeleteRegular)),
+                new ActionMenuTreeGroup("系统个性化…", FluentIcons.WandRegular,
+                    new ActionMenuTreeItem("SystemTools.ChangeWallpaper", "切换壁纸", FluentIcons.ImageArrowForwardRegular),
+                    new ActionMenuTreeItem("SystemTools.SwitchTheme", "切换主题色", FluentIcons.WandRegular),
+                    new ActionMenuTreeItem("SystemTools.SwitchSystemAccentColor", "切换系统强调色", FluentIcons.ColorFillRegular)),
+                new ActionMenuTreeGroup("实用工具…", FluentIcons.CalendarSparkleRegular,
+                    new ActionMenuTreeItem("SystemTools.KillProcess", "退出进程", FluentIcons.ArrowExitFilled),
+                    new ActionMenuTreeItem("SystemTools.ScreenShot", "屏幕截图", FluentIcons.ScreenCutRegular),
+                    new ActionMenuTreeItem("SystemTools.DisableDevice", "禁用硬件设备", FluentIcons.ArrowCircleDownRegular),
+                    new ActionMenuTreeItem("SystemTools.EnableDevice", "启用硬件设备", FluentIcons.ArrowCircleUpRegular)),
+                new ActionMenuTreeGroup("媒体工具…", FluentIcons.CalendarPlayRegular,
+                    new ActionMenuTreeItem("SystemTools.BackgroundPlayAudio", "后台播放音频", FluentIcons.MusicNote2PlayRegular),
+                    new ActionMenuTreeItem("SystemTools.SetVolume", "设置系统音量", FluentIcons.SpeakerEditRegular)),
+                new ActionMenuTreeGroup("悬浮窗设置…", FluentIcons.LayerDiagonalSparkleRegular,
+                    new ActionMenuTreeItem("SystemTools.ShowFloatingWindow", "显示悬浮窗", FluentIcons.LayerDiagonalSparkleRegular),
+                    new ActionMenuTreeItem("SystemTools.ToggleFloatingWindowLayer", "切换悬浮窗层级", FluentIcons.HourglassRegular),
+                    new ActionMenuTreeItem("SystemTools.ToggleFloatingWindowProfile", "切换悬浮窗配置方案", FluentIcons.HourglassRegular),
+                    new ActionMenuTreeItem("SystemTools.SwitchFloatingWindowTheme", "切换悬浮窗主题", FluentIcons.DrinkWineFilled))
+            ));
+        }
 
         return;
 

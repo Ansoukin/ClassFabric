@@ -16,6 +16,7 @@ using ClassIsland.Controls.ProfileTransferProviders;
 using ClassIsland.Controls.RuleSettingsControls;
 using ClassIsland.Controls.SpeechProviderSettingsControls;
 using ClassIsland.Controls.TriggerSettingsControls;
+using ClassIsland.Controls.ActionSettingsControls.SystemTools;
 using ClassIsland.Core.Abstractions.Services;
 using ClassIsland.Core.Abstractions.Services.Management;
 using ClassIsland.Core.Abstractions.Services.Metadata;
@@ -37,8 +38,10 @@ using ClassIsland.Services;
 using ClassIsland.Services.WeatherProviders;
 using ClassIsland.Services.AppUpdating;
 using ClassIsland.Services.Automation.Actions;
+using ClassIsland.Services.Automation.Actions.SystemTools;
 using ClassIsland.Services.Automation.Triggers;
 using ClassIsland.Services.Logging;
+using ClassIsland.Services.SystemTools;
 using ClassIsland.Services.Management;
 using ClassIsland.Services.Metadata;
 using ClassIsland.Services.NotificationProviders;
@@ -90,6 +93,10 @@ public partial class App
         services.AddSingleton<ILessonsService, LessonsService>();
         services.AddSingleton<IUriNavigationService, UriNavigationService>();
         services.AddHostedService<MemoryWatchDogService>();
+        // SystemTools 悬浮窗：方案管理与窗口服务。总开关关闭时服务保持休眠，开关联动由服务内部处理。
+        services.AddSingleton<FloatingWindowProfileManager>();
+        services.AddSingleton<FloatingWindowService>();
+        services.AddHostedService(sp => sp.GetRequiredService<FloatingWindowService>());
         services.AddSingleton<IPluginService, PluginService>();
         services.AddSingleton<IPluginMarketService, PluginMarketService>();
         services.AddSingleton<IRulesetService, RulesetService>();
@@ -136,6 +143,7 @@ public partial class App
         services.AddTransient<WindowSettingsViewModel>();
         services.AddTransient<WeatherSettingsViewModel>();
         services.AddTransient<AutomationSettingsViewModel>();
+        services.AddTransient<FloatingWindowEditorSettingsViewModel>();
         services.AddTransient<PluginsSettingsPageViewModel>();
         services.AddTransient<StorageSettingsViewModel>();
         services.AddTransient<ErrorSettingsViewModel>();
@@ -211,6 +219,7 @@ public partial class App
         services.AddSettingsPage<ManagementPolicySettingsPage>();
         services.AddSettingsPage<ErrorSettingsPage>();
         services.AddSettingsPage<SettingsNavigationPage>();
+        services.AddSettingsPage<FloatingWindowEditorSettingsPage>();
         // 主界面组件
         services.AddComponent<TextComponent, TextComponentSettingsControl>();
         services.AddComponent<SeparatorComponent>();
@@ -229,6 +238,7 @@ public partial class App
         services.AddNotificationProvider<WeatherNotificationProvider, WeatherNotificationProviderSettingsControl>();
         services.AddNotificationProvider<ManagementNotificationProvider>();
         services.AddNotificationProvider<ActionNotificationProvider>();
+        services.AddNotificationProvider<SystemToolsNotificationProvider>();
         // // Transients
         // services.AddTransient<ExcelImportWindow>();
         // services.AddTransient<WallpaperPreviewWindow>();
@@ -282,6 +292,16 @@ public partial class App
         services.AddTrigger<OnAfterSchoolTrigger>();
         services.AddTrigger<CurrentTimeStateChangedTrigger>();
         services.AddTrigger<PreTimePointTrigger, PreTimePointTriggerSettingsControl>();
+
+        // SystemTools 系统工具触发器，依赖 Windows 能力（全局热键/WMI/输入空闲查询），仅在 Windows 上注册。
+        // 触发器 ID 沿用社区插件 SystemTools 原值，插件版用户的自动化配置可无缝迁移。
+        if (System.OperatingSystem.IsWindows())
+        {
+            services.AddTrigger<HotkeyTrigger, HotkeyTriggerSettingsControl>();
+            services.AddTrigger<UsbDeviceTrigger, UsbDeviceTriggerSettingsControl>();
+            services.AddTrigger<LongIdleTrigger, LongIdleTriggerSettingsControl>();
+            services.AddTrigger<FloatingWindowTrigger, FloatingWindowTriggerSettingsControl>();
+        }
         // 规则
         services.AddRule("classisland.test.true", "总是为真", onHandle: _ => true);
         services.AddRule("classisland.test.false", "总是为假", onHandle: _ => false);
@@ -310,6 +330,61 @@ public partial class App
         services.AddAction<WeatherNotificationAction, WeatherNotificationActionSettingControl>();
         services.AddAction<AppQuitAction>();
         services.AddAction<AppRestartAction, AppRestartActionSettingsControl>();
+
+        // SystemTools 系统工具行动，全部依赖 Windows 能力（模拟输入/系统命令/注册表），仅在 Windows 上注册。
+        // 行动 ID 沿用社区插件 SystemTools 原值，插件版用户的自动化配置可无缝迁移；启用原生版后须卸载插件版，避免 ID 重复注册。
+        if (System.OperatingSystem.IsWindows())
+        {
+            // 模拟操作
+            services.AddAction<SimulateKeyboardAction, SimulateKeyboardSettingsControl>();
+            services.AddAction<SimulateKeyCombinationAction, SimulateKeyCombinationSettingsControl>();
+            services.AddAction<SimulateMouseAction, SimulateMouseSettingsControl>();
+            services.AddAction<TypeContentAction, TypeContentSettingsControl>();
+            services.AddAction<WindowOperationAction, WindowOperationSettingsControl>();
+            services.AddAction<EnterKeyAction>();
+            services.AddAction<EscAction>();
+            services.AddAction<AltF4Action>();
+            services.AddAction<CtrlZAction>();
+            services.AddAction<AltTabAction>();
+            services.AddAction<F11Action>();
+            // 显示设置
+            services.AddAction<CloneDisplayAction, ShortcutKeyNotificationSettingsControl>();
+            services.AddAction<ExtendDisplayAction, ShortcutKeyNotificationSettingsControl>();
+            services.AddAction<InternalDisplayAction, ShortcutKeyNotificationSettingsControl>();
+            services.AddAction<ExternalDisplayAction, ShortcutKeyNotificationSettingsControl>();
+            services.AddAction<BlackScreenHtmlAction, ShortcutKeyNotificationSettingsControl>();
+            services.AddAction<ShowDesktopAction, ShortcutKeyNotificationSettingsControl>();
+            services.AddAction<AdjustScreenBrightnessAction, AdjustScreenBrightnessSettingsControl>();
+            // 电源选项
+            services.AddAction<ShutdownAction, ShutdownSettingsControl>();
+            services.AddAction<AdvancedShutdownAction, AdvancedShutdownSettingsControl>();
+            services.AddAction<CancelShutdownAction, ShortcutKeyNotificationSettingsControl>();
+            services.AddAction<LockScreenAction, ShortcutKeyNotificationSettingsControl>();
+            services.AddAction<ImmediateRestartAction>();
+            services.AddAction<ImmediateShutdownAction>();
+            services.AddAction<SystemSleepAction>();
+            // 文件操作
+            services.AddAction<CopyAction, CopySettingsControl>();
+            services.AddAction<MoveAction, MoveSettingsControl>();
+            services.AddAction<DeleteAction, DeleteSettingsControl>();
+            // 系统个性化
+            services.AddAction<ChangeWallpaperAction, WallpaperSettingsControl>();
+            services.AddAction<SwitchThemeAction, ThemeSettingsControl>();
+            services.AddAction<SwitchSystemAccentColorAction, AccentColorSettingsControl>();
+            // 实用工具
+            services.AddAction<ScreenShotAction, ScreenShotSettingsControl>();
+            services.AddAction<SetVolumeAction, SetVolumeSettingsControl>();
+            services.AddAction<KillProcessAction, KillProcessSettingsControl>();
+            services.AddAction<EnableDeviceAction, EnableDeviceSettingsControl>();
+            services.AddAction<DisableDeviceAction, DisableDeviceSettingsControl>();
+            // 媒体工具
+            services.AddAction<BackgroundPlayAudioAction, BackgroundPlayAudioSettingsControl>();
+            // 悬浮窗控制
+            services.AddAction<ShowFloatingWindowAction, ShowFloatingWindowSettingsControl>();
+            services.AddAction<ToggleFloatingWindowLayerAction, ToggleFloatingWindowLayerSettingsControl>();
+            services.AddAction<ToggleFloatingWindowProfileAction, ToggleFloatingWindowProfileSettingsControl>();
+            services.AddAction<SwitchFloatingWindowThemeAction, SwitchFloatingWindowThemeSettingsControl>();
+        }
 
         // 认证提供方
         services.AddAuthorizeProvider<PasswordAuthorizeProvider>();
