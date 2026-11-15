@@ -61,6 +61,14 @@
         <!-- Keep xcassets for fallback in older macOS versions -->
         <BundleResource Include="Assets\AppLogo.xcassets\**" />
     </ItemGroup>
+    <!-- 内置插件只在 Desktop 侧引用：主工程不感知插件类型（避免引用环），
+         注册经 App.ConfigureBuiltInPlugins 钩子在插件枚举之后进行。 -->
+    <ItemGroup>
+        <ProjectReference Include="..\plugins\ClassIsland.Plugins.PixelFlow\ClassIsland.Plugins.PixelFlow.csproj" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platforms_Windows)'=='true'">
+        <ProjectReference Include="..\plugins\ClassIsland.Plugins.FancyAnima\ClassIsland.Plugins.FancyAnima.csproj" />
+    </ItemGroup>
     <ItemGroup Condition="'$(Platforms_Linux)'=='true' and '$(PublishBuilding)'=='true'">
         <PackageReference Include="Packaging.DebUOS" Version="3.17.6"/>
     </ItemGroup>

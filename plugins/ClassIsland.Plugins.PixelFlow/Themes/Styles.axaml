@@ -1,0 +1,516 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:ClassIsland.Controls"
+        xmlns:ci="http://classisland.tech/schemas/xaml/core"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        xmlns:classIsland="using:ClassIsland"
+        xmlns:uc="using:ClassIsland.UltraCodeShared"
+        xmlns:ucr="using:ClassIsland.UltraCode">
+    <Styles.Resources>
+    </Styles.Resources>
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+    
+    <!-- 复用宿主自带的 MainWindowLine 基础样式，不重复定义。 -->
+    <StyleInclude Source="avares://ClassIsland/Controls/MainWindowLine.axaml"/>
+    
+    <Style Selector="ItemsControl#RootMainWindowLinesItemsControl">
+        <Setter Property="ClipToBounds" Value="False"/>
+    </Style>
+    
+    <Style Selector=":is(Control).clip-host[(ci|MainWindowStylesAssist.IsIslandSeperated)=False], :is(Control).clip-host.clip-enforcing">
+        <Setter Property="Clip">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource WidthDoubleToRectConverter}">
+                    <Binding Path="BackgroundWidth" Mode="OneWay"
+                             RelativeSource="{RelativeSource FindAncestor, AncestorType=controls:MainWindowLine}" />
+                    <Binding Path="Bounds.Width" Mode="OneWay" RelativeSource="{RelativeSource Self}" />
+                    <Binding Path="Bounds.Height" Mode="OneWay" RelativeSource="{RelativeSource Self}" />
+                    <Binding Path="ViewModel.Settings.WindowDockingLocation" Mode="OneWay"
+                             RelativeSource="{RelativeSource FindAncestor, AncestorType=classIsland:MainWindow}" />
+                    <Binding Path="ViewModel.Settings.RadiusX" Mode="OneWay"
+                             RelativeSource="{RelativeSource FindAncestor, AncestorType=classIsland:MainWindow}" />
+                    <Binding Path="ViewModel.Settings.RadiusX" Mode="OneWay"
+                             RelativeSource="{RelativeSource FindAncestor, AncestorType=classIsland:MainWindow}" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style Selector="Border.line-background">
+        <Style.Resources>
+            <ci:SizeDoubleToCornerRadiusConverter x:Key="SizeDoubleToCornerRadiusConverter"/>
+        </Style.Resources>
+        <Setter Property="Opacity" Value="{Binding $self.(ci:MainWindowStylesAssist.BackgroundOpacity), Mode=OneWay}"/>
+        <Setter Property="Background" Value="{DynamicResource SolidBackgroundFillColorSecondaryBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="{Binding $self.(ci:MainWindowStylesAssist.CornerRadius), Converter={StaticResource SizeDoubleToCornerRadiusConverter}, ConverterParameter=1.0} "/>
+        <Setter Property="BoxShadow" Value="0 4 8 2 #48000000"/>
+    </Style>
+    <Style Selector="controls|MainWindowLine Border[(ci|MainWindowStylesAssist.IsCustomBackgroundColorEnabled)=True].line-background">
+        <Style.Resources>
+            <ci:ColorToColorPickerBrushConverter x:Key="ColorToColorPickerBrushConverter"/>
+        </Style.Resources>
+        <Setter Property="Background" Value="{Binding $self.(ci:MainWindowStylesAssist.BackgroundColor), Converter={StaticResource ColorToColorPickerBrushConverter}}"/>
+    </Style>
+    
+    <Style Selector="controls|MainWindowLine">
+        <Style.Resources>
+            <ci:SolidColorBrushToColorConverter x:Key="SolidColorBrushToColorConverter" />
+            <!--#endregion 1-->
+            <ci:WidthDoubleToRectConverter x:Key="WidthDoubleToRectConverter" />
+
+            <ci:ColorToColorPickerBrushConverter x:Key="ColorToColorPickerBrushConverter" />
+            <system:Double x:Key="IslandContainerHeight">40</system:Double>
+            <ci:SizeDoubleToCornerRadiusConverter x:Key="SizeDoubleToCornerRadiusConverter"/>
+            
+            <SolidColorBrush x:Key="FluentShadowBrush" ></SolidColorBrush>
+
+            <!-- 提醒面板的文字与图标色。这三支画笔会在提醒面板内部顶掉 Fluent 的 TextFillColor* 资源，
+                 这样即使应用整体切到深色主题，提醒里的文字也不会变成浅色而糊在浅色像素场上。
+                 这里写的只是兜底值：运行时 UltraCodePalette 会按键名找到这三个实例，
+                 把颜色换成从当前主题色推导出来的（跟随「自定义 / 壁纸取色 / 屏幕取色 / 系统色」设置）。
+                 改的是实例的 Color 而不是换实例，所以所有引用方都会自动跟着刷新。 -->
+            <SolidColorBrush x:Key="UltraCodeMaskForegroundBrush" Color="#FF2E1F40" />
+            <SolidColorBrush x:Key="UltraCodeMaskForegroundSecondaryBrush" Color="#C42E1F40" />
+            <SolidColorBrush x:Key="UltraCodeMaskForegroundTertiaryBrush" Color="#992E1F40" />
+
+            <ControlTemplate x:Key="MainWindowLineFullControlTemplate" TargetType="controls:MainWindowLine">
+                <Grid
+                     ClipToBounds="False"
+                     x:Name="GridRoot"
+                     HorizontalAlignment="Stretch">
+
+                    <!-- Background -->
+                    <Border x:Name="BackgroundBorderWrapper"
+                            IsVisible="{Binding !$self.(ci:MainWindowStylesAssist.IsIslandSeperated)}">
+                        <Border x:Name="BackgroundBorder"
+                                Classes="docking line-background"
+                                Width="{Binding BackgroundWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MainWindowLine}}"
+                                Height="{DynamicResource IslandContainerHeight}">
+                            
+                        </Border>
+                    </Border>
+                    <!-- 这层的 Opacity 被出入场动画占用，所以底色改挂在里面的填充层上，
+                         由填充层去跟随「背景不透明度」，两者互不打架。 -->
+                    <Border x:Name="BackgroundBorderOverlayMask"
+                            Classes="docking"
+                            IsVisible="{Binding !$self.(ci:MainWindowStylesAssist.IsIslandSeperated)}"
+                            Opacity="0"
+                            VerticalAlignment="Stretch"
+                            CornerRadius="{Binding $self.(ci:MainWindowStylesAssist.CornerRadius), Converter={StaticResource SizeDoubleToCornerRadiusConverter}, ConverterParameter=1.0}"
+                            ClipToBounds="True"
+                            Height="{DynamicResource IslandContainerHeight}"
+                            Width="{Binding BackgroundWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MainWindowLine}}">
+                        <Border.Transitions>
+                            <Transitions>
+                                <BoxShadowsTransition Duration="0:0:0.1" Property="BoxShadow"/>
+                            </Transitions>
+                        </Border.Transitions>
+                        <Border x:Name="BackgroundBorderOverlayMaskFill"
+                                Background="{x:Static uc:UltraCodeField.BaseGradient}"
+                                Opacity="{Binding Source={x:Static ucr:UltraCodeOptions.Current}, Path=AnimationOpacity, Mode=OneWay}"/>
+                    </Border>
+
+                    <Grid x:Name="ContentClipBorder" Classes="clip-host">
+                        <Panel Classes="animated-resize" ClipToBounds="False">
+                            <Grid x:Name="PART_GridWrapper" ClipToBounds="False"
+                                  Height="{DynamicResource IslandContainerHeight}"
+                                  Classes="docking">
+                                <Grid Height="{DynamicResource IslandContainerHeight}"
+                                      x:Name="GridContentRoot"
+                                      MinWidth="20"
+                                      Margin="12 0">
+                                    <ContentPresenter
+                                        Content="{Binding Content, RelativeSource={RelativeSource AncestorType=controls:MainWindowLine}}" />
+                                </Grid>
+                                <!-- Overlay View -->
+                                <Grid x:Name="GridOverlay"
+                                      ClipToBounds="False"
+                                      Opacity="0">
+                                    <Border
+                                        Classes.line-background="{Binding $self.(ci:MainWindowStylesAssist.IsIslandSeperated)}"
+                                        IsHitTestVisible="False"
+                                        IsVisible="{Binding $self.(ci:MainWindowStylesAssist.IsIslandSeperated)}" />
+                                    <Border ClipToBounds="True"
+                                            IsHitTestVisible="False"
+                                            TextElement.Foreground="{DynamicResource UltraCodeMaskForegroundBrush}"
+                                            CornerRadius="{Binding $self.(ci:MainWindowStylesAssist.CornerRadius), Converter={StaticResource SizeDoubleToCornerRadiusConverter}, ConverterParameter=1.0} ">
+                                        <Border.Resources>
+                                            <!-- 提醒正文里的 l-instructive / l-secondary 等分层样式走 DynamicResource，
+                                                 在这里就近顶掉，倒计时的说明文字才不会在浅紫底上发白。 -->
+                                            <StaticResource x:Key="TextFillColorPrimaryBrush" ResourceKey="UltraCodeMaskForegroundBrush"/>
+                                            <StaticResource x:Key="TextFillColorSecondaryBrush" ResourceKey="UltraCodeMaskForegroundSecondaryBrush"/>
+                                            <StaticResource x:Key="TextFillColorInformativeSecondaryBrush" ResourceKey="UltraCodeMaskForegroundSecondaryBrush"/>
+                                            <StaticResource x:Key="TextFillColorTertiaryBrush" ResourceKey="UltraCodeMaskForegroundTertiaryBrush"/>
+                                        </Border.Resources>
+                                        <Panel>
+                                            <!-- 倒计时期间的像素场：常驻慢速流动，像素层压到 55% 亮度，
+                                                 保证「距上课还剩 N 秒」这类信息始终压得住背景。
+                                                 Progress 绑上剩余进度后，整条像素带会随时间从右往左收，
+                                                 收边处留一圈高亮的燃烧前沿——彩带长度本身就是倒计时读数。 -->
+                                            <uc:UltraCodeField x:Name="UltraCodeOverlayField"
+                                                                           Classes="overlay-bg"
+                                                                           ClipToBounds="True"
+                                                                           CellSize="6"
+                                                                           PixelOpacity="0.55"
+                                                                           RevealDurationMs="560"
+                                                                           CollapseDurationMs="260"
+                                                                           Progress="{Binding CountdownProgressValue, Mode=OneWay, RelativeSource={RelativeSource AncestorType=controls:MainWindowLine}}"
+                                                                           Opacity="{Binding Source={x:Static ucr:UltraCodeOptions.Current}, Path=AnimationOpacity, Mode=OneWay}"/>
+                                            <!-- 原来底部那根进度条已经由像素场本身代替：两处进度指示只会互相打架。
+                                                 保留节点是为了想换回来时只要把 IsVisible 改成 True。
+                                                 HACK: 为什么进度条拉伸了就缩不回去了😰 -->
+                                            <Canvas VerticalAlignment="Bottom"
+                                                    HorizontalAlignment="Stretch"
+                                                    IsVisible="False"
+                                                    x:Name="ProgressContainer"
+                                                    Height="{Binding #OverlayTimeProgressBar.Bounds.Height}">
+                                                <ProgressBar VerticalAlignment="Bottom"
+                                                             Maximum="1"
+                                                             Value="{Binding CountdownProgressValue, RelativeSource={RelativeSource AncestorType=controls:MainWindowLine}}"
+                                                             x:Name="OverlayTimeProgressBar"
+                                                             Width="{Binding #ProgressContainer.Bounds.Width, Mode=OneWay}"
+                                                             MinWidth="0">
+                                                    <ProgressBar.Transitions>
+                                                        <Transitions>
+                                                            <DoubleTransition Property="Value" Duration="0:0:0.05">
+                                                                <DoubleTransition.Easing>
+                                                                    <LinearEasing/>
+                                                                </DoubleTransition.Easing>
+                                                            </DoubleTransition>
+                                                        </Transitions>
+                                                    </ProgressBar.Transitions>
+                                                </ProgressBar>
+                                            </Canvas>
+                                            <ContentPresenter
+                                                MaxHeight="{DynamicResource IslandContainerHeight}"
+                                                Content="{Binding OverlayContent.Content, RelativeSource={RelativeSource AncestorType=controls:MainWindowLine}}"
+                                                ContentTemplate="{Binding OverlayContent.ContentTemplate, RelativeSource={RelativeSource AncestorType=controls:MainWindowLine}}" />
+                                        </Panel>
+                                    </Border>
+                                </Grid>
+                                <!-- Mask -->
+                                <Border x:Name="OverlayMaskShadowRoot"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        IsVisible="{Binding !$self.(ci:MainWindowStylesAssist.MainWindowInEditMode)}"
+                                        CornerRadius="{Binding $self.(ci:MainWindowStylesAssist.CornerRadius), Converter={StaticResource SizeDoubleToCornerRadiusConverter}, ConverterParameter=1.0}">
+                                    <Border x:Name="OverlayMask"
+                                            TextElement.Foreground="{DynamicResource UltraCodeMaskForegroundBrush}"
+                                            CornerRadius="{Binding $self.(ci:MainWindowStylesAssist.CornerRadius), Converter={StaticResource SizeDoubleToCornerRadiusConverter}, ConverterParameter=1.0}"
+                                            ClipToBounds="True"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Height="{DynamicResource IslandContainerHeight}"
+                                            RenderTransformOrigin="{x:Static RelativePoint.Center}">
+                                        <Border.Transitions>
+                                            <Transitions>
+                                                <BoxShadowsTransition Duration="0:0:0.1" Property="BoxShadow" />
+                                            </Transitions>
+                                        </Border.Transitions>
+                                        <Panel>
+                                            <uc:UltraCodeField x:Name="UltraCodeFieldSeperated"
+                                                                           Classes="mask-bg"
+                                                                           ClipToBounds="True"
+                                                                           CellSize="6"
+                                                                           RevealDurationMs="480"
+                                                                           CollapseDurationMs="320"
+                                                                           Opacity="{Binding Source={x:Static ucr:UltraCodeOptions.Current}, Path=AnimationOpacity, Mode=OneWay}" />
+                                            <Border
+                                                TextElement.Foreground="{DynamicResource UltraCodeMaskForegroundBrush}"
+                                                Padding="12 0">
+                                                <Border.Resources>
+                                                    <StaticResource x:Key="TextFillColorPrimaryBrush" ResourceKey="UltraCodeMaskForegroundBrush"/>
+                                                    <StaticResource x:Key="TextFillColorSecondaryBrush" ResourceKey="UltraCodeMaskForegroundSecondaryBrush"/>
+                                                    <StaticResource x:Key="TextFillColorInformativeSecondaryBrush" ResourceKey="UltraCodeMaskForegroundSecondaryBrush"/>
+                                                    <StaticResource x:Key="TextFillColorTertiaryBrush" ResourceKey="UltraCodeMaskForegroundTertiaryBrush"/>
+                                                </Border.Resources>
+                                                <ContentPresenter x:Name="OverlayMaskContent"
+                                                                  Opacity="0"
+                                                                  Content="{Binding MaskContent.Content, RelativeSource={RelativeSource AncestorType=controls:MainWindowLine}}"
+                                                                  ContentTemplate="{Binding MaskContent.ContentTemplate, RelativeSource={RelativeSource AncestorType=controls:MainWindowLine}}">
+                                                    <ContentPresenter.RenderTransform>
+                                                        <TransformGroup>
+                                                            <ScaleTransform />
+                                                        </TransformGroup>
+                                                    </ContentPresenter.RenderTransform>
+                                                </ContentPresenter>
+                                            </Border>
+                                        </Panel>
+                                    </Border>
+                                </Border>
+                            </Grid>
+                        </Panel>
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+            <ControlTemplate x:Key="MainWindowLineMinControlTemplate" TargetType="controls:MainWindowLine">
+                <Grid 
+                    ClipToBounds="False"
+                    x:Name="GridRoot"
+                    HorizontalAlignment="Stretch">
+                    
+                    <!-- Background -->
+                    <Border x:Name="BackgroundBorder"
+                            IsVisible="{Binding !$self.(ci:MainWindowStylesAssist.IsIslandSeperated)}"
+                            Classes="docking line-background"
+                            Width="{Binding BackgroundWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:MainWindowLine}}"
+                            Height="{DynamicResource IslandContainerHeight}" />
+                    <Grid x:Name="ContentClipBorder" Classes="clip-host">
+                        <Panel Classes="animated-resize" ClipToBounds="False">
+                            <Grid x:Name="PART_GridWrapper" ClipToBounds="False"
+                                  Height="{DynamicResource IslandContainerHeight}"
+                                  Classes="docking">
+                                <Grid Height="{DynamicResource IslandContainerHeight}"
+                                      x:Name="GridContentRoot"
+                                      MinWidth="20"
+                                      Margin="12 0">
+                                    <ContentPresenter
+                                        Content="{Binding Content, RelativeSource={RelativeSource AncestorType=controls:MainWindowLine}}" />
+                                </Grid>
+
+                            </Grid>
+                        </Panel>
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+            <ci:DoubleToThicknessMultiConverter x:Key="DoubleToThicknessMultiConverter" />
+        </Style.Resources>
+        
+        <Style Selector="^ ci|ComponentPresenter[IsRootComponent=True]">
+            <Setter Property="ContentTemplate">
+                <DataTemplate>
+                    <Panel>
+                        <ContentPresenter Content="{Binding}"/>
+                    </Panel>
+                </DataTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="^ ci|ComponentPresenter[IsRootComponent=True][(ci|MainWindowStylesAssist.IsIslandSeperated)=True]">
+            <Setter Property="ContentTemplate">
+                <DataTemplate>
+                    <Panel Margin="-2 0">
+                        <Border Classes="line-background"/>
+                        <Border ClipToBounds="True"
+                                MinWidth="40"
+                                CornerRadius="{Binding $self.(ci:MainWindowStylesAssist.CornerRadius), Converter={StaticResource SizeDoubleToCornerRadiusConverter}, ConverterParameter=1.0}">
+                            <ContentPresenter Content="{Binding}"
+                                              Margin="16 0" />
+                        </Border>
+                    </Panel>
+                </DataTemplate>
+            </Setter>
+        </Style>
+        
+        
+        <Setter Property="Template" Value="{StaticResource MainWindowLineFullControlTemplate}"/>
+        
+        <Style Selector="^[(ci|ComponentPresenter.IsMainWindowLoaded)=True]">
+            <Setter Property="Transitions">
+                <Setter.Value>
+                    <Transitions>
+                        <DoubleTransition Property="Opacity" Duration="0:0:0.100"/>
+                        <DoubleTransition Property="BackgroundWidth" Duration="0:0:0.300" Easing="0.65, 0, 0.35, 1.0"/>
+                    </Transitions>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style Selector="^[IsNotificationEnabled=False]">
+            <Setter Property="Template" Value="{StaticResource MainWindowLineMinControlTemplate}"/>
+            <!-- <Setter Property="IsVisible" Value="{Binding IsAllComponentsHid, RelativeSource={RelativeSource Self}, Converter={StaticResource InvertBooleanConverter}}"/> -->
+        </Style>
+       
+        <Style Selector="^[IsNotificationEnabled=True][(ci|MainWindowStylesAssist.MainWindowInEditMode)=False]">
+            <Style Selector="^ /template/ ContentPresenter#OverlayMaskContent">
+                <!-- <Setter Property="Transitions"> -->
+                <!--     <Transitions> -->
+                <!--         <DoubleTransition Property="Opacity" -->
+                <!--                           Duration="0:0:0.2"> -->
+                <!--             <DoubleTransition.Easing> -->
+                <!--                 <SineEaseIn/> -->
+                <!--             </DoubleTransition.Easing> -->
+                <!--         </DoubleTransition> -->
+                <!--     </Transitions> -->
+                <!-- </Setter> -->
+            </Style>
+            <Style Selector="^ /template/ Grid#GridContentRoot">
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <DoubleTransition Property="Opacity"
+                                          Duration="0:0:0.2">
+                            <DoubleTransition.Easing>
+                                <SineEaseIn/>
+                            </DoubleTransition.Easing>
+                        </DoubleTransition>
+                    </Transitions>
+                </Setter>
+                <Setter Property="Opacity" Value="1"/>
+            </Style>
+            
+            <Style Selector="^:mask-anim">
+                
+                <Style Selector="^ /template/ Border#OverlayMask">
+                    
+                </Style>
+                
+                <Style Selector="^:mask-in">
+                    <Style Selector="^ /template/ uc|UltraCodeField.mask-bg">
+                        <Setter Property="IsOpened" Value="True"/>
+                    </Style>
+ 
+                    <Style Selector="^ /template/ Grid#GridRoot">
+                        <!-- <Setter Property="Effect"> -->
+                        <!--     <DropShadowEffect OffsetX="0" OffsetY="0" Opacity="1" BlurRadius="8"/> -->
+                        <!-- </Setter> -->
+                    </Style>
+                    <Style Selector="^[(ci|MainWindowStylesAssist.IsIslandSeperated)=False] /template/ Border#BackgroundBorderOverlayMask">
+                        <Setter Property="BoxShadow" Value="0 8 32 0 #66000000"/>
+                    </Style>
+                    <Style Selector="^[(ci|MainWindowStylesAssist.IsIslandSeperated)=True] /template/ Border#OverlayMaskShadowRoot">
+                        <Setter Property="BoxShadow" Value="0 8 32 0 #66000000"/>
+                    </Style>
+                    <Style Selector="^ /template/ ContentPresenter#OverlayMaskContent">
+                        <Style.Animations>
+                            <!-- 延迟到像素场铺满后再浮出，避免文字压在尚未被遮住的原内容上。 -->
+                            <Animation Delay="0:0:0.34" Duration="0:0:0.25" IterationCount="1"
+                                       FillMode="Both"
+                                       Easing="0.25, 1, 0.5, 1">
+                                <KeyFrame Cue="0%">
+                                    <Setter Property="Opacity" Value="0.0"/>
+                                </KeyFrame>
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="Opacity" Value="1.0"/>
+                                </KeyFrame>
+                            </Animation>
+                            <Animation Delay="0:0:0.34" Duration="0:0:0.75" IterationCount="1"
+                                       FillMode="Both"
+                                       Easing="0.25, 1, 0.5, 1">
+                                <KeyFrame Cue="0%">
+                                    <Setter Property="ScaleTransform.ScaleX" Value="1.1"/>
+                                    <Setter Property="ScaleTransform.ScaleY" Value="1.1"/>
+                                </KeyFrame>
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="ScaleTransform.ScaleX" Value="1.0"/>
+                                    <Setter Property="ScaleTransform.ScaleY" Value="1.0"/>
+                                </KeyFrame>
+                            </Animation>
+                        </Style.Animations>
+                    </Style>
+                    <Style Selector="^ /template/ Border#BackgroundBorderOverlayMask">
+                        <Style.Animations>
+                            <Animation Delay="0:0:0.42" Duration="0:0:0.1" IterationCount="1"
+                                       FillMode="Forward">
+                                <KeyFrame Cue="0%">
+                                    <Setter Property="Opacity" Value="0.0"/>
+                                </KeyFrame>
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="Opacity" Value="1.0"/>
+                                </KeyFrame>
+                            </Animation>
+                        </Style.Animations>
+                    </Style>
+                    <Style Selector="^ /template/ Grid#GridContentRoot">
+                        <Setter Property="Opacity" Value="0"/>
+                    </Style>
+                </Style>
+                <Style Selector="^:mask-out">
+                    <Style Selector="^ /template/ uc|UltraCodeField.mask-bg">
+                        <Setter Property="IsOpened" Value="False"/>
+                    </Style>
+                    <Style Selector="^ /template/ ContentPresenter#OverlayMaskContent">
+                        <Style.Animations>
+                            <Animation Duration="0:0:0.2" IterationCount="1"
+                                       FillMode="Forward">
+                                <KeyFrame Cue="0%">
+                                    <Setter Property="Opacity" Value="1.0"/>
+                                </KeyFrame>
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="Opacity" Value="0.0"/>
+                                </KeyFrame>
+                            </Animation>
+                            <Animation Duration="0:0:0.2" IterationCount="1"
+                                       FillMode="Both"
+                                       Easing="0.5, 0, 0.75, 0">
+                                <KeyFrame Cue="0%">
+                                    <Setter Property="ScaleTransform.ScaleX" Value="1.0"/>
+                                    <Setter Property="ScaleTransform.ScaleY" Value="1.0"/>
+                                </KeyFrame>
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="ScaleTransform.ScaleX" Value="1.1"/>
+                                    <Setter Property="ScaleTransform.ScaleY" Value="1.1"/>
+                                </KeyFrame>
+                            </Animation>
+                        </Style.Animations>
+                    </Style>
+                    <Style Selector="^ /template/ Border#BackgroundBorderOverlayMask">
+                        <Style.Animations>
+                            <Animation Duration="0:0:0.1" IterationCount="1"
+                                       FillMode="Forward">
+                                <KeyFrame Cue="100%">
+                                    <Setter Property="Opacity" Value="0.0"/>
+                                </KeyFrame>
+                            </Animation>
+                        </Style.Animations>
+                    </Style>
+                    <Style Selector="^ /template/ Grid#GridContentRoot">
+                        <Setter Property="Opacity" Value="0"/>
+                    </Style>
+                    <Style Selector="^ /template/ Border#BackgroundBorderOverlayMask">
+                        <Setter Property="Opacity" Value="0"/>
+                    </Style>
+                </Style>
+            </Style>
+            <Style Selector="^:overlay-anim">
+                <Style Selector="^ /template/ Grid#GridOverlay">
+                    <Setter Property="Transitions">
+                        <Transitions>
+                            <DoubleTransition Property="Opacity"
+                                              Duration="0:0:0.2">
+                                <DoubleTransition.Easing>
+                                    <SineEaseIn/>
+                                </DoubleTransition.Easing>
+                            </DoubleTransition>
+                        </Transitions>
+                    </Setter>
+                    <Setter Property="Opacity" Value="0"/>
+                </Style>
+                
+                <Style Selector="^:overlay-out">
+                    <Style Selector="^ /template/ Grid#GridOverlay">
+                        <Setter Property="Opacity" Value="0"/>
+                    </Style>
+                    <Style Selector="^ /template/ Grid#GridContentRoot">
+                        <Setter Property="Opacity" Value="1"/>
+                    </Style>
+                    <Style Selector="^ /template/ uc|UltraCodeField.overlay-bg">
+                        <Setter Property="IsOpened" Value="False"/>
+                    </Style>
+                </Style>
+            </Style>
+
+            <Style Selector="^:overlay-in">
+                <Style Selector="^ /template/ Grid#GridOverlay">
+                    <Setter Property="Opacity" Value="1"/>
+                </Style>
+                <Style Selector="^ /template/ Grid#GridContentRoot">
+                    <Setter Property="Opacity" Value="0"/>
+                </Style>
+                <!-- 倒计时正文期间像素场持续运行：遮罩收起后接力，动画不断档。 -->
+                <Style Selector="^ /template/ uc|UltraCodeField.overlay-bg">
+                    <Setter Property="IsOpened" Value="True"/>
+                </Style>
+            </Style>
+            <Style Selector="^ /template/ ProgressBar#OverlayTimeProgressBar">
+                <Setter Property="MinWidth" Value="0"/>
+                <!-- 剩余时间进度条压在像素场上，改用深紫，别再用主题强调色。 -->
+                <Setter Property="Foreground" Value="{DynamicResource UltraCodeMaskForegroundBrush}"/>
+            </Style>
+        </Style>
+    </Style>
+</Styles>

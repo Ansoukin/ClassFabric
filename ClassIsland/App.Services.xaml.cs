@@ -65,6 +65,13 @@ public partial class App
 {
     internal Action<IServiceCollection>? ConfigurePlatformServices { get; set; }
 
+    /// <summary>
+    /// 内置插件注册钩子，由 Desktop 侧装配（插件工程只被 Desktop 引用）。
+    /// 在 <see cref="PluginService.InitializePlugins"/> 之后调用，让位判断才能看到
+    /// 已成功加载的外部社区插件。
+    /// </summary>
+    internal Action<HostBuilderContext, IServiceCollection>? ConfigureBuiltInPlugins { get; set; }
+
     private void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
         ConfigurePlatformServices?.Invoke(services);
@@ -450,6 +457,8 @@ public partial class App
         if (!ApplicationCommand.Safe && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV1) && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV2))
         {
             PluginService.InitializePlugins(context, services);
+            // 内置插件紧随外部插件注册：让位判断要求外部插件已完成加载枚举。
+            ConfigureBuiltInPlugins?.Invoke(context, services);
         }
     }
 

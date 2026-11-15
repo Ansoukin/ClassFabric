@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Configurations>Debug;Release;Debug_MSIX;Release_MSIX</Configurations>
+        <!-- 程序集名决定 avares 资源 authority（avares://ClassIsland.Plugins.PixelFlow/...）。
+             命名空间沿用社区插件原值 ClassIsland.UltraCode*，XAML/控件文件零改动移植。 -->
+        <AssemblyName>ClassIsland.Plugins.PixelFlow</AssemblyName>
+        <RootNamespace>ClassIsland.UltraCode</RootNamespace>
+        <NoWarn>$(NoWarn);CS1591</NoWarn>
+    </PropertyGroup>
+
+    <Import Project="..\..\AvaloniaShared.props" />
+
+    <ItemGroup>
+        <!-- 主题 XAML 引用主工程控件（MainWindowLine 模板）与 FluentAvalonia 设置控件，
+             编译期需要，运行期全部用宿主已加载的那份，不复制到输出目录。 -->
+        <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+        <PackageReference Include="FluentAvaloniaUI" Version="3.0.0" ExcludeAssets="runtime" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" ExcludeAssets="runtime" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\ClassIsland.Core\ClassIsland.Core.csproj"
+                          Private="false" ExcludeAssets="runtime" />
+        <ProjectReference Include="..\..\ClassIsland\ClassIsland.csproj"
+                          Private="false" ExcludeAssets="runtime" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Themes/Styles.axaml 由默认 glob 编译（含对主工程控件的模板引用），
+             这里同时作为资源纳入 avares 存档。显式再 Include Views 下的 .axaml 会报
+             AVLN2002 重复 x:Class，Views 交给默认 glob 即可。 -->
+        <AvaloniaResource Include="Themes\**" />
+    </ItemGroup>
+
+</Project>

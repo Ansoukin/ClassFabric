@@ -1,0 +1,135 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ci="http://classisland.tech/schemas/xaml/core"
+             xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+             x:Class="ClassIsland.UltraCode.Views.PixelFlowSettingsView">
+    <ScrollViewer>
+        <!-- 不用 settings-container：那是独立设置页的 12/18 边距，嵌进主题页后会
+             与标题左缘错开 12px（像/配不对齐就是它），这里直接贴齐页边并保留行距。 -->
+        <StackPanel Spacing="4">
+
+            <TextBlock Classes="l-instructive" TextWrapping="Wrap"
+                       Text="配色跟随应用主题色，以下为微调项。"/>
+
+            <Separator Margin="0 12 0 4"/>
+            <ci:IconText Glyph="&#xE9F4;" Text="动画强度" Margin="0 0 0 4"/>
+
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE9F4;}"
+                                       Header="动画不透明度"
+                                       Description="动画整体浓淡，与主界面背景不透明度相互独立。">
+                <controls:FASettingsExpander.Footer>
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <Slider Width="180" Minimum="0.2" Maximum="1.0" TickFrequency="0.01"
+                                IsSnapToTickEnabled="True" VerticalAlignment="Center"
+                                Value="{Binding Options.AnimationOpacity, Mode=TwoWay}"/>
+                        <TextBlock VerticalAlignment="Center" MinWidth="46"
+                                   Text="{Binding Options.AnimationOpacity, StringFormat='{}{0:P0}'}"/>
+                    </StackPanel>
+                </controls:FASettingsExpander.Footer>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE6B0;}"
+                                       Header="像素亮度"
+                                       Description="闪烁像素的强度。0 为仅保留底色渐变。">
+                <controls:FASettingsExpander.Footer>
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <Slider Width="180" Minimum="0" Maximum="2.0" TickFrequency="0.05"
+                                IsSnapToTickEnabled="True" VerticalAlignment="Center"
+                                Value="{Binding Options.PixelIntensity, Mode=TwoWay}"/>
+                        <TextBlock VerticalAlignment="Center" MinWidth="46"
+                                   Text="{Binding Options.PixelIntensity, StringFormat='{}{0:F2}'}"/>
+                    </StackPanel>
+                </controls:FASettingsExpander.Footer>
+            </controls:FASettingsExpander>
+
+            <Separator Margin="0 12 0 4"/>
+            <ci:IconText Glyph="&#xE3FE;" Text="取色微调" Margin="0 0 0 4"/>
+
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE3FE;}"
+                                       Header="饱和度"
+                                       Description="调高接近主题色纯色，调低偏灰。">
+                <controls:FASettingsExpander.Footer>
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <Slider Width="180" Minimum="0" Maximum="3.0" TickFrequency="0.05"
+                                IsSnapToTickEnabled="True" VerticalAlignment="Center"
+                                Value="{Binding Options.Saturation, Mode=TwoWay}"/>
+                        <TextBlock VerticalAlignment="Center" MinWidth="46"
+                                   Text="{Binding Options.Saturation, StringFormat='{}{0:F2}'}"/>
+                    </StackPanel>
+                </controls:FASettingsExpander.Footer>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE3FF;}"
+                                       Header="对比度"
+                                       Description="调高层次更分明，调低更接近整块纯色。">
+                <controls:FASettingsExpander.Footer>
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <Slider Width="180" Minimum="0.5" Maximum="2.0" TickFrequency="0.05"
+                                IsSnapToTickEnabled="True" VerticalAlignment="Center"
+                                Value="{Binding Options.Contrast, Mode=TwoWay}"/>
+                        <TextBlock VerticalAlignment="Center" MinWidth="46"
+                                   Text="{Binding Options.Contrast, StringFormat='{}{0:F2}'}"/>
+                    </StackPanel>
+                </controls:FASettingsExpander.Footer>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE4A5;}"
+                                       Header="亮度"
+                                       Description="整体提亮或压暗，文字颜色自动保持对比度。">
+                <controls:FASettingsExpander.Footer>
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <Slider Width="180" Minimum="-0.25" Maximum="0.25" TickFrequency="0.01"
+                                IsSnapToTickEnabled="True" VerticalAlignment="Center"
+                                Value="{Binding Options.Brightness, Mode=TwoWay}"/>
+                        <TextBlock VerticalAlignment="Center" MinWidth="46"
+                                   Text="{Binding Options.Brightness, StringFormat='{}{0:F2}'}"/>
+                    </StackPanel>
+                </controls:FASettingsExpander.Footer>
+            </controls:FASettingsExpander>
+
+            <Separator Margin="0 12 0 4"/>
+            <ci:IconText Glyph="&#xE8F0;" Text="像素场" Margin="0 0 0 4"/>
+
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE8F0;}"
+                                       Header="像素格大小"
+                                       Description="单个格子的边长。调大颗粒更粗，性能占用更低。">
+                <controls:FASettingsExpander.Footer>
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <Slider Width="180" Minimum="3" Maximum="14" TickFrequency="1"
+                                IsSnapToTickEnabled="True" VerticalAlignment="Center"
+                                Value="{Binding Options.CellSize, Mode=TwoWay}"/>
+                        <TextBlock VerticalAlignment="Center" MinWidth="46"
+                                   Text="{Binding Options.CellSize, StringFormat='{}{0:F0} px'}"/>
+                    </StackPanel>
+                </controls:FASettingsExpander.Footer>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE9D4;}"
+                                       Header="流动速度"
+                                       Description="波纹横向流动速度。1.0 为原速。">
+                <controls:FASettingsExpander.Footer>
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <Slider Width="180" Minimum="0.2" Maximum="3.0" TickFrequency="0.1"
+                                IsSnapToTickEnabled="True" VerticalAlignment="Center"
+                                Value="{Binding Options.FlowSpeed, Mode=TwoWay}"/>
+                        <TextBlock VerticalAlignment="Center" MinWidth="46"
+                                   Text="{Binding Options.FlowSpeed, StringFormat='{}{0:F1}x'}"/>
+                    </StackPanel>
+                </controls:FASettingsExpander.Footer>
+            </controls:FASettingsExpander>
+
+            <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xE121;}"
+                                       Header="倒计时彩带递减"
+                                       Description="倒计时期间彩带随剩余时间从右向左缩短。">
+                <controls:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding Options.CountdownDrain, Mode=TwoWay}"/>
+                </controls:FASettingsExpander.Footer>
+            </controls:FASettingsExpander>
+
+            <Button Margin="0 16 0 0" HorizontalAlignment="Left" Click="OnResetClicked">
+                <ci:IconText Glyph="&#xE117;" Text="恢复默认值"/>
+            </Button>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

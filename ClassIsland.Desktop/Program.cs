@@ -54,6 +54,7 @@ class Program
             {
                 var app = buildApp();
                 app.ConfigurePlatformServices = ConfigurePlatformServices;
+                app.ConfigureBuiltInPlugins = BuiltInPlugins.Register;
 #if Platforms_Windows
                 app.OperatingSystem = "windows";
 #endif

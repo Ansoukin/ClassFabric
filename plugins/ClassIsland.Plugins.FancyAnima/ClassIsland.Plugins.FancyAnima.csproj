@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Configurations>Debug;Release;Debug_MSIX;Release_MSIX</Configurations>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\ClassIsland.Core\ClassIsland.Core.csproj" />
+        <ProjectReference Include="..\..\ClassIsland.Shared\ClassIsland.Shared.csproj" />
+    </ItemGroup>
+
+</Project>
