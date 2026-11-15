@@ -17,16 +17,6 @@ namespace ClassIsland;
 /// </summary>
 public class PluginLoadContext : AssemblyLoadContext
 {
-    private static readonly IReadOnlySet<string> LegacyHostAssemblies = new HashSet<string>(StringComparer.Ordinal)
-    {
-        "ClassIsland",
-        "ClassIsland.Core",
-        "ClassIsland.Shared",
-        "ClassIsland.Shared.IPC",
-        "ClassIsland.Platforms.Abstractions",
-        "ClassIsland.PluginSdk"
-    };
-
     private readonly bool _forceMonoPluginLoader;
 
     public PluginLoadContext(PluginInfo info, string fullPath, bool forceMonoPluginLoader) : base($"ClassIsland.PluginLoadContext[{info.Manifest.Id}]")
@@ -66,14 +56,10 @@ public class PluginLoadContext : AssemblyLoadContext
             // 这里将插件要的加载的 WinRT 相关程序集替换为应用自带的 WinRT 相关程序集。
             return null;
         }
-        if (assemblyName.Name is not null && LegacyHostAssemblies.Contains(assemblyName.Name))
-        {
-            var hostAssemblyPath = Path.Combine(AppContext.BaseDirectory, assemblyName.Name + ".dll");
-            if (File.Exists(hostAssemblyPath))
-            {
-                return LoadFromAssemblyPath(hostAssemblyPath);
-            }
-        }
+        // 宿主程序集（Core/Shared/PluginSdk 等）必须回落到默认上下文解析：它们已经在默认
+        // 上下文中加载，从路径再加载会在本上下文里造出第二份实例，插件里的 PluginBase
+        // 等类型与宿主的 typeof 对不上，入口类型发现（BaseType == typeof(PluginBase)）
+        // 会静默失败，所有插件都装不上。上游也是靠回落默认上下文保持类型身份的。
         // 尝试查找依赖
         foreach (var dep in Info.Manifest.Dependencies)
         {
