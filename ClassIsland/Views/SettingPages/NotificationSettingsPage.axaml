@@ -297,6 +297,23 @@
                                         <CheckBox Content="{x:Static locNtf:Localization.EnableByDefault}" IsChecked="{Binding ViewModel.SettingsService.Settings.IsNotificationEffectEnabled}"
                                                   Margin="0 0 0 6" />
                                     </controls3:FASettingsExpanderItem>
+                                    <!-- 特效风格：涟漪（FancyAnima）仅 Windows 提供，非 Windows 回落官方，不显示此项 -->
+                                    <controls3:FASettingsExpanderItem IconSource="{controls2:FluentIconSource &#xE649;}"
+                                                                      Content="{x:Static locNtf:Localization.EffectStyleContent}"
+                                                                      Description="{x:Static locNtf:Localization.EffectStyleDescription}">
+                                        <controls3:FASettingsExpanderItem.IsVisible>
+                                            <OnPlatform Default="False">
+                                                <On Options="Windows" Content="True"/>
+                                            </OnPlatform>
+                                        </controls3:FASettingsExpanderItem.IsVisible>
+                                        <controls3:FASettingsExpanderItem.Footer>
+                                            <ComboBox SelectedIndex="{Binding ViewModel.SettingsService.Settings.NotificationEffectStyle, Mode=TwoWay}"
+                                                      AutomationProperties.Name="特效风格">
+                                                <ComboBoxItem Content="{x:Static locNtf:Localization.EffectStyleOfficialOption}" />
+                                                <ComboBoxItem Content="{x:Static locNtf:Localization.EffectStyleRippleOption}" />
+                                            </ComboBox>
+                                        </controls3:FASettingsExpanderItem.Footer>
+                                    </controls3:FASettingsExpanderItem>
                                     <controls3:FASettingsExpanderItem Content="提醒特效">
                                         <controls3:FASettingsExpanderItem.Footer>
                                             <ComboBox ItemsSource="{x:Static services:INotificationWorkerService.RegisteredEffects}"
@@ -463,13 +480,32 @@
                                         <controls3:FASettingsExpander IconSource="{controls2:FluentIconSource &#xEA2F;}"
                                                                     IsEnabled="{Binding ProviderSettings.IsSettingsEnabled}"
                                                                     Header="{x:Static locNtf:Localization.EnableNotificationEffect}"
-                                                                    Description="{x:Static locNtf:Localization.EnableNotificationEffectDescription}">
+                                                                    Description="{x:Static locNtf:Localization.EnableNotificationEffectDescription}"
                                                                     IsExpanded="{Binding ProviderSettings.IsNotificationEffectEnabled, Mode=OneWay}">
                                             <controls3:FASettingsExpander.Footer>
                                                 <ToggleSwitch
                                                     IsChecked="{Binding ProviderSettings.IsNotificationEffectEnabled, Mode=TwoWay}" />
                                             </controls3:FASettingsExpander.Footer>
+                                            <!-- 覆盖特效来源：官方（默认）/ FancyAnima 涟漪。此层启用时优先于全局特效风格 -->
+                                            <controls3:FASettingsExpanderItem IconSource="{controls2:FluentIconSource &#xE649;}"
+                                                                              Content="{x:Static locNtf:Localization.EffectStyleContent}"
+                                                                              Description="{x:Static locNtf:Localization.EffectStyleDescription}">
+                                                <controls3:FASettingsExpanderItem.Footer>
+                                                    <ComboBox SelectedIndex="{Binding ProviderSettings.NotificationEffectStyle, Mode=TwoWay}"
+                                                              AutomationProperties.Name="覆盖特效来源">
+                                                        <ComboBoxItem Content="{x:Static locNtf:Localization.EffectStyleOfficialOption}" />
+                                                        <ComboBoxItem Content="{x:Static locNtf:Localization.EffectStyleRippleOption}" />
+                                                    </ComboBox>
+                                                </controls3:FASettingsExpanderItem.Footer>
+                                            </controls3:FASettingsExpanderItem>
                                             <controls3:FASettingsExpanderItem Content="覆盖提醒效果">
+                                                <controls3:FASettingsExpanderItem.IsVisible>
+                                                    <Binding Path="ProviderSettings.NotificationEffectStyle" Converter="{x:Static ObjectConverters.Equal}">
+                                                        <Binding.ConverterParameter>
+                                                            <system:Int32>0</system:Int32>
+                                                        </Binding.ConverterParameter>
+                                                    </Binding>
+                                                </controls3:FASettingsExpanderItem.IsVisible>
                                                 <controls3:FASettingsExpanderItem.Footer>
                                                     <StackPanel Orientation="Horizontal" Spacing="8" Classes="items-valign-center">
                                                         <ComboBox ItemsSource="{x:Static services:INotificationWorkerService.RegisteredEffects}"
@@ -487,6 +523,25 @@
                                                             IsChecked="{Binding ProviderSettings.OverridesNotificationEffectId, Mode=TwoWay}"
                                                             AutomationProperties.Name="覆盖提醒特效" />
                                                     </StackPanel>
+                                                </controls3:FASettingsExpanderItem.Footer>
+                                            </controls3:FASettingsExpanderItem>
+                                            <!-- 涟漪来源时官方特效覆盖不可用：涟漪的开关/帧率/精度在主界面-窗口配置 -->
+                                            <controls3:FASettingsExpanderItem IconSource="{controls2:FluentIconSource &#xE72A;}"
+                                                                              Content="{x:Static locNtf:Localization.RippleConfigJumpContent}"
+                                                                              Description="{x:Static locNtf:Localization.RippleConfigJumpDescription}">
+                                                <controls3:FASettingsExpanderItem.IsVisible>
+                                                    <Binding Path="ProviderSettings.NotificationEffectStyle" Converter="{x:Static ObjectConverters.Equal}">
+                                                        <Binding.ConverterParameter>
+                                                            <system:Int32>1</system:Int32>
+                                                        </Binding.ConverterParameter>
+                                                    </Binding>
+                                                </controls3:FASettingsExpanderItem.IsVisible>
+                                                <controls3:FASettingsExpanderItem.Footer>
+                                                    <Button Classes="accent" Padding="10 5"
+                                                            Command="{x:Static ci:UriNavigationCommands.UriNavigationCommand}"
+                                                            CommandParameter="classisland://app/settings/window">
+                                                        <ci:IconText Glyph="&#xE72A;" Text="{x:Static locNtf:Localization.RippleConfigJumpGo}"/>
+                                                    </Button>
                                                 </controls3:FASettingsExpanderItem.Footer>
                                             </controls3:FASettingsExpanderItem>
                                         </controls3:FASettingsExpander>

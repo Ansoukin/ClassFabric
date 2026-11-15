@@ -1761,6 +1761,23 @@ public partial class Settings : ObservableRecipient, ILessonControlSettings, INo
         }
     }
 
+    private int _notificationEffectStyle = 0;
+
+    /// <summary>
+    /// 提醒特效风格：0 = 官方特效（默认），1 = 涟漪特效（FancyAnima，仅 Windows）。
+    /// 播放端判断涟漪是否可用，不可用（如非 Windows）时自动回落官方特效。
+    /// </summary>
+    public int NotificationEffectStyle
+    {
+        get => _notificationEffectStyle;
+        set
+        {
+            if (value == _notificationEffectStyle) return;
+            _notificationEffectStyle = value;
+            OnPropertyChanged();
+        }
+    }
+
     public bool AllowNotificationSound
     {
         get => _allowNotificationSound;

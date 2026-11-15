@@ -17,6 +17,7 @@ public class NotificationSettings : ObservableRecipient, INotificationSettings
     private bool _isNotificationTopmostEnabled = false;
     private string _notificationEffectId = "classisland.ripple";
     private bool _overridesNotificationEffectId = false;
+    private int _notificationEffectStyle = 0;
 
     /// <summary>
     /// 是否启用提醒
@@ -138,6 +139,18 @@ public class NotificationSettings : ObservableRecipient, INotificationSettings
         {
             if (value == _overridesNotificationEffectId) return;
             _overridesNotificationEffectId = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <inheritdoc />
+    public int NotificationEffectStyle
+    {
+        get => _notificationEffectStyle;
+        set
+        {
+            if (value == _notificationEffectStyle) return;
+            _notificationEffectStyle = value;
             OnPropertyChanged();
         }
     }

@@ -124,9 +124,14 @@ public class NotificationWorkerService : INotificationWorkerService
             break;
         }
         
-        var effectId = settings is not NotificationSettings ns || ns.OverridesNotificationEffectId 
+        var effectId = settings is not NotificationSettings ns || ns.OverridesNotificationEffectId
             ? settings.NotificationEffectId
             : request.EffectId ?? SettingsService.Settings.NotificationEffectId;
+
+        // 特效风格取生效设置层（渠道 > 提醒来源 > 请求，取第一个启用的覆盖层，否则全局）。
+        // 涟漪不可用（如非 Windows）时在播放端回落官方特效。
+        var effectStyle = settings.NotificationEffectStyle;
+        var rippleEffect = ClassIsland.Shared.IAppHost.TryGetService<INotificationRippleEffect>();
 
         var cancellationCompletedSource = new TaskCompletionSource();
         cancellationTokenSource.Token.Register(() =>
@@ -153,6 +158,12 @@ public class NotificationWorkerService : INotificationWorkerService
                 {
                     return;
                 }
+                // 涟漪风格：GDI 涟漪接管，不走官方特效管线；涟漪不可用（非 Windows）时回落官方。
+                if (effectStyle == 1 && rippleEffect != null)
+                {
+                    rippleEffect.PlayRippleAsync();
+                    return;
+                }
                 var effectFactory = INotificationWorkerService.RegisteredEffects.FirstOrDefault(x => x.Id == effectId)?
                     .Factory;
                 if (effectFactory?.Invoke(context) is not {} effect)
@@ -160,6 +171,12 @@ public class NotificationWorkerService : INotificationWorkerService
                     return;
                 }
                 TopmostEffectPlayer.PlayEffect(effect);
+                // 强制播放：官方特效风格下额外叠加涟漪。
+                if (effectStyle == 0 && rippleEffect != null
+                    && ClassIsland.Shared.IAppHost.TryGetService<IFancyAnimaSettings>() is { ManualOverride: true })
+                {
+                    rippleEffect.PlayRippleAsync();
+                }
             }
         };
         return ticket;

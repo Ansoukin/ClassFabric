@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -240,5 +240,33 @@
   <data name="EnablePerProviderAdvancedSettingsDescription" xml:space="preserve">
     <value>When enabled, the settings here override global settings and the settings required by the reminder request.</value>
     <comment>提供方高级设置-描述（同为 InfoBar 提示内容）</comment>
+  </data>
+  <data name="EffectStyleContent" xml:space="preserve">
+    <value>Effect style</value>
+    <comment>提醒设置-EffectStyleContent</comment>
+  </data>
+  <data name="EffectStyleDescription" xml:space="preserve">
+    <value>Choose how notification effects are rendered. The ripple effect is provided by FancyAnima with CPU rendering for lower overhead; official effects are the default.</value>
+    <comment>提醒设置-EffectStyleDescription</comment>
+  </data>
+  <data name="EffectStyleOfficialOption" xml:space="preserve">
+    <value>Official effects (default)</value>
+    <comment>提醒设置-EffectStyleOfficialOption</comment>
+  </data>
+  <data name="EffectStyleRippleOption" xml:space="preserve">
+    <value>Ripple effect (FancyAnima)</value>
+    <comment>提醒设置-EffectStyleRippleOption</comment>
+  </data>
+  <data name="RippleConfigJumpContent" xml:space="preserve">
+    <value>Ripple effect settings</value>
+    <comment>提醒设置-RippleConfigJumpContent</comment>
+  </data>
+  <data name="RippleConfigJumpDescription" xml:space="preserve">
+    <value>The ripple effect's switch, frame rate and quality are configured in the "Main Window - Window" settings page.</value>
+    <comment>提醒设置-RippleConfigJumpDescription</comment>
+  </data>
+  <data name="RippleConfigJumpGo" xml:space="preserve">
+    <value>Go</value>
+    <comment>提醒设置-RippleConfigJumpGo</comment>
   </data>
 </root>

@@ -63,4 +63,10 @@ public interface INotificationSettings
     /// 提醒效果 ID
     /// </summary>
     public string NotificationEffectId { get; set; }
+
+    /// <summary>
+    /// 提醒特效风格：0 = 官方特效（默认），1 = 涟漪特效（FancyAnima，仅 Windows）。
+    /// 播放端判断涟漪是否可用，不可用时自动回落官方特效。
+    /// </summary>
+    public int NotificationEffectStyle { get; set; }
 }

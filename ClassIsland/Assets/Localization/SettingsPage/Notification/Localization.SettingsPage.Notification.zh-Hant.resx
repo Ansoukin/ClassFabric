@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -240,5 +240,33 @@
   <data name="EnablePerProviderAdvancedSettingsDescription" xml:space="preserve">
     <value>啓用後，此處的設置將覆蓋全局設置和提醒請求中要求的設置。</value>
     <comment>提供方高级设置-描述（同为 InfoBar 提示内容）</comment>
+  </data>
+  <data name="EffectStyleContent" xml:space="preserve">
+    <value>特效風格</value>
+    <comment>提醒设置-EffectStyleContent</comment>
+  </data>
+  <data name="EffectStyleDescription" xml:space="preserve">
+    <value>選擇提醒特效的實現方式。漣漪特效由 FancyAnima 以 CPU 渲染提供，占用更低；官方特效為默認選項。</value>
+    <comment>提醒设置-EffectStyleDescription</comment>
+  </data>
+  <data name="EffectStyleOfficialOption" xml:space="preserve">
+    <value>官方特效（默認）</value>
+    <comment>提醒设置-EffectStyleOfficialOption</comment>
+  </data>
+  <data name="EffectStyleRippleOption" xml:space="preserve">
+    <value>漣漪特效（FancyAnima）</value>
+    <comment>提醒设置-EffectStyleRippleOption</comment>
+  </data>
+  <data name="RippleConfigJumpContent" xml:space="preserve">
+    <value>漣漪特效參數</value>
+    <comment>提醒设置-RippleConfigJumpContent</comment>
+  </data>
+  <data name="RippleConfigJumpDescription" xml:space="preserve">
+    <value>漣漪特效的開關、幀率與精度在「主界面-窗口」設置頁配置。</value>
+    <comment>提醒设置-RippleConfigJumpDescription</comment>
+  </data>
+  <data name="RippleConfigJumpGo" xml:space="preserve">
+    <value>前往</value>
+    <comment>提醒设置-RippleConfigJumpGo</comment>
   </data>
 </root>
