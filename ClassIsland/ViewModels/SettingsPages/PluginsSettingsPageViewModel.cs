@@ -6,6 +6,7 @@ using ClassIsland.Controls;
 using ClassIsland.Core.Abstractions.Services;
 using ClassIsland.Core.ComponentModels;
 using ClassIsland.Core.Models.Plugin;
+using ClassIsland.Core.Services;
 using ClassIsland.Services;
 using ClassIsland.Views.SettingPages;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -44,6 +45,32 @@ public partial class PluginsSettingsPageViewModel : ObservableRecipient
     [ObservableProperty] private string _dragInstallHintText = "将插件拖入到此处，松手即可安装。";
     [ObservableProperty] private string _dragInstallSubHintText = "";
     [ObservableProperty] private bool _pluginListBoxHasItems = false;
+
+    /// <summary>是否显示内置插件列表（替代市场/已安装列表）。</summary>
+    [ObservableProperty] private bool _isBuiltInPluginsView = false;
+
+    /// <summary>
+    /// 详情区覆盖提示：选中的市场插件与某个内置插件同 ID 时给出该内置插件；
+    /// null 表示没有内置版本，InfoBar 不显示。
+    /// </summary>
+    public PluginInfo? OverriddenBuiltInPlugin =>
+        SelectedPluginInfo is { } selected &&
+        EmbeddedPluginRegistry.TryGetById(selected.Manifest.Id, out var builtIn)
+            ? builtIn
+            : null;
+
+    /// <summary>覆盖提示文案（含内置版本号）；无内置版本时为 null。</summary>
+    public string? BuiltInOverrideNoticeText =>
+        OverriddenBuiltInPlugin is { } info
+            ? string.Format(ClassIsland.Assets.Localization.SettingsPage.Plugins.Localization.BuiltInOverrideNotice,
+                info.Manifest.Version)
+            : null;
+
+    partial void OnSelectedPluginInfoChanged(PluginInfo? value)
+    {
+        OnPropertyChanged(nameof(OverriddenBuiltInPlugin));
+        OnPropertyChanged(nameof(BuiltInOverrideNoticeText));
+    }
 
     /// <summary>README 没有图片时轮播整体隐藏；有图时供绑定判断。</summary>
     public bool HasGalleryImages => GalleryImages.Count > 0;

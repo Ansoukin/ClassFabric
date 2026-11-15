@@ -93,6 +93,8 @@ public partial class ThemesSettingsPage : SettingsPageBase
             {
                 _themeReloadDebounceTimer!.Stop();
                 ViewModel.XamlThemeService.LoadAllThemes();
+                // 启用集合变了，「主题配置」分类的可见性与内容也要跟着重算。
+                ViewModel.UpdateConfigurableThemes();
             };
         }
         _themeReloadDebounceTimer.Stop();

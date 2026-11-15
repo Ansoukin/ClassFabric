@@ -21,6 +21,7 @@
       xmlns:helpers="clr-namespace:ClassIsland.Core.Helpers;assembly=ClassIsland.Core"
       xmlns:enums="clr-namespace:ClassIsland.Core.Enums;assembly=ClassIsland.Core"
       xmlns:icons="clr-namespace:ClassIsland.Core.Icons;assembly=ClassIsland.Core"
+      xmlns:coreServices="clr-namespace:ClassIsland.Core.Services;assembly=ClassIsland.Core"
       xmlns:input="clr-namespace:Avalonia.Labs.Input;assembly=Avalonia.Labs.CommandManager"
       xmlns:locPlg="clr-namespace:ClassIsland.Assets.Localization.SettingsPage.Plugins"
       mc:Ignorable="d" 
@@ -31,7 +32,7 @@
 
     <ci:SettingsPageBase.Resources>
         <DataTemplate DataType="{x:Type plugin:PluginInfo}" x:Key="PluginDetailDataTemplate">
-            <Grid RowDefinitions="Auto,Auto,*">
+            <Grid RowDefinitions="Auto,Auto,Auto,*">
                 <Grid Grid.Row="0" Margin="4 8 4 0" ColumnDefinitions="Auto,*">
                     <asyncImageLoader:AdvancedImage Grid.Column="0" Grid.Row="0"
                                     Width="60" Height="60"
@@ -222,14 +223,20 @@
                         </Button.Flyout>
                     </Button>
                 </Grid>
-                <TabStrip Grid.Row="1" x:Name="TabStrip"
+                <!-- 内置覆盖提示：市场插件与内置插件同 ID 时告知用户安装会覆盖内置版 -->
+                <controls2:FAInfoBar Grid.Row="1" Margin="4 8 4 0"
+                                     Severity="Informational"
+                                     IsClosable="False"
+                                     Message="{Binding ViewModel.BuiltInOverrideNoticeText, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}, FallbackValue={x:Null}}"
+                                     IsOpen="{Binding ViewModel.BuiltInOverrideNoticeText, RelativeSource={RelativeSource FindAncestor, AncestorType=local:PluginsSettingsPage}, Converter={x:Static ObjectConverters.IsNotNull}, FallbackValue={x:False}}"/>
+                <TabStrip Grid.Row="2" x:Name="TabStrip"
                           Classes="compact">
                     <TabStripItem Content="{x:Static locPlg:Localization.OverviewTab}"/>
                     <TabStripItem Content="{x:Static locPlg:Localization.ErrorInfoTab}"
                                   IsVisible="{Binding Exception, Converter={x:Static ObjectConverters.IsNotNull}}"/>
                     <TabStripItem Content="{x:Static locPlg:Localization.DependenciesTab}"/>
                 </TabStrip>
-                <Panel Grid.Row="2">
+                <Panel Grid.Row="3">
                     <Border>
                         <Border.IsVisible>
                             <Binding Path="#TabStrip.SelectedIndex" Converter="{x:Static ObjectConverters.Equal}">
@@ -552,6 +559,9 @@
                         </Button.IsVisible>
                         <ci:IconText Glyph="&#xF08B;" Text="{x:Static locPlg:Localization.GoToMarket}" />
                     </Button>
+                    <Button HorizontalAlignment="Center" Margin="0 8 0 0" Click="ButtonOpenBuiltInList_OnClick">
+                        <ci:IconText Glyph="&#xE99E;" Text="{x:Static locPlg:Localization.BuiltInPluginsButton}" />
+                    </Button>
                 </StackPanel>
             </Grid>
         </ControlTemplate>
@@ -584,10 +594,25 @@
                         <DockPanel Dock="Left" LastChildFill="False">
                             <TabStrip SelectedIndex="{Binding ViewModel.PluginCategoryIndex}"
                                       Classes="compact"
-                                      SelectionChanged="ListBoxCategory_OnSelectionChanged">
+                                      SelectionChanged="ListBoxCategory_OnSelectionChanged"
+                                      IsVisible="{Binding !ViewModel.IsBuiltInPluginsView}">
                                 <TabStripItem Content="{x:Static locPlg:Localization.MarketTab}"/>
                                 <TabStripItem Content="{x:Static locPlg:Localization.InstalledTab}"/>
                             </TabStrip>
+
+                            <!-- 内置列表视图下分类页签没有意义，换成返回入口 -->
+                            <Button DockPanel.Dock="Left"
+                                    Theme="{StaticResource TransparentButton}"
+                                    Click="ButtonBackToPluginList_OnClick"
+                                    IsVisible="{Binding ViewModel.IsBuiltInPluginsView}">
+                                <ci:IconText Glyph="&#xE72B;" Text="{x:Static locPlg:Localization.BackToPluginList}"/>
+                            </Button>
+
+                            <Button DockPanel.Dock="Right"
+                                    Theme="{StaticResource TransparentButton}"
+                                    Click="ButtonOpenBuiltInList_OnClick">
+                                <ci:IconText Glyph="&#xE99E;" Text="{x:Static locPlg:Localization.BuiltInPluginsButton}"/>
+                            </Button>
 
                             <Button Content="{ci:FluentIcon &#xEBAC;}"
                                     Theme="{StaticResource TransparentButton}"
@@ -631,6 +656,9 @@
                              SelectedValue="{Binding ViewModel.SelectedPluginInfo}"
                              SelectedValueBinding="{Binding Value}"
                              SelectionChanged="Selector_OnSelectionChanged">
+                        <ListBox.IsVisible>
+                            <Binding Path="!ViewModel.IsBuiltInPluginsView"/>
+                        </ListBox.IsVisible>
                         <ListBox.Styles>
                             <Style Selector="ListBox:empty">
                                 <Setter Property="Template" Value="{StaticResource BlankListBoxTemplate}"/>
@@ -833,7 +861,49 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    
+                    <!-- 内置插件列表：随应用分发的插件，只读展示，无启停/更新/卸载 -->
+                    <ListBox Grid.Row="1"
+                             IsVisible="{Binding ViewModel.IsBuiltInPluginsView}"
+                             ItemsSource="{x:Static coreServices:EmbeddedPluginRegistry.BuiltInPlugins}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Background="Transparent"
+                                      Margin="-8 8 -2 8" RowDefinitions="*,*"
+                                      ColumnDefinitions="Auto,*,Auto">
+                                    <ci:FluentIcon Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                                                   Glyph="&#xE99E;"
+                                                   Width="40" Height="40" FontSize="24"
+                                                   VerticalAlignment="Center" Margin="4 0 10 0"/>
+                                    <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Spacing="8">
+                                        <TextBlock Text="{Binding Manifest.Name}"
+                                                   FontSize="16" FontWeight="Medium"
+                                                   VerticalAlignment="Center"/>
+                                        <Border Background="{DynamicResource SystemFillColorSuccessBackgroundBrush}"
+                                                CornerRadius="999" Padding="8 2"
+                                                VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                                <ci:FluentIcon Glyph="&#xE426;" FontSize="12" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{x:Static locPlg:Localization.BuiltInBadge}"
+                                                           FontSize="12" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Grid.Row="1"
+                                               Text="{Binding Manifest.Description}"
+                                               FontSize="12" TextWrapping="Wrap"/>
+                                    <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"
+                                                Orientation="Vertical"
+                                                VerticalAlignment="Center" HorizontalAlignment="Right"
+                                                Opacity="0.7">
+                                        <TextBlock Text="{Binding Manifest.Version}" FontSize="12" HorizontalAlignment="Right"/>
+                                        <TextBlock Text="{Binding Manifest.Author}" FontSize="12" HorizontalAlignment="Right"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+
                 </Grid>
             </controls1:ListDetailView.LeftContent>
             <controls1:ListDetailView.RightContent>

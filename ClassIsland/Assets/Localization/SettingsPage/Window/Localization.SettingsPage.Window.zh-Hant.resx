@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -276,5 +276,49 @@
   <data name="BlockCaptureDescription" xml:space="preserve">
     <value>開啓後，其他應用無法截取 ClassFabric 主界面窗口內容，錄製時也不會錄製到主頁面。</value>
     <comment>窗口设置-BlockCaptureDescription</comment>
+  </data>
+  <data name="RippleEffectHeader" xml:space="preserve">
+    <value>漣漪特效</value>
+    <comment>窗口设置-RippleEffectHeader</comment>
+  </data>
+  <data name="RippleEffectDescription" xml:space="preserve">
+    <value>提醒播放時在主界面所在顯示器播放一圈漣漪擴散動畫。官方提醒特效開啓時自動讓位，避免雙重特效。</value>
+    <comment>窗口设置-RippleEffectDescription</comment>
+  </data>
+  <data name="RippleEffectFpsContent" xml:space="preserve">
+    <value>幀率</value>
+    <comment>窗口设置-RippleEffectFpsContent</comment>
+  </data>
+  <data name="RippleEffectFpsDescription" xml:space="preserve">
+    <value>漣漪動畫的幀率上限。30 幀占用更低，60 幀更流暢。</value>
+    <comment>窗口设置-RippleEffectFpsDescription</comment>
+  </data>
+  <data name="RippleEffectQualityContent" xml:space="preserve">
+    <value>動畫精度</value>
+    <comment>窗口设置-RippleEffectQualityContent</comment>
+  </data>
+  <data name="RippleEffectQualityDescription" xml:space="preserve">
+    <value>精度越高畫面越細膩，資源占用也越高。</value>
+    <comment>窗口设置-RippleEffectQualityDescription</comment>
+  </data>
+  <data name="RippleQualitySimplified" xml:space="preserve">
+    <value>簡化</value>
+    <comment>窗口设置-RippleQualitySimplified</comment>
+  </data>
+  <data name="RippleQualityStandard" xml:space="preserve">
+    <value>標準</value>
+    <comment>窗口设置-RippleQualityStandard</comment>
+  </data>
+  <data name="RippleQualityFine" xml:space="preserve">
+    <value>精細</value>
+    <comment>窗口设置-RippleQualityFine</comment>
+  </data>
+  <data name="RippleEffectManualOverrideContent" xml:space="preserve">
+    <value>強制播放</value>
+    <comment>窗口设置-RippleEffectManualOverrideContent</comment>
+  </data>
+  <data name="RippleEffectManualOverrideDescription" xml:space="preserve">
+    <value>選擇官方特效風格時，額外疊加播放漣漪特效。</value>
+    <comment>窗口设置-RippleEffectManualOverrideDescription</comment>
   </data>
 </root>

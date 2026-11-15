@@ -309,6 +309,49 @@
                 </controls1:FASettingsExpander.Footer>
             </controls1:FASettingsExpander>
 
+            <!-- 涟漪特效（FancyAnima 内置插件，Windows） -->
+            <controls1:FASettingsExpander IconSource="{ci:FluentIconSource &#xE649;}"
+                                        Header="{x:Static locWnd:Localization.RippleEffectHeader}"
+                                        Description="{x:Static locWnd:Localization.RippleEffectDescription}"
+                                        IsVisible="{Binding ViewModel.HasRippleEffectSettings}">
+                <controls1:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding ViewModel.RippleEffectSettings.IsRippleEffectEnabled, Mode=TwoWay}"/>
+                </controls1:FASettingsExpander.Footer>
+                <!-- 帧率 -->
+                <controls1:FASettingsExpanderItem IconSource="{ci:FluentIconSource &#xE6A5;}"
+                                                Content="{x:Static locWnd:Localization.RippleEffectFpsContent}"
+                                                Description="{x:Static locWnd:Localization.RippleEffectFpsDescription}">
+                    <controls1:FASettingsExpanderItem.Footer>
+                        <ComboBox SelectedItem="{Binding ViewModel.RippleEffectSettings.RippleEffectFps}"
+                                  Foreground="{DynamicResource MaterialDesignBody}">
+                            <system:Int32>30</system:Int32>
+                            <system:Int32>60</system:Int32>
+                        </ComboBox>
+                    </controls1:FASettingsExpanderItem.Footer>
+                </controls1:FASettingsExpanderItem>
+                <!-- 动画精度 -->
+                <controls1:FASettingsExpanderItem IconSource="{ci:FluentIconSource &#xE3FE;}"
+                                                Content="{x:Static locWnd:Localization.RippleEffectQualityContent}"
+                                                Description="{x:Static locWnd:Localization.RippleEffectQualityDescription}">
+                    <controls1:FASettingsExpanderItem.Footer>
+                        <ComboBox SelectedIndex="{Binding ViewModel.RippleEffectSettings.RippleEffectQuality, Mode=TwoWay, Converter={x:Static ci:EnumToIntConverter.Instance}}"
+                                  Foreground="{DynamicResource MaterialDesignBody}">
+                            <ComboBoxItem Content="{x:Static locWnd:Localization.RippleQualitySimplified}" />
+                            <ComboBoxItem Content="{x:Static locWnd:Localization.RippleQualityStandard}" />
+                            <ComboBoxItem Content="{x:Static locWnd:Localization.RippleQualityFine}" />
+                        </ComboBox>
+                    </controls1:FASettingsExpanderItem.Footer>
+                </controls1:FASettingsExpanderItem>
+                <!-- 强制播放 -->
+                <controls1:FASettingsExpanderItem IconSource="{ci:FluentIconSource &#xE8B7;}"
+                                                Content="{x:Static locWnd:Localization.RippleEffectManualOverrideContent}"
+                                                Description="{x:Static locWnd:Localization.RippleEffectManualOverrideDescription}">
+                    <controls1:FASettingsExpanderItem.Footer>
+                        <ToggleSwitch IsChecked="{Binding ViewModel.RippleEffectSettings.ManualOverride, Mode=TwoWay}"/>
+                    </controls1:FASettingsExpanderItem.Footer>
+                </controls1:FASettingsExpanderItem>
+            </controls1:FASettingsExpander>
+
             <!-- 指针穿透 --><!--
             <ci:SettingsCard IconGlyph="MouseMoveUp" Header="启用鼠标点击"
                                    Description="启用时鼠标可以与主界面窗口上的元素交互。若禁用，那么鼠标在点击应用主界面窗口时，会穿透到窗口后方。"

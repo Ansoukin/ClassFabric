@@ -742,6 +742,16 @@ public partial class PluginsSettingsPage : SettingsPageBase
         ViewModel.PluginCategoryIndex = 0;
     }
 
+    private void ButtonOpenBuiltInList_OnClick(object sender, RoutedEventArgs e)
+    {
+        ViewModel.IsBuiltInPluginsView = true;
+    }
+
+    private void ButtonBackToPluginList_OnClick(object sender, RoutedEventArgs e)
+    {
+        ViewModel.IsBuiltInPluginsView = false;
+    }
+
     private void MenuItemManagePluginSources_OnClick(object? sender, RoutedEventArgs e)
     {
         // 这里清除掉来自 PopupBase 的调用堆栈，防止出现打开抽屉命令执行事件传播错误的问题。

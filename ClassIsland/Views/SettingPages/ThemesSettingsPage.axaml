@@ -92,6 +92,9 @@
                       SelectedIndex="{Binding ViewModel.ThemeCategoryIndex}">
                 <TabStripItem Content="{x:Static locThm:Localization.TabMarket}" />
                 <TabStripItem Content="{x:Static locThm:Localization.TabInstalled}" />
+                <!-- 主题配置：只有启用了带配置视图的主题时才显示（见 VM.HasConfigurableEnabledThemes） -->
+                <TabStripItem Content="{x:Static locThm:Localization.TabConfig}"
+                              IsVisible="{Binding ViewModel.HasConfigurableEnabledThemes}" />
             </TabStrip>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -120,9 +123,14 @@
         </StackPanel>
         
 
-        <ListBox Grid.Row="3" 
-                 ItemsSource="{Binding ViewModel.MergedThemesFiltered.Items}"
-                 IsVisible="{Binding !ViewModel.SettingsService.Settings.IsThemeWarningVisible}">
+        <ListBox Grid.Row="3"
+                 ItemsSource="{Binding ViewModel.MergedThemesFiltered.Items}">
+            <ListBox.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <Binding Path="!ViewModel.SettingsService.Settings.IsThemeWarningVisible"/>
+                    <Binding Path="ViewModel.IsThemeConfigCategory" Converter="{StaticResource InvertBooleanConverter}"/>
+                </MultiBinding>
+            </ListBox.IsVisible>
             <ListBox.ItemContainerTheme>
                 <ControlTheme TargetType="ListBoxItem" >
                     <Setter Property="Padding" Value="0"/>
@@ -309,6 +317,28 @@
             </ListBox.ItemTemplate>
         </ListBox>
         
+        <!-- 主题配置视图：分类 2 时替代主题列表，按可配置主题逐个展示名称与配置界面 -->
+        <ScrollViewer Grid.Row="3">
+            <ScrollViewer.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                    <Binding Path="!ViewModel.SettingsService.Settings.IsThemeWarningVisible"/>
+                    <Binding Path="ViewModel.IsThemeConfigCategory"/>
+                </MultiBinding>
+            </ScrollViewer.IsVisible>
+            <ItemsControl ItemsSource="{Binding ViewModel.ConfigurableEnabledThemes}" Margin="0 8 8 8">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Value.Manifest.Name}"
+                                       Theme="{StaticResource SubtitleTextBlockStyle}"
+                                       Margin="0 8 0 4"/>
+                            <ContentControl Content="{Binding Value, Converter={x:Static converters:ThemeSettingsViewConverter.Instance}}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
         <Border Grid.Row="0" Grid.RowSpan="4"
                 IsVisible="{Binding ViewModel.SettingsService.Settings.IsThemeWarningVisible}">
             <ScrollViewer>

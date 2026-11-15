@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -497,5 +497,21 @@
   <data name="OK" xml:space="preserve">
     <value>確定</value>
     <comment>通用对话框按钮-"确定"</comment>
+  </data>
+  <data name="BuiltInPluginsButton" xml:space="preserve">
+    <value>內置插件</value>
+    <comment>插件设置-BuiltInPluginsButton</comment>
+  </data>
+  <data name="BuiltInBadge" xml:space="preserve">
+    <value>內置</value>
+    <comment>插件设置-BuiltInBadge</comment>
+  </data>
+  <data name="BuiltInOverrideNotice" xml:space="preserve">
+    <value>ClassFabric 已內置此外掛程式 {0}，繼續安裝將會覆蓋本機版本！</value>
+    <comment>插件设置-BuiltInOverrideNotice</comment>
+  </data>
+  <data name="BackToPluginList" xml:space="preserve">
+    <value>返回外掛程式清單</value>
+    <comment>插件设置-BackToPluginList</comment>
   </data>
 </root>

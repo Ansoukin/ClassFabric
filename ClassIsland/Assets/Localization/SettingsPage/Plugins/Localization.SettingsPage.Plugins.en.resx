@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -497,5 +497,21 @@ Required dependencies not found:
   <data name="OK" xml:space="preserve">
     <value>OK</value>
     <comment>通用对话框按钮-"确定"</comment>
+  </data>
+  <data name="BuiltInPluginsButton" xml:space="preserve">
+    <value>Built-in Plugins</value>
+    <comment>插件设置-BuiltInPluginsButton</comment>
+  </data>
+  <data name="BuiltInBadge" xml:space="preserve">
+    <value>Built-in</value>
+    <comment>插件设置-BuiltInBadge</comment>
+  </data>
+  <data name="BuiltInOverrideNotice" xml:space="preserve">
+    <value>ClassFabric already ships this plugin ({0}). Installing it will override the built-in version!</value>
+    <comment>插件设置-BuiltInOverrideNotice</comment>
+  </data>
+  <data name="BackToPluginList" xml:space="preserve">
+    <value>Back to plugins</value>
+    <comment>插件设置-BackToPluginList</comment>
   </data>
 </root>

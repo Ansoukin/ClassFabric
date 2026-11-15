@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -497,5 +497,21 @@
   <data name="OK" xml:space="preserve">
     <value>确定</value>
     <comment>通用对话框按钮-"确定"</comment>
+  </data>
+  <data name="BuiltInPluginsButton" xml:space="preserve">
+    <value>内置插件</value>
+    <comment>插件设置-BuiltInPluginsButton</comment>
+  </data>
+  <data name="BuiltInBadge" xml:space="preserve">
+    <value>内置</value>
+    <comment>插件设置-BuiltInBadge</comment>
+  </data>
+  <data name="BuiltInOverrideNotice" xml:space="preserve">
+    <value>ClassFabric 已内置此插件 {0}，继续安装将会覆盖本地版本！</value>
+    <comment>插件设置-BuiltInOverrideNotice</comment>
+  </data>
+  <data name="BackToPluginList" xml:space="preserve">
+    <value>返回插件列表</value>
+    <comment>插件设置-BackToPluginList</comment>
   </data>
 </root>

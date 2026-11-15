@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -232,5 +232,9 @@
   <data name="MustKeepAtLeastOneTheme" xml:space="preserve">
     <value>您必须启用至少一个主题，以保证主界面有显示样式可用。</value>
     <comment>禁用全部主题时的警告吐司（axaml.cs）</comment>
+  </data>
+  <data name="TabConfig" xml:space="preserve">
+    <value>主题配置</value>
+    <comment>主题设置-TabConfig</comment>
   </data>
 </root>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -276,5 +276,49 @@
   <data name="BlockCaptureDescription" xml:space="preserve">
     <value>When enabled, other apps cannot capture the ClassFabric main window content, and it will not be recorded either.</value>
     <comment>窗口设置-BlockCaptureDescription</comment>
+  </data>
+  <data name="RippleEffectHeader" xml:space="preserve">
+    <value>Ripple Effect</value>
+    <comment>窗口设置-RippleEffectHeader</comment>
+  </data>
+  <data name="RippleEffectDescription" xml:space="preserve">
+    <value>Plays a ripple animation across the monitor of the main window when a notification starts. It steps aside automatically when official notification effects are on, to avoid double effects.</value>
+    <comment>窗口设置-RippleEffectDescription</comment>
+  </data>
+  <data name="RippleEffectFpsContent" xml:space="preserve">
+    <value>Frame rate</value>
+    <comment>窗口设置-RippleEffectFpsContent</comment>
+  </data>
+  <data name="RippleEffectFpsDescription" xml:space="preserve">
+    <value>Frame rate cap of the ripple animation. 30 fps uses fewer resources, 60 fps is smoother.</value>
+    <comment>窗口设置-RippleEffectFpsDescription</comment>
+  </data>
+  <data name="RippleEffectQualityContent" xml:space="preserve">
+    <value>Animation quality</value>
+    <comment>窗口设置-RippleEffectQualityContent</comment>
+  </data>
+  <data name="RippleEffectQualityDescription" xml:space="preserve">
+    <value>Higher quality looks finer and uses more resources.</value>
+    <comment>窗口设置-RippleEffectQualityDescription</comment>
+  </data>
+  <data name="RippleQualitySimplified" xml:space="preserve">
+    <value>Simplified</value>
+    <comment>窗口设置-RippleQualitySimplified</comment>
+  </data>
+  <data name="RippleQualityStandard" xml:space="preserve">
+    <value>Standard</value>
+    <comment>窗口设置-RippleQualityStandard</comment>
+  </data>
+  <data name="RippleQualityFine" xml:space="preserve">
+    <value>Fine</value>
+    <comment>窗口设置-RippleQualityFine</comment>
+  </data>
+  <data name="RippleEffectManualOverrideContent" xml:space="preserve">
+    <value>Force playback</value>
+    <comment>窗口设置-RippleEffectManualOverrideContent</comment>
+  </data>
+  <data name="RippleEffectManualOverrideDescription" xml:space="preserve">
+    <value>Plays the ripple in addition when the official effect style is selected.</value>
+    <comment>窗口设置-RippleEffectManualOverrideDescription</comment>
   </data>
 </root>
