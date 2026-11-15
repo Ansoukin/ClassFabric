@@ -40,6 +40,8 @@ public partial class ThemesSettingsPage : SettingsPageBase
     public ThemesSettingsViewModel ViewModel { get; } = IAppHost.GetService<ThemesSettingsViewModel>();
 
     private IDisposable? _pluginMarketExceptionSubscription;
+    private bool _enabledThemesSubscribed;
+    private DispatcherTimer? _themeReloadDebounceTimer;
 
     public ThemesSettingsPage()
     {
@@ -61,12 +63,40 @@ public partial class ThemesSettingsPage : SettingsPageBase
 
                 this.ShowErrorToast(Localization.RefreshMarketFailedTitle, ViewModel.PluginMarketService.Exception);
             });
+        // 主题的启用/停用与排序都直接改动 EnabledThemes。此前只写配置不重载，
+        // 界面毫无反应，看起来就像开关坏了；这里接上即时重载，改动当场生效。
+        if (!_enabledThemesSubscribed)
+        {
+            ViewModel.XamlThemeService.EnabledThemes.CollectionChanged += OnEnabledThemesCollectionChanged;
+            _enabledThemesSubscribed = true;
+        }
     }
 
     private void ThemesSettingsPage_OnUnloaded(object? sender, RoutedEventArgs e)
     {
         _pluginMarketExceptionSubscription?.Dispose();
         _pluginMarketExceptionSubscription = null;
+        if (_enabledThemesSubscribed)
+        {
+            ViewModel.XamlThemeService.EnabledThemes.CollectionChanged -= OnEnabledThemesCollectionChanged;
+            _enabledThemesSubscribed = false;
+        }
+    }
+
+    private void OnEnabledThemesCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        // 拖拽排序一次会触发多个 Move，逐个重载浪费；抖动合并到渲染空闲时执行一次。
+        if (_themeReloadDebounceTimer == null)
+        {
+            _themeReloadDebounceTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
+            _themeReloadDebounceTimer.Tick += (_, _) =>
+            {
+                _themeReloadDebounceTimer!.Stop();
+                ViewModel.XamlThemeService.LoadAllThemes();
+            };
+        }
+        _themeReloadDebounceTimer.Stop();
+        _themeReloadDebounceTimer.Start();
     }
 
     private void ButtonLoadThemes_OnClick(object sender, RoutedEventArgs e)

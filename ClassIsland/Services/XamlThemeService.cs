@@ -9,6 +9,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Avalonia.Markup.Xaml;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Styling;
@@ -106,6 +108,11 @@ public class XamlThemeService : ObservableRecipient, IXamlThemeService
         {
             SetResourceHost(MainWindow?.FindControl<Border>("ResourceLoaderBorder"));
         }
+        // 主题样式全部挂在这个 Border 上，找不到宿主时主题会静默失效，必须留下排查线索。
+        if (ResourceLoaderBorder == null)
+        {
+            Logger.LogError("找不到 ResourceLoaderBorder，本会话的主题样式不会生效（只会有基础外观）");
+        }
         RootStyles.Clear();
         ResourceLoaderBorder?.Styles.Remove(RootStyles);
         if (ResourceLoaderBorder != null)
@@ -130,15 +137,45 @@ public class XamlThemeService : ObservableRecipient, IXamlThemeService
                 }
                 actualSafeAreaPx = Math.Max(themeInfo.Manifest.VerticalSafeAreaPx, actualSafeAreaPx);
                 themeInfo.IsLoaded = true;
+                Logger.LogInformation("主题 {} 加载完成", themeInfo.Manifest.Id);
             }
             catch (Exception e)
             {
                 themeInfo.IsError = true;
                 themeInfo.Error = e;
+                // 之前这里静默吞掉异常，主题没生效时无从排查。
+                Logger.LogError(e, "主题 {} 加载失败", themeInfo.Manifest.Id);
             }
         }
 
         ActualVerticalSafeAreaPx = actualSafeAreaPx;
+        ProbeAppliedLineTemplate();
+    }
+
+    /// <summary>
+    /// 主题加载后探查一行卡片实际套上的模板，用于确认主题样式是否真正作用到了控件。
+    /// 经典模板内含 MainWindowBackgroundMaterialControl，Fluent 模板内含 SlantedMaskControl，
+    /// 以这两类子件的出现与否区分当前生效的模板。
+    /// </summary>
+    private void ProbeAppliedLineTemplate()
+    {
+        Dispatcher.UIThread.Post(() =>
+        {
+            var lines = ResourceLoaderBorder?.GetVisualDescendants().OfType<Controls.MainWindowLine>().ToList();
+            if (lines is not { Count: > 0 })
+            {
+                Logger.LogWarning("主题诊断：可视树中找不到 MainWindowLine，无法确认主题是否生效");
+                return;
+            }
+            foreach (var line in lines.Take(3))
+            {
+                var descendants = line.GetVisualDescendants().ToList();
+                var hasClassic = descendants.Any(d => d is Core.Controls.MainWindowBackgroundMaterialControl);
+                var hasFluent = descendants.Any(d => d.GetType().Name.Contains("SlantedMask", StringComparison.OrdinalIgnoreCase));
+                Logger.LogInformation("主题诊断：行 {} Template={} 经典标志={} Fluent标志={} 模板子件数={}",
+                    line.LineNumber, line.Template?.GetType().Name ?? "无", hasClassic, hasFluent, descendants.Count);
+            }
+        }, DispatcherPriority.ApplicationIdle);
     }
 
     void IXamlThemeService.SetResourceHost(Border? host)
