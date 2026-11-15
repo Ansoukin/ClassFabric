@@ -22,6 +22,12 @@ public abstract class PluginBase
     public PluginInfo Info { get; internal set; } = null!;
 
     /// <summary>
+    /// 内置插件的宿主能力委托。仅经 AddBuiltInPlugin 注册的插件持有；外部插件为 null，
+    /// 读取方需判空回退。
+    /// </summary>
+    public BuiltInPluginConfig? BuiltInConfig { get; internal set; }
+
+    /// <summary>
     /// 初始化插件。一般在这个方法中完成插件的各项服务的注册。
     /// </summary>
     /// <param name="context"></param>

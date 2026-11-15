@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text.Json.Serialization;
+using Avalonia.Controls;
 using ClassIsland.Core.Abstractions.Models.Marketplace;
 using CommunityToolkit.Mvvm.ComponentModel;
 using YamlDotNet.Serialization;
@@ -279,4 +280,11 @@ public class ThemeInfo : ObservableRecipient, IMarketplaceItemInfo
             OnPropertyChanged();
         }
     }
+
+    /// <summary>
+    /// 主题配置视图工厂。注册主题时一并提供的配置界面入口（为 null 表示该主题无配置项），
+    /// 主题页「主题配置」分类按此判断主题是否可配置并生成对应的配置界面。
+    /// </summary>
+    [JsonIgnore]
+    public Func<Control>? SettingsViewFactory { get; set; }
 }

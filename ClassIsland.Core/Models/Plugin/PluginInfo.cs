@@ -19,6 +19,7 @@ public class PluginInfo : ObservableRecipient, IMarketplaceItemInfo
     private long _downloadCount = 0;
     private long _starsCount = 0;
     private bool _isNotSupportCurrentOS = false;
+    private bool _isBuiltIn = false;
 
     /// <summary>
     /// 插件元数据
@@ -225,6 +226,21 @@ public class PluginInfo : ObservableRecipient, IMarketplaceItemInfo
         {
             if (value == _starsCount) return;
             _starsCount = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    /// 是否为随应用分发的内置插件。内置插件无本地安装目录，禁用/卸载/更新等操作不适用。
+    /// </summary>
+    [JsonIgnore]
+    public bool IsBuiltIn
+    {
+        get => _isBuiltIn;
+        internal set
+        {
+            if (value == _isBuiltIn) return;
+            _isBuiltIn = value;
             OnPropertyChanged();
         }
     }
