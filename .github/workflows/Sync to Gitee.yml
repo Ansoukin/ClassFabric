@@ -16,3 +16,4 @@ jobs:
           gitee-owner: ${{ secrets.GITEE_OWNER }}
           gitee-token: ${{ secrets.GITEE_TOKEN }}
           include-repos: 'ClassFabric'
+          sync-extra: 'releases'
