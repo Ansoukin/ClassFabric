@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sync GitHub to Gitee
-        uses: NEVSTOP-LAB/GitHub-Gitee-Sync@v1
+        uses: NEVSTOP-LAB/GitHub-Gitee-Sync@main
         with:
           github-owner: ${{ github.repository_owner }}
           github-token: ${{ secrets.GH_TOKEN }}
