@@ -130,7 +130,7 @@
     <comment>界面语言-描述</comment>
   </data>
   <data name="SellingAnnouncement" xml:space="preserve">
-    <value>ClassFabric is free and open-source software, and no paid support service of any kind is provided officially. The source code repository is at https://github.com/ClassIsland/ClassIsland/. If you obtained this application through paid assistance, please seek help from the seller first under the service framework agreed with them when you run into problems. If the seller does not provide the service you expected, ask for a refund or otherwise actively protect your legitimate rights and interests.</value>
+    <value>ClassFabric is free and open-source software, and no paid support service of any kind is provided officially. The source code repository is at https://github.com/Ansoukin/ClassFabric/. If you obtained this application through paid assistance, please seek help from the seller first under the service framework agreed with them when you run into problems. If the seller does not provide the service you expected, ask for a refund or otherwise actively protect your legitimate rights and interests.</value>
     <comment>付费支持提示横幅</comment>
   </data>
   <data name="Behavior" xml:space="preserve">
