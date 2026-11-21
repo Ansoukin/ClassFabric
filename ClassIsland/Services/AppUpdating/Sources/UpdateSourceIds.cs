@@ -18,9 +18,9 @@ internal static class UpdateSourceIds
     public const string GitHub = "github";
 
     /// <summary>
-    /// 以 GitHub Releases 为主源、失败时回退到 ClassIsland 分发中心的更新源 ID。
+    /// Gitee Releases 更新源 ID。
     /// </summary>
-    public const string GitHubWithPhainonFallback = "github+pdcc";
+    public const string Gitee = "gitee";
 
     /// <summary>
     /// 默认的 GitHub 更新仓库。
@@ -28,15 +28,21 @@ internal static class UpdateSourceIds
     public const string DefaultGitHubRepository = "Ansoukin/ClassFabric";
 
     /// <summary>
+    /// 默认的 Gitee 更新仓库。
+    /// </summary>
+    public const string DefaultGiteeRepository = "ansoukin/ClassFabric";
+
+    /// <summary>
     /// 默认更新源 ID。
     /// </summary>
     public const string Default = GitHub;
 
     private static readonly string[] Order =
-        [GitHub, GitHubWithPhainonFallback, PhainonDistributionCenter];
+        [GitHub, Gitee, PhainonDistributionCenter];
 
     /// <summary>
-    /// 将任意设置值规范化到受支持的更新源 ID。
+    /// 将任意设置值规范化到受支持的更新源 ID。已废弃的 <c>github+pdcc</c>（GitHub 主源回退分发中心）
+    /// 旧设置值不是合法 ID，会被归一为默认的 GitHub 源。
     /// </summary>
     public static string Normalize(string? id) => Array.IndexOf(Order, id) >= 0 ? id! : Default;
 

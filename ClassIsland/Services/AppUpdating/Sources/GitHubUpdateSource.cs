@@ -15,9 +15,10 @@ using Microsoft.Extensions.Logging;
 namespace ClassIsland.Services.AppUpdating.Sources;
 
 /// <summary>
-/// 从 GitHub Releases 获取应用更新的更新源。
+/// 从 GitHub Releases 获取应用更新的更新源。Gitee 的 v5 接口与本类面对的 GitHub 接口同构，
+/// 因此 Gitee 更新源直接派生自本类，只覆写宿主相关的差异点。
 /// </summary>
-internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
+internal class GitHubUpdateSource : IUpdateSource, IDisposable
 {
     /// <summary>
     /// 正式版通道 ID。
@@ -63,11 +64,14 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
         _cacheDirectory = string.IsNullOrWhiteSpace(cacheDirectory) ? null : cacheDirectory;
         Logger = logger;
         _httpClient = handler == null ? new HttpClient() : new HttpClient(handler, false);
-        _httpClient.BaseAddress = new Uri("https://api.github.com/");
+        _httpClient.BaseAddress = new Uri(ApiBaseUrl);
         _httpClient.Timeout = TimeSpan.FromSeconds(30);
         _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("ClassFabric", "1.0"));
-        _httpClient.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
+        if (!string.IsNullOrWhiteSpace(AcceptHeader))
+        {
+            _httpClient.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue(AcceptHeader));
+        }
     }
 
     /// <summary>
@@ -85,10 +89,35 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
     private ILogger? Logger { get; }
 
     /// <inheritdoc />
-    public UpdateSourceKind Kind => UpdateSourceKind.GitHub;
+    public virtual UpdateSourceKind Kind => UpdateSourceKind.GitHub;
 
     /// <inheritdoc />
-    public string DisplayName => "GitHub Releases";
+    public virtual string DisplayName => "GitHub Releases";
+
+    /// <summary>
+    /// 错误与日志文案中用来称呼宿主的名称。
+    /// </summary>
+    protected virtual string HostLabel => "GitHub";
+
+    /// <summary>
+    /// Releases 接口的根地址，以斜杠结尾。
+    /// </summary>
+    protected virtual string ApiBaseUrl => "https://api.github.com/";
+
+    /// <summary>
+    /// 请求 Releases 接口时携带的 Accept 头；宿主不需要时返回 <c>null</c>。
+    /// </summary>
+    protected virtual string? AcceptHeader => "application/vnd.github+json";
+
+    /// <summary>
+    /// 本地缓存文件名前缀。同一仓库名在不同宿主上不能共用缓存。
+    /// </summary>
+    protected virtual string CacheFilePrefix => "GitHubReleases";
+
+    /// <summary>
+    /// 限流提示中关于匿名访问配额的说明；宿主没有对应配额时返回空串。
+    /// </summary>
+    protected virtual string AnonymousRateLimitHint => "，匿名访问的速率限制为每小时 60 次";
 
     /// <summary>
     /// 将持久化的通道 GUID 转换为更新源通道 ID。
@@ -124,17 +153,17 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
     };
 
     /// <summary>
-    /// 构造 GitHub 更新源的通道列表。通道 ID 使用固定的 GUID，与 <c>DistributionMetadata.Channels</c> 的键类型一致。
-    /// 该操作不需要网络请求。
+    /// 构造本更新源的通道列表。通道 ID 使用固定的 GUID，与 <c>DistributionMetadata.Channels</c> 的键类型一致。
+    /// 该操作不需要网络请求。文案中的宿主名取自 <see cref="HostLabel"/>，Gitee 更新源继承本方法后自动显示自己的名称。
     /// </summary>
-    public static UpdateSourceChannels CreateChannels() => new(
+    public virtual UpdateSourceChannels CreateChannels() => new(
     [
-        new(StableChannelGuid.ToString(), "正式版", "仅获取 GitHub 上标记为正式发布的版本。"),
-        new(PreviewChannelGuid.ToString(), "预览版", "包含 GitHub 上标记为预发布的版本，可能不稳定，请谨慎使用。")
+        new(StableChannelGuid.ToString(), "正式版", $"仅获取 {HostLabel} 上标记为正式发布的版本。"),
+        new(PreviewChannelGuid.ToString(), "预览版", $"包含 {HostLabel} 上标记为预发布的版本，可能不稳定，请谨慎使用。")
     ], StableChannelGuid.ToString());
 
     /// <inheritdoc />
-    public Task<UpdateSourceChannels> GetChannelsAsync(CancellationToken cancellationToken = default) =>
+    public virtual Task<UpdateSourceChannels> GetChannelsAsync(CancellationToken cancellationToken = default) =>
         Task.FromResult(CreateChannels());
 
     /// <inheritdoc />
@@ -221,12 +250,12 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
         {
             if (!forceRefresh && cachedJson != null)
             {
-                Logger?.LogWarning("GitHub 接口处于限流退避期，改用本地缓存的发行信息。");
+                Logger?.LogWarning("{HostLabel} 接口处于限流退避期，改用本地缓存的发行信息。", HostLabel);
                 return DeserializeReleases(cachedJson);
             }
 
             throw new InvalidOperationException(
-                $"GitHub 接口仍在限流退避期（仓库：{Repository}），请在 {_rateLimitedUntil.ToLocalTime():HH:mm} 后重试。");
+                $"{HostLabel} 接口仍在限流退避期（仓库：{Repository}），请在 {_rateLimitedUntil.ToLocalTime():HH:mm} 后重试。");
         }
 
         using var request = new HttpRequestMessage(HttpMethod.Get, $"repos/{Repository}/releases?per_page=20");
@@ -248,8 +277,8 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
         }
         catch (Exception ex)
         {
-            Logger?.LogWarning(ex, "获取 GitHub 发行信息失败。");
-            throw new InvalidOperationException("无法连接 GitHub 获取更新信息，请检查网络连接后重试。", ex);
+            Logger?.LogWarning(ex, "获取 {HostLabel} 发行信息失败。", HostLabel);
+            throw new InvalidOperationException($"无法连接 {HostLabel} 获取更新信息，请检查网络连接后重试。", ex);
         }
 
         using (response)
@@ -276,8 +305,8 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
             if (!response.IsSuccessStatusCode)
             {
                 var message = response.StatusCode == HttpStatusCode.NotFound
-                    ? $"GitHub 上不存在仓库 {Repository}（或该仓库未公开），请检查更新源设置。"
-                    : $"GitHub 返回了意外的响应（HTTP {(int)response.StatusCode} {response.ReasonPhrase}）。";
+                    ? $"{HostLabel} 上不存在仓库 {Repository}（或该仓库未公开），请检查更新源设置。"
+                    : $"{HostLabel} 返回了意外的响应（HTTP {(int)response.StatusCode} {response.ReasonPhrase}）。";
                 throw new InvalidOperationException(message);
             }
 
@@ -294,12 +323,12 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
     private string BuildRateLimitMessage(HttpResponseMessage response)
     {
         var reason = (int)response.StatusCode == 429
-            ? "GitHub 接口访问过于频繁（HTTP 429）"
-            : "GitHub 拒绝了本次请求（HTTP 403）";
+            ? $"{HostLabel} 接口访问过于频繁（HTTP 429）"
+            : $"{HostLabel} 拒绝了本次请求（HTTP 403）";
         var remaining = response.Headers.TryGetValues("X-RateLimit-Remaining", out var values)
             ? values.FirstOrDefault()
             : null;
-        var hint = remaining == "0" ? "，匿名访问的速率限制为每小时 60 次" : "";
+        var hint = remaining == "0" ? AnonymousRateLimitHint : "";
         var retryAfter = response.Headers.RetryAfter?.Delta;
         var retry = retryAfter is { TotalSeconds: > 0 }
             ? $"，请在 {Math.Max(1, Math.Ceiling(retryAfter.Value.TotalMinutes))} 分钟后重试"
@@ -321,7 +350,7 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
 
     private string? CacheFilePath => _cacheDirectory == null
         ? null
-        : Path.Combine(_cacheDirectory, $"GitHubReleases.{SanitizeRepository(Repository)}.json");
+        : Path.Combine(_cacheDirectory, $"{CacheFilePrefix}.{SanitizeRepository(Repository)}.json");
 
     private string? CacheEtagFilePath => CacheFilePath == null ? null : CacheFilePath + ".etag";
 
@@ -349,7 +378,7 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
         }
         catch (Exception ex)
         {
-            Logger?.LogWarning(ex, "读取 GitHub 更新缓存失败。");
+            Logger?.LogWarning(ex, "读取 {HostLabel} 更新缓存失败。", HostLabel);
             return null;
         }
     }
@@ -368,7 +397,7 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
         }
         catch (Exception ex)
         {
-            Logger?.LogWarning(ex, "读取 GitHub 更新缓存标记失败。");
+            Logger?.LogWarning(ex, "读取 {HostLabel} 更新缓存标记失败。", HostLabel);
             return null;
         }
     }
@@ -392,7 +421,7 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
         }
         catch (Exception ex)
         {
-            Logger?.LogWarning(ex, "写入 GitHub 更新缓存失败。");
+            Logger?.LogWarning(ex, "写入 {HostLabel} 更新缓存失败。", HostLabel);
         }
     }
 
@@ -410,7 +439,7 @@ internal sealed class GitHubUpdateSource : IUpdateSource, IDisposable
         }
         catch (Exception ex)
         {
-            Logger?.LogWarning(ex, "更新 GitHub 缓存时间戳失败。");
+            Logger?.LogWarning(ex, "更新 {HostLabel} 缓存时间戳失败。", HostLabel);
         }
     }
 

@@ -63,10 +63,12 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     private const string PhainonRootUrl = "https://distribution.classisland.tech";
 
     private const string PendingUpdateFileName = "PendingUpdate.json";
-    private const string GitHubPackageDirectoryName = "Package";
+    private const string SinglePackageDirectoryName = "Package";
 
     private GitHubUpdateSource? _gitHubUpdateSource;
     private string? _gitHubUpdateSourceRepository;
+
+    private GiteeUpdateSource? _giteeUpdateSource;
 
     internal static string UpdateCachePath { get; } = Path.Combine(CommonDirectories.AppCacheFolderPath, "Update");
 
@@ -354,9 +356,8 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             case UpdateSourceIds.PhainonDistributionCenter:
                 chain.Add(CreatePhainonUpdateSource());
                 break;
-            case UpdateSourceIds.GitHubWithPhainonFallback:
-                chain.Add(GetGitHubUpdateSource());
-                chain.Add(CreatePhainonUpdateSource());
+            case UpdateSourceIds.Gitee:
+                chain.Add(GetGiteeUpdateSource());
                 break;
             default:
                 chain.Add(GetGitHubUpdateSource());
@@ -397,7 +398,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     /// </summary>
     private void EnsureReleaseAssetAvailable(IUpdateSource source, UpdateRelease? release, bool isForce)
     {
-        if (source.Kind != UpdateSourceKind.GitHub ||
+        if (source.Kind is not (UpdateSourceKind.GitHub or UpdateSourceKind.Gitee) ||
             release == null ||
             release.Assets.Count > 0 ||
             !IsNewerVersion(isForce, false, ParseVersionOrThrow(release.Version)))
@@ -425,6 +426,13 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     }
 
     private PhainonUpdateSource CreatePhainonUpdateSource() => new(RequestHelper);
+
+    private GiteeUpdateSource GetGiteeUpdateSource()
+    {
+        // Gitee 更新仓库固定，不像 GitHub 那样提供设置覆盖，因此实例只需创建一次。
+        _giteeUpdateSource ??= new GiteeUpdateSource(UpdateCachePath, logger: Logger);
+        return _giteeUpdateSource;
+    }
 
     private void ApplyChannels(IUpdateSource source, UpdateSourceChannels channels)
     {
@@ -482,9 +490,15 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     internal void RefreshLocalChannelMetadata()
     {
         var sourceId = UpdateSourceIds.Normalize(Settings.UpdateSourceId);
-        if (sourceId == UpdateSourceIds.GitHub || sourceId == UpdateSourceIds.GitHubWithPhainonFallback)
+        if (sourceId == UpdateSourceIds.GitHub)
         {
-            ApplyChannels(GetGitHubUpdateSource(), GitHubUpdateSource.CreateChannels());
+            var source = GetGitHubUpdateSource();
+            ApplyChannels(source, source.CreateChannels());
+        }
+        else if (sourceId == UpdateSourceIds.Gitee)
+        {
+            var source = GetGiteeUpdateSource();
+            ApplyChannels(source, source.CreateChannels());
         }
     }
 
@@ -520,9 +534,12 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     {
         var asset = release.Assets.FirstOrDefault();
         var descriptor = new PendingUpdateDescriptor(
-            source.Kind == UpdateSourceKind.GitHub
-                ? UpdateSourceIds.GitHub
-                : UpdateSourceIds.PhainonDistributionCenter,
+            source.Kind switch
+            {
+                UpdateSourceKind.GitHub => UpdateSourceIds.GitHub,
+                UpdateSourceKind.Gitee => UpdateSourceIds.Gitee,
+                _ => UpdateSourceIds.PhainonDistributionCenter
+            },
             release.Version,
             subChannel,
             AppBase.Current.PackagingType,
@@ -644,10 +661,10 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         try
         {
             var pendingUpdate = LoadPendingUpdate();
-            if (pendingUpdate?.SourceId == UpdateSourceIds.GitHub)
+            if (pendingUpdate?.SourceId is UpdateSourceIds.GitHub or UpdateSourceIds.Gitee)
             {
                 cts = _downloadCancellationTokenSource = new CancellationTokenSource();
-                await DownloadGitHubUpdateAsync(pendingUpdate, cts);
+                await DownloadSinglePackageUpdateAsync(pendingUpdate, cts);
                 return;
             }
 
@@ -979,9 +996,9 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         {
             Logger.LogInformation("正在部署应用更新");
             var pendingUpdate = LoadPendingUpdate();
-            if (pendingUpdate?.SourceId == UpdateSourceIds.GitHub)
+            if (pendingUpdate?.SourceId is UpdateSourceIds.GitHub or UpdateSourceIds.Gitee)
             {
-                await DeployGitHubUpdateAsync(pendingUpdate);
+                await DeploySinglePackageUpdateAsync(pendingUpdate);
                 return;
             }
 
@@ -1251,7 +1268,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     }
 
 
-    private async Task DownloadGitHubUpdateAsync(PendingUpdateDescriptor descriptor, CancellationTokenSource cts)
+    private async Task DownloadSinglePackageUpdateAsync(PendingUpdateDescriptor descriptor, CancellationTokenSource cts)
     {
         if (string.IsNullOrWhiteSpace(descriptor.AssetName) ||
             !Uri.TryCreate(descriptor.AssetDownloadUrl, UriKind.Absolute, out var downloadUri))
@@ -1259,7 +1276,7 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
             throw new InvalidOperationException(Localization.PendingUpdateMissingPackageInfo);
         }
 
-        var dlRoot = Path.Combine(UpdateTempPath, GitHubPackageDirectoryName);
+        var dlRoot = Path.Combine(UpdateTempPath, SinglePackageDirectoryName);
         Directory.CreateDirectory(dlRoot);
         CurrentWorkingStatus = UpdateWorkingStatus.DownloadingUpdates;
         var cancellationToken = cts.Token;
@@ -1329,9 +1346,9 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
         Settings.LastUpdateStatus = UpdateStatus.UpdateDownloaded;
     }
 
-    private async Task DeployGitHubUpdateAsync(PendingUpdateDescriptor descriptor)
+    private async Task DeploySinglePackageUpdateAsync(PendingUpdateDescriptor descriptor)
     {
-        var packagePath = Path.Combine(UpdateTempPath, GitHubPackageDirectoryName, descriptor.AssetName ?? "");
+        var packagePath = Path.Combine(UpdateTempPath, SinglePackageDirectoryName, descriptor.AssetName ?? "");
         if (!File.Exists(packagePath))
         {
             throw new InvalidOperationException(Localization.DownloadedUpdatePackageNotFound);

@@ -387,7 +387,7 @@
                             <controls:FASettingsExpander.Footer>
                                 <ComboBox SelectedIndex="{Binding ViewModel.SelectedUpdateSourceIndex, Mode=TwoWay}">
                                     <ComboBoxItem Content="GitHub Releases" />
-                                    <ComboBoxItem Content="{x:Static locUpd:Localization.UpdateSourceGitHubFallback}" />
+                                    <ComboBoxItem Content="Gitee Releases" />
                                     <ComboBoxItem Content="{x:Static locUpd:Localization.UpdateSourceDistributionCenterCompat}" />
                                 </ComboBox>
                             </controls:FASettingsExpander.Footer>

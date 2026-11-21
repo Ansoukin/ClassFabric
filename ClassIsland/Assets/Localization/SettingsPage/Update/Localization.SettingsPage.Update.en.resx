@@ -245,16 +245,12 @@
     <value>Controls where update information is fetched from. GitHub Releases is the default source; anonymous access is subject to GitHub API rate limits.</value>
     <comment>更新源-描述</comment>
   </data>
-  <data name="UpdateSourceGitHubFallback" xml:space="preserve">
-    <value>GitHub Releases (falls back to the ClassIsland distribution center on failure)</value>
-    <comment>更新源-"GitHub Releases（失败时回退）"选项</comment>
-  </data>
   <data name="UpdateSourceDistributionCenterCompat" xml:space="preserve">
-    <value>ClassIsland distribution center (legacy, not recommended)</value>
-    <comment>更新源-"ClassIsland 分发中心（兼容，不推荐）"选项</comment>
+    <value>ClassIsland distribution center</value>
+    <comment>更新源-"ClassIsland 分发中心"选项</comment>
   </data>
   <data name="UpdateSourceExplanation" xml:space="preserve">
-    <value>GitHub Releases reads published versions directly from the ClassFabric GitHub repository, without depending on the ClassIsland distribution center. When an option with "fallback" is selected and the GitHub check fails, the ClassIsland distribution center (kept for compatibility) is used instead.</value>
+    <value>GitHub Releases reads published versions directly from the ClassFabric GitHub repository, without depending on the ClassIsland distribution center. Gitee Releases reads them from the ClassFabric mirror on Gitee, useful when GitHub is slow or unreachable.</value>
     <comment>更新源-补充说明</comment>
   </data>
   <data name="UpdateChannel" xml:space="preserve">

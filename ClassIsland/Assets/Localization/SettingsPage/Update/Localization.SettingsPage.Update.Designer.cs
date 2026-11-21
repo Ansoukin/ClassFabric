@@ -349,16 +349,7 @@ namespace ClassIsland.Assets.Localization.SettingsPage.Update {
         }
 
         /// <summary>
-        ///   查找类似 GitHub Releases（失败时回退到 ClassIsland 分发中心） 的本地化字符串。
-        /// </summary>
-        public static string UpdateSourceGitHubFallback {
-            get {
-                return ResourceManager.GetString("UpdateSourceGitHubFallback", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   查找类似 ClassIsland 分发中心（兼容，不推荐） 的本地化字符串。
+        ///   查找类似 ClassIsland 分发中心 的本地化字符串。
         /// </summary>
         public static string UpdateSourceDistributionCenterCompat {
             get {

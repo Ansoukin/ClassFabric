@@ -18,13 +18,18 @@ internal enum UpdateSourceKind
     /// <summary>
     /// GitHub Releases。
     /// </summary>
-    GitHub
+    GitHub,
+
+    /// <summary>
+    /// Gitee Releases。接口结构与 GitHub 兼容，但字段更精简。
+    /// </summary>
+    Gitee
 }
 
 /// <summary>
 /// 更新源提供的一个更新通道。
 /// </summary>
-/// <param name="Id">通道 ID，必须是 GUID 字符串。PDCC 通道为服务端下发的通道 GUID，GitHub 通道为内置的两个固定 GUID。</param>
+/// <param name="Id">通道 ID，必须是 GUID 字符串。PDCC 通道为服务端下发的通道 GUID，GitHub/Gitee 通道为内置的两个固定 GUID。</param>
 /// <param name="Name">通道名称。</param>
 /// <param name="Description">通道说明。</param>
 internal sealed record UpdateSourceChannel(string Id, string Name, string Description = "");
@@ -69,7 +74,7 @@ internal sealed record UpdateRelease(
 /// <summary>
 /// 一次更新查询的输入参数。
 /// </summary>
-/// <param name="ChannelId">要查询的通道 ID。GitHub 源接受 <c>stable</c> / <c>preview</c> 字符串或对应通道 GUID，PDCC 源接受通道 GUID 字符串。</param>
+/// <param name="ChannelId">要查询的通道 ID。GitHub/Gitee 源接受 <c>stable</c> / <c>preview</c> 字符串或对应通道 GUID，PDCC 源接受通道 GUID 字符串。</param>
 /// <param name="SubChannel">当前子频道，即 <c>AppBase.Current.AppSubChannel</c>。</param>
 /// <param name="PackagingType">当前安装形态。</param>
 /// <param name="CurrentVersion">当前应用版本。</param>
@@ -116,9 +121,9 @@ internal interface IUpdateSource
 /// <param name="Version">目标版本号。</param>
 /// <param name="SubChannel">目标子频道。</param>
 /// <param name="PackagingType">目标安装形态。</param>
-/// <param name="AssetName">更新包文件名，仅 GitHub 更新源会填充。</param>
-/// <param name="AssetDownloadUrl">更新包下载地址，仅 GitHub 更新源会填充。</param>
-/// <param name="AssetSize">更新包大小（字节），仅 GitHub 更新源会填充。</param>
+/// <param name="AssetName">更新包文件名，仅 GitHub/Gitee 更新源会填充。</param>
+/// <param name="AssetDownloadUrl">更新包下载地址，仅 GitHub/Gitee 更新源会填充。</param>
+/// <param name="AssetSize">更新包大小（字节），仅 GitHub/Gitee 更新源会填充。</param>
 internal sealed record PendingUpdateDescriptor(
     string SourceId,
     string Version,

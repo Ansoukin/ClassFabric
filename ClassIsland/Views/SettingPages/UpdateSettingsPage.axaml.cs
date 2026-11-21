@@ -100,7 +100,7 @@ public partial class UpdateSettingsPage : SettingsPageBase
                 ? v1
                 : ViewModel.SelectedChannel;
         var sourceId = UpdateSourceIds.Normalize(settings.UpdateSourceId);
-        if ((sourceId == UpdateSourceIds.GitHub || sourceId == UpdateSourceIds.GitHubWithPhainonFallback) &&
+        if ((sourceId == UpdateSourceIds.GitHub || sourceId == UpdateSourceIds.Gitee) &&
             GitHubUpdateSource.IsGitHubChannelGuid(settings.SelectedUpdateChannelV3))
         {
             settings.GitHubUpdateChannel =

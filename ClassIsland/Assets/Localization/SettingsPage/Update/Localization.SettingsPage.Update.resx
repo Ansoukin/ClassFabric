@@ -245,16 +245,12 @@
     <value>控制获取应用更新信息的来源。GitHub Releases 为默认更新源，匿名访问受 GitHub 接口速率限制。</value>
     <comment>更新源-描述</comment>
   </data>
-  <data name="UpdateSourceGitHubFallback" xml:space="preserve">
-    <value>GitHub Releases（失败时回退到 ClassIsland 分发中心）</value>
-    <comment>更新源-"GitHub Releases（失败时回退）"选项</comment>
-  </data>
   <data name="UpdateSourceDistributionCenterCompat" xml:space="preserve">
-    <value>ClassIsland 分发中心（兼容，不推荐）</value>
-    <comment>更新源-"ClassIsland 分发中心（兼容，不推荐）"选项</comment>
+    <value>ClassIsland 分发中心</value>
+    <comment>更新源-"ClassIsland 分发中心"选项</comment>
   </data>
   <data name="UpdateSourceExplanation" xml:space="preserve">
-    <value>GitHub Releases 直接从 ClassFabric 的 GitHub 仓库读取发行版本，无需依赖 ClassIsland 分发中心。选择带有「回退」的选项时，若 GitHub 检查失败，会改用 ClassIsland 分发中心（兼容保留）。</value>
+    <value>GitHub Releases 直接从 ClassFabric 的 GitHub 仓库读取发行版本，无需依赖 ClassIsland 分发中心。Gitee Releases 从 ClassFabric 的 Gitee 镜像仓库读取，适合 GitHub 访问不畅的环境。</value>
     <comment>更新源-补充说明</comment>
   </data>
   <data name="UpdateChannel" xml:space="preserve">
