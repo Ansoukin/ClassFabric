@@ -289,7 +289,8 @@
                     </ComboBox>
                 </controls3:FASettingsExpander.Footer>
                 <controls3:FASettingsExpanderItem Content="OpenWeather API Key"
-                                                  Description="{x:Static locWth:Localization.OpenWeatherApiKeyDescription}">
+                                                  Description="{x:Static locWth:Localization.OpenWeatherApiKeyDescription}"
+                                                  IsVisible="{Binding ViewModel.IsOpenWeatherSelected}">
                     <controls3:FASettingsExpanderItem.Footer>
                         <TextBox Text="{Binding ViewModel.SettingsService.Settings.OpenWeatherApiKey, Mode=TwoWay}"
                                  PasswordChar="●"
@@ -298,15 +299,8 @@
                     </controls3:FASettingsExpanderItem.Footer>
                 </controls3:FASettingsExpanderItem>
                 <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.QWeatherApiKey}"
-                                                  Description="{x:Static locWth:Localization.QWeatherApiKeyDescription}">
-                    <controls3:FASettingsExpanderItem.IsVisible>
-                        <Binding Path="ViewModel.SelectedWeatherProvider"
-                                 Converter="{x:Static ObjectConverters.Equal}">
-                            <Binding.ConverterParameter>
-                                <system:Int32>2</system:Int32>
-                            </Binding.ConverterParameter>
-                        </Binding>
-                    </controls3:FASettingsExpanderItem.IsVisible>
+                                                  Description="{x:Static locWth:Localization.QWeatherApiKeyDescription}"
+                                                  IsVisible="{Binding ViewModel.IsQWeatherSelected}">
                     <controls3:FASettingsExpanderItem.Footer>
                         <TextBox Text="{Binding ViewModel.SettingsService.Settings.QWeatherApiKey, Mode=TwoWay}"
                                  PasswordChar="●"
@@ -315,15 +309,8 @@
                     </controls3:FASettingsExpanderItem.Footer>
                 </controls3:FASettingsExpanderItem>
                 <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.QWeatherApiHost}"
-                                                  Description="{x:Static locWth:Localization.QWeatherApiHostDescription}">
-                    <controls3:FASettingsExpanderItem.IsVisible>
-                        <Binding Path="ViewModel.SelectedWeatherProvider"
-                                 Converter="{x:Static ObjectConverters.Equal}">
-                            <Binding.ConverterParameter>
-                                <system:Int32>2</system:Int32>
-                            </Binding.ConverterParameter>
-                        </Binding>
-                    </controls3:FASettingsExpanderItem.IsVisible>
+                                                  Description="{x:Static locWth:Localization.QWeatherApiHostDescription}"
+                                                  IsVisible="{Binding ViewModel.IsQWeatherSelected}">
                     <controls3:FASettingsExpanderItem.Footer>
                         <TextBox Text="{Binding ViewModel.SettingsService.Settings.QWeatherApiHost, Mode=TwoWay}"
                                  MinWidth="240"
@@ -331,16 +318,57 @@
                     </controls3:FASettingsExpanderItem.Footer>
                 </controls3:FASettingsExpanderItem>
                 <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.FallbackToXiaomiWeather}"
-                                                  Description="{x:Static locWth:Localization.FallbackToXiaomiWeatherDescription}">
+                                                  Description="{x:Static locWth:Localization.FallbackToXiaomiWeatherDescription}"
+                                                  IsVisible="{Binding ViewModel.IsFallbackVisible}">
                     <controls3:FASettingsExpanderItem.Footer>
                         <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.WeatherProviderFallbackEnabled, Mode=TwoWay}" />
                     </controls3:FASettingsExpanderItem.Footer>
                 </controls3:FASettingsExpanderItem>
-                <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.WeatherUsageLimit}"
-                                                  Description="{x:Static locWth:Localization.WeatherUsageLimitDescription}"
-                                                  IsVisible="{Binding ViewModel.IsUsageLimitVisible}">
+            </controls3:FASettingsExpander>
+            <!-- API 用量限制必须放在数据源卡片外面作为独立卡片：
+                 嵌套 Expander 属于"非 ExpanderItem 子项"，隐藏时外层仍会按容器最小高度渲染出一行空白占位。 -->
+            <controls3:FASettingsExpander Margin="0 8 0 0"
+                                          Header="{x:Static locWth:Localization.WeatherUsageLimit}"
+                                          Description="{x:Static locWth:Localization.WeatherUsageLimitDescription}"
+                                          IsVisible="{Binding ViewModel.IsUsageLimitVisible}">
+                <controls3:FASettingsExpander.Styles>
+                    <Style Selector="ProgressBar.warning">
+                        <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCriticalBrush}"/>
+                    </Style>
+                </controls3:FASettingsExpander.Styles>
+                <controls3:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.WeatherUsageLimitEnabled, Mode=TwoWay}" />
+                </controls3:FASettingsExpander.Footer>
+                <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.WeatherUsageOpenWeatherToday}">
                     <controls3:FASettingsExpanderItem.Footer>
-                        <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.WeatherUsageLimitEnabled, Mode=TwoWay}" />
+                        <Grid ColumnDefinitions="*,Auto" MinWidth="240">
+                            <ProgressBar Grid.Column="0"
+                                         Minimum="0"
+                                         Maximum="{Binding ViewModel.OpenWeatherDailyUsageLimit}"
+                                         Value="{Binding ViewModel.OpenWeatherDailyUsage}"
+                                         Classes.warning="{Binding ViewModel.IsOpenWeatherDailyNearLimit}"/>
+                            <TextBlock Grid.Column="1"
+                                       Margin="8 0 0 0"
+                                       VerticalAlignment="Center"
+                                       Classes="l-instructive"
+                                       Text="{Binding ViewModel.OpenWeatherDailyUsageText}"/>
+                        </Grid>
+                    </controls3:FASettingsExpanderItem.Footer>
+                </controls3:FASettingsExpanderItem>
+                <controls3:FASettingsExpanderItem Content="{x:Static locWth:Localization.WeatherUsageQWeatherThisMonth}">
+                    <controls3:FASettingsExpanderItem.Footer>
+                        <Grid ColumnDefinitions="*,Auto" MinWidth="240">
+                            <ProgressBar Grid.Column="0"
+                                         Minimum="0"
+                                         Maximum="{Binding ViewModel.QWeatherMonthlyUsageLimit}"
+                                         Value="{Binding ViewModel.QWeatherMonthlyUsage}"
+                                         Classes.warning="{Binding ViewModel.IsQWeatherMonthlyNearLimit}"/>
+                            <TextBlock Grid.Column="1"
+                                       Margin="8 0 0 0"
+                                       VerticalAlignment="Center"
+                                       Classes="l-instructive"
+                                       Text="{Binding ViewModel.QWeatherMonthlyUsageText}"/>
+                        </Grid>
                     </controls3:FASettingsExpanderItem.Footer>
                 </controls3:FASettingsExpanderItem>
             </controls3:FASettingsExpander>

@@ -608,5 +608,23 @@ namespace ClassIsland.Assets.Localization.SettingsPage.Weather {
                 return ResourceManager.GetString("WeatherUsageLimitDescription", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   查找类似 OpenWeather 今日请求 的本地化字符串。
+        /// </summary>
+        public static string WeatherUsageOpenWeatherToday {
+            get {
+                return ResourceManager.GetString("WeatherUsageOpenWeatherToday", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 和风天气本月请求 的本地化字符串。
+        /// </summary>
+        public static string WeatherUsageQWeatherThisMonth {
+            get {
+                return ResourceManager.GetString("WeatherUsageQWeatherThisMonth", resourceCulture);
+            }
+        }
     }
 }

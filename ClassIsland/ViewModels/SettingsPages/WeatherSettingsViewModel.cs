@@ -21,6 +21,7 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
     private readonly IWeatherService _weatherService;
     private readonly ILogger<WeatherSettingsPage> _logger;
     private readonly DispatcherTimer _searchDebounceTimer;
+    private readonly DispatcherTimer _usageRefreshTimer;
     private string _pendingSearchText = string.Empty;
     private bool _isActivated;
 
@@ -45,6 +46,73 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
     // API 用量限制仅对带 Key 的数据源有意义（小米无额度概念），小米源下整项隐藏。
     public bool IsUsageLimitVisible => SelectedWeatherProvider is 1 or 2;
 
+    // 各源专属设置项的显隐。直接绑定布尔属性而不用转换器比较索引：
+    // 嵌套在 SettingsExpander 里的项隐藏时必须自己干净折叠，绑定链少一层转换器就少一个出错环节。
+    public bool IsOpenWeatherSelected => SelectedWeatherProvider == 1;
+    public bool IsQWeatherSelected => SelectedWeatherProvider == 2;
+
+    // 小米源自身就是回退目标，"失败时回退到小米天气"开关在小米源下没有意义，一并隐藏。
+    public bool IsFallbackVisible => SelectedWeatherProvider != 0;
+
+    [ObservableProperty] private int _openWeatherDailyUsage;
+    [ObservableProperty] private int _qWeatherMonthlyUsage;
+
+    public int OpenWeatherDailyUsageLimit => ClassIsland.Services.WeatherService.OpenWeatherDailyRequestLimit;
+    public int QWeatherMonthlyUsageLimit => ClassIsland.Services.WeatherService.QWeatherMonthlyRequestLimit;
+
+    public string OpenWeatherDailyUsageText => BuildUsageText(OpenWeatherDailyUsage, OpenWeatherDailyUsageLimit);
+    public string QWeatherMonthlyUsageText => BuildUsageText(QWeatherMonthlyUsage, QWeatherMonthlyUsageLimit);
+
+    public double OpenWeatherDailyUsageRatio => GetUsageRatio(OpenWeatherDailyUsage, OpenWeatherDailyUsageLimit);
+    public double QWeatherMonthlyUsageRatio => GetUsageRatio(QWeatherMonthlyUsage, QWeatherMonthlyUsageLimit);
+
+    // 用量到 80% 就提示警示，避免用户在额度耗尽后才后知后觉。
+    public bool IsOpenWeatherDailyNearLimit =>
+        OpenWeatherDailyUsageLimit > 0 && OpenWeatherDailyUsage >= OpenWeatherDailyUsageLimit * 0.8;
+    public bool IsQWeatherMonthlyNearLimit =>
+        QWeatherMonthlyUsageLimit > 0 && QWeatherMonthlyUsage >= QWeatherMonthlyUsageLimit * 0.8;
+
+    partial void OnOpenWeatherDailyUsageChanged(int value)
+    {
+        OnPropertyChanged(nameof(OpenWeatherDailyUsageText));
+        OnPropertyChanged(nameof(OpenWeatherDailyUsageRatio));
+        OnPropertyChanged(nameof(IsOpenWeatherDailyNearLimit));
+    }
+
+    partial void OnQWeatherMonthlyUsageChanged(int value)
+    {
+        OnPropertyChanged(nameof(QWeatherMonthlyUsageText));
+        OnPropertyChanged(nameof(QWeatherMonthlyUsageRatio));
+        OnPropertyChanged(nameof(IsQWeatherMonthlyNearLimit));
+    }
+
+    private static string BuildUsageText(int used, int limit)
+    {
+        var percent = limit > 0 ? Math.Min(used * 100 / limit, 100) : 0;
+        return $"{used:N0} / {limit:N0} · {percent}%";
+    }
+
+    private static double GetUsageRatio(int used, int limit)
+    {
+        return limit > 0 ? Math.Min((double)used / limit, 1.0) : 0;
+    }
+
+    /// <summary>
+    /// 刷新用量面板数据。请求计数直接改字典不触发 PropertyChanged，
+    /// 页面打开期间只能靠定时轮询同步，页面隐藏后停止轮询省开销。
+    /// </summary>
+    private void RefreshUsage()
+    {
+        if (_weatherService is not ClassIsland.Services.WeatherService weatherService)
+        {
+            return;
+        }
+
+        var now = DateTime.Now;
+        OpenWeatherDailyUsage = weatherService.GetUsageCount("openweather", $"{now:yyyy-MM-dd}");
+        QWeatherMonthlyUsage = weatherService.GetUsageCount("qweather", $"{now:yyyy-MM}");
+    }
+
 
     public WeatherSettingsViewModel(
         SettingsService settingsService,
@@ -59,6 +127,9 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
 
         _searchDebounceTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
         _searchDebounceTimer.Tick += SearchDebounceTimer_Tick;
+
+        _usageRefreshTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(30) };
+        _usageRefreshTimer.Tick += (_, _) => RefreshUsage();
 
         SelectedLocationSource = settingsService.Settings.WeatherLocationSource;
         SelectedWeatherProvider = settingsService.Settings.WeatherProvider switch
@@ -81,6 +152,8 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
 
         _isActivated = true;
         _settingsService.Settings.PropertyChanged += SettingsOnPropertyChanged;
+        RefreshUsage();
+        _usageRefreshTimer.Start();
     }
 
     /// <summary>
@@ -95,6 +168,7 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
 
         _isActivated = false;
         _searchDebounceTimer.Stop();
+        _usageRefreshTimer.Stop();
         _settingsService.Settings.PropertyChanged -= SettingsOnPropertyChanged;
     }
 
@@ -225,6 +299,9 @@ public partial class WeatherSettingsViewModel : ObservableRecipient
     partial void OnSelectedWeatherProviderChanged(int value)
     {
         OnPropertyChanged(nameof(IsUsageLimitVisible));
+        OnPropertyChanged(nameof(IsOpenWeatherSelected));
+        OnPropertyChanged(nameof(IsQWeatherSelected));
+        OnPropertyChanged(nameof(IsFallbackVisible));
         if (value is not (0 or 1 or 2))
         {
             return;

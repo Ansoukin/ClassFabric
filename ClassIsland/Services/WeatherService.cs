@@ -224,6 +224,12 @@ public class WeatherService : ObservableRecipient, IHostedService, IWeatherServi
         await QueryWeatherAsync();
     }
 
+    /// <summary>OpenWeather 免费档每日请求上限，与服务商标的计费口径一致。</summary>
+    public const int OpenWeatherDailyRequestLimit = 1000;
+
+    /// <summary>和风天气免费档每月请求上限。</summary>
+    public const int QWeatherMonthlyRequestLimit = 50000;
+
     /// <summary>
     /// 判断请求数是否已达免费额度上限。仅对带 Key 的数据源生效（小米无额度概念）。
     /// OpenWeather 免费档 1000 次/天；和风天气免费档 50000 次/月。
@@ -238,10 +244,19 @@ public class WeatherService : ObservableRecipient, IHostedService, IWeatherServi
         var now = DateTime.Now;
         return providerId switch
         {
-            "openweather" => GetCount("openweather", $"{now:yyyy-MM-dd}") >= 1000,
-            "qweather" => GetCount("qweather", $"{now:yyyy-MM}") >= 50000,
+            "openweather" => GetCount("openweather", $"{now:yyyy-MM-dd}") >= OpenWeatherDailyRequestLimit,
+            "qweather" => GetCount("qweather", $"{now:yyyy-MM}") >= QWeatherMonthlyRequestLimit,
             _ => false
         };
+    }
+
+    /// <summary>
+    /// 读取指定源当前周期的已计请求数，周期键格式与 <see cref="CountRequest"/> 的写入口径一致
+    /// （日 yyyy-MM-dd、月 yyyy-MM），供设置页用量面板展示。
+    /// </summary>
+    public int GetUsageCount(string providerId, string periodKey)
+    {
+        return GetCount(providerId, periodKey);
     }
 
     private int GetCount(string providerId, string periodKey)
