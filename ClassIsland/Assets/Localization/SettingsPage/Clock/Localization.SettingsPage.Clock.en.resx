@@ -133,7 +133,59 @@
     <value>Time server</value>
     <comment>使用精确时间-"时间服务器"</comment>
   </data>
-  <data name="SyncNow" xml:space="preserve">
+    <data name="TimeServerDescription" xml:space="preserve">
+    <value>The app syncs precise time against the selected time server; when it is unavailable, other time servers are tried automatically.</value>
+    <comment>Time server - description</comment>
+  </data>
+
+  <data name="TimeServerPresetGoogle" xml:space="preserve">
+    <value>Google</value>
+    <comment>Preset time server: Google</comment>
+  </data>
+
+  <data name="TimeServerPresetApple" xml:space="preserve">
+    <value>Apple</value>
+    <comment>Preset time server: Apple</comment>
+  </data>
+
+  <data name="TimeServerPresetMicrosoft" xml:space="preserve">
+    <value>Microsoft</value>
+    <comment>Preset time server: Microsoft</comment>
+  </data>
+
+  <data name="TimeServerPresetPoolCn" xml:space="preserve">
+    <value>NTP Pool (CN)</value>
+    <comment>Preset time server: NTP Pool China zone</comment>
+  </data>
+
+  <data name="TimeServerPresetNtsc" xml:space="preserve">
+    <value>NTSC (China)</value>
+    <comment>Preset time server: National Time Service Center</comment>
+  </data>
+
+  <data name="TimeServerPresetTencent" xml:space="preserve">
+    <value>Tencent Cloud NTP</value>
+    <comment>Preset time server: Tencent Cloud</comment>
+  </data>
+
+  <data name="TimeServerPresetAliyun" xml:space="preserve">
+    <value>Alibaba Cloud NTP</value>
+    <comment>Preset time server: Alibaba Cloud</comment>
+  </data>
+
+
+
+  <data name="TimeServerCustomPlaceholder" xml:space="preserve">
+    <value>Enter a custom server address, e.g. ntp.example.com</value>
+    <comment>Custom time server textbox placeholder</comment>
+  </data>
+
+  <data name="TimeServerCustom" xml:space="preserve">
+    <value>Custom…</value>
+    <comment>Time server - custom option</comment>
+  </data>
+
+<data name="SyncNow" xml:space="preserve">
     <value>Sync now</value>
     <comment>使用精确时间-"立即同步"按钮</comment>
   </data>

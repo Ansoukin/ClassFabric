@@ -133,7 +133,59 @@
     <value>時間服務器</value>
     <comment>使用精确时间-"时间服务器"</comment>
   </data>
-  <data name="SyncNow" xml:space="preserve">
+    <data name="TimeServerDescription" xml:space="preserve">
+    <value>應用將使用所選的時間伺服器同步精確時間；當其不可用時，將自動嘗試其它時間來源。</value>
+    <comment>時間伺服器-描述</comment>
+  </data>
+
+  <data name="TimeServerPresetGoogle" xml:space="preserve">
+    <value>谷歌</value>
+    <comment>預置時間來源：谷歌</comment>
+  </data>
+
+  <data name="TimeServerPresetApple" xml:space="preserve">
+    <value>蘋果</value>
+    <comment>預置時間來源：蘋果</comment>
+  </data>
+
+  <data name="TimeServerPresetMicrosoft" xml:space="preserve">
+    <value>微軟</value>
+    <comment>預置時間來源：微軟</comment>
+  </data>
+
+  <data name="TimeServerPresetPoolCn" xml:space="preserve">
+    <value>NTP Pool 中國區</value>
+    <comment>預置時間來源：NTP Pool 中國區</comment>
+  </data>
+
+  <data name="TimeServerPresetNtsc" xml:space="preserve">
+    <value>國家授時中心</value>
+    <comment>預置時間來源：國家授時中心</comment>
+  </data>
+
+  <data name="TimeServerPresetTencent" xml:space="preserve">
+    <value>騰訊雲 NTP</value>
+    <comment>預置時間來源：騰訊雲</comment>
+  </data>
+
+  <data name="TimeServerPresetAliyun" xml:space="preserve">
+    <value>阿里雲 NTP</value>
+    <comment>預置時間來源：阿里雲</comment>
+  </data>
+
+
+
+  <data name="TimeServerCustomPlaceholder" xml:space="preserve">
+    <value>輸入自訂伺服器位址，例如 ntp.example.com</value>
+    <comment>自訂時間伺服器輸入框佔位</comment>
+  </data>
+
+  <data name="TimeServerCustom" xml:space="preserve">
+    <value>自訂…</value>
+    <comment>時間伺服器-自訂選項</comment>
+  </data>
+
+<data name="SyncNow" xml:space="preserve">
     <value>立刻同步</value>
     <comment>使用精确时间-"立即同步"按钮</comment>
   </data>

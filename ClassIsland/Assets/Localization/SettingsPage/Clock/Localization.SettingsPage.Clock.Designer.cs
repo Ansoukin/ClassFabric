@@ -97,6 +97,99 @@ namespace ClassIsland.Assets.Localization.SettingsPage.Clock {
         }
 
         /// <summary>
+        ///   查找类似 应用将使用所选的时间服务器同步精确时间；当其不可用时，将自动尝试其它时间源。 的本地化字符串。
+        /// </summary>
+        public static string TimeServerDescription {
+            get {
+                return ResourceManager.GetString("TimeServerDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 自定义… 的本地化字符串。
+        /// </summary>
+        public static string TimeServerCustom {
+            get {
+                return ResourceManager.GetString("TimeServerCustom", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 输入自定义服务器地址，例如 ntp.example.com 的本地化字符串。
+        /// </summary>
+        public static string TimeServerCustomPlaceholder {
+            get {
+                return ResourceManager.GetString("TimeServerCustomPlaceholder", resourceCulture);
+            }
+        }
+
+
+
+        /// <summary>
+        ///   查找类似 阿里云 NTP 的本地化字符串。
+        /// </summary>
+        public static string TimeServerPresetAliyun {
+            get {
+                return ResourceManager.GetString("TimeServerPresetAliyun", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 腾讯云 NTP 的本地化字符串。
+        /// </summary>
+        public static string TimeServerPresetTencent {
+            get {
+                return ResourceManager.GetString("TimeServerPresetTencent", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 国家授时中心 的本地化字符串。
+        /// </summary>
+        public static string TimeServerPresetNtsc {
+            get {
+                return ResourceManager.GetString("TimeServerPresetNtsc", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 NTP Pool 中国区 的本地化字符串。
+        /// </summary>
+        public static string TimeServerPresetPoolCn {
+            get {
+                return ResourceManager.GetString("TimeServerPresetPoolCn", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 微软 的本地化字符串。
+        /// </summary>
+        public static string TimeServerPresetMicrosoft {
+            get {
+                return ResourceManager.GetString("TimeServerPresetMicrosoft", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 苹果 的本地化字符串。
+        /// </summary>
+        public static string TimeServerPresetApple {
+            get {
+                return ResourceManager.GetString("TimeServerPresetApple", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 谷歌 的本地化字符串。
+        /// </summary>
+        public static string TimeServerPresetGoogle {
+            get {
+                return ResourceManager.GetString("TimeServerPresetGoogle", resourceCulture);
+            }
+        }
+
+
+        /// <summary>
         ///   查找类似 立即同步 的本地化字符串。
         /// </summary>
         public static string SyncNow {

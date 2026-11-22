@@ -29,14 +29,26 @@
                 <controls:FASettingsExpander.Footer>
                     <ToggleSwitch IsChecked="{Binding ViewModel.SettingsService.Settings.IsExactTimeEnabled, Mode=TwoWay}"/>
                 </controls:FASettingsExpander.Footer>
-                <controls:FASettingsExpanderItem Content="{x:Static locClk:Localization.TimeServer}">
+                <controls:FASettingsExpanderItem Content="{x:Static locClk:Localization.TimeServer}"
+                                                 Description="{x:Static locClk:Localization.TimeServerDescription}">
                     <controls:FASettingsExpanderItem.Footer>
-                        <TextBox VerticalAlignment="Stretch"
-                              Text="{Binding ViewModel.SettingsService.Settings.ExactTimeServer}"
-                              HorizontalContentAlignment="Left"
-                              
-                              Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-                        </TextBox>
+                        <StackPanel Orientation="Vertical" Spacing="8">
+                            <ComboBox MinWidth="220"
+                                      SelectedIndex="{Binding ViewModel.SelectedTimeServerPreset, Mode=TwoWay}">
+                                <ComboBoxItem Content="{x:Static locClk:Localization.TimeServerPresetAliyun}"/>
+                                <ComboBoxItem Content="{x:Static locClk:Localization.TimeServerPresetTencent}"/>
+                                <ComboBoxItem Content="{x:Static locClk:Localization.TimeServerPresetNtsc}"/>
+                                <ComboBoxItem Content="{x:Static locClk:Localization.TimeServerPresetPoolCn}"/>
+                                <ComboBoxItem Content="{x:Static locClk:Localization.TimeServerPresetMicrosoft}"/>
+                                <ComboBoxItem Content="{x:Static locClk:Localization.TimeServerPresetApple}"/>
+                                <ComboBoxItem Content="{x:Static locClk:Localization.TimeServerPresetGoogle}"/>
+                                <ComboBoxItem Content="{x:Static locClk:Localization.TimeServerCustom}"/>
+                            </ComboBox>
+                            <TextBox MinWidth="220"
+                                     IsVisible="{Binding ViewModel.IsCustomServerInputVisible}"
+                                     Text="{Binding ViewModel.CustomTimeServerText, Mode=TwoWay}"
+                                     PlaceholderText="{x:Static locClk:Localization.TimeServerCustomPlaceholder}"/>
+                        </StackPanel>
                     </controls:FASettingsExpanderItem.Footer>
                 </controls:FASettingsExpanderItem>
                 <controls:FASettingsExpanderItem>
