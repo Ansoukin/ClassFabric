@@ -2299,7 +2299,8 @@ public partial class Settings : ObservableRecipient, ILessonControlSettings, INo
     private bool _weatherProviderFallbackEnabled = true;
     private string _qWeatherApiKey = string.Empty;
     private string _qWeatherApiHost = string.Empty;
-    private bool _weatherUsageLimitEnabled = false;
+    // 免费档额度是硬配额，到限后自动回退小米，默认开启更符合"开箱即用"的预期；老设置里已保存的值优先。
+    private bool _weatherUsageLimitEnabled = true;
     // 计量键形如 "openweather:2026-10-17"、"qweather:2026-10"，按数据源分离，避免切换数据源后旧计数虚增新源额度。
     private Dictionary<string, int> _weatherRequestCounts = new();
     private bool _autoRefreshWeatherLocation = false;
