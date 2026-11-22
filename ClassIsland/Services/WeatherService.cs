@@ -294,7 +294,9 @@ public class WeatherService : ObservableRecipient, IHostedService, IWeatherServi
         var monthKey = $"{requestedProviderId}:{now:yyyy-MM}";
         Settings.WeatherRequestCounts[dayKey] = GetCount(requestedProviderId, $"{now:yyyy-MM-dd}") + httpCalls;
         Settings.WeatherRequestCounts[monthKey] = GetCount(requestedProviderId, $"{now:yyyy-MM}") + httpCalls;
-        // 直接改字典不会触发 PropertyChanged，但计量表无需通知 UI，保存机制靠 SettingsChanged 兜底。
+        // 直接改字典不会触发 PropertyChanged，保存兜底链路感知不到这次写入；
+        // 计数落盘必须在这里手动完成，否则应用崩溃/强杀时本次计量就丢了（正常退出另有兜底保存）。
+        SettingsService.SaveSettings("天气请求计量");
     }
 
     private async void LoadData()
@@ -458,7 +460,7 @@ var json = await AssetLoader.ReadAllTextAsync(new Uri(
             {
                 Logger.LogWarning(providerException, "天气源 {ProviderId} 获取失败，回退到小米天气。", provider.Id);
                 info = await WeatherProviders["xiaomi"].GetWeatherAsync(context);
-                result.ErrorMessage = $"{provider.Id} 获��取失败，已回退到小米天气：{providerException.Message}";
+                result.ErrorMessage = $"{provider.Id} 获取失败，已回退到小米天气：{providerException.Message}";
             }
 
             // 数据有效性闸门：天气源异常时会返回 HTTP 200 + 空 JSON（如小米接口的 {}），

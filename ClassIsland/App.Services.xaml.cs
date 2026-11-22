@@ -85,6 +85,7 @@ public partial class App
         services.AddSingleton<MiniInfoProviderHostService>();
         services.AddSingleton<IWeatherProvider, XiaomiWeatherProvider>();
         services.AddSingleton<IWeatherProvider, OpenWeatherProvider>();
+        services.AddSingleton<IWeatherProvider, QWeatherProvider>();
         services.AddSingleton<IWeatherService, WeatherService>();
         services.AddSingleton<FileFolderService>();
         services.AddSingleton<IAttachedSettingsHostService, AttachedSettingsHostService>();
