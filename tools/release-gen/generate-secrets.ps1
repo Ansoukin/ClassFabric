@@ -21,4 +21,4 @@ ${env:API_SIGNING_KEY_PS}
 }
 "
 
-Set-Content -Path ./ClassFabric/secrets.g.cs -Value $code
+Set-Content -Path ./ClassIsland/secrets.g.cs -Value $code

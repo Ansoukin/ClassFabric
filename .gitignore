@@ -371,4 +371,5 @@ cipx/
 
 **/.idea/avalonia.xml
 **/.idea/copilot.*
+.idea/
 secrets*.g.cs
