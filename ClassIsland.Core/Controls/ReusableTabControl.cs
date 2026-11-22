@@ -20,15 +20,10 @@ public class ReusableTabControl : TabControl
         var isSelectedContentHost = presenter.Name == "PART_SelectedContentHost";
         var isSelectedContentHost2 = presenter.Name == "PART_SelectedContentHost2";
 
-        // The old presenter has already lost its TemplatedParent at this point,
-        // so use the presenters registered by the previous template as ownership proof.
         if (isSelectedContentHost &&
             SelectedContent is Control content &&
             content.GetVisualParent() is ContentPresenter oldPresenter &&
-            !ReferenceEquals(oldPresenter, presenter) &&
-            (ReferenceEquals(oldPresenter, _selectedContentHost) ||
-             ReferenceEquals(oldPresenter, _selectedContentHost2)) &&
-            ReferenceEquals(oldPresenter.Content, content))
+            OwnsDetachedContent(presenter, content, oldPresenter))
         {
             oldPresenter.Content = null;
         }
@@ -45,5 +40,15 @@ public class ReusableTabControl : TabControl
         }
 
         return result;
+    }
+
+    // The old presenter has already lost its TemplatedParent at this point,
+    // so use the presenters registered by the previous template as ownership proof.
+    private bool OwnsDetachedContent(ContentPresenter presenter, Control content, ContentPresenter oldPresenter)
+    {
+        return !ReferenceEquals(oldPresenter, presenter) &&
+               (ReferenceEquals(oldPresenter, _selectedContentHost) ||
+                ReferenceEquals(oldPresenter, _selectedContentHost2)) &&
+               ReferenceEquals(oldPresenter.Content, content);
     }
 }
