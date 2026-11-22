@@ -49,9 +49,9 @@
                     </fa:FASettingsExpander>
                     <!--  左上：面板/经典菜单选择方式切换；仅回退到经典菜单时出现，拨回新版即隐藏  -->
                     <fa:FASettingsExpander Grid.Row="1"
-                                         Description="关闭时使用经典下拉与级联菜单选择触发器和行动。"
+                                         Description="在自动化编辑器中添加触发器与行动时，使用支持搜索与分类浏览的全屏选择面板；关闭后回退为经典的下拉与级联菜单。"
                                          Header="启用新版菜单选择器"
-                                         IconSource="{ci:FluentIconSource {ci:FI SettingsRegular}}"
+                                         IconSource="{ci:FluentIconSource {ci:FI MultiselectLtrRegular}}"
                                          IsVisible="{Binding ViewModel.IsPanelPickerEnabled, Converter={StaticResource InvertBooleanConverter}}">
                         <fa:FASettingsExpander.Footer>
                             <ToggleSwitch IsChecked="{Binding ViewModel.IsPanelPickerEnabled, Mode=TwoWay}" />
