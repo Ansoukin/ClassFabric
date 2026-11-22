@@ -497,6 +497,12 @@ public class XamlThemeService : ObservableRecipient, IXamlThemeService
             using var reader = new StreamReader(mf.Open());
             var mfText = reader.ReadToEnd();
             var manifest = deserializer.Deserialize<PluginManifest>(mfText);
+            // manifest.Id 会直接拼进主题安装路径，带路径分隔符或 ".." 的恶意清单能把文件写到主题目录之外，先消毒。
+            if (string.IsNullOrWhiteSpace(manifest.Id) || manifest.Id.Contains('/') ||
+                manifest.Id.Contains('\\') || manifest.Id.Contains(".."))
+            {
+                throw new InvalidOperationException($"主题清单 Id 不合法：\"{manifest.Id}\"，已拒绝安装。");
+            }
             var targetPath = Path.Combine(ThemesPath, manifest.Id);
             if (Directory.Exists(targetPath))
             {
