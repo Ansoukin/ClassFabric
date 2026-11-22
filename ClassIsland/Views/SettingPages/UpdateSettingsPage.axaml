@@ -391,11 +391,19 @@
                                     <ComboBoxItem Content="{x:Static locUpd:Localization.UpdateSourceDistributionCenterCompat}" />
                                 </ComboBox>
                             </controls:FASettingsExpander.Footer>
-                            <controls:FASettingsExpanderItem>
+                            <!-- 来源说明只描述 GitHub/Gitee，分发中心源下由下方的警告替代 -->
+                            <controls:FASettingsExpanderItem IsVisible="{Binding !ViewModel.IsDistributionCenterSelected}">
                                 <TextBlock Text="{x:Static locUpd:Localization.UpdateSourceExplanation}"
                                            TextWrapping="Wrap"/>
                             </controls:FASettingsExpanderItem>
                         </controls:FASettingsExpander>
+                        <!-- 分发中心更新会把应用替换成官方 ClassIsland：警告必须常驻可见，不能藏进需要手动展开的卡片 -->
+                        <controls:FAInfoBar Severity="Warning"
+                                            IsClosable="False"
+                                            IsOpen="{Binding ViewModel.IsDistributionCenterSelected, Mode=OneWay}"
+                                            Title="{x:Static locUpd:Localization.DistributionCenterWarningTitle}"
+                                            Message="{x:Static locUpd:Localization.DistributionCenterSwitchWarning}"
+                                            Margin="0 8 0 0"/>
 
                         <!-- 更新通道 -->
                         <controls:FASettingsExpander IconSource="{ci:FluentIconSource &#xe3d2;}"

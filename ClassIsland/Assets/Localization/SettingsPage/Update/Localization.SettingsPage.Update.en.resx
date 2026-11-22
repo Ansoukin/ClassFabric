@@ -253,6 +253,14 @@
     <value>GitHub Releases reads published versions directly from the ClassFabric GitHub repository, without depending on the ClassIsland distribution center. Gitee Releases reads them from the ClassFabric mirror on Gitee, useful when GitHub is slow or unreachable.</value>
     <comment>更新源-补充说明</comment>
   </data>
+  <data name="DistributionCenterSwitchWarning" xml:space="preserve">
+    <value>Updating via the ClassIsland distribution center will switch the app to ClassIsland instead of ClassFabric. The underlying code is largely the same, but back up your configuration files before updating!</value>
+    <comment>Settings item: distribution center source switch warning</comment>
+  </data>
+  <data name="DistributionCenterWarningTitle" xml:space="preserve">
+    <value>Update source is the ClassIsland distribution center</value>
+    <comment>Settings item: distribution center warning title</comment>
+  </data>
   <data name="UpdateChannel" xml:space="preserve">
     <value>Update channel</value>
     <comment>更新设置-"更新通道"</comment>

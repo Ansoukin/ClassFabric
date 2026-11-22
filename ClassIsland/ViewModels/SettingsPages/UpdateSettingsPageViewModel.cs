@@ -18,6 +18,13 @@ public partial class UpdateSettingsPageViewModel(ILogger<UpdateSettingsPage> log
     [ObservableProperty] private DistributionMetadata.DistributionChannel _selectedChannel = new();
 
     /// <summary>
+    /// 更新源是否为 ClassIsland 分发中心。分发中心会把应用更新成官方 ClassIsland，
+    /// 需要在设置页展示切换警告，且通道清单走分发中心自己的数据。
+    /// </summary>
+    public bool IsDistributionCenterSelected =>
+        UpdateSourceIds.FromIndex(SelectedUpdateSourceIndex) == UpdateSourceIds.PhainonDistributionCenter;
+
+    /// <summary>
     /// 设置界面中选中的更新源索引，与 <c>Settings.UpdateSourceId</c> 双向同步。
     /// </summary>
     public int SelectedUpdateSourceIndex
@@ -34,6 +41,7 @@ public partial class UpdateSettingsPageViewModel(ILogger<UpdateSettingsPage> log
             SettingsService.Settings.UpdateSourceId = sourceId;
             UpdateService.RefreshLocalChannelMetadata();
             OnPropertyChanged();
+            OnPropertyChanged(nameof(IsDistributionCenterSelected));
         }
     }
 

@@ -367,6 +367,24 @@ namespace ClassIsland.Assets.Localization.SettingsPage.Update {
         }
 
         /// <summary>
+        ///   查找类似 使用 ClassIsland 分发中心更新将改为使用 ClassIsland 而非 ClassFabric；尽管底层代码大致一致，仍请在执行更新前备份配置文件！ 的本地化字符串。
+        /// </summary>
+        public static string DistributionCenterSwitchWarning {
+            get {
+                return ResourceManager.GetString("DistributionCenterSwitchWarning", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 更新源为 ClassIsland 分发中心 的本地化字符串。
+        /// </summary>
+        public static string DistributionCenterWarningTitle {
+            get {
+                return ResourceManager.GetString("DistributionCenterWarningTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   查找类似 更新通道 的本地化字符串。
         /// </summary>
         public static string UpdateChannel {

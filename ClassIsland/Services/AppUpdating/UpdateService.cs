@@ -485,20 +485,90 @@ public class UpdateService : IHostedService, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// 仅根据本地信息刷新更新通道列表，不发起网络请求。供设置界面在切换更新源后立即刷新通道下拉框。
+    /// 仅根据本地信息刷新更新通道列表，不发起阻塞式网络请求。供设置界面在切换更新源后立即刷新通道下拉框。
+    /// 分发中心的通道清单由服务端下发，本地只做尽力恢复：上次更新检查若走的就是分发中心，
+    /// 缓存里保留的就是它的通道；随后再异步向服务器拉一次最新清单兜底（与官方行为一致）。
     /// </summary>
     internal void RefreshLocalChannelMetadata()
     {
         var sourceId = UpdateSourceIds.Normalize(Settings.UpdateSourceId);
-        if (sourceId == UpdateSourceIds.GitHub)
+        switch (sourceId)
         {
-            var source = GetGitHubUpdateSource();
-            ApplyChannels(source, source.CreateChannels());
+            case UpdateSourceIds.GitHub:
+            {
+                var source = GetGitHubUpdateSource();
+                ApplyChannels(source, source.CreateChannels());
+                break;
+            }
+            case UpdateSourceIds.Gitee:
+            {
+                var source = GetGiteeUpdateSource();
+                ApplyChannels(source, source.CreateChannels());
+                break;
+            }
+            case UpdateSourceIds.PhainonDistributionCenter:
+                RestoreCachedPhainonChannelMetadata();
+                _ = RefreshPhainonChannelMetadataAsync();
+                break;
         }
-        else if (sourceId == UpdateSourceIds.Gitee)
+    }
+
+    /// <summary>
+    /// 判断通道元数据是否来自分发中心：GitHub/Gitee 通道使用固定的官方 GUID，
+    /// 分发中心的通道 GUID 由服务端下发，二者不会重合。
+    /// </summary>
+    private bool LooksLikePhainonMetadata(DistributionMetadata metadata)
+    {
+        return metadata.Channels.Count > 0 &&
+               metadata.Channels.Keys.All(x => !GitHubUpdateSource.IsGitHubChannelGuid(x));
+    }
+
+    private void RestoreCachedPhainonChannelMetadata()
+    {
+        try
         {
-            var source = GetGiteeUpdateSource();
-            ApplyChannels(source, source.CreateChannels());
+            if (!File.Exists(UpdateDistributionMetadataPath))
+            {
+                return;
+            }
+            var cached = ConfigureFileHelper.LoadConfig<DistributionMetadata>(UpdateDistributionMetadataPath);
+            if (!LooksLikePhainonMetadata(cached))
+            {
+                return;
+            }
+
+            DistributionMetadata = cached;
+            if (cached.Channels.TryGetValue(cached.DefaultChannelId, out _) &&
+                !cached.Channels.ContainsKey(Settings.SelectedUpdateChannelV3))
+            {
+                Settings.SelectedUpdateChannelV3 = cached.DefaultChannelId;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogWarning(ex, "恢复分发中心通道缓存失败。");
+        }
+    }
+
+    /// <summary>
+    /// 向分发中心拉取最新通道清单，通道名称与说明均以服务端下发为准。
+    /// 拉取期间用户可能已切走更新源，只有当前源仍是分发中心才应用结果，避免晚到的结果覆盖别的源。
+    /// 失败时不改动现有元数据，保持上一次的通道显示，等下次检查更新再恢复。
+    /// </summary>
+    private async Task RefreshPhainonChannelMetadataAsync()
+    {
+        try
+        {
+            var channels = await CreatePhainonUpdateSource().GetChannelsAsync();
+            if (UpdateSourceIds.Normalize(Settings.UpdateSourceId) != UpdateSourceIds.PhainonDistributionCenter)
+            {
+                return;
+            }
+            ApplyChannels(CreatePhainonUpdateSource(), channels);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogWarning(ex, "从分发中心获取更新通道清单失败。");
         }
     }
 

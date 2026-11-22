@@ -253,6 +253,14 @@
     <value>GitHub Releases 直接從 ClassFabric 的 GitHub 倉庫讀取發行版本，無需依賴 ClassIsland 分發中心。Gitee Releases 從 ClassFabric 的 Gitee 鏡像倉庫讀取，適合 GitHub 訪問不暢的環境。</value>
     <comment>更新源-补充说明</comment>
   </data>
+  <data name="DistributionCenterSwitchWarning" xml:space="preserve">
+    <value>使用 ClassIsland 分發中心更新將改為使用 ClassIsland 而非 ClassFabric；儘管底層程式碼大致一致，仍請在執行更新前備份設定檔！</value>
+    <comment>設定項：分發中心更新源切換警告</comment>
+  </data>
+  <data name="DistributionCenterWarningTitle" xml:space="preserve">
+    <value>更新源為 ClassIsland 分發中心</value>
+    <comment>設定項：分發中心更新源警告標題</comment>
+  </data>
   <data name="UpdateChannel" xml:space="preserve">
     <value>更新通道</value>
     <comment>更新设置-"更新通道"</comment>
