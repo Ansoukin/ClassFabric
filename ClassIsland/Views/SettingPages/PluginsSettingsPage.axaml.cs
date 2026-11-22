@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
@@ -69,14 +70,26 @@ public partial class PluginsSettingsPage : SettingsPageBase
 
     private async Task UpdateReadmeDocument()
     {
-        if (ViewModel.SelectedPluginInfo == null)
+        if (ViewModel.SelectedDetailPlugin == null)
         {
             ViewModel.ClearReadmeExtras();
             return;
         }
-        var plugin = ViewModel.SelectedPluginInfo;
-        var path = System.IO.Path.Combine(plugin.PluginFolderPath,
-            plugin.Manifest.Readme);
+        var plugin = ViewModel.SelectedDetailPlugin;
+        // 内置插件包内没有 README 文件，说明文档直接取市场索引里同 ID 条目的在线 README，
+        // 与社区插件共用同一份数据来源；市场里没有对应条目时给占位提示。
+        string path;
+        if (plugin.IsBuiltIn)
+        {
+            path = ViewModel.PluginMarketService.MergedPlugins.TryGetValue(plugin.Manifest.Id, out var market)
+                ? market.Manifest.Readme
+                : "";
+        }
+        else
+        {
+            path = System.IO.Path.Combine(plugin.PluginFolderPath,
+                plugin.Manifest.Readme);
+        }
         var uri = new Uri(path, UriKind.RelativeOrAbsolute);
 
         string document;
@@ -91,7 +104,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
                 "https" or "http" => await new HttpClient().GetStringAsync(uri,
                     DocumentLoadingCancellationTokenSource.Token),
                 "file" => await File.ReadAllTextAsync(path, DocumentLoadingCancellationTokenSource.Token),
-                _ => ""
+                _ => plugin.IsBuiltIn ? Localization.BuiltInReadmeUnavailable : ""
             };
         }
         catch (TaskCanceledException)
@@ -125,7 +138,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
     {
         switch (e.PropertyName)
         {
-            case nameof(ViewModel.SelectedPluginInfo):
+            case nameof(ViewModel.SelectedDetailPlugin):
                 await UpdateReadmeDocument();
                 break;
         }
@@ -708,6 +721,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
         ViewModel.Activate();
         ViewModel.PropertyChanged += ViewModelOnPropertyChanged;
         ViewModel.PluginMarketService.RestartRequested += OnPluginMarketServiceOnRestartRequested;
+        ((INotifyCollectionChanged)ViewModel.PluginMarketService.MergedPlugins).CollectionChanged += MergedPluginsOnCollectionChanged;
         _pluginMarketExceptionSubscription ??= ViewModel.PluginMarketService
             .ObservableForProperty(x => x.Exception)
             .Subscribe(_ =>
@@ -717,6 +731,35 @@ public partial class PluginsSettingsPage : SettingsPageBase
                     this.ShowErrorToast(Localization.LoadPluginSourceFailedToast, ViewModel.PluginMarketService.Exception);
                 }
             });
+    }
+
+    /// <summary>
+    /// 合并标志：市场索引就绪时 MergedPlugins 会连续触发大量集合变更，
+    /// 用单个后台派发把重试请求并成一次，避免对着同一个详情反复拉 README。
+    /// </summary>
+    private int _builtinDetailRetryPending;
+
+    private void MergedPluginsOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (ViewModel.SelectedDetailPlugin is not { IsBuiltIn: true })
+        {
+            return;
+        }
+        if (Interlocked.Exchange(ref _builtinDetailRetryPending, 1) == 1)
+        {
+            return;
+        }
+        Dispatcher.UIThread.Post(() =>
+        {
+            _builtinDetailRetryPending = 0;
+            // 市场索引可能晚于详情打开才就绪（首次启动后台下载、手动刷新等），
+            // 就绪后在这里把内置插件的图标与 README 自动补上。
+            if (ViewModel.SelectedDetailPlugin is { IsBuiltIn: true } info)
+            {
+                ViewModel.ApplyBuiltInMarketResources(info);
+                _ = UpdateReadmeDocument();
+            }
+        }, DispatcherPriority.Background);
     }
 
     private void OnPluginMarketServiceOnRestartRequested(object? sender, EventArgs args)
@@ -732,6 +775,7 @@ public partial class PluginsSettingsPage : SettingsPageBase
     {
         ViewModel.PropertyChanged -= ViewModelOnPropertyChanged;
         ViewModel.PluginMarketService.RestartRequested -= OnPluginMarketServiceOnRestartRequested;
+        ((INotifyCollectionChanged)ViewModel.PluginMarketService.MergedPlugins).CollectionChanged -= MergedPluginsOnCollectionChanged;
         _pluginMarketExceptionSubscription?.Dispose();
         _pluginMarketExceptionSubscription = null;
         ViewModel.Deactivate();
@@ -750,6 +794,9 @@ public partial class PluginsSettingsPage : SettingsPageBase
     private void ButtonBackToPluginList_OnClick(object sender, RoutedEventArgs e)
     {
         ViewModel.IsBuiltInPluginsView = false;
+        // 回到市场列表时把详情还原为上次选中的市场插件；没有选中过就清空详情区。
+        ViewModel.SelectedBuiltInPluginInfo = null;
+        ViewModel.SelectedDetailPlugin = ViewModel.SelectedPluginInfo;
     }
 
     private void MenuItemManagePluginSources_OnClick(object? sender, RoutedEventArgs e)

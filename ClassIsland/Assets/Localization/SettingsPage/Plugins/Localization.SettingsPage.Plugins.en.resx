@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -510,7 +510,11 @@ Required dependencies not found:
     <value>ClassFabric already ships this plugin ({0}). Installing it will override the built-in version!</value>
     <comment>插件设置-BuiltInOverrideNotice</comment>
   </data>
-  <data name="BackToPluginList" xml:space="preserve">
+    <data name="BuiltInReadmeUnavailable" xml:space="preserve">
+    <value>No readme was found for this plugin in the market. Once the plugin market is loaded, the readme shared with the community listing will be shown here.</value>
+    <comment>Plugins settings - placeholder when a built-in plugin has no market readme</comment>
+  </data>
+<data name="BackToPluginList" xml:space="preserve">
     <value>Back to plugins</value>
     <comment>插件设置-BackToPluginList</comment>
   </data>

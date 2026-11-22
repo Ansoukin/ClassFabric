@@ -861,10 +861,11 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <!-- 内置插件列表：随应用分发的插件，只读展示，无启停/更新/卸载 -->
+                    <!-- 内置插件列表：随应用分发的插件，只读展示，无启停/更新/卸载；点击卡片进详情看说明 -->
                     <ListBox Grid.Row="1"
                              IsVisible="{Binding ViewModel.IsBuiltInPluginsView}"
-                             ItemsSource="{x:Static coreServices:EmbeddedPluginRegistry.BuiltInPlugins}">
+                             ItemsSource="{x:Static coreServices:EmbeddedPluginRegistry.BuiltInPlugins}"
+                             SelectedItem="{Binding ViewModel.SelectedBuiltInPluginInfo}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Background="Transparent"
@@ -908,7 +909,7 @@
             </controls1:ListDetailView.LeftContent>
             <controls1:ListDetailView.RightContent>
                 <Grid>
-                    <ci:Emptiable Content="{Binding ViewModel.SelectedPluginInfo}"
+                    <ci:Emptiable Content="{Binding ViewModel.SelectedDetailPlugin}"
                                       ContentTemplate="{StaticResource PluginDetailDataTemplate}"/>
                 </Grid>
             </controls1:ListDetailView.RightContent>

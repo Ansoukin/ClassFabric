@@ -25,6 +25,15 @@ public partial class PluginsSettingsPageViewModel : ObservableRecipient
     public ILogger<PluginsSettingsPage> Logger { get; }
     
     [ObservableProperty] private PluginInfo? _selectedPluginInfo;
+
+    /// <summary>
+    /// 详情区实际渲染的插件信息：市场列表选中项与内置插件选中项都汇到这里，
+    /// 内置插件不写入 SelectedPluginInfo，避免和市场列表的 SelectedValue 双向绑定互相打架。
+    /// </summary>
+    [ObservableProperty] private PluginInfo? _selectedDetailPlugin;
+
+    /// <summary>内置插件列表当前选中的插件。</summary>
+    [ObservableProperty] private PluginInfo? _selectedBuiltInPluginInfo;
     [ObservableProperty] private Avalonia.Controls.Control? _readmeContent;
     [ObservableProperty] private ObservableCollection<string> _galleryImages = new();
     [ObservableProperty] private int _gallerySelectedIndex;
@@ -68,8 +77,31 @@ public partial class PluginsSettingsPageViewModel : ObservableRecipient
 
     partial void OnSelectedPluginInfoChanged(PluginInfo? value)
     {
+        SelectedDetailPlugin = value;
         OnPropertyChanged(nameof(OverriddenBuiltInPlugin));
         OnPropertyChanged(nameof(BuiltInOverrideNoticeText));
+    }
+
+    partial void OnSelectedBuiltInPluginInfoChanged(PluginInfo? value)
+    {
+        if (value is { } info)
+        {
+            ApplyBuiltInMarketResources(info);
+        }
+        SelectedDetailPlugin = value;
+        IsDetailsShown = value is not null;
+    }
+
+    /// <summary>
+    /// 内置插件没有随包图标，展示用的图标取市场索引里同 ID 条目的，和社区版保持一致。
+    /// 市场索引晚于详情打开就绪时，页面会再调用一次把资源补上。
+    /// </summary>
+    internal void ApplyBuiltInMarketResources(PluginInfo info)
+    {
+        if (PluginMarketService.MergedPlugins.TryGetValue(info.Manifest.Id, out var market))
+        {
+            info.RealIconPath = market.RealIconPath;
+        }
     }
 
     /// <summary>README 没有图片时轮播整体隐藏；有图时供绑定判断。</summary>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -510,7 +510,11 @@
     <value>ClassFabric 已内置此插件 {0}，继续安装将会覆盖本地版本！</value>
     <comment>插件设置-BuiltInOverrideNotice</comment>
   </data>
-  <data name="BackToPluginList" xml:space="preserve">
+    <data name="BuiltInReadmeUnavailable" xml:space="preserve">
+    <value>暂未在插件市场中找到该插件的说明文档。联网加载插件市场后，这里会显示与社区插件同源的说明。</value>
+    <comment>插件设置-内置插件无市场说明文档时的占位文案</comment>
+  </data>
+<data name="BackToPluginList" xml:space="preserve">
     <value>返回插件列表</value>
     <comment>插件设置-BackToPluginList</comment>
   </data>
