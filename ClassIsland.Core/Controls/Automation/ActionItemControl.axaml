@@ -62,21 +62,35 @@
                             </Button.DataTemplates>
                         </Button>
 
-                        <!--  右：操作按钮  -->
-                        <ci:AnimatedIconButton Grid.Column="3"
-                                               Glyph="&#xE809;"
-                                               Text="错误"
-                                               Foreground="IndianRed"
-                                               IsVisible="{Binding $parent[local:ActionItemControl].ActionItem.Exception, Converter={x:Static ObjectConverters.IsNotNull}}"
-                                               Theme="{StaticResource TransparentButton}"
-                                               ToolTip.Tip="上次运行此行动时发生错误。">
-                            <ci:AnimatedIconButton.Flyout>
-                                <Flyout>
-                                    <SelectableTextBlock Text="{Binding $parent[local:ActionItemControl].ActionItem.Exception, Mode=OneWay}"
-                                                         SelectionForegroundBrush="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" />
-                                </Flyout>
-                            </ci:AnimatedIconButton.Flyout>
-                        </ci:AnimatedIconButton>
+                        <!--  右：操作按钮。错误与管理员徽章包进同一横向面板并排显示，避免放在同一 Grid 单元格里相互叠盖  -->
+                        <StackPanel Grid.Column="3"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+                            <ci:AnimatedIconButton Glyph="&#xE809;"
+                                                   Text="错误"
+                                                   Foreground="IndianRed"
+                                                   IsVisible="{Binding $parent[local:ActionItemControl].ActionItem.Exception, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                                   IsKeepingExpanded="{Binding $parent[local:ActionItemControl].ActionItem.Exception, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                                   Theme="{StaticResource TransparentButton}"
+                                                   ToolTip.Tip="上次运行此行动时发生错误。">
+                                <ci:AnimatedIconButton.Flyout>
+                                    <Flyout>
+                                        <SelectableTextBlock Text="{Binding $parent[local:ActionItemControl].ActionItem.Exception, Mode=OneWay}"
+                                                             SelectionForegroundBrush="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" />
+                                    </Flyout>
+                                </ci:AnimatedIconButton.Flyout>
+                            </ci:AnimatedIconButton>
+                            <!--  管理员标识：该命令经用户确认后以提权方式运行；IsKeepingExpanded 让它在确认瞬间从图标弹出文字  -->
+                            <ci:AnimatedIconButton Glyph="&#xEF4F;"
+                                                   Text="管理员"
+                                                   Margin="2 0"
+                                                   Focusable="False"
+                                                   Foreground="MediumSeaGreen"
+                                                   IsVisible="{Binding $parent[local:ActionItemControl].ActionItem.IsElevated}"
+                                                   IsKeepingExpanded="{Binding $parent[local:ActionItemControl].ActionItem.IsElevated}"
+                                                   Theme="{StaticResource TransparentButton}"
+                                                   ToolTip.Tip="此命令将以管理员身份运行。"/>
+                        </StackPanel>
 
                         <fa:FAProgressRing Grid.Column="4"
                                          Height="20"

@@ -368,4 +368,19 @@
   <data name="RestartFailedBody" xml:space="preserve">
     <value>无法重新启动应用，可能当前运行的实例正在以管理员身份运行。请使用任务管理器终止正在运行的实例，然后再试一次。</value>
   </data>
+  <data name="ElevationDialogHeader" xml:space="preserve">
+    <value>命令需要管理员权限</value>
+  </data>
+  <data name="ElevationDialogMessage" xml:space="preserve">
+    <value>此命令以普通权限执行失败，系统检测到权限不足。要以管理员身份重新运行吗？</value>
+  </data>
+  <data name="ElevationDialogRemember" xml:space="preserve">
+    <value>记住此授权，之后默认以管理员身份运行此命令</value>
+  </data>
+  <data name="ElevationDialogConfirm" xml:space="preserve">
+    <value>以管理员身份运行</value>
+  </data>
+  <data name="ElevationDialogCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
 </root>

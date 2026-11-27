@@ -815,5 +815,50 @@ namespace ClassIsland.Assets.Localization.Main {
                 return ResourceManager.GetString("RestartFailedBody", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   查找类似 命令需要管理员权限 的本地化字符串。
+        /// </summary>
+        public static string ElevationDialogHeader {
+            get {
+                return ResourceManager.GetString("ElevationDialogHeader", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 此命令以普通权限执行失败... 的本地化字符串。
+        /// </summary>
+        public static string ElevationDialogMessage {
+            get {
+                return ResourceManager.GetString("ElevationDialogMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 记住此授权，之后默认以管理员身份运行此命令 的本地化字符串。
+        /// </summary>
+        public static string ElevationDialogRemember {
+            get {
+                return ResourceManager.GetString("ElevationDialogRemember", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 以管理员身份运行 的本地化字符串。
+        /// </summary>
+        public static string ElevationDialogConfirm {
+            get {
+                return ResourceManager.GetString("ElevationDialogConfirm", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 取消 的本地化字符串。
+        /// </summary>
+        public static string ElevationDialogCancel {
+            get {
+                return ResourceManager.GetString("ElevationDialogCancel", resourceCulture);
+            }
+        }
     }
 }

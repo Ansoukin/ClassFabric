@@ -461,4 +461,24 @@
     <value>The app could not be restarted. The currently running instance may be running as administrator. Use Task Manager to terminate the running instance, then try again.</value>
     <comment>重启失败对话框正文（后接换行与异常消息）</comment>
   </data>
+  <data name="ElevationDialogHeader" xml:space="preserve">
+    <value>Command requires administrator privileges</value>
+    <comment>提权确认对话框标题</comment>
+  </data>
+  <data name="ElevationDialogMessage" xml:space="preserve">
+    <value>This command failed because it needs elevated privileges. Do you want to run it again as administrator?</value>
+    <comment>提权确认对话框正文（命令全文以等宽文本单独展示）</comment>
+  </data>
+  <data name="ElevationDialogRemember" xml:space="preserve">
+    <value>Remember this permission and run this command as administrator by default</value>
+    <comment>提权确认对话框-记住授权复选框</comment>
+  </data>
+  <data name="ElevationDialogConfirm" xml:space="preserve">
+    <value>Run as administrator</value>
+    <comment>提权确认对话框-确认按钮</comment>
+  </data>
+  <data name="ElevationDialogCancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>提权确认对话框-取消按钮</comment>
+  </data>
 </root>

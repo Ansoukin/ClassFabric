@@ -461,4 +461,24 @@
     <value>无法重新启动应用，可能当前运行的实例正在以管理员身份运行。请使用任务管理器终止正在运行的实例，然后再试一次。</value>
     <comment>重启失败对话框正文（后接换行与异常消息）</comment>
   </data>
+  <data name="ElevationDialogHeader" xml:space="preserve">
+    <value>命令需要管理员权限</value>
+    <comment>提权确认对话框标题</comment>
+  </data>
+  <data name="ElevationDialogMessage" xml:space="preserve">
+    <value>此命令以普通权限执行失败，系统检测到权限不足。要以管理员身份重新运行吗？</value>
+    <comment>提权确认对话框正文（命令全文以等宽文本单独展示）</comment>
+  </data>
+  <data name="ElevationDialogRemember" xml:space="preserve">
+    <value>记住此授权，之后默认以管理员身份运行此命令</value>
+    <comment>提权确认对话框-记住授权复选框</comment>
+  </data>
+  <data name="ElevationDialogConfirm" xml:space="preserve">
+    <value>以管理员身份运行</value>
+    <comment>提权确认对话框-确认按钮</comment>
+  </data>
+  <data name="ElevationDialogCancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>提权确认对话框-取消按钮</comment>
+  </data>
 </root>

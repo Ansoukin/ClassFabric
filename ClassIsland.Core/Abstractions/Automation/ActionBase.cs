@@ -90,6 +90,8 @@ public abstract class ActionBase
         {
             ActionItem.SetStartRunning();
             await action();
+            // 本次成功运行后清掉上次遗留的错误标记；不然错误徽章会一直挂在行动项上，与管理员徽章并存时格外扎眼。
+            actionItem.Exception = null;
         }
         catch (Exception ex) when (ex is TaskCanceledException && InterruptCts?.IsCancellationRequested == true) { }
         catch (Exception ex)

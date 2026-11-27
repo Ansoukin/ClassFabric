@@ -85,6 +85,12 @@ public partial class ActionItem : ObservableRecipient
     [ObservableProperty] [property: JsonIgnore] string? _exception;
 
     /// <summary>
+    /// 行动需要以管理员身份运行。目前只有 cmd 命令在用户确认提权后置位，持久化保存，重启后仍生效。
+    /// </summary>
+    [ObservableProperty] [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    bool _isElevated;
+
+    /// <summary>
     /// 行动项是否正在运行。
     /// </summary>
     [ObservableProperty] [property: JsonIgnore] bool _isWorking = false;

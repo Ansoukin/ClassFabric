@@ -17,6 +17,12 @@ public partial class RunActionSettings : ObservableRecipient
     string _args = "";
 
     /// <summary>
+    /// 以管理员身份运行命令。仅对命令类型生效；由运行时权限检测置位后持久化。
+    /// </summary>
+    [ObservableProperty]
+    bool _isRunAsAdmin;
+
+    /// <summary>
     /// "运行"行动运行类型。
     /// </summary>
     [JsonConverter(typeof(JsonStringEnumConverter))]
