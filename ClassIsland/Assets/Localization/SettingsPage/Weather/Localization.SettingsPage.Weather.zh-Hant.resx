@@ -366,7 +366,7 @@
     <comment>設定項：和風天氣本月請求用量</comment>
   </data>
   <data name="WeatherUsageLimitDescription" xml:space="preserve">
-    <value>跟蹤天氣數據請求次數，達到服務免費額度上限（OpenWeather 每天 1000 次、和風天氣每月 50000 次）後暫停請求，自動改用小米天氣，額度週期重置後恢復。</value>
-    <comment>设置项说明：天气 API 用量限制</comment>
+    <value>跟蹤天氣數據請求次數，達到服務免費額度上限後暫停請求，自動改用小米天氣，額度週期重置後恢復。</value>
+    <comment>設定項說明：天氣 API 用量限制</comment>
   </data>
 </root>

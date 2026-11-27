@@ -270,24 +270,20 @@ public class WeatherService : ObservableRecipient, IHostedService, IWeatherServi
     /// </summary>
     private void CountRequest(string requestedProviderId, string actualProviderId)
     {
-        if (requestedProviderId is not ("openweather" or "qweather"))
+        // 回退或达限改走小米时，原源没有发出请求，不计入其用量。
+        if (actualProviderId != requestedProviderId ||
+            requestedProviderId is not ("openweather" or "qweather"))
         {
             return;
         }
 
-        // 按实际 HTTP 请求计（OpenWeather 一轮 current+forecast 共 2 次、和风一轮最多 5 次），
-        // 这是服务商标的计费口径；实际提供者可能因达限回退成了小米，此时按原请求源计量。
-        var httpCalls = actualProviderId switch
+        // OpenWeather 一轮 current+forecast 共 2 次，和风一轮最多 5 次。
+        var httpCalls = requestedProviderId switch
         {
             "openweather" => 2,
             "qweather" => 5,
             _ => 1
         };
-        if (actualProviderId != requestedProviderId && actualProviderId == "xiaomi")
-        {
-            // 原请求源失败回退小米：原源只计 1 次失败请求，不按满轮计。
-            httpCalls = 1;
-        }
 
         var now = DateTime.Now;
         var dayKey = $"{requestedProviderId}:{now:yyyy-MM-dd}";
@@ -459,8 +455,12 @@ var json = await AssetLoader.ReadAllTextAsync(new Uri(
             catch (Exception providerException) when (provider.Id != "xiaomi" && Settings.WeatherProviderFallbackEnabled)
             {
                 Logger.LogWarning(providerException, "天气源 {ProviderId} 获取失败，回退到小米天气。", provider.Id);
-                info = await WeatherProviders["xiaomi"].GetWeatherAsync(context);
-                result.ErrorMessage = $"{provider.Id} 获取失败，已回退到小米天气：{providerException.Message}";
+                // 必须换掉 provider 本体而不只是换一次调用：下面的 CountRequest 按 provider.Id
+                // 判定这次用量记到谁头上，只换调用的话回退成功仍会记成原源满轮用量。
+                var failedProviderId = provider.Id;
+                provider = WeatherProviders["xiaomi"];
+                info = await provider.GetWeatherAsync(context);
+                result.ErrorMessage = $"{failedProviderId} 获取失败，已回退到小米天气：{providerException.Message}";
             }
 
             // 数据有效性闸门：天气源异常时会返回 HTTP 200 + 空 JSON（如小米接口的 {}），

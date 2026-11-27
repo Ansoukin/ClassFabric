@@ -601,7 +601,7 @@ namespace ClassIsland.Assets.Localization.SettingsPage.Weather {
         }
 
         /// <summary>
-        ///   查找类似 达到免费额度上限后暂停请求并改用小米天气 的本地化字符串。
+        ///   查找类似 跟踪天气数据请求次数，达到服务免费额度上限后暂停请求，自动改用小米天气，额度周期重置后恢复。 的本地化字符串。
         /// </summary>
         public static string WeatherUsageLimitDescription {
             get {

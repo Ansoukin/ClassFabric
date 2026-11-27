@@ -366,7 +366,7 @@
     <comment>Settings item: QWeather requests used this month</comment>
   </data>
   <data name="WeatherUsageLimitDescription" xml:space="preserve">
-    <value>Track weather data requests and pause them when the free quota is reached (1,000/day for OpenWeather, 50,000/month for QWeather). Xiaomi Weather is used instead until the quota period resets.</value>
-    <comment>设置项说明：天气 API 用量限制</comment>
+    <value>Tracks weather data requests. When the free quota is reached, requests pause and fall back to Xiaomi Weather until the quota period resets.</value>
+    <comment>Settings item description: weather API usage limit</comment>
   </data>
 </root>
