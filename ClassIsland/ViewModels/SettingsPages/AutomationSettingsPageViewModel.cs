@@ -1,4 +1,4 @@
-﻿using ClassIsland.Core.Abstractions.Services;
+using ClassIsland.Core.Abstractions.Services;
 using ClassIsland.Services;
 using ClassIsland.Views.SettingPages;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -52,6 +52,18 @@ public partial class AutomationSettingsViewModel : ObservableRecipient
         {
             SettingsService.Settings.IsAutomationPanelPickerEnabled = value;
             OnPropertyChanged();
+            // 选择面板的“切换为经典菜单”入口会改写本属性，下拉框需同步选中项。
+            OnPropertyChanged(nameof(MenuSelectionModeIndex));
         }
+    }
+
+    /// <summary>
+    /// 菜单选择方式的下拉索引：0 = 全屏选择面板，1 = 下拉与级联菜单。
+    /// 只是 <see cref="IsPanelPickerEnabled"/> 的下拉包装，持久化仍是应用设置里的布尔值。
+    /// </summary>
+    public int MenuSelectionModeIndex
+    {
+        get => IsPanelPickerEnabled ? 0 : 1;
+        set => IsPanelPickerEnabled = value == 0;
     }
 }

@@ -47,14 +47,17 @@
                             </StackPanel>
                         </fa:FASettingsExpander.Footer>
                     </fa:FASettingsExpander>
-                    <!--  左上：面板/经典菜单选择方式切换；仅回退到经典菜单时出现，拨回新版即隐藏  -->
+                    <!--  左上：面板/经典菜单选择方式切换  -->
                     <fa:FASettingsExpander Grid.Row="1"
-                                         Description="在自动化编辑器中添加触发器与行动时，使用支持搜索与分类浏览的全屏选择面板；关闭后回退为经典的下拉与级联菜单。"
-                                         Header="启用新版菜单选择器"
-                                         IconSource="{ci:FluentIconSource {ci:FI MultiselectLtrRegular}}"
-                                         IsVisible="{Binding ViewModel.IsPanelPickerEnabled, Converter={StaticResource InvertBooleanConverter}}">
+                                         Description="添加触发器与行动时使用的选择方式。"
+                                         Header="菜单选择方式"
+                                         IconSource="{ci:FluentIconSource {ci:FI MultiselectLtrRegular}}">
                         <fa:FASettingsExpander.Footer>
-                            <ToggleSwitch IsChecked="{Binding ViewModel.IsPanelPickerEnabled, Mode=TwoWay}" />
+                            <ComboBox MinWidth="120"
+                                      SelectedIndex="{Binding ViewModel.MenuSelectionModeIndex, Mode=TwoWay}">
+                                <ComboBoxItem Content="全屏选择面板" />
+                                <ComboBoxItem Content="下拉与级联菜单" />
+                            </ComboBox>
                         </fa:FASettingsExpander.Footer>
                     </fa:FASettingsExpander>
                     <Grid Grid.Row="2"
