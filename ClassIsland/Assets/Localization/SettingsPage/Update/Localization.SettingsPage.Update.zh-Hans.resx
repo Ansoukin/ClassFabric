@@ -250,7 +250,7 @@
     <comment>更新源-"ClassIsland 分发中心"选项</comment>
   </data>
   <data name="UpdateSourceExplanation" xml:space="preserve">
-    <value>GitHub Releases 直接从 ClassFabric 的 GitHub 仓库读取发行版本，无需依赖 ClassIsland 分发中心。Gitee Releases 从 ClassFabric 的 Gitee 镜像仓库读取，适合 GitHub 访问不畅的环境。</value>
+    <value>GitHub Releases 为默认更新源；网络不畅时可改用 Gitee 镜像。</value>
     <comment>更新源-补充说明</comment>
   </data>
   <data name="DistributionCenterSwitchWarning" xml:space="preserve">

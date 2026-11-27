@@ -250,7 +250,7 @@
     <comment>更新源-"ClassIsland 分发中心"选项</comment>
   </data>
   <data name="UpdateSourceExplanation" xml:space="preserve">
-    <value>GitHub Releases reads published versions directly from the ClassFabric GitHub repository, without depending on the ClassIsland distribution center. Gitee Releases reads them from the ClassFabric mirror on Gitee, useful when GitHub is slow or unreachable.</value>
+    <value>GitHub Releases is the default update source; switch to the Gitee mirror when GitHub is slow or unreachable.</value>
     <comment>更新源-补充说明</comment>
   </data>
   <data name="DistributionCenterSwitchWarning" xml:space="preserve">
