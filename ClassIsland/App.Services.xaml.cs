@@ -101,10 +101,6 @@ public partial class App
         services.AddSingleton<ILessonsService, LessonsService>();
         services.AddSingleton<IUriNavigationService, UriNavigationService>();
         services.AddHostedService<MemoryWatchDogService>();
-        // SystemTools 悬浮窗：方案管理与窗口服务。总开关关闭时服务保持休眠，开关联动由服务内部处理。
-        services.AddSingleton<FloatingWindowProfileManager>();
-        services.AddSingleton<FloatingWindowService>();
-        services.AddHostedService(sp => sp.GetRequiredService<FloatingWindowService>());
         services.AddSingleton<IPluginService, PluginService>();
         services.AddSingleton<IPluginMarketService, PluginMarketService>();
         services.AddSingleton<IRulesetService, RulesetService>();
@@ -151,7 +147,6 @@ public partial class App
         services.AddTransient<WindowSettingsViewModel>();
         services.AddTransient<WeatherSettingsViewModel>();
         services.AddTransient<AutomationSettingsViewModel>();
-        services.AddTransient<FloatingWindowEditorSettingsViewModel>();
         services.AddTransient<PluginsSettingsPageViewModel>();
         services.AddTransient<StorageSettingsViewModel>();
         services.AddTransient<ErrorSettingsViewModel>();
@@ -227,7 +222,6 @@ public partial class App
         services.AddSettingsPage<ManagementPolicySettingsPage>();
         services.AddSettingsPage<ErrorSettingsPage>();
         services.AddSettingsPage<SettingsNavigationPage>();
-        services.AddSettingsPage<FloatingWindowEditorSettingsPage>();
         // 主界面组件
         services.AddComponent<TextComponent, TextComponentSettingsControl>();
         services.AddComponent<SeparatorComponent>();
@@ -308,7 +302,6 @@ public partial class App
             services.AddTrigger<HotkeyTrigger, HotkeyTriggerSettingsControl>();
             services.AddTrigger<UsbDeviceTrigger, UsbDeviceTriggerSettingsControl>();
             services.AddTrigger<LongIdleTrigger, LongIdleTriggerSettingsControl>();
-            services.AddTrigger<FloatingWindowTrigger, FloatingWindowTriggerSettingsControl>();
         }
         // 规则
         services.AddRule("classisland.test.true", "总是为真", onHandle: _ => true);
@@ -387,11 +380,6 @@ public partial class App
             services.AddAction<DisableDeviceAction, DisableDeviceSettingsControl>();
             // 媒体工具
             services.AddAction<BackgroundPlayAudioAction, BackgroundPlayAudioSettingsControl>();
-            // 悬浮窗控制
-            services.AddAction<ShowFloatingWindowAction, ShowFloatingWindowSettingsControl>();
-            services.AddAction<ToggleFloatingWindowLayerAction, ToggleFloatingWindowLayerSettingsControl>();
-            services.AddAction<ToggleFloatingWindowProfileAction, ToggleFloatingWindowProfileSettingsControl>();
-            services.AddAction<SwitchFloatingWindowThemeAction, SwitchFloatingWindowThemeSettingsControl>();
         }
 
         // 认证提供方

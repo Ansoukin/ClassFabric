@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -304,12 +304,7 @@ public class ActionService : IActionService
                     new ActionMenuTreeItem("SystemTools.EnableDevice", "启用硬件设备", FluentIcons.ArrowCircleUpRegular)),
                 new ActionMenuTreeGroup("媒体工具…", FluentIcons.CalendarPlayRegular,
                     new ActionMenuTreeItem("SystemTools.BackgroundPlayAudio", "后台播放音频", FluentIcons.MusicNote2PlayRegular),
-                    new ActionMenuTreeItem("SystemTools.SetVolume", "设置系统音量", FluentIcons.SpeakerEditRegular)),
-                new ActionMenuTreeGroup("悬浮窗设置…", FluentIcons.LayerDiagonalSparkleRegular,
-                    new ActionMenuTreeItem("SystemTools.ShowFloatingWindow", "显示悬浮窗", FluentIcons.LayerDiagonalSparkleRegular),
-                    new ActionMenuTreeItem("SystemTools.ToggleFloatingWindowLayer", "切换悬浮窗层级", FluentIcons.HourglassRegular),
-                    new ActionMenuTreeItem("SystemTools.ToggleFloatingWindowProfile", "切换悬浮窗配置方案", FluentIcons.HourglassRegular),
-                    new ActionMenuTreeItem("SystemTools.SwitchFloatingWindowTheme", "切换悬浮窗主题", FluentIcons.DrinkWineFilled))
+                    new ActionMenuTreeItem("SystemTools.SetVolume", "设置系统音量", FluentIcons.SpeakerEditRegular))
             ));
         }
 
