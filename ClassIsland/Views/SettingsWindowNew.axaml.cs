@@ -196,7 +196,8 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
                 {
                     IconSource = node.IconSource,
                     Content = node.Name,
-                    Tag = node.Page
+                    Tag = node.Page,
+                    IsEnabled = !node.Page.IsDisabled
                 };
 
                 if (node.Children == null)
@@ -209,7 +210,8 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
                     {
                         IconSource = page.UnSelectedIconSource,
                         Content = page.Name,
-                        Tag = page
+                        Tag = page,
+                        IsEnabled = !page.IsDisabled
                     }).ToList();
                     ViewModel.FlattenNavigationItemsCache.AddRange(children);
                     item.MenuItems.AddRange(children);
@@ -367,7 +369,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
             await pending.Task;
         }
 
-        if (_resourcesReleased || ViewModel.IsNavigating || info == null || !CanNavigate(info))
+        if (_resourcesReleased || ViewModel.IsNavigating || info == null || !CanNavigate(info) || info.IsDisabled)
         {
             return;
         }
@@ -1079,10 +1081,11 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         if (popup != null) popup.IsOpen = ViewModel.SearchResults.Count > 0;
     }
 
-    // 与 BuildNavigationMenuItems 的可见性口径保持一致：管理策略禁改、调试菜单关闭时对应页面不出现在搜索结果里。
+    // 与 BuildNavigationMenuItems 的可见性口径保持一致：管理策略禁改、调试菜单关闭、页面置灰时不出现在搜索结果里。
     private bool IsPageSearchable(SettingsPageInfo info)
     {
         return !info.HideDefault
+               && !info.IsDisabled
                && !(ManagementService.Policy.DisableSettingsEditing &&
                     info.Category is SettingsPageCategory.Internal or SettingsPageCategory.External)
                && !(ManagementService.Policy.DisableDebugMenu && info.Category == SettingsPageCategory.Debug)

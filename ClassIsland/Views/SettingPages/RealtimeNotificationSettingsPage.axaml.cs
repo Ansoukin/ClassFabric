@@ -9,7 +9,8 @@ using ClassIsland.ViewModels.SettingsPages;
 
 namespace ClassIsland.Views.SettingPages;
 
-[SettingsPageInfo("realtime-notifications", "实时通知", FluentIcons.CardUiRegular, FluentIcons.CardUiRegular, SettingsPageCategory.Internal)]
+// 页面尚未完工，先在设置目录里整项置灰（IsDisabled），完工后移除该标记即可恢复入口。
+[SettingsPageInfo("realtime-notifications", "实时通知", FluentIcons.CardUiRegular, FluentIcons.CardUiRegular, SettingsPageCategory.Internal, IsDisabled = true)]
 public partial class RealtimeNotificationSettingsPage : SettingsPageBase
 {
     public SettingsService SettingsService { get; } = IAppHost.GetService<SettingsService>();

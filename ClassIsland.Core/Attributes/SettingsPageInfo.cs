@@ -27,6 +27,12 @@ public class SettingsPageInfo : Attribute
     public bool UseFullWidth { get; internal set; } = false;
 
     public bool HidePageTitle { get; internal set; } = false;
+
+    /// <summary>
+    /// 页面暂不可用：侧栏导航项整项置灰、不出现在搜索结果里，URI 直达也会被拦下。
+    /// 用于尚未完工的页面。
+    /// </summary>
+    public bool IsDisabled { get; set; } = false;
     
     public string? GroupId { get; internal set; }
 
