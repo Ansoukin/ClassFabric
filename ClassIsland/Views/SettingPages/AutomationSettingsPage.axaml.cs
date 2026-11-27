@@ -176,7 +176,9 @@ public partial class AutomationSettingsPage : SettingsPageBase
         {
             ActionSet = new ActionSet
             {
-                Name = "新自动化", IsRevertEnabled = true
+                Name = "新自动化"
+                // 恢复开关不默认勾选：默认开启会让规则集不再满足时行动停在「已开启」等待恢复，
+                // 不了解恢复机制的用户只会看到自动化不生效。
             }
         };
         ViewModel.AutomationService.Workflows.Insert(index, workflow);
