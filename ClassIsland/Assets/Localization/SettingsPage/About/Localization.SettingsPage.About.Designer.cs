@@ -304,7 +304,7 @@ namespace ClassIsland.Assets.Localization.SettingsPage.About {
         }
 
         /// <summary>
-        ///   查找类似 天气数据来源于小米天气。 的本地化字符串。
+        ///   查找类似 默认天气数据来源于小米天气。 的本地化字符串。
         /// </summary>
         public static string WeatherDataCredit {
             get {
