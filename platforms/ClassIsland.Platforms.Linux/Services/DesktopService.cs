@@ -38,8 +38,17 @@ public class DesktopService : IDesktopService
         }
     }
 
+    // 管理员自启动依赖 Windows 计划任务，Linux 平台没有对应实现，恒为关闭。
+    public bool IsAdminStartupEnabled
+    {
+        get => false;
+        set { }
+    }
+
+    public bool IsRunningAsAdmin => false;
+
     public bool IsUrlSchemeRegistered
     {
-        get => false;set{} 
+        get => false;set{}
     }
 }

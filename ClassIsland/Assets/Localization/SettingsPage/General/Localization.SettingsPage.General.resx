@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -144,6 +144,30 @@
   <data name="LoadOnBootDescription" xml:space="preserve">
     <value>在您的系统启动时自动运行本应用。</value>
     <comment>开机自启-描述</comment>
+  </data>
+  <data name="AdminStartup" xml:space="preserve">
+    <value>管理员自启动</value>
+    <comment>设置-通用-行为-"管理员自启动"</comment>
+  </data>
+  <data name="AdminStartupDescription" xml:space="preserve">
+    <value>通过 Windows 计划任务在登录时以管理员身份启动本应用，启用后将关闭常规开机自启。</value>
+    <comment>管理员自启动-描述</comment>
+  </data>
+  <data name="AdminStartupRestart" xml:space="preserve">
+    <value>以管理员身份重启</value>
+    <comment>设置-通用-行为-管理员自启动-"以管理员身份重启"</comment>
+  </data>
+  <data name="AdminStartupRestartDescription" xml:space="preserve">
+    <value>立即关闭当前实例，并以管理员身份重新启动。</value>
+    <comment>以管理员身份重启-描述</comment>
+  </data>
+  <data name="AdminStartupStatusAdmin" xml:space="preserve">
+    <value>当前以管理员身份运行</value>
+    <comment>管理员自启动-当前权限状态（管理员）</comment>
+  </data>
+  <data name="AdminStartupStatusNormal" xml:space="preserve">
+    <value>当前以普通权限运行</value>
+    <comment>管理员自启动-当前权限状态（普通）</comment>
   </data>
   <data name="RegURLProto" xml:space="preserve">
     <value>注册 Url 协议</value>

@@ -530,5 +530,53 @@ namespace ClassIsland.Assets.Localization.SettingsPage.General {
             get {
                 return ResourceManager.GetString("TranslationCreditAction", resourceCulture);
             }
+        }
+        /// <summary>
+        ///   查找类似 管理员自启动 的本地化字符串。
+        /// </summary>
+        public static string AdminStartup {
+            get {
+                return ResourceManager.GetString("AdminStartup", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   查找类似 通过 Windows 计划任务在登录时以管理员身份启动本应用... 的本地化字符串。
+        /// </summary>
+        public static string AdminStartupDescription {
+            get {
+                return ResourceManager.GetString("AdminStartupDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   查找类似 以管理员身份重启 的本地化字符串。
+        /// </summary>
+        public static string AdminStartupRestart {
+            get {
+                return ResourceManager.GetString("AdminStartupRestart", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   查找类似 立即关闭当前实例，并以管理员身份重新启动。 的本地化字符串。
+        /// </summary>
+        public static string AdminStartupRestartDescription {
+            get {
+                return ResourceManager.GetString("AdminStartupRestartDescription", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   查找类似 当前以管理员身份运行 的本地化字符串。
+        /// </summary>
+        public static string AdminStartupStatusAdmin {
+            get {
+                return ResourceManager.GetString("AdminStartupStatusAdmin", resourceCulture);
+            }
+        }
+        /// <summary>
+        ///   查找类似 当前以普通权限运行 的本地化字符串。
+        /// </summary>
+        public static string AdminStartupStatusNormal {
+            get {
+                return ResourceManager.GetString("AdminStartupStatusNormal", resourceCulture);
+            }
         }    }
 }

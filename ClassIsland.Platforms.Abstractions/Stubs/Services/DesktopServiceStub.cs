@@ -12,6 +12,16 @@ public class DesktopServiceStub : IDesktopService
     }
 
     /// <inheritdoc />
+    public bool IsAdminStartupEnabled
+    {
+        get => false;
+        set { }
+    }
+
+    /// <inheritdoc />
+    public bool IsRunningAsAdmin => false;
+
+    /// <inheritdoc />
     public bool IsUrlSchemeRegistered
     {
         get => false;

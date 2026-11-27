@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -144,6 +144,30 @@
   <data name="LoadOnBootDescription" xml:space="preserve">
     <value>Automatically run this application when your system starts.</value>
     <comment>开机自启-描述</comment>
+  </data>
+  <data name="AdminStartup" xml:space="preserve">
+    <value>Run as Administrator on Startup</value>
+    <comment>设置-通用-行为-"管理员自启动"</comment>
+  </data>
+  <data name="AdminStartupDescription" xml:space="preserve">
+    <value>Starts this app as administrator on logon through a Windows scheduled task. Regular start-on-boot will be turned off when this is enabled.</value>
+    <comment>管理员自启动-描述</comment>
+  </data>
+  <data name="AdminStartupRestart" xml:space="preserve">
+    <value>Restart as Administrator</value>
+    <comment>设置-通用-行为-管理员自启动-"以管理员身份重启"</comment>
+  </data>
+  <data name="AdminStartupRestartDescription" xml:space="preserve">
+    <value>Close this instance right now and start it again as administrator.</value>
+    <comment>以管理员身份重启-描述</comment>
+  </data>
+  <data name="AdminStartupStatusAdmin" xml:space="preserve">
+    <value>Currently running as administrator</value>
+    <comment>管理员自启动-当前权限状态（管理员）</comment>
+  </data>
+  <data name="AdminStartupStatusNormal" xml:space="preserve">
+    <value>Currently running with normal privileges</value>
+    <comment>管理员自启动-当前权限状态（普通）</comment>
   </data>
   <data name="RegURLProto" xml:space="preserve">
     <value>Register URL Protocol</value>

@@ -56,6 +56,29 @@
                     <ToggleSwitch IsChecked="{Binding IsAutoStartEnabled, Source={x:Static abstraction:PlatformServices.DesktopService}, Mode=TwoWay}"/>
                 </controls3:FASettingsExpander.Footer>
             </controls3:FASettingsExpander>
+            <!-- 管理员自启动：通过 Windows 计划任务在登录时以管理员身份拉起，与常规自启互斥 -->
+            <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xEF4F;}"
+                                        Header="{x:Static locG:Localization.AdminStartup}"
+                                        Description="{x:Static locG:Localization.AdminStartupDescription}">
+                <controls3:FASettingsExpander.IsVisible>
+                    <OnPlatform Default="False">
+                        <On Options="Windows" Content="True"/>
+                    </OnPlatform>
+                </controls3:FASettingsExpander.IsVisible>
+                <controls3:FASettingsExpander.Footer>
+                    <ToggleSwitch IsChecked="{Binding IsAdminStartupEnabled, Source={x:Static abstraction:PlatformServices.DesktopService}, Mode=TwoWay}"/>
+                </controls3:FASettingsExpander.Footer>
+                <!-- 当前权限状态：只读展示行（同 StorageSettingsPage「上次自动备份时间」等信息行形态） -->
+                <controls3:FASettingsExpanderItem Content="{x:Static locG:Localization.AdminStartupStatusAdmin}"
+                                                 IsVisible="{Binding IsRunningAsAdmin, Source={x:Static abstraction:PlatformServices.DesktopService}, Mode=OneWay}"/>
+                <controls3:FASettingsExpanderItem Content="{x:Static locG:Localization.AdminStartupStatusNormal}"
+                                                 IsVisible="{Binding !IsRunningAsAdmin, Source={x:Static abstraction:PlatformServices.DesktopService}, Mode=OneWay}"/>
+                <!-- 以管理员身份重启 -->
+                <controls3:FASettingsExpanderItem Content="{x:Static locG:Localization.AdminStartupRestart}"
+                                                Description="{x:Static locG:Localization.AdminStartupRestartDescription}"
+                                                IsClickEnabled="True"
+                                                Click="ButtonRestartAsAdmin_OnClick"/>
+            </controls3:FASettingsExpander>
             <!-- 注册 Url 协议 -->
             <controls3:FASettingsExpander IconSource="{ci:FluentIconSource &#xEAB0;}" 
                                         Header="{x:Static locG:Localization.RegURLProto}"
