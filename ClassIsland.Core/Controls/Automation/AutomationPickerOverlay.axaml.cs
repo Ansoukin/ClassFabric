@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
@@ -59,6 +59,19 @@ public partial class AutomationPickerOverlay : UserControl
     private bool _showHintId = true;
     private bool _compact;
 
+    // ----- 栏宽与响应式窄态（栏宽会话级记忆，多个面板实例共享） -----
+    private const double MinSideWidth = 48;
+    private const double CatsCompactEnterWidth = 96;   // 分类栏窄于此切图标化
+    private const double CatsCompactExitWidth = 108;   // 宽于此才恢复文字；两阈值间滞回防拖动抖动
+    private const double ModeCompactEnterWidth = 64;   // 模式栏窄于此隐藏按钮文字
+    private const double ModeCompactExitWidth = 72;
+    private const double MidMinWidth = 240;            // 中栏列表最小保障宽，两侧栏加起来不能把它挤没
+    private const double SplitterTotalWidth = 12;      // 两根分隔线热区合计宽度（各 6）
+    private static double _catsWidth = 200;
+    private static double _modeWidth = 104;
+    private bool _catsCompact;
+    private bool _modeCompact;
+
     /// <summary>
     /// 宿主投递：非定向请求选中一项后按当前模式落地。由宿主页面在挂载时设置。
     /// </summary>
@@ -93,6 +106,12 @@ public partial class AutomationPickerOverlay : UserControl
         Root.AddHandler(KeyDownEvent, OnPreviewKeyDown, RoutingStrategies.Tunnel);
         ListHost.PointerExited += (_, _) => ShowDefaultHint();
         SearchTextBox.TextChanged += SearchTextBox_OnTextChanged;
+        // 恢复会话内上次拖动的栏宽（多个宿主面板实例共享同一记忆）。
+        BodyGrid.ColumnDefinitions[0].Width = new GridLength(_catsWidth);
+        BodyGrid.ColumnDefinitions[4].Width = new GridLength(_modeWidth);
+        CatsScroll.SizeChanged += OnCatsSizeChanged;
+        ModeHost.SizeChanged += OnModeSizeChanged;
+        BodyGrid.LayoutUpdated += OnBodyGridLayoutUpdated;
     }
 
     /// <inheritdoc />
@@ -259,14 +278,16 @@ public partial class AutomationPickerOverlay : UserControl
         CatsHost.Children.Clear();
         var items = SourceItems.ToList();
 
-        AddCategoryButton(null, ModeLabel == "触发器" ? "全部触发器" : "全部行动", items.Count);
+        AddCategoryButton(null, ModeLabel == "触发器" ? "全部触发器" : "全部行动", items.Count, null);
         foreach (var cat in BuildCategories(items))
         {
-            AddCategoryButton(cat, cat, items.Count(x => x.Category == cat));
+            // 分类图标取该分类首个条目的注册图标，窄栏图标化时用它代表分类。
+            var icon = items.FirstOrDefault(x => x.Category == cat)?.IconSource;
+            AddCategoryButton(cat, cat, items.Count(x => x.Category == cat), icon);
         }
     }
 
-    private void AddCategoryButton(string? category, string name, int count)
+    private void AddCategoryButton(string? category, string name, int count, FAIconSource? icon)
     {
         var isOn = _category == category;
         // 指示条独占第 0 列并带固定右距，避免与分类名挤在同一格（曾出现导轨压住「全部行动」文字）。
@@ -278,17 +299,6 @@ public partial class AutomationPickerOverlay : UserControl
             Background = isOn ? GetBrush("AccentFillColorDefaultBrush") : Brushes.Transparent,
             VerticalAlignment = Va.Center
         };
-
-        var text = new TextBlock { Text = name, VerticalAlignment = Va.Center };
-        var countText = new TextBlock
-        {
-            Text = count.ToString(),
-            VerticalAlignment = Va.Center,
-            FontSize = 12,
-            // 右侧留出一整段滚动条宽度：分类一多导轨出现滚动条时，悬停浮层不会再盖到计数上。
-            Margin = new Thickness(8, 0, 12, 0)
-        };
-        ApplyForeground(countText, TextBlock.ForegroundProperty, "TextFillColorTertiaryBrush");
 
         var button = new Button
         {
@@ -302,13 +312,48 @@ public partial class AutomationPickerOverlay : UserControl
         {
             button.Classes.Add("on");
         }
-        button.Content = new Grid
+
+        if (_catsCompact)
         {
-            ColumnDefinitions = new ColumnDefinitions("Auto,12,*,Auto"),
-            Children = { bar, text, countText }
-        };
-        Grid.SetColumn(text, 2);
-        Grid.SetColumn(countText, 3);
+            // 窄栏图标化：只留分类图标，名称挪到悬浮提示。
+            var iconText = new IconText
+            {
+                IconSource = icon,
+                // 「全部」分类没有条目图标可用，用集合列表图标表达。
+                Glyph = icon == null ? FluentIcons.AppsListRegular : DefaultIconExpression,
+                HorizontalAlignment = Ha.Center
+            };
+            button.Content = new Grid
+            {
+                ColumnDefinitions = new ColumnDefinitions("*"),
+                Children = { bar, iconText }
+            };
+            // 指示条贴回左缘：星号列内 Stretch 加固定宽会被居中放置。
+            bar.HorizontalAlignment = Ha.Left;
+            ToolTip.SetTip(button, name);
+        }
+        else
+        {
+            var text = new TextBlock { Text = name, VerticalAlignment = Va.Center };
+            var countText = new TextBlock
+            {
+                Text = count.ToString(),
+                VerticalAlignment = Va.Center,
+                FontSize = 12,
+                // 右侧留出一整段滚动条宽度：分类一多导轨出现滚动条时，悬停浮层不会再盖到计数上。
+                Margin = new Thickness(8, 0, 12, 0)
+            };
+            ApplyForeground(countText, TextBlock.ForegroundProperty, "TextFillColorTertiaryBrush");
+
+            button.Content = new Grid
+            {
+                ColumnDefinitions = new ColumnDefinitions("Auto,12,*,Auto"),
+                Children = { bar, text, countText }
+            };
+            Grid.SetColumn(text, 2);
+            Grid.SetColumn(countText, 3);
+        }
+
         button.Click += (_, _) =>
         {
             _category = category;
@@ -785,9 +830,115 @@ public partial class AutomationPickerOverlay : UserControl
     private void ToggleCats_OnClick(object? sender, RoutedEventArgs e)
     {
         var show = !CatsScroll.IsVisible;
+        // 隐藏前记录当前宽度，重开时恢复记忆宽而不是回到默认 200。
+        if (!show)
+        {
+            _catsWidth = Math.Max(CatsScroll.Bounds.Width, MinSideWidth);
+        }
         CatsScroll.IsVisible = show;
         ToggleCatsItem.IsChecked = show;
-        BodyGrid.ColumnDefinitions[0].Width = show ? new GridLength(200) : new GridLength(0);
+        // 隐藏时同时放宽列最小宽，否则 MinWidth 会顶住 Width=0。
+        BodyGrid.ColumnDefinitions[0].MinWidth = show ? MinSideWidth : 0;
+        BodyGrid.ColumnDefinitions[0].Width = show
+            ? new GridLength(Math.Max(_catsWidth, MinSideWidth))
+            : new GridLength(0);
+    }
+
+    // ---------- 栏宽响应式 ----------
+
+    // 记录栏宽并驱动窄态图标化切换；越界钳制统一交给布局级 ClampSideColumn（见下）。
+    private void OnCatsSizeChanged(object? sender, SizeChangedEventArgs e)
+    {
+        var width = e.NewSize.Width;
+        if (width > 0)
+        {
+            _catsWidth = width;
+        }
+        if (!_catsCompact && width < CatsCompactEnterWidth)
+        {
+            _catsCompact = true;
+            RebuildCategories();
+        }
+        else if (_catsCompact && width > CatsCompactExitWidth)
+        {
+            _catsCompact = false;
+            RebuildCategories();
+        }
+    }
+
+    private void OnModeSizeChanged(object? sender, SizeChangedEventArgs e)
+    {
+        var width = e.NewSize.Width;
+        if (width > 0)
+        {
+            _modeWidth = width;
+        }
+        if (!_modeCompact && width < ModeCompactEnterWidth)
+        {
+            _modeCompact = true;
+            UpdateModeCompact();
+        }
+        else if (_modeCompact && width > ModeCompactExitWidth)
+        {
+            _modeCompact = false;
+            UpdateModeCompact();
+        }
+    }
+
+    // GridSplitter 拖动直接改列宽，既不尊重列上的 MinWidth，也没有上限约束；此前按
+    // SizeChanged 弹回依赖事件时序，拖动过程中会漏。这里改为布局级钳制：每帧布局完成后
+    // 把两根侧栏列的实际宽度拉回合法区间。同值赋值不会触发布局循环；actual<=0 说明
+    // 栏处于隐藏态（如分类栏被关闭），跳过。
+    private void OnBodyGridLayoutUpdated(object? sender, EventArgs e)
+    {
+        ClampSideColumn(0, isCats: true);
+        ClampSideColumn(4, isCats: false);
+    }
+
+    private void ClampSideColumn(int columnIndex, bool isCats)
+    {
+        var definition = BodyGrid.ColumnDefinitions[columnIndex];
+        var actual = definition.ActualWidth;
+        if (actual <= 0)
+        {
+            return;
+        }
+        var (min, max) = GetSideLimits(isCats);
+        if (actual < min - 0.5 || actual > max + 0.5)
+        {
+            var clamped = Math.Clamp(actual, min, max);
+            definition.Width = new GridLength(clamped);
+            if (isCats)
+            {
+                _catsWidth = clamped;
+            }
+            else
+            {
+                _modeWidth = clamped;
+            }
+        }
+    }
+
+    // 左右栏的合法宽度区间：下限保住图标显示，上限给中栏留出保障宽。
+    // 列宽被分隔线拖过之后都是绝对像素值，直接读列定义即可；还没拖过时用记忆宽兜底。
+    private (double Min, double Max) GetSideLimits(bool isCats)
+    {
+        var otherWidth = isCats
+            ? (BodyGrid.ColumnDefinitions[4].Width.IsAbsolute
+                ? BodyGrid.ColumnDefinitions[4].Width.Value
+                : _modeWidth)
+            : (BodyGrid.ColumnDefinitions[0].Width.IsAbsolute
+                ? BodyGrid.ColumnDefinitions[0].Width.Value
+                : _catsWidth);
+        var max = BodyGrid.Bounds.Width - MidMinWidth - otherWidth - SplitterTotalWidth;
+        return (MinSideWidth, Math.Max(MinSideWidth, max));
+    }
+
+    // 窄态隐藏模式按钮文字，只留图标。
+    private void UpdateModeCompact()
+    {
+        TriggerModeText.IsVisible = !_modeCompact;
+        ActionModeText.IsVisible = !_modeCompact;
     }
 
     private void ToggleCompact_OnClick(object? sender, RoutedEventArgs e)

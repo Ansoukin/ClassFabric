@@ -107,6 +107,8 @@
             <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
             <Setter Property="CornerRadius" Value="4" />
             <Setter Property="Height" Value="66" />
+            <!--  窄态按钮只有 28px 宽，主题默认 Padding 会把图标整个挤没，这里必须清零  -->
+            <Setter Property="Padding" Value="0" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -266,15 +268,23 @@
                 </Button>
             </Grid>
 
-            <!--  主体：分类栏 / 列表 / 模式切换  -->
-            <Grid x:Name="BodyGrid" Grid.Row="1" ColumnDefinitions="200,*,104">
+            <!--  主体：分类栏 / 拖动分隔 / 列表 / 拖动分隔 / 模式切换  -->
+            <Grid x:Name="BodyGrid" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200" MinWidth="48" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="104" MinWidth="48" />
+                </Grid.ColumnDefinitions>
+                <GridSplitter Grid.Column="1" Width="6" ResizeDirection="Columns" Background="Transparent" />
                 <ScrollViewer x:Name="CatsScroll">
                     <Border BorderBrush="{DynamicResource DividerStrokeColorDefaultBrush}"
                             BorderThickness="0,0,1,0">
                         <StackPanel x:Name="CatsHost" Margin="0,8" />
                     </Border>
                 </ScrollViewer>
-                <ScrollViewer x:Name="ListScroll" Grid.Column="1">
+                <ScrollViewer x:Name="ListScroll" Grid.Column="2">
                     <Border x:Name="ListWrap">
                         <Border.Transitions>
                             <Transitions>
@@ -285,16 +295,17 @@
                         <StackPanel x:Name="ListHost" Margin="10,6,14,16" />
                     </Border>
                 </ScrollViewer>
-                <Border Grid.Column="2"
+                <GridSplitter Grid.Column="3" Width="6" ResizeDirection="Columns" Background="Transparent" />
+                <Border Grid.Column="4"
                         BorderBrush="{DynamicResource DividerStrokeColorDefaultBrush}"
                         BorderThickness="1,0,0,0">
-                    <StackPanel Margin="10,12,10,12" Spacing="10">
+                    <StackPanel x:Name="ModeHost" Margin="10,12,10,12" Spacing="10">
                         <Button x:Name="TriggerModeButton"
                                 Classes="picker-mode"
                                 Click="TriggerMode_OnClick">
                             <StackPanel Classes="picker-mode-body" Spacing="6">
                                 <ci:IconText Glyph="{ci:FI FlashRegular}" HorizontalAlignment="Center" />
-                                <TextBlock Text="触发器" FontSize="13" HorizontalAlignment="Center" />
+                                <TextBlock x:Name="TriggerModeText" Text="触发器" FontSize="13" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                         <Button x:Name="ActionModeButton"
@@ -302,7 +313,7 @@
                                 Click="ActionMode_OnClick">
                             <StackPanel Classes="picker-mode-body" Spacing="6">
                                 <ci:IconText Glyph="{ci:FI AirplaneTakeOffRegular}" HorizontalAlignment="Center" />
-                                <TextBlock Text="行动" FontSize="13" HorizontalAlignment="Center" />
+                                <TextBlock x:Name="ActionModeText" Text="行动" FontSize="13" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
