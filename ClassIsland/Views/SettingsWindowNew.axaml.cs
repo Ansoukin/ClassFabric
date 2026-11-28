@@ -241,22 +241,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
 
         foreach (var category in pages.GroupBy(page => page.Category))
         {
-            var nodes = new List<SettingsNavigationNode>();
-            foreach (var page in category)
-            {
-                if (page.GroupId is { } groupId && SettingsWindowRegistryService.Groups.TryGetValue(groupId, out var group))
-                {
-                    if (addedGroups.Add(groupId))
-                    {
-                        nodes.Add(new SettingsNavigationNode(page, group, pagesByGroup[groupId].ToList()));
-                    }
-                }
-                else
-                {
-                    nodes.Add(new SettingsNavigationNode(page));
-                }
-            }
-
+            var nodes = CollectCategoryNodes(category, pagesByGroup, addedGroups);
             if (nodes.Count > 0)
             {
                 sections.Add(new SettingsNavigationSection(nodes, sections.Count > 0));
@@ -264,6 +249,29 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         }
 
         return sections;
+    }
+
+    // 单个分类下的导航节点：同组页面折叠成一个节点（由首个成员页代表），未分组页面各自成节点
+    private List<SettingsNavigationNode> CollectCategoryNodes(
+        IEnumerable<SettingsPageInfo> category, ILookup<string?, SettingsPageInfo> pagesByGroup, HashSet<string> addedGroups)
+    {
+        var nodes = new List<SettingsNavigationNode>();
+        foreach (var page in category)
+        {
+            if (page.GroupId is { } groupId && SettingsWindowRegistryService.Groups.TryGetValue(groupId, out var group))
+            {
+                if (addedGroups.Add(groupId))
+                {
+                    nodes.Add(new SettingsNavigationNode(page, group, pagesByGroup[groupId].ToList()));
+                }
+            }
+            else
+            {
+                nodes.Add(new SettingsNavigationNode(page));
+            }
+        }
+
+        return nodes;
     }
 
     private bool CanNavigate(SettingsPageInfo page)
@@ -395,11 +403,24 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
         transaction.SetTag("navigationPage", info.Name);
         transaction.SetTag("navigationPage.id", info.Id);
         var setupSpan = transaction.StartChild("setupPage");
-        ISpan? frameSpan = null;
         _navigationOperation = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         ViewModel.IsPopupOpen = false;
         ViewModel.IsNavigating = true;
 
+        // 导航失败（异常）时才需要回退错误页；正常完成或主动取消不回退
+        var needsErrorFallback = await NavigateWithTelemetryAsync(info, uri, transaction, setupSpan, keepHistory, isDirectory, groupId, isRoot);
+        if (needsErrorFallback && info.Id != ErrorPageId && !isRoot)
+        {
+            await CoreNavigate(FindPageInfo(ErrorPageId), new Uri("classisland://app/settings/_error?error=true"));
+        }
+    }
+
+    // 导航执行段：回声洞、导航根确保、页面切换与历史修剪，全程挂遥测。
+    // 返回 true 表示执行中发生异常（span 已按 InternalError 收尾），调用方应回退错误页。
+    private async Task<bool> NavigateWithTelemetryAsync(SettingsPageInfo info, Uri? uri, ITransactionTracer transaction, ISpan setupSpan,
+        bool keepHistory, bool isDirectory, string? groupId, bool isRoot)
+    {
+        ISpan? frameSpan = null;
         try
         {
             if (SettingsService.Settings.ShowEchoCaveWhenSettingsPageLoading)
@@ -411,7 +432,7 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
             {
                 setupSpan.Finish(SpanStatus.Cancelled);
                 transaction.Finish(SpanStatus.Cancelled);
-                return;
+                return false;
             }
 
             HangService.AssumeHang();
@@ -439,23 +460,19 @@ public partial class SettingsWindowNew : ViewBase, IFANavigationPageFactory
             var status = navigated ? SpanStatus.Ok : SpanStatus.Cancelled;
             frameSpan.Finish(status);
             transaction.Finish(status);
-            return;
+            return false;
         }
         catch (Exception ex)
         {
             Logger.LogError(ex, "无法完成设置页面导航 {}", info.Id);
             (frameSpan ?? setupSpan).Finish(ex, SpanStatus.InternalError);
             transaction.Finish(SpanStatus.InternalError);
+            return true;
         }
         finally
         {
             ViewModel.IsNavigating = false;
             CompleteNavigationOperation();
-        }
-
-        if (info.Id != ErrorPageId && !isRoot)
-        {
-            await CoreNavigate(FindPageInfo(ErrorPageId), new Uri("classisland://app/settings/_error?error=true"));
         }
     }
 
