@@ -137,6 +137,27 @@ public class PluginService : IPluginService
             .WithNamingConvention(CamelCaseNamingConvention.Instance)
             .Build();
 
+        ScanPluginDirectories(deserializer);
+        var loadOrder = ResolveLoadOrder(IPluginService.LoadedPluginsInternal.Where(x => x.LoadStatus == PluginLoadStatus.NotLoaded).ToList());
+        Console.WriteLine($"Resolved load order: {string.Join(", ", loadOrder)}");
+
+        var forceMonoPluginLoadBehavior =
+            Environment.GetEnvironmentVariable("ClassFabric_DebugForceMonoPluginLoadBehavior") == "1" ||
+            Environment.GetEnvironmentVariable("ClassFabric_DebugSuppressMacOSPluginLoadBehavior") == "1";
+        // 加载插件
+        foreach (var id in loadOrder)
+        {
+            LoadSinglePlugin(id, context, services, forceMonoPluginLoadBehavior);
+        }
+
+        AppBase.Current.AppStarted += CurrentOnAppStarted;
+    }
+
+    // 插件发现与加载拆成两步：扫描只做预处理（处理卸载、登记清单、拦截旧 API 版本），
+    // 单个插件的程序集装配与 DI 注册独立成方法；主方法只留编排，加载失败能直接定位到阶段。
+
+    private static void ScanPluginDirectories(IDeserializer deserializer)
+    {
         var pluginDirs = Directory.EnumerateDirectories(PluginsRootPath)
             .Concat(Directory.Exists(LegacyPluginsRootPath)
                 ? Directory.EnumerateDirectories(LegacyPluginsRootPath)
@@ -190,85 +211,77 @@ public class PluginService : IPluginService
                 PluginLoadedStatus.Add(info);
             }
         }
-        var loadOrder = ResolveLoadOrder(IPluginService.LoadedPluginsInternal.Where(x => x.LoadStatus == PluginLoadStatus.NotLoaded).ToList());
-        Console.WriteLine($"Resolved load order: {string.Join(", ", loadOrder)}");
+    }
 
-        var forceMonoPluginLoadBehavior =
-            Environment.GetEnvironmentVariable("ClassFabric_DebugForceMonoPluginLoadBehavior") == "1" ||
-            Environment.GetEnvironmentVariable("ClassFabric_DebugSuppressMacOSPluginLoadBehavior") == "1";
-        // 加载插件
-        foreach (var id in loadOrder)
+    private static void LoadSinglePlugin(string id, HostBuilderContext context, IServiceCollection services, bool forceMonoPluginLoadBehavior)
+    {
+        var info = IPluginService.LoadedPluginsInternal.First(x => x.Manifest.Id == id);
+        var manifest = info.Manifest;
+        var pluginDir = info.PluginFolderPath;
+        try
         {
-            var info = IPluginService.LoadedPluginsInternal.First(x => x.Manifest.Id == id);
-            var manifest = info.Manifest;
-            var pluginDir = info.PluginFolderPath;
+            var fullPath = Path.GetFullPath(Path.Combine(pluginDir, manifest.EntranceAssembly));
+            // 检查插件兼容性
+            var compatCheck = PluginCompatibilityDiagnosticService.CheckPluginCompatibility(fullPath);
+            if (compatCheck.Status == PluginCompatibilityDiagnosticService.CompatibilityStatus.Incompatible)
+            {
+                PluginDiagnostics[info.Manifest.Id] = (
+                    compatCheck.UserFacingMessage ?? Localization.PluginIncompatibleDefault,
+                    GenerateTechnicalDiagnosticDetails(manifest, compatCheck.TechnicalDetails ?? ""));
+                info.LoadStatus = PluginLoadStatus.Error;
+                PluginLoadedStatus.Add(info);
+                return;
+            }
+
+            var loadContext = new PluginLoadContext(info, fullPath, forceMonoPluginLoadBehavior);
+            PluginLoadContexts[info.Manifest.Id] = loadContext;
+            var asm = loadContext.LoadFromAssemblyName(
+                new AssemblyName(Path.GetFileNameWithoutExtension(fullPath)));
+            var entrance = asm.ExportedTypes.FirstOrDefault(x =>
+                x.BaseType == typeof(PluginBase) ||
+                x.GetCustomAttributes().FirstOrDefault(a => a.GetType() == typeof(PluginEntrance)) != null);
+
+            if (entrance == null)
+            {
+                return;
+            }
+
+            if (Activator.CreateInstance(entrance) is not PluginBase entranceObj)
+            {
+                return;
+            }
+
+            entranceObj.PluginConfigFolder = GetPluginConfigFolder(info);
+            if (!Directory.Exists(entranceObj.PluginConfigFolder))
+                Directory.CreateDirectory(entranceObj.PluginConfigFolder);
+            entranceObj.Info = info;
+            // 在插件 Initialize 期间设置当前注册插件上下文，以便组件注册时自动捕获来源
+            var previousPlugin = ComponentRegistryService.CurrentRegisteringPlugin.Value;
+            ComponentRegistryService.CurrentRegisteringPlugin.Value = info;
             try
             {
-                var fullPath = Path.GetFullPath(Path.Combine(pluginDir, manifest.EntranceAssembly));
-                // 检查插件兼容性
-                var compatCheck = PluginCompatibilityDiagnosticService.CheckPluginCompatibility(fullPath);
-                if (compatCheck.Status == PluginCompatibilityDiagnosticService.CompatibilityStatus.Incompatible)
-                {
-                    PluginDiagnostics[info.Manifest.Id] = (
-                        compatCheck.UserFacingMessage ?? Localization.PluginIncompatibleDefault,
-                        GenerateTechnicalDiagnosticDetails(manifest, compatCheck.TechnicalDetails ?? ""));
-                    info.LoadStatus = PluginLoadStatus.Error;
-                    PluginLoadedStatus.Add(info);
-                    continue;
-                }
-
-                var loadContext = new PluginLoadContext(info, fullPath, forceMonoPluginLoadBehavior);
-                PluginLoadContexts[info.Manifest.Id] = loadContext;
-                var asm = loadContext.LoadFromAssemblyName(
-                    new AssemblyName(Path.GetFileNameWithoutExtension(fullPath)));
-                var entrance = asm.ExportedTypes.FirstOrDefault(x =>
-                    x.BaseType == typeof(PluginBase) ||
-                    x.GetCustomAttributes().FirstOrDefault(a => a.GetType() == typeof(PluginEntrance)) != null);
-
-                if (entrance == null)
-                {
-                    continue;
-                }
-
-                if (Activator.CreateInstance(entrance) is not PluginBase entranceObj)
-                {
-                    continue;
-                }
-
-                entranceObj.PluginConfigFolder = GetPluginConfigFolder(info);
-                if (!Directory.Exists(entranceObj.PluginConfigFolder))
-                    Directory.CreateDirectory(entranceObj.PluginConfigFolder);
-                entranceObj.Info = info;
-                // 在插件 Initialize 期间设置当前注册插件上下文，以便组件注册时自动捕获来源
-                var previousPlugin = ComponentRegistryService.CurrentRegisteringPlugin.Value;
-                ComponentRegistryService.CurrentRegisteringPlugin.Value = info;
-                try
-                {
-                    entranceObj.Initialize(context, services);
-                }
-                finally
-                {
-                    ComponentRegistryService.CurrentRegisteringPlugin.Value = previousPlugin;
-                }
-                services.AddSingleton(typeof(PluginBase), entranceObj);
-                services.AddSingleton(entrance, entranceObj);
-                info.LoadStatus = PluginLoadStatus.Loaded;
-                // Console.WriteLine($"Initialized plugin: {pluginDir} ({manifest.Version})");
-                PluginLoadedStatus.Add(info);
+                entranceObj.Initialize(context, services);
             }
-            catch (Exception ex)
+            finally
             {
-                info.Exception = ex;
-                info.LoadStatus = PluginLoadStatus.Error;
-                PluginDiagnostics[manifest.Id] = (
-                    GenerateUserDiagnosticMessage(ex),
-                    GenerateTechnicalDiagnosticDetails(ex, manifest));
-                PluginLoadedStatus.Add(info);
-                // Console.WriteLine($"Failed to initialize plugin {manifest.Name}:"+ex);
+                ComponentRegistryService.CurrentRegisteringPlugin.Value = previousPlugin;
             }
+            services.AddSingleton(typeof(PluginBase), entranceObj);
+            services.AddSingleton(entrance, entranceObj);
+            info.LoadStatus = PluginLoadStatus.Loaded;
+            // Console.WriteLine($"Initialized plugin: {pluginDir} ({manifest.Version})");
+            PluginLoadedStatus.Add(info);
         }
-        
-        AppBase.Current.AppStarted += CurrentOnAppStarted;
+        catch (Exception ex)
+        {
+            info.Exception = ex;
+            info.LoadStatus = PluginLoadStatus.Error;
+            PluginDiagnostics[manifest.Id] = (
+                GenerateUserDiagnosticMessage(ex),
+                GenerateTechnicalDiagnosticDetails(ex, manifest));
+            PluginLoadedStatus.Add(info);
+            // Console.WriteLine($"Failed to initialize plugin {manifest.Name}:"+ex);
+        }
     }
 
     private static void CurrentOnAppStarted(object? sender, EventArgs e)
