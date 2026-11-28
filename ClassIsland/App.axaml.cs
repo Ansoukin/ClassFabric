@@ -539,6 +539,37 @@ public partial class App : AppBase, IAppHost
     internal async void Init()
     {
         AppBase.CurrentLifetime = ClassIsland.Core.Enums.ApplicationLifetime.Initializing;
+        var isDesktop = SetupPlatformEnvironment();
+        Initialized?.Invoke(this, EventArgs.Empty);
+        var transaction = SentrySdk.StartTransaction(
+            "startup",
+            "startup"
+        );
+        SentrySdk.ConfigureScope(s => s.Transaction = transaction);
+        var spanPreInit = transaction.StartChild("startup-init");
+        Dispatcher.UIThread.UnhandledException += App_OnDispatcherUnhandledException;
+        ApplyStartupLocalizationAndDiagnostics();
+
+        bool isSystemSpeechSystemExist = false;
+        // 启动前置闸门：单实例、临时目录、桌面运行、目录可写、崩溃计数与恢复模式。
+        // 返回 true 表示启动已被拦截（进程自行退出或转入恢复窗口），主流程直接返回。
+        var startupCountFilePath = Path.Combine(CommonDirectories.AppRootFolderPath, ".startup-count");
+        if (await RunStartupGateChecksAsync(transaction, spanPreInit, startupCountFilePath))
+            return;
+
+        RunPreHostPreparations(spanPreInit);
+        await BuildHostAsync(spanPreInit);
+        if (await TryRunLegacyImportAsync())
+            return;
+        var (shouldReturn, spanLaunching) = await LaunchCoreServicesAsync(transaction, isSystemSpeechSystemExist);
+        if (shouldReturn)
+            return;
+        await InitializeMainWindowAndServicesAsync(transaction, spanLaunching, startupCountFilePath, isDesktop);
+    }
+
+    // 桌面平台的视图宿主与占位根窗口要在任何业务窗口创建前就位
+    private bool SetupPlatformEnvironment()
+    {
         if (System.OperatingSystem.IsAndroid() || System.OperatingSystem.IsIOS() || ApplicationCommand.Mobile)
         {
             Styles.Add(new Style(x => x.OfType<ComboBox>())
@@ -557,24 +588,16 @@ public partial class App : AppBase, IAppHost
             CreatePhonyRootWindow();
             PlatformServices.WindowPlatformService.SetWindowFeature(PhonyRootWindow, WindowFeatures.ToolWindow | WindowFeatures.SkipManagement | WindowFeatures.Transparent, true);
         }
-        Initialized?.Invoke(this, EventArgs.Empty);
-        var transaction = SentrySdk.StartTransaction(
-            "startup",
-            "startup"
-        );
-        SentrySdk.ConfigureScope(s => s.Transaction = transaction);
-        var spanPreInit = transaction.StartChild("startup-init");
-        Dispatcher.UIThread.UnhandledException += App_OnDispatcherUnhandledException;
-        MyWindow.ShowOssWatermark = ApplicationCommand.ShowOssWatermark;
-        //DependencyPropertyHelper.ForceOverwriteDependencyPropertyDefaultValue(FrameworkElement.FocusVisualStyleProperty,
-        //    Resources[SystemParameters.FocusVisualStyleKey]);
+        return isDesktop;
+    }
 
-        //ConsoleService.InitializeConsole();
+    // 启动期诊断与界面语言：语言文化必须在任何用户可见 UI 读取前定死
+    private void ApplyStartupLocalizationAndDiagnostics()
+    {
+        MyWindow.ShowOssWatermark = ApplicationCommand.ShowOssWatermark;
         DiagnosticService.BeginStartup();
         ConsoleService.InitializeConsole();
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        
-        
         var uiCulture = LanguageService.ResolveCulture(LanguageService.ReadLanguageCodeFromSettingsFile());
         Thread.CurrentThread.CurrentUICulture = uiCulture;
         // CurrentUICulture 底层是 AsyncLocal，仅随 Init 的 ExecutionContext 流转；Dispatcher/输入
@@ -582,7 +605,10 @@ public partial class App : AppBase, IAppHost
         // 用户交互路径（打开设置窗口、托盘菜单等）才能使用所选语言。
         CultureInfo.DefaultThreadCurrentUICulture = uiCulture;
         Thread.CurrentThread.CurrentCulture = new CultureInfo("zh-CN");
+    }
 
+    private async Task<bool> RunStartupGateChecksAsync(ITransactionTracer transaction, ISpan spanPreInit, string startupCountFilePath)
+    {
         // 检测 Mutex
         if (!IsMutexCreateNew && !Design.IsDesignMode)
         {
@@ -595,12 +621,12 @@ public partial class App : AppBase, IAppHost
                 {
                     // 自启动模式，直接退出
                     Environment.Exit(0);
-                    return;
+                    return true;
                 }
                 
                 await ProcessInstanceExisted();
                 Environment.Exit(0);
-                return;
+                return true;
             }
         }
         
@@ -611,46 +637,68 @@ public partial class App : AppBase, IAppHost
 #endif
 
         // 检测临时目录
-        if (Environment.CurrentDirectory.Contains(Path.GetTempPath()))
-        {
-            var forceRunButton = new FATaskDialogButton(ClassIsland.Assets.Localization.Main.Localization.ForceRunButton, false);
-            var tempDirDialog = new FATaskDialog()
-            {
-                Title = "ClassFabric",
-                Header = ClassIsland.Assets.Localization.Main.Localization.TempDirHeader,
-                Content = ClassIsland.Assets.Localization.Main.Localization.TempDirContent,
-                XamlRoot = GetRootWindow(),
-                Buttons =
-                [
-                    new FATaskDialogButton(ClassIsland.Assets.Localization.Main.Localization.OkButton, true)
-                    {
-                        IsDefault = true
-                    },
-                    forceRunButton
-                ]
-            };
-            ApplyDangerButtonStyle(tempDirDialog, forceRunButton);
-            if (!Equals(await tempDirDialog.ShowAsync(), false))
-            {
-                Environment.Exit(0);
-                return;
-            }
-
-            Logger?.LogWarning("检测到应用正在临时目录 {CurrentDirectory} 下运行，用户选择继续启动。", Environment.CurrentDirectory);
-        }
-
+        if (await TryWarnRunningInTempDirectoryAsync())
+            return true;
         // 检测桌面文件夹
-        if (Environment.CurrentDirectory == Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) && !Settings.IsWelcomeWindowShowed)
+        if (await TryWarnRunningOnDesktopAsync())
+            return true;
+        // 检测目录是否可以访问
+        if (!await TryEnsureAppRootWritableAsync())
+            return true;
+        if (await HandleStartupCountAndRecoveryAsync(startupCountFilePath, transaction))
+            return true;
+        return false;
+    }
+
+    // 应用目录在临时文件夹时提醒（常见于解压后直接双击运行）；用户坚持才放行
+    private async Task<bool> TryWarnRunningInTempDirectoryAsync()
+    {
+        if (!Environment.CurrentDirectory.Contains(Path.GetTempPath()))
+            return false;
+        var forceRunButton = new FATaskDialogButton(ClassIsland.Assets.Localization.Main.Localization.ForceRunButton, false);
+        var tempDirDialog = new FATaskDialog()
         {
-            var r = await CommonTaskDialogs.ShowDialog(ClassIsland.Assets.Localization.Main.Localization.DesktopRunHeader, ClassIsland.Assets.Localization.Main.Localization.DesktopRunContent);
-            if (r == (object)true)
-            {
-                Environment.Exit(0);
-                return;
-            }
+            Title = "ClassFabric",
+            Header = ClassIsland.Assets.Localization.Main.Localization.TempDirHeader,
+            Content = ClassIsland.Assets.Localization.Main.Localization.TempDirContent,
+            XamlRoot = GetRootWindow(),
+            Buttons =
+            [
+                new FATaskDialogButton(ClassIsland.Assets.Localization.Main.Localization.OkButton, true)
+                {
+                    IsDefault = true
+                },
+                forceRunButton
+            ]
+        };
+        ApplyDangerButtonStyle(tempDirDialog, forceRunButton);
+        if (!Equals(await tempDirDialog.ShowAsync(), false))
+        {
+            Environment.Exit(0);
+            return true;
         }
 
-        // 检测目录是否可以访问
+        Logger?.LogWarning("检测到应用正在临时目录 {CurrentDirectory} 下运行，用户选择继续启动。", Environment.CurrentDirectory);
+        return false;
+    }
+
+    // 桌面目录直接运行会让数据目录散落在桌面，首次运行时提醒并退出
+    private async Task<bool> TryWarnRunningOnDesktopAsync()
+    {
+        if (Environment.CurrentDirectory != Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) || Settings.IsWelcomeWindowShowed)
+            return false;
+        var r = await CommonTaskDialogs.ShowDialog(ClassIsland.Assets.Localization.Main.Localization.DesktopRunHeader, ClassIsland.Assets.Localization.Main.Localization.DesktopRunContent);
+        if (r == (object)true)
+        {
+            Environment.Exit(0);
+            return true;
+        }
+        return false;
+    }
+
+    // 应用根目录必须可写，用探针文件验证；失败时说明原因并退出
+    private async Task<bool> TryEnsureAppRootWritableAsync()
+    {
         try
         {
             var testWritePath = Path.Combine(CommonDirectories.AppRootFolderPath, "./.test-write");
@@ -661,10 +709,14 @@ public partial class App : AppBase, IAppHost
         {
             await CommonTaskDialogs.ShowDialog(ClassIsland.Assets.Localization.Main.Localization.DirectoryPermissionErrorHeader, string.Format(ClassIsland.Assets.Localization.Main.Localization.DirectoryPermissionErrorBody, ex.Message)+Environment.NewLine+Environment.NewLine+ClassIsland.Assets.Localization.Main.Localization.DirectoryPermissionErrorFooter);
             Environment.Exit(0);
-            return;
+            return false;
         }
+        return true;
+    }
 
-        var startupCountFilePath = Path.Combine(CommonDirectories.AppRootFolderPath, ".startup-count");
+    // 连续崩溃计数达到 5 次时询问是否进入恢复模式；恢复模式弹出恢复窗口后终止本次启动
+    private async Task<bool> HandleStartupCountAndRecoveryAsync(string startupCountFilePath, ITransactionTracer transaction)
+    {
         var startupCount = File.Exists(startupCountFilePath)
             ? (int.TryParse(await File.ReadAllTextAsync(startupCountFilePath), out var count) ? count + 1 : 1)
             : 1;
@@ -706,13 +758,16 @@ public partial class App : AppBase, IAppHost
             };
             recoveryWindow.Show();
             transaction.Finish();
-            return;
+            return true;
         }
-
 
         await File.WriteAllTextAsync(startupCountFilePath, startupCount.ToString());
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
+        return false;
+    }
 
+    private void RunPreHostPreparations(ISpan spanPreInit)
+    {
         var spanProcessUpdate = spanPreInit.StartChild("startup-process-update");
         
         if (ApplicationCommand.UpdateDeleteTarget != null)
@@ -724,7 +779,11 @@ public partial class App : AppBase, IAppHost
 
         FileFolderService.CreateFolders();
         PluginService.ProcessPluginsInstall();
-        bool isSystemSpeechSystemExist = false;
+    }
+
+    // 构建 DI 宿主并挂接生命周期与详细日志钩子
+    private async Task BuildHostAsync(ISpan spanPreInit)
+    {
         var spanHostBuilding = spanPreInit.StartChild("startup-host-building");
 
         IAppHost.Host = Microsoft.Extensions.Hosting.Host
@@ -771,24 +830,32 @@ public partial class App : AppBase, IAppHost
 #endif
         spanHostBuilding.Finish();
         spanPreInit.Finish();
-        if (!string.IsNullOrWhiteSpace(ApplicationCommand.ImportV1) || !string.IsNullOrWhiteSpace(ApplicationCommand.ImportV2))
+    }
+    // 命令行指定 V1/V2 档案导入时，只打开迁移窗口完成导入就结束，不进入正常启动
+    private async Task<bool> TryRunLegacyImportAsync()
+    {
+        if (string.IsNullOrWhiteSpace(ApplicationCommand.ImportV1) && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV2))
+            return false;
+        var dtWindow = new DataTransferWindow()
         {
-            var dtWindow = new DataTransferWindow()
-            {
-                ImportName = "ClassFabric"
-            };
-            dtWindow.Show();
-            var entries = int.TryParse(ApplicationCommand.ImportEntries, out var r) ? r : 0;
-            if (!string.IsNullOrWhiteSpace(ApplicationCommand.ImportV1))
-            {
-                await dtWindow.PerformClassIslandImport(ApplicationCommand.ImportV1, (ImportEntries)entries);
-            }
-            else
-            {
-                await dtWindow.PerformClassIsland2Import(ApplicationCommand.ImportV2, (ImportEntries)entries);
-            }
-            return;
+            ImportName = "ClassFabric"
+        };
+        dtWindow.Show();
+        var entries = int.TryParse(ApplicationCommand.ImportEntries, out var r) ? r : 0;
+        if (!string.IsNullOrWhiteSpace(ApplicationCommand.ImportV1))
+        {
+            await dtWindow.PerformClassIslandImport(ApplicationCommand.ImportV1, (ImportEntries)entries);
         }
+        else
+        {
+            await dtWindow.PerformClassIsland2Import(ApplicationCommand.ImportV2, (ImportEntries)entries);
+        }
+        return true;
+    }
+    // 装载管理端与设置、启动闪屏/挂起检查/更新检查/档案加载，并处理欢迎窗口分支。
+    // 返回 ShouldReturn=true 表示启动已在此分支内终止或转交（弹窗重启/完成欢迎等）。
+    private async Task<(bool ShouldReturn, ISpan SpanLaunching)> LaunchCoreServicesAsync(ITransactionTracer transaction, bool isSystemSpeechSystemExist)
+    {
         var spanLaunching = transaction.StartChild("startup-launching");
         var spanSetupMgmt = spanLaunching.StartChild("startup-setup-mgmt");
         var successSetupMgmt = await GetService<IManagementService>().SetupManagement();
@@ -796,7 +863,7 @@ public partial class App : AppBase, IAppHost
         if (!successSetupMgmt)
         {
             Stop();
-            return;
+            return (true, spanLaunching);
         }
         var spanLoadingSettings = spanLaunching.StartChild("startup-loading-settings");
         var settingsService = GetService<SettingsService>();
@@ -817,8 +884,6 @@ public partial class App : AppBase, IAppHost
             #endif
         }
         spanLoadingSettings.Finish();
-
-        //OverrideFocusVisualStyle();
 
         CurrentLifetime = Core.Enums.ApplicationLifetime.StartingOnline;
         Logger.LogInformation("初始化应用。");
@@ -852,7 +917,7 @@ public partial class App : AppBase, IAppHost
             if (r)
             {
                 await GetService<ISplashService>().EndSplash();
-                return;
+                return (true, spanLaunching);
             }
         }
         GetService<ISplashService>().CurrentProgress = 45;
@@ -878,19 +943,19 @@ public partial class App : AppBase, IAppHost
                 Restart();
             else
                 Stop();
-            return;
+            return (true, spanLaunching);
         }
         GetService<IWeatherService>();
         GetService<IExactTimeService>();
         await GetService<IComponentsService>().LoadManagementConfig();
-        
+
         if (ApplicationCommand.Diagnostic)
         {
             await GetService<DiagnosticService>().ExportDiagnosticData(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), $"ClassFabric_DiagnosticData_{DateTime.Now:yy-MMM-dd_HH-mm-ss}.zip"), false);
         }
         _ = IAppHost.Host.StartAsync();
         IAppHost.GetService<IPluginMarketService>().LoadPluginSource();
-        
+
         if (!Settings.IsWelcomeWindowShowed || ApplicationCommand.Refreshing || ApplicationCommand.Onboarding)
         {
             if (Settings.IsSplashEnabled)
@@ -917,7 +982,7 @@ public partial class App : AppBase, IAppHost
                 {
                     GlobalStorageService.SetValue("IgnoreQtScaling", "1");
                     Restart();
-                    return;
+                    return (true, spanLaunching);
                 }
             }
 
@@ -938,20 +1003,25 @@ public partial class App : AppBase, IAppHost
                     Settings.IsWelcomeWindowShowed = true;
                     Restart();
                 }
-                return;
+                return (true, spanLaunching);
             }
 
             if (w.ViewModel.IsManuallyRestarted)
             {
-                return;
+                return (true, spanLaunching);
             }
         }
+        return (false, spanLaunching);
+    }
 
+    // 主窗口初始化与启动收尾：URI 导航、IPC 联合、自动备份、更新完成提示与刷新服务
+    private async Task InitializeMainWindowAndServicesAsync(ITransactionTracer transaction, ISpan spanLaunching, string startupCountFilePath, bool isDesktop)
+    {
         // 如果不是开发构建，则自动重置部分可能影响使用的调试选项
         #if !DEBUG
         Settings.IsMainWindowDebugEnabled = false;
         #endif
-        
+
         var spanLoadMainWindow = spanLaunching.StartChild("span-loading-mainWindow");
         Logger.LogInformation("正在初始化 MainWindow。");
         GetService<ISplashService>().SetDetailedStatus(ClassIsland.Assets.Localization.Main.Localization.StartingMainWindowServices);
@@ -976,7 +1046,7 @@ public partial class App : AppBase, IAppHost
                 mw.Show();
             }
         }
-        
+
         GetService<IWindowRuleService>();
         GetService<SignalTriggerHandlerService>();
 
@@ -1018,7 +1088,7 @@ public partial class App : AppBase, IAppHost
                 uriNavigationService.NavigateWrapped(new Uri("classisland://app/settings/update"));
             await PlatformServices.DesktopToastService.ShowToastAsync(content);
         }
-        
+
         var needsStop = await IAppHost.GetService<IRefreshingService>().Initialize();
         if (needsStop)
         {
