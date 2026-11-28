@@ -195,22 +195,32 @@ public class RunAction(IUriNavigationService uriNavigationService) : ActionBase<
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 await Task.Delay(500, cancellationToken);
-                var content = await ReadOutputAsync(outputFile);
-                var markerIndex = content.LastIndexOf("@EXIT@", StringComparison.Ordinal);
-                if (markerIndex >= 0)
+                var parsed = ParseExitMarker(await ReadOutputAsync(outputFile));
+                if (parsed.HasValue)
                 {
-                    var body = content[..markerIndex];
-                    var tail = content[(markerIndex + "@EXIT@".Length)..];
-                    var endMarker = tail.IndexOf("@EXIT@", StringComparison.Ordinal);
-                    var exitCodeText = endMarker >= 0 ? tail[..endMarker].Trim() : tail.Trim();
-                    var exitCode = int.TryParse(exitCodeText, out var code) ? code : -1;
-                    return (exitCode, body, "");
+                    return (parsed.Value.ExitCode, parsed.Value.Body, "");
                 }
             }
         }
         finally
         {
             try { IoFile.Delete(outputFile); } catch { /* 清理失败无碍 */ }
+        }
+
+        // 从轮询输出里解析退出标记：取最后一个 @EXIT@，其前是命令输出，两个标记之间是退出码文本
+        static (int ExitCode, string Body)? ParseExitMarker(string content)
+        {
+            var markerIndex = content.LastIndexOf("@EXIT@", StringComparison.Ordinal);
+            if (markerIndex < 0)
+            {
+                return null;
+            }
+            var body = content[..markerIndex];
+            var tail = content[(markerIndex + "@EXIT@".Length)..];
+            var endMarker = tail.IndexOf("@EXIT@", StringComparison.Ordinal);
+            var exitCodeText = endMarker >= 0 ? tail[..endMarker].Trim() : tail.Trim();
+            var exitCode = int.TryParse(exitCodeText, out var code) ? code : -1;
+            return (exitCode, body);
         }
 
         static async Task<string> ReadOutputAsync(string file)
