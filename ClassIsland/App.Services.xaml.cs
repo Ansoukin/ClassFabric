@@ -74,6 +74,25 @@ public partial class App
 
     private void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
+        RegisterCoreServices(services);
+        RegisterViewModelsAndViews(services);
+        RegisterComponentsAndNotificationProviders(services);
+        ConfigureLogging(services);
+        RegisterAttachedSettings(services);
+        RegisterAutomationExtensions(services);
+        RegisterAuthSpeechWeatherTemplates(services);
+        RegisterProfileTransfers(services);
+        RegisterThemes(services);
+        RegisterTutorialsAndEffects(services);
+        RegisterPluginsOnStartup(context, services);
+    }
+
+    // ConfigureServices 原本 300 多行一口气注册全部服务，可读性差也不好定位；
+    // 按注册职责拆成下面的私有方法。DI 同接口多注册按注册顺序解析（如 IWeatherProvider、ILoggerProvider），
+    // 各段顺序与拆分前逐行一致，不要调换。
+
+    private void RegisterCoreServices(IServiceCollection services)
+    {
         ConfigurePlatformServices?.Invoke(services);
         services.AddSingleton<SettingsService>();
         services.AddSingleton<UpdateService>();
@@ -122,6 +141,10 @@ public partial class App
         services.AddSingleton<IAudioService, AudioService>();
         services.AddSingleton<ITutorialService, TutorialService>();
         services.AddSingleton<IRefreshingService, RefreshingService>();
+    }
+
+    private void RegisterViewModelsAndViews(IServiceCollection services)
+    {
         // ViewModels
         services.AddTransient<ProfileSettingsViewModel>();
         services.AddTransient<DevPortalViewModel>();
@@ -222,6 +245,10 @@ public partial class App
         services.AddSettingsPage<ManagementPolicySettingsPage>();
         services.AddSettingsPage<ErrorSettingsPage>();
         services.AddSettingsPage<SettingsNavigationPage>();
+    }
+
+    private void RegisterComponentsAndNotificationProviders(IServiceCollection services)
+    {
         // 主界面组件
         services.AddComponent<TextComponent, TextComponentSettingsControl>();
         services.AddComponent<SeparatorComponent>();
@@ -244,6 +271,10 @@ public partial class App
         // // Transients
         // services.AddTransient<ExcelImportWindow>();
         // services.AddTransient<WallpaperPreviewWindow>();
+    }
+
+    private void ConfigureLogging(IServiceCollection services)
+    {
         // Logging
         services.AddLogging(builder =>
         {
@@ -272,6 +303,10 @@ public partial class App
         services.AddSingleton<ILoggerProvider, SentryLoggerProvider>();
         services.AddSingleton<ILoggerProvider, AppLoggerProvider>();
         services.AddSingleton<ILoggerProvider, FileLoggerProvider>();
+    }
+
+    private void RegisterAttachedSettings(IServiceCollection services)
+    {
         // AttachedSettings
         services.AddAttachedSettingsControl<AfterSchoolNotificationAttachedSettingsControl>();
         services.AddAttachedSettingsControl<ClassNotificationAttachedSettingsControl>();
@@ -281,6 +316,10 @@ public partial class App
         }
         services.AddAttachedSettingsControl<LessonControlAttachedSettingsControl>();
         services.AddAttachedSettingsControl<WeatherNotificationAttachedSettingsControl>();
+    }
+
+    private void RegisterAutomationExtensions(IServiceCollection services)
+    {
         // 触发器
         services.AddTrigger<RulesetChangedTrigger>();
         services.AddTrigger<SignalTrigger, SignalTriggerSettingsControl>();
@@ -381,7 +420,10 @@ public partial class App
             // 媒体工具
             services.AddAction<BackgroundPlayAudioAction, BackgroundPlayAudioSettingsControl>();
         }
+    }
 
+    private void RegisterAuthSpeechWeatherTemplates(IServiceCollection services)
+    {
         // 认证提供方
         services.AddAuthorizeProvider<PasswordAuthorizeProvider>();
         // 语音提供方
@@ -395,12 +437,20 @@ public partial class App
         services.AddWeatherIconTemplate("classisland.weatherIcons.fluentDesign", "Fluent Design", (this.FindResource("FluentDesignWeatherIconTemplate") as IDataTemplate)!);
         services.AddWeatherIconTemplate("classisland.weatherIcons.sfSymbols", "SF Symbols", (this.FindResource("SFSymbolsWeatherIconTemplate") as IDataTemplate)!);
         services.AddWeatherIconTemplate("classisland.weatherIcons.simpleText", "纯文本", (this.FindResource("SimpleTextWeatherIconTemplate") as IDataTemplate)!);
+    }
+
+    private void RegisterProfileTransfers(IServiceCollection services)
+    {
         // 档案迁移提供方
         services.AddProfileTransferProvider<CsesImportProvider>("classisland.profileTransfer.import.cses", "从 CSES 导入", ProfileTransferProviderType.Import, "\ue6cb");
         services.AddProfileTransferProvider<ClassIsland1ImportProvider>("classisland.profileTransfer.import.legacyV1", "从 ClassIsland 1.x 导入", ProfileTransferProviderType.Import, "bitmap(avares://ClassIsland/Assets/AppLogo.png)");
         services.AddProfileTransferProvider<ClassWidgets1ImportProvider>("classisland.profileTransfer.import.classWidgets", "从 Class Widgets 1.2 导入", ProfileTransferProviderType.Import);
         services.AddProfileTransferProvider<ClassWidgets2ImportProvider>("classisland.profileTransfer.import.classWidgets2", "从 Class Widgets 2 导入", ProfileTransferProviderType.Import);
         services.AddProfileTransferProvider("classisland.profileTransfer.export.cses", "导出到 CSES", ProfileTransferProviderType.Export, CsesExportHelper.CsesExportHandler, "\ue6cb");
+    }
+
+    private void RegisterThemes(IServiceCollection services)
+    {
         // Themes
         services.AddXamlTheme(new Uri("avares://ClassIsland/XamlThemes/ClassicTheme/Styles.axaml"), new ThemeManifest()
         {
@@ -431,6 +481,10 @@ public partial class App
             Url = "https://github.com/ClassIsland/ClassIsland",
             VerticalSafeAreaPx = 10
         });
+    }
+
+    private void RegisterTutorialsAndEffects(IServiceCollection services)
+    {
         // 教程
         if (System.OperatingSystem.IsWindows() || System.OperatingSystem.IsMacOS() || System.OperatingSystem.IsLinux())
         {
@@ -442,6 +496,10 @@ public partial class App
         services.AddNotificationEffect("classisland.ripple", "波纹", RippleEffect.Create);
         services.AddNotificationEffect("classisland.confetti", "下彩带", ConfettiEffect.Create);
         services.AddNotificationEffect("classisland.starFountain", "星星喷泉", StarFountainEffect.Create);
+    }
+
+    private void RegisterPluginsOnStartup(HostBuilderContext context, IServiceCollection services)
+    {
         // Plugins
         if (!ApplicationCommand.Safe && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV1) && string.IsNullOrWhiteSpace(ApplicationCommand.ImportV2))
         {
